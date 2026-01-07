@@ -94,6 +94,10 @@ class CompletionRecord(TimeStampedModel):
     unit = models.ForeignKey('learning.CurriculumUnit', on_delete=models.CASCADE, related_name='completion_records')
     resource = models.ForeignKey(LibraryAsset, null=True, blank=True,
                                on_delete=models.SET_NULL, related_name='completion_records')
+    assignment = models.ForeignKey('learning.Assignment', null=True, blank=True,
+                                 on_delete=models.SET_NULL, related_name='completion_records')
+    quiz = models.ForeignKey('learning.Quiz', null=True, blank=True,
+                                on_delete=models.SET_NULL, related_name='completion_records')
     
     # Completion details
     completed_at = models.DateTimeField(auto_now_add=True)
@@ -116,7 +120,7 @@ class CompletionRecord(TimeStampedModel):
     reflection_transcript = models.TextField(blank=True)
     
     class Meta:
-        unique_together = ['student', 'programme', 'unit', 'resource']
+        unique_together = ['student', 'programme', 'unit', 'resource', 'assignment', 'quiz']
         ordering = ['-completed_at']
         
     def __str__(self):

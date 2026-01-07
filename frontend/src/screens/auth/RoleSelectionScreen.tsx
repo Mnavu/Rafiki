@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { View, StyleSheet, FlatList } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import {
   DashboardTile,
   GreetingHeader,
@@ -18,22 +19,22 @@ type RoleOption = {
   subtitle: string;
 };
 
-const roles: RoleOption[] = [
-  { key: 'student', title: 'Student', subtitle: 'Access timetable, assignments, and help' },
-  { key: 'parent', title: 'Guardian', subtitle: 'Track progress, fees, and messages' },
-  { key: 'lecturer', title: 'Lecturer', subtitle: 'Manage classes, assignments, communication' },
-  { key: 'hod', title: 'Head of Department', subtitle: 'Assign courses, view performance' },
-  { key: 'finance', title: 'Finance Officer', subtitle: 'Manage fees, receipts, and alerts' },
+const roles = (t: (key: string) => string): RoleOption[] => [
+  { key: 'student', title: t('roles.student'), subtitle: t('roles.student_subtitle') },
+  { key: 'parent', title: t('roles.parent'), subtitle: t('roles.parent_subtitle') },
+  { key: 'lecturer', title: t('roles.lecturer'), subtitle: t('roles.lecturer_subtitle') },
+  { key: 'hod', title: t('roles.hod'), subtitle: t('roles.hod_subtitle') },
+  { key: 'finance', title: t('roles.finance'), subtitle: t('roles.finance_subtitle') },
   {
     key: 'records',
-    title: 'Records Officer',
-    subtitle: 'Publish grades, transcripts, verifications',
+    title: t('roles.records'),
+    subtitle: t('roles.records_subtitle'),
   },
-  { key: 'admin', title: 'Administrator', subtitle: 'Manage users, systems, policies' },
+  { key: 'admin', title: t('roles.admin'), subtitle: t('roles.admin_subtitle') },
   {
     key: 'superadmin',
-    title: 'Super Administrator',
-    subtitle: 'Govern roles, platform security, and compliance',
+    title: t('roles.superadmin'),
+    subtitle: t('roles.superadmin_subtitle'),
   },
 ];
 
@@ -42,14 +43,17 @@ interface RoleSelectionScreenProps {
 }
 
 export const RoleSelectionScreen: React.FC<RoleSelectionScreenProps> = ({ onSelectRole }) => {
+  const { t } = useTranslation();
   const [showHelper, setShowHelper] = useState(false);
   const [showFaq, setShowFaq] = useState(false);
-  const greeting = useMemo(() => 'Welcome to EduAssist!', []);
+  const greeting = useMemo(() => t('role_selection.title'), [t]);
+  const roleOptions = useMemo(() => roles(t), [t]);
+
   return (
     <View style={styles.container}>
-      <GreetingHeader name="Guest" greeting={greeting} />
+      <GreetingHeader name={t('role_selection.guest')} greeting={greeting} />
       <FlatList
-        data={roles}
+        data={roleOptions}
         keyExtractor={(item) => item.key}
         contentContainerStyle={styles.list}
         ItemSeparatorComponent={Separator}
@@ -63,9 +67,9 @@ export const RoleSelectionScreen: React.FC<RoleSelectionScreenProps> = ({ onSele
         )}
       />
       <VoiceButton
-        label="Need help?"
+        label={t('role_selection.need_help')}
         onPress={() => setShowFaq(true)}
-        accessibilityHint="Opens frequently asked questions"
+        accessibilityHint={t('role_selection.faq_hint')}
       />
       <FloatingAssistantButton onPress={() => setShowHelper((s) => !s)} />
       {showHelper ? (

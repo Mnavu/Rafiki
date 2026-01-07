@@ -133,6 +133,7 @@ class UserProvisionRequestViewSet(viewsets.ModelViewSet):
                 trimester=intent.trimester,
                 trimester_label=intent.trimester_label,
                 cohort_year=intent.cohort_year,
+                current_status=Student.Status.ADMITTED,
             )
         elif provision_request.role == User.Roles.PARENT:
             Guardian.objects.create(user=user)
@@ -242,18 +243,6 @@ class UserProvisionRequestViewSet(viewsets.ModelViewSet):
                 # This should not happen if the profiles were created correctly in the approve method
                 pass
 
-        # Create registrations for the student
-        for code in intent.course_codes:
-            unit = CurriculumUnit.objects.filter(code__iexact=code).first()
-            if not unit:
-                continue
-            Registration.objects.get_or_create(
-                student=student_user.student_profile,
-                unit=unit,
-                academic_year=intent.year,
-                trimester=intent.trimester,
-            )
-
         # Create finance records for the student
         if intent.fee_amount:
             FinanceStatus.objects.create(
@@ -261,13 +250,6 @@ class UserProvisionRequestViewSet(viewsets.ModelViewSet):
                 academic_year=intent.year,
                 trimester=intent.trimester,
                 total_due=intent.fee_amount,
-            )
-            Payment.objects.create(
-                student=student_user.student_profile,
-                amount=intent.fee_amount,
-                paid_at=timezone.now(),
-                method="System Enrollment",
-                ref=f"ENROLL-{intent.id}",
             )
 
         intent.delete()

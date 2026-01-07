@@ -1,6 +1,3 @@
-import React, { useEffect, useState } from 'react';
-import { NavigationContainer, useNavigationContainerRef } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {
   RoleSelectionScreen,
   LoginScreen,
@@ -57,6 +54,8 @@ import {
   NotificationsScreen,
   LibraryScreen,
   ChatroomScreen,
+  BiometricLockScreen,
+  VideoPlayerScreen,
 } from '@screens/index';
 import { useAuth } from '@context/AuthContext';
 import type { Role } from '@app-types/roles';
@@ -113,6 +112,8 @@ export type RootStackParamList = {
   AdminTheme: undefined;
   AdminAudit: undefined;
   Rewards: undefined;
+  BiometricLock: undefined;
+  VideoPlayer: { videoUrl: string };
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -139,31 +140,40 @@ const getDashboardComponent = (role: Role) => {
 
 export const AppNavigator = () => {
   const navigationRef = useNavigationContainerRef<RootStackParamList>();
-  const { isAuthenticated, state } = useAuth();
+  const { isAuthenticated, state, hasPendingBiometric } = useAuth();
   const [navReady, setNavReady] = useState(false);
 
   useEffect(() => {
     if (!navReady) {
       return;
     }
-    const user = state.user;
-    if (isAuthenticated && user) {
-      if (user.must_change_password) {
-        navigationRef.reset({ index: 0, routes: [{ name: 'ForcePasswordChange' }] });
-      } else {
-        navigationRef.reset({
-          index: 0,
-          routes: [{ name: 'Dashboard', params: { role: user.role } }],
-        });
+
+    let routeName: keyof RootStackParamList = 'RoleSelection';
+    let params: any = {};
+
+    if (hasPendingBiometric) {
+      routeName = 'BiometricLock';
+    } else if (isAuthenticated && state.user) {
+      if (state.user.must_change_password) {
+        routeName = 'ForcePasswordChange';
       }
-    } else {
-      navigationRef.reset({ index: 0, routes: [{ name: 'RoleSelection' }] });
+      else {
+        routeName = 'Dashboard';
+        params = { role: state.user.role };
+      }
     }
-  }, [isAuthenticated, state.user, navReady, navigationRef]);
+    
+    navigationRef.reset({
+      index: 0,
+      routes: [{ name: routeName, params }],
+    });
+
+  }, [isAuthenticated, state.user, hasPendingBiometric, navReady, navigationRef]);
 
   return (
     <NavigationContainer ref={navigationRef} onReady={() => setNavReady(true)}>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="BiometricLock" component={BiometricLockScreen} />
         <Stack.Screen name='RoleSelection'>
           {({ navigation }) => (
             <RoleSelectionScreen onSelectRole={(role) => navigation.navigate('Login', { role })} />
@@ -224,6 +234,7 @@ export const AppNavigator = () => {
         <Stack.Screen name='AdminTheme' component={AdminThemeScreen} />
         <Stack.Screen name='AdminAudit' component={AdminAuditScreen} />
         <Stack.Screen name='Rewards' component={RewardsScreen} />
+        <Stack.Screen name='VideoPlayer' component={VideoPlayerScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

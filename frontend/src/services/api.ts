@@ -205,6 +205,37 @@ export const endpoints = {
   awardMerit: () => `${API_BASE}/api/rewards/award/`,
   directMessage: () => `${API_BASE}/api/communications/threads/direct-message/`,
   askChatbot: () => `${API_BASE}/api/chatbot/ask/`,
+  refreshToken: () => `${API_BASE}/api/token/refresh/`,
+  createStudentDirectMessage: () => `${API_BASE}/api/communications/threads/student-direct-message/`,
+  adminAnalytics: () => `${API_BASE}/api/core/api/admin/analytics/`,
+};
+
+export const fetchAdminAnalytics = (token: string) =>
+  fetchJson<{ weekly_logins: number; chatbot_questions: number; alerts_sent: number }>(
+    endpoints.adminAnalytics(),
+    token,
+  );
+
+
+export const createStudentDirectMessage = (token: string, lecturerId: number) =>
+  authedPost<ApiThread>(endpoints.createStudentDirectMessage(), token, { lecturer_id: lecturerId });
+
+export const refreshToken = async (
+  refresh: string,
+): Promise<{ access: string }> => {
+  const response = await fetch(endpoints.refreshToken(), {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ refresh }),
+  });
+
+  if (!response.ok) {
+    throw await buildApiError(response);
+  }
+
+  return response.json();
 };
 
 export const createDirectMessage = (token: string, studentId: number) =>

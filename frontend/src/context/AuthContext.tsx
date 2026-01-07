@@ -10,9 +10,11 @@ import {
   activateTotp as activateTotpRequest,
   disableTotp as disableTotpRequest,
   assignUserRole,
+  refreshToken as refreshTokenRequest,
   type ApiUser,
 } from '@services/api';
 import type { Role } from '@app-types/roles';
+import jwt_decode from 'jwt-decode';
 
 type UserProfile = {
   id: number;
@@ -75,6 +77,36 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [biometricsAvailable, setBiometricsAvailable] = useState(false);
   const queryClient = useQueryClient();
 
+  const isTokenExpired = (token: string | null): boolean => {
+    if (!token) {
+      return true;
+    }
+    try {
+      const decoded: { exp: number } = jwt_decode(token);
+      return decoded.exp * 1000 < Date.now();
+    } catch {
+      return true;
+    }
+  };
+
+  const handleTokenRefresh = useCallback(async () => {
+    if (!state.refreshToken) {
+      return; // Can't refresh without a refresh token
+    }
+
+    if (!isTokenExpired(state.accessToken)) {
+      return; // No need to refresh
+    }
+
+    try {
+      const { access } = await refreshTokenRequest(state.refreshToken);
+      setState((prev) => ({ ...prev, accessToken: access }));
+    } catch (error) {
+      console.warn('Token refresh failed, logging out.', error);
+      logout();
+    }
+  }, [state.accessToken, state.refreshToken]);
+
   useEffect(() => {
     const load = async () => {
       try {
@@ -85,6 +117,20 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             parsed.user = { ...parsed.user, totp_enabled: false };
           }
           setState(parsed);
+
+          if (parsed.refreshToken) {
+            if (isTokenExpired(parsed.accessToken)) {
+              try {
+                const { access } = await refreshTokenRequest(parsed.refreshToken);
+                parsed.accessToken = access;
+                setState(parsed);
+              } catch (e) {
+                console.warn('Initial token refresh failed', e);
+                // Will be logged out by the biometric check or subsequent actions
+              }
+            }
+          }
+
           const hasTokens = !!parsed.accessToken && !!parsed.user;
           if (hasTokens) {
             try {

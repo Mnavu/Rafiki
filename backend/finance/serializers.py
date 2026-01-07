@@ -15,6 +15,16 @@ class PaymentSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class PaymentCreateSerializer(serializers.ModelSerializer):
+    student = serializers.PrimaryKeyRelatedField(read_only=True)
+
+    class Meta:
+        model = Payment
+        fields = ["student", "academic_year", "trimester", "amount", "method", "ref"]
+
+
+
+
 class FinanceThresholdSerializer(serializers.ModelSerializer):
     class Meta:
         model = FinanceThreshold

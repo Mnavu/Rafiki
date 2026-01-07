@@ -40,7 +40,8 @@
     },
     "platforms": [
       "android",
-      "ios"
+      "ios",
+      "web"
     ],
     "plugins": [
       "expo-font",

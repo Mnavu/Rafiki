@@ -2,6 +2,7 @@ export * from './auth/RoleSelectionScreen';
 export * from './auth/LoginScreen';
 export * from './auth/ForcePasswordChangeScreen';
 export * from './auth/PasswordResetConfirmScreen';
+export * from './auth/BiometricLockScreen';
 
 export * from './dashboard/StudentDashboardScreen';
 export * from './dashboard/GuardianDashboardScreen';
@@ -61,3 +62,4 @@ export * from './admin/AdminThemeScreen';
 export * from './admin/AdminAuditScreen';
 
 export * from './rewards/RewardsScreen';
+export * from './learning';

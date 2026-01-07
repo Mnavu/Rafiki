@@ -32,6 +32,7 @@ from .goals import (
     LearningSupportSerializer,
     GoalReflectionSerializer,
 )
+from .quiz import QuizSerializer, QuestionSerializer, ChoiceSerializer, StudentAnswerSerializer
 
 __all__ = [
     "AchievementCategorySerializer",
@@ -63,4 +64,8 @@ __all__ = [
     "LearningMilestoneSerializer",
     "LearningSupportSerializer",
     "GoalReflectionSerializer",
+    "QuizSerializer", 
+    "QuestionSerializer", 
+    "ChoiceSerializer", 
+    "StudentAnswerSerializer",
 ]

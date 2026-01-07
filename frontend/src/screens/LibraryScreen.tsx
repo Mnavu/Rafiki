@@ -1,41 +1,36 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, ScrollView, View, TextInput, Alert } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, ScrollView, View, TextInput, Alert, Button } from 'react-native';
 import { Text } from '@components/Themed';
 import { TileButton } from '@components/TileButton';
-import { StackScreenProps } from '@react-navigation/stack';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '@navigation/AppNavigator';
 import { useAuth } from '@context/AuthContext';
 import { useQuery } from '@tanstack/react-query';
-import { API } from '@services/api';
-import { LibraryAsset, Programme, CurriculumUnit } from '../types/models';
+import { fetchResources, ApiResource } from '@services/api';
 import Colors from '@theme/Colors';
 
-type LibraryScreenProps = StackScreenProps<RootStackParamList, 'Library'>;
-
-const LibraryScreen: React.FC<LibraryScreenProps> = () => {
+const LibraryScreen: React.FC = () => {
   const { state } = useAuth();
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const [searchQuery, setSearchQuery] = useState('');
-  const [libraryAssets, setLibraryAssets] = useState<LibraryAsset[]>([]);
 
-  // Fetch library assets (can add filters for programme_id, unit_id, etc.)
-  const { data: assetsData, isLoading, error } = useQuery<LibraryAsset[]>(
+  const { data: assetsData, isLoading, error } = useQuery<ApiResource[]>(
     ['libraryAssets', searchQuery],
-    () => API.getLibraryAssets({ search: searchQuery }), // Assuming a search parameter in the API
+    () => fetchResources(state.accessToken || ''),
     {
-      onSuccess: (data) => setLibraryAssets(data),
+      enabled: !!state.accessToken,
       onError: (err) => Alert.alert('Error', 'Failed to fetch library assets.'),
     }
   );
 
-  useEffect(() => {
-    if (assetsData) {
-      setLibraryAssets(assetsData);
-    }
-  }, [assetsData]);
-
   const handleUploadAsset = () => {
     Alert.alert('Upload Asset', 'This functionality is not yet implemented.');
     // TODO: Implement asset upload logic
+  };
+
+  const handlePlayVideo = (url: string) => {
+    navigation.navigate('VideoPlayer', { videoUrl: url });
   };
 
   if (isLoading) {
@@ -45,6 +40,10 @@ const LibraryScreen: React.FC<LibraryScreenProps> = () => {
       </View>
     );
   }
+
+  const filteredAssets = assetsData?.filter(asset => 
+    asset.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <ScrollView style={styles.container}>
@@ -60,15 +59,20 @@ const LibraryScreen: React.FC<LibraryScreenProps> = () => {
       <TileButton title="Upload New Asset" onPress={handleUploadAsset} icon="cloud-upload" style={styles.uploadButton} />
 
       <Text style={styles.sectionTitle}>Available Assets</Text>
-      {libraryAssets.length === 0 ? (
+      {filteredAssets?.length === 0 ? (
         <Text>No library assets found.</Text>
       ) : (
-        libraryAssets.map((asset) => (
+        filteredAssets?.map((asset) => (
           <View key={asset.id} style={styles.assetItem}>
             <Text style={styles.assetTitle}>{asset.title}</Text>
-            <Text style={styles.assetDetails}>Type: {asset.type}</Text>
-            <Text style={styles.assetDetails}>URL: {asset.url}</Text>
-            {/* TODO: Display tags, programme/unit visibility */}
+            <Text style={styles.assetDetails}>Type: {asset.kind}</Text>
+            {asset.url && <Text style={styles.assetDetails}>URL: {asset.url}</Text>}
+            {asset.kind === 'video' && asset.url && (
+              <Button title="Play Video" onPress={() => handlePlayVideo(asset.url)} />
+            )}
+            {asset.kind === 'quiz' && (
+              <Button title="Start Quiz" onPress={() => navigation.navigate('Quiz', { quizId: asset.id })} />
+            )}
           </View>
         ))
       )}

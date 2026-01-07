@@ -1,0 +1,29 @@
+{
+    "role_selection": {
+        "title": "Welcome to EduAssist",
+        "guest": "Guest",
+        "need_help": "Need help?",
+        "faq_hint": "Opens frequently asked questions"
+    },
+    "roles": {
+        "student": "Student",
+        "student_subtitle": "Access timetable, assignments, and help",
+        "parent": "Guardian",
+        "parent_subtitle": "Track progress, fees, and messages",
+        "lecturer": "Lecturer",
+        "lecturer_subtitle": "Manage classes, assignments, communication",
+        "hod": "Head of Department",
+        "hod_subtitle": "Assign courses, view performance",
+        "finance": "Finance Officer",
+        "finance_subtitle": "Manage fees, receipts, and alerts",
+        "records": "Records Officer",
+        "records_subtitle": "Publish grades, transcripts, verifications",
+        "admin": "Administrator",
+        "admin_subtitle": "Manage users, systems, policies",
+        "superadmin": "Super Administrator",
+        "superadmin_subtitle": "Govern roles, platform security, and compliance"
+    },
+    "login": {
+        "title": "Login as {{role}}"
+    }
+}

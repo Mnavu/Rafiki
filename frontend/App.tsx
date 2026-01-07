@@ -5,6 +5,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 import { AppNavigator } from "@navigation/AppNavigator";
+import { WebNavigator } from "@navigation/web/WebNavigator";
 import { palette } from "@theme/index";
 import { AuthProvider } from "@context/AuthContext";
 import { NotificationProvider } from "@context/NotificationContext";
@@ -19,31 +20,21 @@ const HydrationBootstrapper = () => {
   return null;
 };
 
+import { I18nextProvider } from 'react-i18next';
+import i18n from './src/i18n';
+//...
 const App = () => {
   return (
-    <QueryClientProvider client={queryClient}>
-      <GestureHandlerRootView style={styles.root}>
-        <SafeAreaProvider>
-          <AuthProvider>
-            <NotificationProvider>
-              <HydrationBootstrapper />
-              <StatusBar barStyle="dark-content" backgroundColor={palette.background} />
-              <SafeAreaView style={styles.safeArea}>
-                <KeyboardAvoidingView
-                  style={styles.keyboardWrapper}
-                  behavior={Platform.OS === "ios" ? "padding" : "height"}
-                  keyboardVerticalOffset={Platform.OS === "ios" ? 16 : 0}
-                >
-                  <AppNavigator />
-                </KeyboardAvoidingView>
-              </SafeAreaView>
-            </NotificationProvider>
-          </AuthProvider>
-        </SafeAreaProvider>
-      </GestureHandlerRootView>
-    </QueryClientProvider>
+    <I18nextProvider i18n={i18n}>
+      <QueryClientProvider client={queryClient}>
+        <GestureHandlerRootView style={styles.root}>
+//...
+        </GestureHandlerRootView>
+      </QueryClientProvider>
+    </I18nextProvider>
   );
 };
+//...
 
 const styles = StyleSheet.create({
   root: {

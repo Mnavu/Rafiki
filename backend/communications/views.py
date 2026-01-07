@@ -4,7 +4,7 @@ from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 from rest_framework.exceptions import PermissionDenied
 from django_filters.rest_framework import DjangoFilterBackend
 
-from users.models import User
+from users.models import User, Student
 from .models import Thread, Message, CourseChatroom, ChatMessage
 from .serializers import ThreadSerializer, MessageSerializer, CourseChatroomSerializer, ChatMessageSerializer
 from .serializers import SupportChatSessionSerializer, SupportChatMessageSerializer
@@ -13,6 +13,42 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 import re
+
+
+class CreateStudentDirectMessageView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request):
+        lecturer_id = request.data.get('lecturer_id')
+        student_user = request.user
+
+        if not lecturer_id:
+            return Response({"error": "lecturer_id is required"}, status=status.HTTP_400_BAD_REQUEST)
+
+        if student_user.role != User.Roles.STUDENT:
+            return Response({"error": "Only students can create direct messages"}, status=status.HTTP_403_FORBIDDEN)
+        
+        try:
+            lecturer_user = User.objects.get(pk=lecturer_id, role=User.Roles.LECTURER)
+        except User.DoesNotExist:
+            return Response({"error": "Lecturer not found"}, status=status.HTTP_404_NOT_FOUND)
+
+        # Check if a thread already exists between the lecturer and the student
+        thread = Thread.objects.filter(
+            teacher=lecturer_user,
+            student=student_user
+        ).first()
+
+        if not thread:
+            thread = Thread.objects.create(
+                teacher=lecturer_user,
+                student=student_user,
+                subject=f"Direct message between {lecturer_user.display_name} and {student_user.display_name}"
+            )
+        
+        serializer = ThreadSerializer(thread)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
 
 
 class CourseChatroomViewSet(viewsets.ReadOnlyModelViewSet):

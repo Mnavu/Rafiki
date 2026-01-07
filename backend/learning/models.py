@@ -56,6 +56,8 @@ class Registration(TimeStampedModel):
     academic_year = models.IntegerField()
     trimester = models.IntegerField()
     status = models.CharField(max_length=20, choices=Status.choices, default=Status.DRAFT)
+    approved_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True, related_name='approved_registrations')
+    approved_at = models.DateTimeField(null=True, blank=True)
 
     class Meta:
         unique_together = ('student', 'unit', 'academic_year', 'trimester')
@@ -107,3 +109,5 @@ class Submission(TimeStampedModel):
 
     def __str__(self):
         return f"Submission by {self.student.user.username} for {self.assignment.title}"
+
+from .quiz_models import Quiz, Question, Choice, StudentAnswer

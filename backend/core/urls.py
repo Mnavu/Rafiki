@@ -1,8 +1,16 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views.base import health, help_view, about_view, transcribe_audio
-from .views.hod import DepartmentViewSet, HodDashboardViewSet, HODViewSet
-from .views.admin_views import AdminPipelineView # Added
+from .views import (
+    health, 
+    help_view, 
+    about_view, 
+    transcribe_audio, 
+    DepartmentViewSet, 
+    HodDashboardViewSet, 
+    HODViewSet, 
+    AdminPipelineView,
+    AdminAnalyticsView,
+)
 
 router = DefaultRouter()
 router.register(r'departments', DepartmentViewSet, basename='department')
@@ -15,5 +23,6 @@ urlpatterns = [
     path("help/", help_view),
     path("about/", about_view),
     path("transcribe/", transcribe_audio),
+    path("api/admin/analytics/", AdminAnalyticsView.as_view(), name="admin-analytics"),
     path("api/", include(router.urls)),
 ]

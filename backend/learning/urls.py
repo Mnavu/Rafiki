@@ -11,20 +11,26 @@ from rest_framework.routers import DefaultRouter
 #     AttendanceCheckInView,
 #     ExamRegistrationView,
 # )
-from .views.catalogue_views import ProgrammeViewSet, TermOfferingViewSet, LecturerAssignmentViewSet, TimetableViewSet
-from .views.achievements import (
+from .views import (
+    ProgrammeViewSet,
+    TermOfferingViewSet,
+    LecturerAssignmentViewSet,
+    TimetableViewSet,
+    StudentUnitSelectionViewSet,
+    StudentLecturersView,
+    HodUnitApprovalViewSet,
+    LecturerGradingViewSet,
     AchievementCategoryViewSet,
     AchievementViewSet,
     StudentAchievementViewSet,
     RewardClaimViewSet,
     TermProgressViewSet,
-)
-from .views.assignments import (
     AssignmentViewSet,
     RegistrationViewSet,
     SubmissionViewSet,
+    ProgressSummaryView,
+    QuizViewSet,
 )
-from .views.progress_views import ProgressSummaryView
 
 router = DefaultRouter()
 router.register(r"programmes", ProgrammeViewSet, basename="programme")
@@ -42,9 +48,15 @@ router.register(r"reward-claims", RewardClaimViewSet, basename="reward-claim")
 router.register(r"term-progress", TermProgressViewSet, basename="term-progress")
 router.register(r"assignments", AssignmentViewSet, basename="assignment")
 router.register(r"registrations", RegistrationViewSet, basename="registration")
+router.register(r"student-unit-selection", StudentUnitSelectionViewSet, basename="student-unit-selection")
+router.register(r"hod-unit-approval", HodUnitApprovalViewSet, basename="hod-unit-approval")
+router.register(r"lecturer-grading", LecturerGradingViewSet, basename="lecturer-grading")
+router.register(r"quizzes", QuizViewSet, basename="quiz")
+
 
 custom_patterns = [
     path("students/<int:student_id>/progress/", ProgressSummaryView.as_view(), name="progress-summary"),
+    path("my-lecturers/", StudentLecturersView.as_view(), name="my-lecturers"),
     # path("enrollments/quick/", QuickEnrollmentView.as_view(), name="quick-enrollment"),
     # path("courses/<int:course_id>/roster/", CourseRosterView.as_view(), name="course-roster"),
     # path("attendance/check-in/", AttendanceCheckInView.as_view(), name="attendance-check-in"),

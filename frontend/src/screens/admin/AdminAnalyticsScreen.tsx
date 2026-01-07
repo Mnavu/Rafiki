@@ -1,31 +1,49 @@
 import React from 'react';
-import { ScrollView, View, StyleSheet, Text } from 'react-native';
+import { ScrollView, View, StyleSheet, Text, ActivityIndicator } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { useQuery } from '@tanstack/react-query';
 import { palette, spacing, typography } from '@theme/index';
 import { VoiceButton } from '@components/index';
+import { useAuth } from '@context/AuthContext';
+import { fetchAdminAnalytics } from '@services/api';
 
-const analytics = [
-  { label: 'Weekly logins', value: '312', icon: 'log-in' },
-  { label: 'Chatbot questions', value: '128', icon: 'chatbubble' },
-  { label: 'Alerts sent', value: '54', icon: 'notifications' },
-];
+export const AdminAnalyticsScreen: React.FC = () => {
+  const { state } = useAuth();
+  const { data, isLoading } = useQuery(
+    ['adminAnalytics'],
+    () => fetchAdminAnalytics(state.accessToken || ''),
+    {
+      enabled: !!state.accessToken,
+    }
+  );
 
-export const AdminAnalyticsScreen: React.FC = () => (
-  <ScrollView contentContainerStyle={styles.container}>
-    <Text style={styles.title}>Analytics</Text>
-    <Text style={styles.subtitle}>Monitor usage stats and voice assistant interactions.</Text>
-    {analytics.map((item) => (
-      <View key={item.label} style={styles.card}>
-        <Ionicons name={item.icon as any} size={28} color={palette.primary} />
-        <View style={styles.cardBody}>
-          <Text style={styles.cardTitle}>{item.label}</Text>
-          <Text style={styles.cardMeta}>{item.value}</Text>
+  const analytics = [
+    { label: 'Weekly logins', value: data?.weekly_logins ?? 'N/A', icon: 'log-in' },
+    { label: 'Chatbot questions', value: data?.chatbot_questions ?? 'N/A', icon: 'chatbubble' },
+    { label: 'Alerts sent', value: data?.alerts_sent ?? 'N/A', icon: 'notifications' },
+  ];
+
+  if (isLoading) {
+    return <ActivityIndicator style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} />;
+  }
+
+  return (
+    <ScrollView contentContainerStyle={styles.container}>
+      <Text style={styles.title}>Analytics</Text>
+      <Text style={styles.subtitle}>Monitor usage stats and voice assistant interactions.</Text>
+      {analytics.map((item) => (
+        <View key={item.label} style={styles.card}>
+          <Ionicons name={item.icon as any} size={28} color={palette.primary} />
+          <View style={styles.cardBody}>
+            <Text style={styles.cardTitle}>{item.label}</Text>
+            <Text style={styles.cardMeta}>{item.value}</Text>
+          </View>
         </View>
-      </View>
-    ))}
-    <VoiceButton label='Export analytics' onPress={() => {}} />
-  </ScrollView>
-);
+      ))}
+      <VoiceButton label='Export analytics' onPress={() => {}} />
+    </ScrollView>
+  );
+};
 
 const styles = StyleSheet.create({
   container: { padding: spacing.lg, gap: spacing.lg, backgroundColor: palette.background },
