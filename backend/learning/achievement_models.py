@@ -2,7 +2,6 @@ from django.db import models
 from django.conf import settings
 from core.models import TimeStampedModel
 
-
 class AchievementCategory(TimeStampedModel):
     """Categories for achievements like Attendance, Learning, Participation"""
     name = models.CharField(max_length=100)
@@ -72,7 +71,7 @@ class RewardClaim(TimeStampedModel):
         ordering = ["-created_at"]
         constraints = [
             models.CheckConstraint(
-                check=models.Q(points_spent__gt=0),
+                condition=models.Q(points_spent__gt=0),  # <--- UPDATED: Used 'condition' instead of 'check'
                 name="points_spent_positive"
             )
         ]

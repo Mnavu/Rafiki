@@ -238,9 +238,6 @@ export const refreshToken = async (
   return response.json();
 };
 
-export const createDirectMessage = (token: string, studentId: number) =>
-  authedPost<ApiThread>(endpoints.directMessage(), token, { student_id: studentId });
-
 export const fetchDepartmentLecturers = (token: string, departmentId: number) =>
     fetchJson<any[]>(`${API_BASE}/api/core/api/departments/${departmentId}/lecturers/`, token);
 
@@ -724,6 +721,19 @@ export const createResource = async (
       uri: fileUri,
       // backend does not care about the exact name, use a timestamp
       name: `upload-${Date.now()}`,
+    });
+  }
+  const response = await fetch(endpoints.resources(), {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    body: form,
+  });
+  if (!response.ok) {
+    const text = await response.text();
+    throw new Error(text || response.statusText);
+  }
   return response.json();
 };
 
@@ -757,12 +767,6 @@ export const fetchStudentRewards = (token: string, studentId: number) =>
 
 export const fetchRewardsLeaderboard = (token: string) =>
   fetchJson<ApiStudent[]>(endpoints.rewardsLeaderboard(), token);
-
-export const createDirectMessage = (token: string, studentId: number) =>
-  authedPost<ApiThread>(endpoints.directMessage(), token, { student_id: studentId });
-
-export const fetchDepartmentLecturers = (token: string, departmentId: number) =>
-    fetchJson<any[]>(`${API_BASE}/api/core/api/departments/${departmentId}/lecturers/`, token);
 
 export const fetchDepartmentProgrammes = (token: string, departmentId: number) =>
     fetchJson<any[]>(`${API_BASE}/api/core/api/departments/${departmentId}/programmes/`, token);

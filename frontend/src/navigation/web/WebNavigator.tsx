@@ -1,38 +1,53 @@
 import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { useAuth } from '@context/AuthContext';
 
-import { AdminDashboardScreen, HodDashboardScreen, RoleSelectionScreen } from '@screens/index';
+import { AdminDashboardScreen, HodDashboardScreen, RoleSelectionScreen, LoginScreen } from '@screens/index';
 import { WebDrawerContent } from './WebDrawerContent';
 
 const Drawer = createDrawerNavigator();
+const Stack = createNativeStackNavigator();
 
-export const WebNavigator = () => {
+const AppDrawer = () => {
     const { state } = useAuth();
     const user = state.user;
 
-    if (!user) {
-        return (
-            <NavigationContainer>
-                <Drawer.Navigator>
-                    <Drawer.Screen name="Login" component={RoleSelectionScreen} />
-                </Drawer.Navigator>
-            </NavigationContainer>
-        );
-    }
+    return (
+        <Drawer.Navigator drawerContent={(props) => <WebDrawerContent {...props} />}>
+            {user?.role === 'admin' && (
+                <Drawer.Screen name="Admin Dashboard" component={AdminDashboardScreen} />
+            )}
+            {user?.role === 'hod' && (
+                <Drawer.Screen name="HOD Dashboard" component={HodDashboardScreen} />
+            )}
+            {/* Add other screens for admin/hod roles here */}
+        </Drawer.Navigator>
+    )
+}
+
+export const WebNavigator = () => {
+    const { isAuthenticated } = useAuth();
 
     return (
         <NavigationContainer>
-            <Drawer.Navigator drawerContent={(props) => <WebDrawerContent {...props} />}>
-                {user.role === 'admin' && (
-                    <Drawer.Screen name="Admin Dashboard" component={AdminDashboardScreen} />
+            <Stack.Navigator screenOptions={{ headerShown: false }}>
+                {isAuthenticated ? (
+                    <Stack.Screen name="AppDrawer" component={AppDrawer} />
+                ) : (
+                    <>
+                        <Stack.Screen name='RoleSelection'>
+                            {({ navigation }) => (
+                                <RoleSelectionScreen onSelectRole={(role) => navigation.navigate('Login', { role })} />
+                            )}
+                        </Stack.Screen>
+                        <Stack.Screen name='Login'>
+                            {({ route }) => <LoginScreen role={route.params.role} />}
+                        </Stack.Screen>
+                    </>
                 )}
-                {user.role === 'hod' && (
-                    <Drawer.Screen name="HOD Dashboard" component={HodDashboardScreen} />
-                )}
-                {/* Add other screens for admin/hod roles here */}
-            </Drawer.Navigator>
+            </Stack.Navigator>
         </NavigationContainer>
     );
 };

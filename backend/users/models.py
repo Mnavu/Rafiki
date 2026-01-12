@@ -3,9 +3,9 @@ from django.db import models
 from django.utils import timezone
 import pyotp
 
-from core.models import TimeStampedModel, Department
-from learning.models import Programme
-
+# We only import TimeStampedModel here.
+# DO NOT import 'Department' or 'Programme' directly to prevent circular errors.
+from core.models import TimeStampedModel
 
 class User(AbstractUser):
     class Roles(models.TextChoices):
@@ -17,7 +17,7 @@ class User(AbstractUser):
         HOD = "hod", "Head of Department"
         FINANCE = "finance", "Finance"
         RECORDS = "records", "Student Records"
-        GUEST = "guest", "Guest" # Added from spec
+        GUEST = "guest", "Guest" 
 
     role = models.CharField(max_length=32, choices=Roles.choices, default=Roles.GUEST)
     display_name = models.CharField(max_length=255, blank=True)
@@ -27,7 +27,7 @@ class User(AbstractUser):
     # Accessibility preferences
     prefers_simple_language = models.BooleanField(default=True)
     prefers_high_contrast = models.BooleanField(default=False)
-    speech_rate = models.FloatField(default=0.9)  # for TTS front-end hint
+    speech_rate = models.FloatField(default=0.9)
     
     # TOTP fields
     totp_secret = models.CharField(max_length=32, blank=True, default="")
@@ -64,7 +64,8 @@ class User(AbstractUser):
         self.totp_enabled = False
         self.totp_activated_at = None
 
-# New Role-Specific Models
+
+# --- Role-Specific Models ---
 
 class Student(TimeStampedModel):
     class Status(models.TextChoices):
@@ -76,7 +77,10 @@ class Student(TimeStampedModel):
         BLOCKED = 'blocked', 'Blocked'
 
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, related_name='student_profile')
+    
+    # FIX: Use string reference 'learning.Programme' to avoid circular imports
     programme = models.ForeignKey('learning.Programme', on_delete=models.SET_NULL, null=True, blank=True)
+    
     year = models.IntegerField()
     trimester = models.IntegerField()
     trimester_label = models.CharField(max_length=50)
@@ -89,19 +93,18 @@ class Student(TimeStampedModel):
 
 class Guardian(TimeStampedModel):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, related_name='guardian_profile')
-    # Add any guardian-specific fields here if needed in the future
 
     def __str__(self):
         return self.user.username
 
 class Lecturer(TimeStampedModel):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, related_name='lecturer_profile')
-    department = models.ForeignKey(Department, on_delete=models.SET_NULL, null=True, blank=True)
+    
+    # FIX: Use string reference 'core.Department'
+    department = models.ForeignKey('core.Department', on_delete=models.SET_NULL, null=True, blank=True)
 
     @property
     def assigned_load(self):
-        # This will be computed based on lecturer_assignments
-        # Implementation will be done later
         return 0
 
     def __str__(self):
@@ -109,7 +112,9 @@ class Lecturer(TimeStampedModel):
 
 class HOD(TimeStampedModel):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, related_name='hod_profile')
-    department = models.OneToOneField(Department, on_delete=models.SET_NULL, null=True, blank=True)
+    
+    # FIX: Use string reference 'core.Department'
+    department = models.OneToOneField('core.Department', on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         return self.user.username
@@ -132,7 +137,6 @@ class FinanceOfficer(TimeStampedModel):
     def __str__(self):
         return self.user.username
 
-# Updated ParentStudentLink
 class ParentStudentLink(TimeStampedModel):
     parent = models.ForeignKey(
         Guardian,
@@ -157,10 +161,6 @@ class ParentStudentLink(TimeStampedModel):
         rel = f" ({self.relationship})" if self.relationship else ""
         return f"{self.parent.user.username} -> {self.student.user.username}{rel}"
 
-
-# TODO: Refactor UserProvisionRequest and FamilyEnrollmentIntent to work with the new role-specific models.
-# These models currently reference the generic User model and will need to be updated to handle
-# the creation and linking of Student, Guardian, etc. profiles.
 
 class UserProvisionRequest(TimeStampedModel):
     class Status(models.TextChoices):
@@ -230,8 +230,9 @@ class FamilyEnrollmentIntent(TimeStampedModel):
     fee_amount = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     fee_due_date = models.DateField(null=True, blank=True)
 
-    # Student academic details
-    programme = models.ForeignKey(Programme, on_delete=models.SET_NULL, null=True, blank=True)
+    # FIX: Use string reference 'learning.Programme'
+    programme = models.ForeignKey('learning.Programme', on_delete=models.SET_NULL, null=True, blank=True)
+    
     year = models.IntegerField(null=True, blank=True)
     trimester = models.IntegerField(null=True, blank=True)
     trimester_label = models.CharField(max_length=50, blank=True)

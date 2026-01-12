@@ -3,7 +3,7 @@ import secrets
 from django.contrib import admin, messages
 from django.contrib.auth.admin import UserAdmin as DjangoUserAdmin
 
-from .models import User
+from .models import Lecturer, Student, User
 
 
 @admin.register(User)
@@ -62,3 +62,17 @@ class UserAdmin(DjangoUserAdmin):
                 request,
                 f"Temporary password for {obj.username}: {generated_password}. Share securely and prompt them to reset.",
             )
+
+
+@admin.register(Student)
+class StudentAdmin(admin.ModelAdmin):
+    search_fields = ("user__username", "user__first_name", "user__last_name", "user__email")
+    list_display = ("user", "programme", "year", "current_status")
+    list_filter = ("current_status", "year", "programme")
+
+
+@admin.register(Lecturer)
+class LecturerAdmin(admin.ModelAdmin):
+    search_fields = ("user__username", "user__first_name", "user__last_name", "user__email")
+    list_display = ("user", "department")
+    list_filter = ("department",)

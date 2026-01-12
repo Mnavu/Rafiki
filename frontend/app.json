@@ -31,9 +31,12 @@
       },
       "permissions": [
         "NOTIFICATIONS",
+        "VIBRATE",
+        "NOTIFICATIONS",
         "VIBRATE"
       ],
-      "useNextNotificationsApi": true
+      "useNextNotificationsApi": true,
+      "package": "com.eduassist.app"
     },
     "web": {
       "bundler": "metro"
@@ -44,6 +47,7 @@
       "web"
     ],
     "plugins": [
+      "expo-dev-client",
       "expo-font",
       [
         "expo-notifications",
@@ -51,7 +55,8 @@
           "icon": "./assets/icon.png",
           "color": "#0a84ff"
         }
-      ]
+      ],
+      "@react-native-community/datetimepicker"
     ],
     "notification": {
       "icon": "./assets/icon.png",
