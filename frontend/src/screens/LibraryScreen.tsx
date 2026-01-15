@@ -15,12 +15,12 @@ const LibraryScreen: React.FC = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const [searchQuery, setSearchQuery] = useState('');
 
-  const { data: assetsData, isLoading, error } = useQuery<ApiResource[]>(
+  const { data: assetsData, isLoading } = useQuery<ApiResource[]>(
     ['libraryAssets', searchQuery],
     () => fetchResources(state.accessToken || ''),
     {
       enabled: !!state.accessToken,
-      onError: (err) => Alert.alert('Error', 'Failed to fetch library assets.'),
+      onError: (_err) => Alert.alert('Error', 'Failed to fetch library assets.'),
     }
   );
 
@@ -41,7 +41,7 @@ const LibraryScreen: React.FC = () => {
     );
   }
 
-  const filteredAssets = assetsData?.filter(asset => 
+  const filteredAssets = assetsData?.filter(asset =>
     asset.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 

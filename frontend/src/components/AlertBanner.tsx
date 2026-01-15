@@ -22,7 +22,7 @@ export const AlertBanner: React.FC<AlertBannerProps> = ({ message, variant = 'in
   return (
     <View
       style={[styles.container, { borderLeftColor: variantColor[variant] }]}
-      accessibilityRole='alert'
+      accessibilityRole="alert"
       accessibilityLabel={message}
     >
       {icon ? <View style={styles.icon}>{icon}</View> : null}

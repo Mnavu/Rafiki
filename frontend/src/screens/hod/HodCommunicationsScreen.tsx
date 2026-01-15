@@ -15,11 +15,11 @@ export const HodCommunicationsScreen: React.FC = () => (
     <Text style={styles.subtitle}>Send announcements to lecturers or guardian cohorts.</Text>
     {groups.map((group) => (
       <View key={group.name} style={styles.card}>
-        <Ionicons name='mail' size={28} color={palette.primary} />
+        <Ionicons name="mail" size={28} color={palette.primary} />
         <View style={styles.cardBody}>
           <Text style={styles.cardTitle}>{group.name}</Text>
           <Text style={styles.cardMeta}>{group.members} recipients</Text>
-          <VoiceButton label='Compose message' onPress={() => {}} />
+          <VoiceButton label="Compose message" onPress={() => {}} />
         </View>
       </View>
     ))}

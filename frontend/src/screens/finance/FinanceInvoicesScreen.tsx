@@ -17,17 +17,17 @@ export const FinanceInvoicesScreen: React.FC = () => (
     </Text>
     {invoices.map((invoice) => (
       <View key={invoice.reference} style={styles.card}>
-        <Ionicons name='paper-plane' size={28} color={palette.accent} />
+        <Ionicons name="paper-plane" size={28} color={palette.accent} />
         <View style={styles.cardBody}>
           <Text style={styles.cardTitle}>{invoice.reference}</Text>
           <Text style={styles.cardMeta}>
             {invoice.amount} � {invoice.destination}
           </Text>
-          <VoiceButton label='Resend' onPress={() => {}} />
+          <VoiceButton label="Resend" onPress={() => {}} />
         </View>
       </View>
     ))}
-    <VoiceButton label='Create invoice' onPress={() => {}} />
+    <VoiceButton label="Create invoice" onPress={() => {}} />
   </ScrollView>
 );
 

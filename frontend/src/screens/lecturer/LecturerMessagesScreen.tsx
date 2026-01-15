@@ -9,11 +9,11 @@ const lecturerTemplates: QuickTemplate[] = [
 
 export const LecturerMessagesScreen: React.FC = () => (
   <VoiceThreadScreen
-    title='Lecturer communications'
-    subtitle='Catch up on family feedback and reply with quick voice notes or templates.'
+    title="Lecturer communications"
+    subtitle="Catch up on family feedback and reply with quick voice notes or templates."
     quickTemplates={lecturerTemplates}
-    voiceCardTitle='Lecturer voice reply'
-    voiceCardDescription='Hold to record feedback or guidance. The audio and transcript will reach the parent immediately.'
+    voiceCardTitle="Lecturer voice reply"
+    voiceCardDescription="Hold to record feedback or guidance. The audio and transcript will reach the parent immediately."
     notificationRoute={{ name: 'LecturerMessages' }}
   />
 );

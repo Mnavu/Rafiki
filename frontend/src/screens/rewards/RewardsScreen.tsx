@@ -44,7 +44,7 @@ export const RewardsScreen: React.FC = () => {
   const [selectedReward, setSelectedReward] = useState<RewardTile | null>(null);
   const [starBalance, setStarBalance] = useState(0);
   const [lifetimePoints, setLifetimePoints] = useState(0);
-  const [termClaimsUsed, setTermClaimsUsed] = useState(0);
+  const [termClaimsUsed] = useState(0);
   const [actionFeed, setActionFeed] = useState<Merit[]>([]);
   const [leaderboard, setLeaderboard] = useState<ApiStudent[]>([]);
 
@@ -69,20 +69,18 @@ export const RewardsScreen: React.FC = () => {
   const streak = 5; // This will also come from the backend
 
   const tier = useMemo(() => {
-    if (starBalance >= 450) return 'Platinum';
-    if (starBalance >= 300) return 'Gold';
-    if (starBalance >= 150) return 'Silver';
+    if (starBalance >= 450) {return 'Platinum';}
+    if (starBalance >= 300) {return 'Gold';}
+    if (starBalance >= 150) {return 'Silver';}
     return 'Bronze';
   }, [starBalance]);
 
   const progressPoints = lifetimePoints % REWARD_POINT_TARGET;
   const progressPercent = Math.min(Math.round((progressPoints / REWARD_POINT_TARGET) * 100), 100);
-  const claimsUnlocked = Math.floor(lifetimePoints / REWARD_POINT_TARGET);
   const claimsRemaining = Math.max(MAX_CLAIMS_PER_TERM - termClaimsUsed, 0);
-  const claimsAvailable = Math.max(Math.min(claimsUnlocked - termClaimsUsed, claimsRemaining), 0);
 
   const handleRewardClaim = useCallback(() => {
-    if (!selectedReward) return;
+    if (!selectedReward) {return;}
     // TODO: Implement API call to claim a reward
     Alert.alert('Coming Soon!', 'Reward claiming functionality is not yet implemented.');
   }, [selectedReward]);
@@ -96,7 +94,7 @@ export const RewardsScreen: React.FC = () => {
           <Text style={styles.heroTier}>Tier: {tier}</Text>
         </View>
         <View style={styles.heroBadge}>
-          <Ionicons name='medal' size={42} color={palette.surface} />
+          <Ionicons name="medal" size={42} color={palette.surface} />
           <Text style={styles.heroStreak}>{streak}-day streak</Text>
         </View>
       </View>
@@ -155,7 +153,7 @@ export const RewardsScreen: React.FC = () => {
               <Text style={styles.rewardSubtitle}>{reward.subtitle}</Text>
               <View style={styles.rewardFooter}>
                 <Text style={styles.rewardCost}>{reward.cost} pts</Text>
-                <Ionicons name='arrow-forward' size={18} color={palette.primary} />
+                <Ionicons name="arrow-forward" size={18} color={palette.primary} />
               </View>
             </View>
           </TouchableOpacity>
@@ -187,11 +185,11 @@ export const RewardsScreen: React.FC = () => {
             <Text style={styles.modalCost}>{selectedReward.cost} Stars</Text>
             <View style={styles.modalActions}>
               <VoiceButton
-                label='Claim'
+                label="Claim"
                 onPress={handleRewardClaim}
-                accessibilityHint='Use an unlocked reward slot'
+                accessibilityHint="Use an unlocked reward slot"
               />
-              <VoiceButton label='Close' onPress={() => setSelectedReward(null)} />
+              <VoiceButton label="Close" onPress={() => setSelectedReward(null)} />
             </View>
           </View>
         </View>

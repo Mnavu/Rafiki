@@ -18,7 +18,7 @@ export const LecturerRecordsScreen: React.FC = () => (
     <Text style={styles.subtitle}>Enter marks with numeric steppers or import CSV templates.</Text>
     {grades.map((item) => (
       <View key={item.student + item.course} style={styles.card}>
-        <Ionicons name='create' size={28} color={palette.success} />
+        <Ionicons name="create" size={28} color={palette.success} />
         <View style={styles.cardBody}>
           <Text style={styles.cardTitle}>
             {item.student} � {item.course}
@@ -26,11 +26,11 @@ export const LecturerRecordsScreen: React.FC = () => (
           <Text style={styles.cardMeta}>
             {item.score} � {item.status}
           </Text>
-          <VoiceButton label='Update record' onPress={() => {}} />
+          <VoiceButton label="Update record" onPress={() => {}} />
         </View>
       </View>
     ))}
-    <VoiceButton label='Import spreadsheet' onPress={() => {}} />
+    <VoiceButton label="Import spreadsheet" onPress={() => {}} />
   </ScrollView>
 );
 

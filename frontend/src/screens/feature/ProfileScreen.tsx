@@ -91,11 +91,11 @@ export const ProfileScreen: React.FC = () => {
           <Text style={styles.value}>{user.totp_enabled ? 'Enabled' : 'Disabled'}</Text>
           <TextInput
             style={styles.input}
-            placeholder='Authenticator code'
+            placeholder="Authenticator code"
             value={totpCode}
             onChangeText={setTotpCode}
-            keyboardType='number-pad'
-            accessibilityLabel='Authenticator code'
+            keyboardType="number-pad"
+            accessibilityLabel="Authenticator code"
           />
           {totpSecret ? (
             <View>
@@ -106,24 +106,24 @@ export const ProfileScreen: React.FC = () => {
           <VoiceButton
             label={busy === 'setup' ? 'Generating...' : 'Get setup QR'}
             onPress={handleFetchTotp}
-            accessibilityHint='Generate or view your authenticator setup details'
+            accessibilityHint="Generate or view your authenticator setup details"
           />
           <VoiceButton
             label={busy === 'activate' ? 'Verifying...' : 'Enable authenticator'}
             onPress={handleActivate}
-            accessibilityHint='Enable Google Authenticator protection'
+            accessibilityHint="Enable Google Authenticator protection"
           />
           <VoiceButton
             label={busy === 'disable' ? 'Removing...' : 'Disable authenticator'}
             onPress={handleDisable}
-            accessibilityHint='Disable Google Authenticator protection'
+            accessibilityHint="Disable Google Authenticator protection"
           />
         </View>
       ) : null}
       <VoiceButton
-        label='Switch role'
+        label="Switch role"
         onPress={logout}
-        accessibilityHint='Signs out and returns to role selection'
+        accessibilityHint="Signs out and returns to role selection"
       />
     </View>
   );

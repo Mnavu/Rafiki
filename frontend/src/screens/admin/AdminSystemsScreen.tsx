@@ -19,7 +19,7 @@ export const AdminSystemsScreen: React.FC = () => (
         <View style={styles.cardBody}>
           <Text style={styles.cardTitle}>{system.name}</Text>
           <Text style={styles.cardMeta}>{system.status}</Text>
-          <VoiceButton label='Configure' onPress={() => {}} />
+          <VoiceButton label="Configure" onPress={() => {}} />
         </View>
       </View>
     ))}

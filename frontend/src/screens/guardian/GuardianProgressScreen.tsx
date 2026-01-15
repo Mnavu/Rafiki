@@ -18,17 +18,17 @@ export const GuardianProgressScreen: React.FC = () => (
     </Text>
     {subjects.map((subject) => (
       <View key={subject.name} style={styles.card}>
-        <Ionicons name='ribbon' size={28} color={palette.success} />
+        <Ionicons name="ribbon" size={28} color={palette.success} />
         <View style={styles.cardBody}>
           <Text style={styles.cardTitle}>{subject.name}</Text>
           <Text style={styles.cardMeta}>
             Score {subject.score}% - {subject.attendance}
           </Text>
-          <VoiceButton label='See details' onPress={() => {}} />
+          <VoiceButton label="See details" onPress={() => {}} />
         </View>
       </View>
     ))}
-    <VoiceButton label='Speak summary' onPress={() => {}} />
+    <VoiceButton label="Speak summary" onPress={() => {}} />
   </ScrollView>
 );
 

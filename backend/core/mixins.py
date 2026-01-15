@@ -1,4 +1,5 @@
 from django.core.exceptions import FieldError
+from learning.models import Registration
 
 
 def _model_has_field(model, field_name: str) -> bool:
@@ -42,10 +43,10 @@ def scope_queryset_to_user(user, qs, *, view=None):
 
         elif model_label == "payment":
             if role == "student":
-                filtered_qs = qs.filter(fee_item__student_id=user.id)
+                filtered_qs = qs.filter(student__user=user)
             elif role == "parent":
-                student_ids = getattr(user, "linked_student_ids", lambda: [])()
-                filtered_qs = qs.filter(fee_item__student_id__in=student_ids) if student_ids else qs.none()
+                student_ids = [s.pk for s in user.guardian_profile.linked_students.all()]
+                filtered_qs = qs.filter(student_id__in=student_ids) if student_ids else qs.none()
             elif role in {"finance", "records", "admin"}:
                 filtered_qs = qs
             else:
@@ -53,13 +54,14 @@ def scope_queryset_to_user(user, qs, *, view=None):
 
         elif model_label == "assignment":
             if role == "student":
-                filtered_qs = qs.filter(unit__course__enrollments__student=user).distinct()
+                registered_units = Registration.objects.filter(student__user=user, status='approved').values_list('unit_id', flat=True)
+                filtered_qs = qs.filter(unit_id__in=registered_units).distinct()
             elif role == "lecturer":
-                filtered_qs = qs.filter(lecturer=user)
+                filtered_qs = qs.filter(lecturer__user=user)
             elif role == "hod":
-                dept_id = getattr(getattr(user, "department", None), "id", None)
+                dept_id = getattr(getattr(user, "hod_profile", None), "department_id", None)
                 if dept_id:
-                    filtered_qs = qs.filter(unit__course__department_id=dept_id)
+                    filtered_qs = qs.filter(unit__programme__department_id=dept_id)
             elif role in {"admin", "records"}:
                 filtered_qs = qs
             else:
@@ -67,13 +69,13 @@ def scope_queryset_to_user(user, qs, *, view=None):
 
         elif model_label in {"registration", "submission", "timetable"}:
             if role == "student":
-                filtered_qs = qs.filter(student_id=user.id)
+                filtered_qs = qs.filter(student__user=user)
             elif role == "lecturer":
-                filtered_qs = qs.filter(lecturer_id=user.id)
+                filtered_qs = qs.filter(lecturer__user=user)
             elif role == "hod":
-                department_id = getattr(getattr(user, "department", None), "id", None)
+                department_id = getattr(getattr(user, "hod_profile", None), "department_id", None)
                 if department_id:
-                    filtered_qs = qs.filter(unit__course__department_id=department_id)
+                    filtered_qs = qs.filter(unit__programme__department_id=department_id)
             elif role in {"admin", "records", "finance"}:
                 filtered_qs = qs
             else:

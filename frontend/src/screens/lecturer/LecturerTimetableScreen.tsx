@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ScrollView, View, StyleSheet, Text, Modal, TextInput, Alert, Platform } from 'react-native';
+import { ScrollView, View, StyleSheet, Text, Modal, TextInput, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { palette, spacing, typography } from '@theme/index';
 import { VoiceButton } from '@components/index';
@@ -27,7 +27,7 @@ type DayGrouping = {
 export const LecturerTimetableScreen: React.FC = () => {
     const [slots, setSlots] = useState<TimetableSlot[]>(initialWeek);
     const [showModal, setShowModal] = useState(false);
-    
+
     const [newTitle, setNewTitle] = useState('');
     const [newRoom, setNewRoom] = useState('');
     const [newStart, setNewStart] = useState(new Date());
@@ -59,7 +59,7 @@ export const LecturerTimetableScreen: React.FC = () => {
             end: newEnd,
         };
         setSlots([...slots, newSlot].sort((a,b) => a.start.getTime() - b.start.getTime()));
-        
+
         // Reset form
         setNewTitle('');
         setNewRoom('');
@@ -67,11 +67,11 @@ export const LecturerTimetableScreen: React.FC = () => {
         setNewEnd(new Date());
         setShowModal(false);
     };
-    
+
     const groupedSlots = slots.reduce((acc, slot) => {
         const day = slot.start.toLocaleDateString('en-US', { weekday: 'long' });
         const existing = acc.find(d => d.day === day);
-        if(existing) {
+        if (existing) {
             existing.slots.push(slot);
         } else {
             acc.push({ day, slots: [slot] });
@@ -86,7 +86,7 @@ export const LecturerTimetableScreen: React.FC = () => {
             {groupedSlots.map((day) => (
             <View key={day.day} style={styles.card}>
                 <View style={styles.cardHeader}>
-                <Ionicons name='calendar' size={24} color={palette.primary} />
+                <Ionicons name="calendar" size={24} color={palette.primary} />
                 <Text style={styles.cardTitle}>{day.day}</Text>
                 </View>
                 {day.slots.map((slot) => (
@@ -96,15 +96,15 @@ export const LecturerTimetableScreen: React.FC = () => {
                 ))}
             </View>
             ))}
-            <VoiceButton label='Add New Slot' onPress={() => setShowModal(true)} />
+            <VoiceButton label="Add New Slot" onPress={() => setShowModal(true)} />
 
             <Modal visible={showModal} animationType="slide" onRequestClose={() => setShowModal(false)}>
                 <ScrollView contentContainerStyle={styles.modal}>
                     <Text style={styles.modalTitle}>Add Timetable Slot</Text>
-                    
+
                     <Text style={styles.modalLabel}>Event Title</Text>
                     <TextInput style={styles.input} value={newTitle} onChangeText={setNewTitle} placeholder="e.g. ICT201 Lecture"/>
-                    
+
                     <Text style={styles.modalLabel}>Room / Location</Text>
                     <TextInput style={styles.input} value={newRoom} onChangeText={setNewRoom} placeholder="e.g. Room B302"/>
 
@@ -134,7 +134,7 @@ export const LecturerTimetableScreen: React.FC = () => {
                 </ScrollView>
             </Modal>
         </ScrollView>
-    )
+    );
 };
 
 const styles = StyleSheet.create({

@@ -89,7 +89,7 @@ export const StudentLibraryScreen: React.FC = () => {
   );
 
   const groupedResources = useMemo(() => {
-    if (!resources.length) return [];
+    if (!resources.length) {return [];}
     const sections = new Map<string, ApiResource[]>();
     resources.forEach((item) => {
       const trimmedCourse = item.course_name?.trim();
@@ -107,8 +107,8 @@ export const StudentLibraryScreen: React.FC = () => {
       sections.get(groupName)!.push(item);
     });
     const sortedKeys = Array.from(sections.keys()).sort((a, b) => {
-      if (a === 'Basics') return -1;
-      if (b === 'Basics') return 1;
+      if (a === 'Basics') {return -1;}
+      if (b === 'Basics') {return 1;}
       return a.localeCompare(b);
     });
     return sortedKeys.map((key) => ({
@@ -128,15 +128,15 @@ export const StudentLibraryScreen: React.FC = () => {
           <Text style={styles.error}>{error}</Text>
           {isAuth ? (
             <VoiceButton
-              label='Sign in again'
+              label="Sign in again"
               onPress={logout}
-              accessibilityHint='Return to login to refresh your session'
+              accessibilityHint="Return to login to refresh your session"
             />
           ) : null}
           <VoiceButton
-            label='Refresh library'
+            label="Refresh library"
             onPress={loadResources}
-            accessibilityHint='Reload the latest materials'
+            accessibilityHint="Reload the latest materials"
           />
         </View>
       );
@@ -160,9 +160,9 @@ export const StudentLibraryScreen: React.FC = () => {
                   <Text style={styles.cardDescription}>{item.description}</Text>
                 ) : null}
                 <VoiceButton
-                  label='Open resource'
+                  label="Open resource"
                   onPress={() => handleOpen(item)}
-                  accessibilityHint='Opens the selected learning material'
+                  accessibilityHint="Opens the selected learning material"
                 />
               </View>
             </View>

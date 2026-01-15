@@ -22,17 +22,17 @@ export const GuardianFeesScreen: React.FC = () => (
     </Text>
     {fees.map((fee) => (
       <View key={fee.item} style={styles.card}>
-        <Ionicons name='cash' size={28} color={fee.color} />
+        <Ionicons name="cash" size={28} color={fee.color} />
         <View style={styles.cardBody}>
           <Text style={styles.cardTitle}>{fee.item}</Text>
           <Text style={styles.cardMeta}>
             {fee.due} - {fee.status}
           </Text>
-          <VoiceButton label='Pay or request plan' onPress={() => {}} />
+          <VoiceButton label="Pay or request plan" onPress={() => {}} />
         </View>
       </View>
     ))}
-    <VoiceButton label='Download fee statement' onPress={() => {}} />
+    <VoiceButton label="Download fee statement" onPress={() => {}} />
   </ScrollView>
 );
 

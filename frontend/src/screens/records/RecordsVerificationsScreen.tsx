@@ -20,13 +20,13 @@ export const RecordsVerificationsScreen: React.FC = () => (
     <Text style={styles.subtitle}>Respond to employer requests with one-tap confirmations.</Text>
     {requests.map((req) => (
       <View key={req.employer + req.student} style={styles.card}>
-        <Ionicons name='briefcase' size={28} color={palette.accent} />
+        <Ionicons name="briefcase" size={28} color={palette.accent} />
         <View style={styles.cardBody}>
           <Text style={styles.cardTitle}>{req.employer}</Text>
           <Text style={styles.cardMeta}>
             {req.student} � {req.status}
           </Text>
-          <VoiceButton label='Review request' onPress={() => {}} />
+          <VoiceButton label="Review request" onPress={() => {}} />
         </View>
       </View>
     ))}

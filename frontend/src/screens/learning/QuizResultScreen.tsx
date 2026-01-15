@@ -36,5 +36,5 @@ const styles = StyleSheet.create({
         fontSize: 48,
         fontWeight: 'bold',
         marginVertical: 20,
-    }
+    },
 });

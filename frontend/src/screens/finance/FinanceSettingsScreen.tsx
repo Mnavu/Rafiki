@@ -30,7 +30,7 @@ export const FinanceSettingsScreen: React.FC = () => (
         <View style={styles.cardBody}>
           <Text style={styles.cardTitle}>{item.title}</Text>
           <Text style={styles.cardMeta}>{item.description}</Text>
-          <VoiceButton label='Open settings' onPress={() => {}} />
+          <VoiceButton label="Open settings" onPress={() => {}} />
         </View>
       </View>
     ))}

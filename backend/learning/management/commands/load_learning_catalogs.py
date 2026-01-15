@@ -6,7 +6,7 @@ from django.conf import settings
 from django.core.management.base import BaseCommand, CommandError
 from django.db import transaction
 
-from learning.models import Course, Unit
+from learning.models import Programme, CurriculumUnit
 from repository.models import Resource
 
 
@@ -16,7 +16,7 @@ def normalise(text: str) -> str:
     return text.strip()
 
 
-def build_course_description(exam_tracks: str, notes: str) -> str:
+def build_programme_description(exam_tracks: str, notes: str) -> str:
     pieces: List[str] = []
     if exam_tracks:
         pieces.append(f"Exam tracks: {exam_tracks}")
@@ -48,7 +48,7 @@ def build_resource_description(license_text: str, notes: str, best_for_units: st
 
 
 class Command(BaseCommand):
-    help = "Load course/unit and learning material catalogues from CSV files in backend/data/."
+    help = "Load programme/unit and learning material catalogues from CSV files in backend/data/."
 
     def add_arguments(self, parser):
         parser.add_argument(
@@ -70,15 +70,15 @@ class Command(BaseCommand):
         self.stdout.write(f"Using data directory: {data_dir}")
 
         with transaction.atomic():
-            courses_created = self.import_courses(units_path)
+            programmes_created = self.import_programmes(units_path)
             resources_created = self.import_resources(materials_path)
             self.stdout.write(
                 self.style.SUCCESS(
-                    f"Synced courses/units (processed {courses_created} rows) and resources (processed {resources_created} rows)."
+                    f"Synced programmes/units (processed {programmes_created} rows) and resources (processed {resources_created} rows)."
                 )
             )
 
-    def import_courses(self, csv_path: Path) -> int:
+    def import_programmes(self, csv_path: Path) -> int:
         processed = 0
         with csv_path.open(newline="", encoding="utf-8") as handle:
             reader = csv.DictReader(handle)
@@ -87,35 +87,44 @@ class Command(BaseCommand):
                 title = normalise(row.get("unit_title")) or code
                 exam_tracks = normalise(row.get("exam_tracks"))
                 notes = normalise(row.get("notes"))
-                description = build_course_description(exam_tracks, notes)
+                description = build_programme_description(exam_tracks, notes)
 
                 if not code:
                     continue
 
-                course, created = Course.objects.get_or_create(
+                # Assuming the CSV contains programme data, we create a programme first
+                # The old logic was creating a "Course" which we are mapping to Programme.
+                # Since we are iterating over a "units_catalog", this logic might be flawed
+                # as it creates a Programme for each unit. For now, we'll stick to the
+                # refactoring goal. A full review of this command's logic is recommended.
+                programme, created = Programme.objects.get_or_create(
                     code=code,
                     defaults={
                         "name": title,
-                        "description": description,
-                        "lecturer": None,
+                        "award_level": "N/A",
+                        "duration_years": 0,
+                        "trimesters_per_year": 0,
                     },
                 )
                 if not created:
                     updated = False
-                    if course.name != title:
-                        course.name = title
+                    if programme.name != title:
+                        programme.name = title
                         updated = True
-                    if description and course.description != description:
-                        course.description = description
-                        updated = True
+                    # Description is not a field on Programme
+                    # if description and programme.description != description:
+                    #     programme.description = description
+                    #     updated = True
                     if updated:
-                        course.save(update_fields=["name", "description"])
+                        programme.save(update_fields=["name"])
 
-                Unit.objects.update_or_create(
-                    course=course,
+                CurriculumUnit.objects.update_or_create(
+                    programme=programme,
+                    code=f"{code}-U",
                     title=title,
                     defaults={
                         "description": notes,
+                        "credit_hours": 3, # default value
                     },
                 )
                 processed += 1

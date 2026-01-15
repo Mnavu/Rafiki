@@ -23,7 +23,7 @@ export const FinanceOverviewScreen: React.FC = () => (
         </View>
       ))}
     </View>
-    <VoiceButton label='Speak overview' onPress={() => {}} />
+    <VoiceButton label="Speak overview" onPress={() => {}} />
   </ScrollView>
 );
 

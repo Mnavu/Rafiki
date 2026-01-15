@@ -56,9 +56,9 @@ export const NotificationBell: React.FC<NotificationBellProps> = ({ size = 26 })
       <TouchableOpacity
         onPress={open}
         style={styles.bell}
-        accessibilityRole='button'
-        accessibilityLabel='Open notifications'
-        accessibilityHint='Shows recent updates and alerts'
+        accessibilityRole="button"
+        accessibilityLabel="Open notifications"
+        accessibilityHint="Shows recent updates and alerts"
       >
         <Ionicons
           name={hasUnread ? 'notifications' : 'notifications-outline'}
@@ -71,7 +71,7 @@ export const NotificationBell: React.FC<NotificationBellProps> = ({ size = 26 })
           </View>
         ) : null}
       </TouchableOpacity>
-      <Modal visible={visible} transparent animationType='fade' onRequestClose={close}>
+      <Modal visible={visible} transparent animationType="fade" onRequestClose={close}>
         <TouchableWithoutFeedback onPress={close}>
           <View style={styles.overlay}>
             <TouchableWithoutFeedback>
@@ -93,8 +93,8 @@ export const NotificationBell: React.FC<NotificationBellProps> = ({ size = 26 })
                         !notification.read && styles.notificationCardUnread,
                       ]}
                       onPress={() => handleSelect(notification.id)}
-                      accessibilityRole='button'
-                      accessibilityHint='Opens the related screen'
+                      accessibilityRole="button"
+                      accessibilityHint="Opens the related screen"
                     >
                       <View style={styles.notificationIcon}>
                         <Ionicons
@@ -114,7 +114,7 @@ export const NotificationBell: React.FC<NotificationBellProps> = ({ size = 26 })
                   ))
                 ) : (
                   <View style={styles.empty}>
-                    <Ionicons name='sparkles-outline' size={28} color={palette.accent} />
+                    <Ionicons name="sparkles-outline" size={28} color={palette.accent} />
                     <Text style={styles.emptyTitle}>All caught up</Text>
                     <Text style={styles.emptyText}>
                       We will let you know the moment there is something new to review.

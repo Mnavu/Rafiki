@@ -15,13 +15,13 @@ export const RecordsProgressScreen: React.FC = () => (
     <Text style={styles.subtitle}>Track credits and flag students needing intervention.</Text>
     {trackers.map((item) => (
       <View key={item.student} style={styles.card}>
-        <Ionicons name='speedometer' size={28} color={palette.primary} />
+        <Ionicons name="speedometer" size={28} color={palette.primary} />
         <View style={styles.cardBody}>
           <Text style={styles.cardTitle}>{item.student}</Text>
           <Text style={styles.cardMeta}>
             {item.credits} � {item.flag}
           </Text>
-          <VoiceButton label='Plan support' onPress={() => {}} />
+          <VoiceButton label="Plan support" onPress={() => {}} />
         </View>
       </View>
     ))}

@@ -3,13 +3,13 @@ import { View, Text, Button, StyleSheet, FlatList, TouchableOpacity, Alert } fro
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { useAuth } from '@context/AuthContext';
-import { Quiz, Question, Choice } from '../../types/models'; // Assuming types are defined
+import { Quiz } from '../../types/models'; // Assuming types are defined
 
 const fetchQuiz = async (quizId: number, token: string): Promise<Quiz> => {
     const response = await fetch(`http://127.0.0.1:8000/api/learning/quizzes/${quizId}/`, {
         headers: {
-            'Authorization': `Bearer ${token}`
-        }
+            'Authorization': `Bearer ${token}`,
+        },
     });
     if (!response.ok) {
         throw new Error('Failed to fetch quiz');
@@ -22,9 +22,9 @@ const submitQuiz = async (quizId: number, answers: { question: number, choice: n
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
+            'Authorization': `Bearer ${token}`,
         },
-        body: JSON.stringify({ answers })
+        body: JSON.stringify({ answers }),
     });
     if (!response.ok) {
         throw new Error('Failed to submit quiz');
@@ -47,8 +47,8 @@ export const QuizScreen = () => {
             navigation.navigate('QuizResult', { score: data.score });
         },
         onError: () => {
-            Alert.alert("Error", "Could not submit your answers.");
-        }
+            Alert.alert('Error', 'Could not submit your answers.');
+        },
     });
 
     const handleSelectChoice = (questionId: number, choiceId: number) => {
@@ -56,7 +56,7 @@ export const QuizScreen = () => {
     };
 
     const handleSubmit = () => {
-        const formattedAnswers = Object.entries(answers).map(([question, choice]) => ({ question: parseInt(question), choice }));
+        const formattedAnswers = Object.entries(answers).map(([question, choice]) => ({ question: parseInt(question, 10), choice }));
         mutation.mutate({ quizId, answers: formattedAnswers, token: state.accessToken || '' });
     };
 
@@ -96,6 +96,6 @@ const styles = StyleSheet.create({
     questionContainer: { marginBottom: 20 },
     questionText: { fontSize: 18, marginBottom: 10 },
     choice: { padding: 10, borderWidth: 1, borderColor: '#ccc', borderRadius: 5, marginBottom: 5 },
-    selectedChoice: { backgroundColor: '#d0e0ff' }
+    selectedChoice: { backgroundColor: '#d0e0ff' },
 });
 

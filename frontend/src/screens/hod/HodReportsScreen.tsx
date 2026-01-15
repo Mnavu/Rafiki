@@ -15,11 +15,11 @@ export const HodReportsScreen: React.FC = () => (
     <Text style={styles.subtitle}>Generate PDF/CSV for leadership or board review.</Text>
     {reports.map((report) => (
       <View key={report.title} style={styles.card}>
-        <Ionicons name='document' size={28} color={palette.secondary} />
+        <Ionicons name="document" size={28} color={palette.secondary} />
         <View style={styles.cardBody}>
           <Text style={styles.cardTitle}>{report.title}</Text>
           <Text style={styles.cardMeta}>{report.description}</Text>
-          <VoiceButton label='Download' onPress={() => {}} />
+          <VoiceButton label="Download" onPress={() => {}} />
         </View>
       </View>
     ))}

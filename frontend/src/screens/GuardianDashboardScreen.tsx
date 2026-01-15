@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, ScrollView, View, Alert } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, ScrollView, View } from 'react-native';
 import { Text } from '@components/Themed';
 import { TileButton } from '@components/TileButton';
 import { StackScreenProps } from '@react-navigation/stack';
@@ -7,7 +7,7 @@ import { RootStackParamList } from '@navigation/AppNavigator';
 import { useAuth } from '@context/AuthContext';
 import { useQuery } from '@tanstack/react-query';
 import { API } from '@services/api';
-import { StudentProfile, Registration, FinanceStatus, User } from '../types/models';
+import { StudentProfile, Registration, FinanceStatus } from '../types/models';
 import Colors from '@theme/Colors';
 
 type GuardianDashboardScreenProps = StackScreenProps<RootStackParamList, 'Dashboard'>;
@@ -20,7 +20,7 @@ const GuardianDashboardScreen: React.FC<GuardianDashboardScreenProps> = ({ navig
   const [studentRegistrations, setStudentRegistrations] = useState<{ [studentId: number]: Registration[] }>({});
 
   // Fetch linked students
-  const { data: linkedStudentsData } = useQuery<StudentProfile[]>(
+  useQuery<StudentProfile[]>(
     ['linkedStudents', guardianProfile?.id],
     () => API.getLinkedStudents(guardianProfile?.id as number), // Assuming an API endpoint for this
     {

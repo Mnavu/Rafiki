@@ -9,17 +9,17 @@ i18n
     .init({
         resources: {
             en: {
-                translation: en
+                translation: en,
             },
             es: {
-                translation: es
-            }
+                translation: es,
+            },
         },
         lng: 'en', // default language
         fallbackLng: 'en',
         interpolation: {
-            escapeValue: false
-        }
+            escapeValue: false,
+        },
     });
 
 export default i18n;

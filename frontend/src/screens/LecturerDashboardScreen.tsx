@@ -7,7 +7,7 @@ import { RootStackParamList } from '@navigation/AppNavigator';
 import { useAuth } from '@context/AuthContext';
 import { useQuery } from '@tanstack/react-query';
 import { API } from '@services/api';
-import { Lecturer, LecturerAssignment, CurriculumUnit } from '../types/models';
+import { LecturerAssignment } from '../types/models';
 import Colors from '@theme/Colors';
 
 type LecturerDashboardScreenProps = StackScreenProps<RootStackParamList, 'Dashboard'>;
@@ -28,7 +28,7 @@ const LecturerDashboardScreen: React.FC<LecturerDashboardScreenProps> = ({ navig
   );
 
   useEffect(() => {
-    if (assignedUnitsData) setAssignedUnits(assignedUnitsData);
+    if (assignedUnitsData) {setAssignedUnits(assignedUnitsData);}
   }, [assignedUnitsData]);
 
   if (!state.user || !lecturerProfile) {

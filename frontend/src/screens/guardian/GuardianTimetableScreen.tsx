@@ -16,17 +16,17 @@ export const GuardianTimetableScreen: React.FC = () => (
     <Text style={styles.subtitle}>Follow the day and set spoken reminders 15 minutes ahead.</Text>
     {timetable.map((slot) => (
       <View key={slot.activity} style={styles.card}>
-        <Ionicons name='time' size={28} color={palette.secondary} />
+        <Ionicons name="time" size={28} color={palette.secondary} />
         <View style={styles.cardBody}>
           <Text style={styles.cardTitle}>{slot.activity}</Text>
           <Text style={styles.cardMeta}>
             {slot.time} - {slot.location}
           </Text>
-          <VoiceButton label='Set reminder' onPress={() => {}} />
+          <VoiceButton label="Set reminder" onPress={() => {}} />
         </View>
       </View>
     ))}
-    <VoiceButton label='Speak timetable' onPress={() => {}} />
+    <VoiceButton label="Speak timetable" onPress={() => {}} />
   </ScrollView>
 );
 

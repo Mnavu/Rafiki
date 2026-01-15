@@ -14,8 +14,8 @@ export const FloatingAssistantButton: React.FC<FloatingAssistantButtonProps> = (
   <TouchableOpacity
     style={styles.container}
     onPress={onPress}
-    accessibilityRole='button'
-    accessibilityLabel='Open Nanu assistant'
+    accessibilityRole="button"
+    accessibilityLabel="Open Nanu assistant"
   >
     <Text style={styles.text}>{label}</Text>
   </TouchableOpacity>

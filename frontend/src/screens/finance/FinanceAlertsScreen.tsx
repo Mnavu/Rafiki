@@ -19,7 +19,7 @@ export const FinanceAlertsScreen: React.FC = () => (
         <View style={styles.cardBody}>
           <Text style={styles.cardTitle}>{alert.title}</Text>
           <Text style={styles.cardMeta}>{alert.detail}</Text>
-          <VoiceButton label='Schedule' onPress={() => {}} />
+          <VoiceButton label="Schedule" onPress={() => {}} />
         </View>
       </View>
     ))}

@@ -12,15 +12,15 @@ export const HodTimetableScreen: React.FC = () => (
     <Text style={styles.subtitle}>Review proposed schedules and highlight clashes instantly.</Text>
     {conflicts.map((item) => (
       <View key={item.course} style={styles.card}>
-        <Ionicons name='warning' size={28} color={palette.danger} />
+        <Ionicons name="warning" size={28} color={palette.danger} />
         <View style={styles.cardBody}>
           <Text style={styles.cardTitle}>{item.course}</Text>
           <Text style={styles.cardMeta}>{item.conflict}</Text>
-          <VoiceButton label='Resolve' onPress={() => {}} />
+          <VoiceButton label="Resolve" onPress={() => {}} />
         </View>
       </View>
     ))}
-    <VoiceButton label='Approve timetable' onPress={() => {}} />
+    <VoiceButton label="Approve timetable" onPress={() => {}} />
   </ScrollView>
 );
 

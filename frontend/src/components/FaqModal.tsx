@@ -10,15 +10,15 @@ type FaqModalProps = {
 
 export const FaqModal: React.FC<FaqModalProps> = ({ visible, onClose }) => {
   return (
-    <Modal visible={visible} transparent animationType='slide' onRequestClose={onClose}>
+    <Modal visible={visible} transparent animationType="slide" onRequestClose={onClose}>
       <View style={styles.backdrop}>
         <View style={styles.sheet}>
           <View style={styles.header}>
             <Text style={styles.title}>Need a quick answer?</Text>
             <TouchableOpacity
               onPress={onClose}
-              accessibilityRole='button'
-              accessibilityLabel='Close FAQs'
+              accessibilityRole="button"
+              accessibilityLabel="Close FAQs"
             >
               <Text style={styles.closeText}>Close</Text>
             </TouchableOpacity>

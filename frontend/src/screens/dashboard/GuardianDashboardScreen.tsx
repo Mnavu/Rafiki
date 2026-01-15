@@ -160,7 +160,7 @@ export const GuardianDashboardScreen: React.FC = () => {
             )}
           </View>
         ) : null}
-        <AlertBanner message='KES 12,000 due in 5 days' variant='warning' />
+        <AlertBanner message="KES 12,000 due in 5 days" variant="warning" />
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Progress Overview</Text>
           {progressBars.map((bar) => (
@@ -188,8 +188,8 @@ export const GuardianDashboardScreen: React.FC = () => {
           />
         ))}
       </ScrollView>
-      <VoiceButton label='Speak summary' onPress={() => navigation.navigate('GuardianProgress')} />
-      <FloatingAssistantButton label='Chat' onPress={() => setShowAssistant(true)} />
+      <VoiceButton label="Speak summary" onPress={() => navigation.navigate('GuardianProgress')} />
+      <FloatingAssistantButton label="Chat" onPress={() => setShowAssistant(true)} />
       <BottomUtilityBar
         items={[
           { label: 'Home', isActive: true },

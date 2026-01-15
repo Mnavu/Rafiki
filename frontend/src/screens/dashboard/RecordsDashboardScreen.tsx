@@ -86,12 +86,12 @@ export const RecordsDashboardScreen: React.FC = () => {
           />
         }
       >
-        <GreetingHeader name='Records Officer' />
+        <GreetingHeader name="Records Officer" />
         <VoiceSearchBar
           onPress={() => navigation.navigate('Search')}
           onVoicePress={() => navigation.navigate('Search')}
         />
-        <AlertBanner message='3 transcripts pending approval' variant='info' />
+        <AlertBanner message="3 transcripts pending approval" variant="info" />
         <View style={styles.tiles}>
           {recordsTiles.map((tile) => (
             <DashboardTile

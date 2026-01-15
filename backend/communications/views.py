@@ -121,7 +121,7 @@ class ThreadViewSet(viewsets.ModelViewSet):
         )
         if user.role == User.Roles.PARENT:
             return base.filter(
-                Q(parent=user) | Q(student__parent_links__parent=user)
+                Q(parent=user) | Q(student__student_profile__parent_links__parent__user=user)
             ).distinct()
         if user.role == User.Roles.STUDENT:
             return base.filter(student=user)
@@ -166,7 +166,7 @@ class MessageViewSet(viewsets.ModelViewSet):
         )
         if user.role == User.Roles.PARENT:
             return base.filter(
-                Q(thread__parent=user) | Q(thread__student__parent_links__parent=user)
+                Q(thread__parent=user) | Q(thread__student__student_profile__parent_links__parent__user=user)
             ).distinct()
         if user.role == User.Roles.STUDENT:
             return base.filter(thread__student=user)

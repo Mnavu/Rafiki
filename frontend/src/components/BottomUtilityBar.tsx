@@ -15,11 +15,11 @@ interface BottomUtilityBarProps {
 
 export const BottomUtilityBar: React.FC<BottomUtilityBarProps> = ({ items }) => {
   return (
-    <View style={styles.container} accessibilityRole='tablist'>
+    <View style={styles.container} accessibilityRole="tablist">
       {items.map((item) => (
         <TouchableOpacity
           key={item.label}
-          accessibilityRole='tab'
+          accessibilityRole="tab"
           accessibilityLabel={item.label}
           accessibilityState={{ selected: item.isActive }}
           style={[styles.item, item.isActive && styles.activeItem]}

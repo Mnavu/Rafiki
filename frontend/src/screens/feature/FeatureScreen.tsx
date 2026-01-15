@@ -16,9 +16,9 @@ export const FeatureScreen: React.FC = () => {
     <View style={styles.container}>
       <FeatureDetail feature={feature} role={role} />
       <VoiceButton
-        label='Go back'
+        label="Go back"
         onPress={() => navigation.goBack()}
-        accessibilityHint='Return to dashboard'
+        accessibilityHint="Return to dashboard"
       />
     </View>
   );

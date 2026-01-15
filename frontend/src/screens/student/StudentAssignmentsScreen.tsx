@@ -13,15 +13,15 @@ const assignmentsData = [
     due: new Date(new Date().setDate(new Date().getDate() + 1)),
     description: 'Record a 2 minute voice summary and add pictures.',
   },
-  { 
-    title: 'Number Patterns', 
-    due: new Date(new Date().setDate(new Date().getDate() + 3)), 
-    description: 'Complete worksheet pages 4-6.' 
+  {
+    title: 'Number Patterns',
+    due: new Date(new Date().setDate(new Date().getDate() + 3)),
+    description: 'Complete worksheet pages 4-6.',
   },
-  { 
-    title: 'World War I Essay', 
-    due: new Date(new Date().setDate(new Date().getDate() + 1)), 
-    description: 'Submit a 500-word essay.' 
+  {
+    title: 'World War I Essay',
+    due: new Date(new Date().setDate(new Date().getDate() + 1)),
+    description: 'Submit a 500-word essay.',
   },
 ];
 
@@ -47,7 +47,7 @@ export const StudentAssignmentsScreen: React.FC = () => {
 
   const onDateChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
     setShowDatePicker(Platform.OS === 'ios');
-    if(selectedDate) {
+    if (selectedDate) {
         setFilterDate(selectedDate);
     }
   };
@@ -70,10 +70,10 @@ export const StudentAssignmentsScreen: React.FC = () => {
     const diffTime = dueDate.getTime() - today.getTime();
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
-    if (diffDays <= 0) return 'Due today';
-    if (diffDays === 1) return 'Due tomorrow';
+    if (diffDays <= 0) {return 'Due today';}
+    if (diffDays === 1) {return 'Due tomorrow';}
     return `Due in ${diffDays} days`;
-  }
+  };
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -83,9 +83,9 @@ export const StudentAssignmentsScreen: React.FC = () => {
       </Text>
 
       <View style={styles.filterContainer}>
-        <VoiceButton 
-            label={filterDate ? `Filtering for: ${filterDate.toLocaleDateString()}` : "Filter by Due Date"}
-            onPress={() => setShowDatePicker(true)} 
+        <VoiceButton
+            label={filterDate ? `Filtering for: ${filterDate.toLocaleDateString()}` : 'Filter by Due Date'}
+            onPress={() => setShowDatePicker(true)}
         />
         {filterDate && <VoiceButton label="Clear Filter" onPress={() => setFilterDate(null)} />}
       </View>
@@ -102,12 +102,12 @@ export const StudentAssignmentsScreen: React.FC = () => {
 
       {filteredAssignments.length > 0 ? filteredAssignments.map((item) => (
         <View key={item.title} style={styles.card}>
-          <Ionicons name='document-text' size={28} color={palette.accent} />
+          <Ionicons name="document-text" size={28} color={palette.accent} />
           <View style={styles.cardBody}>
             <Text style={styles.cardTitle}>{item.title}</Text>
             <Text style={styles.cardMeta}>{getDueDateText(item.due)}</Text>
             <Text style={styles.cardDescription}>{item.description}</Text>
-            <VoiceButton label='Open assignment' onPress={() => {}} />
+            <VoiceButton label="Open assignment" onPress={() => {}} />
           </View>
         </View>
       )) : (
@@ -115,14 +115,14 @@ export const StudentAssignmentsScreen: React.FC = () => {
       )}
 
       <VoiceButton
-        label='Register for exams'
+        label="Register for exams"
         onPress={handleExamRegistration}
-        accessibilityHint='Checks fee clearance before registration'
+        accessibilityHint="Checks fee clearance before registration"
       />
       <VoiceButton
-        label='Ask for assignment help'
+        label="Ask for assignment help"
         onPress={() => {}}
-        accessibilityHint='Send help message'
+        accessibilityHint="Send help message"
       />
     </ScrollView>
   );

@@ -15,11 +15,11 @@ export const AdminThemeScreen: React.FC = () => (
     <Text style={styles.subtitle}>Control branding, contrast, and voice settings globally.</Text>
     {options.map((option) => (
       <View key={option.label} style={styles.card}>
-        <Ionicons name='color-palette' size={28} color={palette.secondary} />
+        <Ionicons name="color-palette" size={28} color={palette.secondary} />
         <View style={styles.cardBody}>
           <Text style={styles.cardTitle}>{option.label}</Text>
           <Text style={styles.cardMeta}>{option.description}</Text>
-          <VoiceButton label='Adjust' onPress={() => {}} />
+          <VoiceButton label="Adjust" onPress={() => {}} />
         </View>
       </View>
     ))}

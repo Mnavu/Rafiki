@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Platform, StyleSheet, TouchableOpacity, ViewStyle, TextStyle } from 'react-native';
+import { Platform, StyleSheet, TouchableOpacity, View, ViewStyle, TextStyle } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Text } from './Themed'; // Assuming a Themed Text component exists
 import Colors from '../theme/Colors'; // Assuming a Colors theme file exists

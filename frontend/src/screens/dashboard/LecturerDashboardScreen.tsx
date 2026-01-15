@@ -123,8 +123,8 @@ export const LecturerDashboardScreen: React.FC = () => {
           onPress={() => navigation.navigate('Search')}
           onVoicePress={() => navigation.navigate('Search')}
         />
-        <AlertBanner message='Start ICT201 session in 10 minutes' variant='info' />
-        
+        <AlertBanner message="Start ICT201 session in 10 minutes" variant="info" />
+
         <View style={styles.myCoursesSection}>
           <Text style={styles.sectionTitle}>My Units</Text>
           {loadingCourses ? (
@@ -151,7 +151,7 @@ export const LecturerDashboardScreen: React.FC = () => {
           ))}
         </View>
       </ScrollView>
-      <FloatingAssistantButton label='Assist' onPress={() => setShowAssistant(true)} />
+      <FloatingAssistantButton label="Assist" onPress={() => setShowAssistant(true)} />
       <BottomUtilityBar
         items={[
           { label: 'Home', isActive: true },

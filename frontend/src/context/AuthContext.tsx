@@ -89,24 +89,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
-  const handleTokenRefresh = useCallback(async () => {
-    if (!state.refreshToken) {
-      return; // Can't refresh without a refresh token
-    }
-
-    if (!isTokenExpired(state.accessToken)) {
-      return; // No need to refresh
-    }
-
-    try {
-      const { access } = await refreshTokenRequest(state.refreshToken);
-      setState((prev) => ({ ...prev, accessToken: access }));
-    } catch (error) {
-      console.warn('Token refresh failed, logging out.', error);
-      logout();
-    }
-  }, [state.accessToken, state.refreshToken]);
-
   useEffect(() => {
     const load = async () => {
       try {

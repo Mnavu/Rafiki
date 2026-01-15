@@ -1,9 +1,9 @@
 from django.contrib.auth import get_user_model
 from django.core.management.base import BaseCommand
 
-from learning.models import Course, Unit
+from learning.models import Programme, CurriculumUnit
 from repository.models import Resource
-
+from users.models import Student, Guardian, Lecturer, HOD, Admin, RecordsOfficer, FinanceOfficer
 
 DEMO_USERS = [
     {
@@ -12,8 +12,6 @@ DEMO_USERS = [
         "role": "student",
         "email": "student1@example.com",
         "display_name": "Aisha Student",
-        "is_staff": False,
-        "is_superuser": False,
     },
     {
         "username": "parent1",
@@ -21,8 +19,6 @@ DEMO_USERS = [
         "role": "parent",
         "email": "parent1@example.com",
         "display_name": "Grace Parent",
-        "is_staff": False,
-        "is_superuser": False,
     },
     {
         "username": "lecturer1",
@@ -30,8 +26,6 @@ DEMO_USERS = [
         "role": "lecturer",
         "email": "lecturer1@example.com",
         "display_name": "Peter Lecturer",
-        "is_staff": True,
-        "is_superuser": False,
     },
     {
         "username": "hod1",
@@ -39,8 +33,6 @@ DEMO_USERS = [
         "role": "hod",
         "email": "hod1@example.com",
         "display_name": "Mary HoD",
-        "is_staff": True,
-        "is_superuser": False,
     },
     {
         "username": "finance1",
@@ -48,8 +40,6 @@ DEMO_USERS = [
         "role": "finance",
         "email": "finance1@example.com",
         "display_name": "James Finance",
-        "is_staff": True,
-        "is_superuser": False,
     },
     {
         "username": "records1",
@@ -57,8 +47,6 @@ DEMO_USERS = [
         "role": "records",
         "email": "records1@example.com",
         "display_name": "Linda Records",
-        "is_staff": True,
-        "is_superuser": False,
     },
     {
         "username": "admin1",
@@ -66,8 +54,6 @@ DEMO_USERS = [
         "role": "admin",
         "email": "admin1@example.com",
         "display_name": "Allan Admin",
-        "is_staff": True,
-        "is_superuser": False,
     },
     {
         "username": "superadmin1",
@@ -75,23 +61,12 @@ DEMO_USERS = [
         "role": "superadmin",
         "email": "superadmin1@example.com",
         "display_name": "Sophia SuperAdmin",
-        "is_staff": True,
-        "is_superuser": True,
-    },
-    {
-        "username": "librarian1",
-        "password": "Librarian@2025",
-        "role": "librarian",
-        "email": "librarian1@example.com",
-        "display_name": "Leo Librarian",
-        "is_staff": True,
-        "is_superuser": False,
     },
 ]
 
 
 class Command(BaseCommand):
-    help = "Seed demo users, sample course/unit, and a library resource"
+    help = "Seed demo users, sample programme/unit, and a library resource"
 
     def handle(self, *args, **options):
         User = get_user_model()
@@ -100,12 +75,13 @@ class Command(BaseCommand):
         user_lookup = {}
         for payload in DEMO_USERS:
             username = payload["username"]
+            role = payload["role"]
             defaults = {
-                "role": payload["role"],
+                "role": role,
                 "email": payload.get("email", ""),
                 "display_name": payload.get("display_name", ""),
-                "is_staff": payload.get("is_staff", False),
-                "is_superuser": payload.get("is_superuser", False),
+                "is_staff": role not in ['student', 'parent'],
+                "is_superuser": role == 'superadmin',
             }
             user, created = User.objects.get_or_create(username=username, defaults=defaults)
             updated_fields = set()
@@ -119,35 +95,51 @@ class Command(BaseCommand):
             updated_fields.add("password")
             user.must_change_password = False
             updated_fields.add("must_change_password")
-            user.save(update_fields=list(updated_fields))
+            if updated_fields:
+                user.save(update_fields=list(updated_fields))
 
             action = "Created" if created else "Updated"
             self.stdout.write(
                 self.style.SUCCESS(
-                    f"{action} {username} (role: {payload['role']}) with password {payload['password']}"
+                    f"{action} {username} (role: {role}) with password {payload['password']}"
                 )
             )
             user_lookup[username] = user
 
-        lecturer = user_lookup.get("lecturer1")
+            # Create role-specific profiles
+            if role == 'student':
+                Student.objects.get_or_create(user=user, defaults={'student_id': username, 'year': 1, 'trimester': 1, 'trimester_label': 'T1', 'cohort_year': 2024})
+            elif role == 'parent':
+                Guardian.objects.get_or_create(user=user)
+            elif role == 'lecturer':
+                Lecturer.objects.get_or_create(user=user)
+            elif role == 'hod':
+                HOD.objects.get_or_create(user=user)
+            elif role == 'admin':
+                Admin.objects.get_or_create(user=user)
+            elif role == 'records':
+                RecordsOfficer.objects.get_or_create(user=user)
+            elif role == 'finance':
+                FinanceOfficer.objects.get_or_create(user=user)
 
-        self.stdout.write(self.style.MIGRATE_HEADING("Seeding sample course, unit, and resource"))
 
-        course, _ = Course.objects.get_or_create(
+        self.stdout.write(self.style.MIGRATE_HEADING("Seeding sample programme, unit, and resource"))
+
+        programme, _ = Programme.objects.get_or_create(
             code="TTM101",
             defaults={
                 "name": "Fundamentals of Tourism",
-                "description": "Introduction to tourism systems, ethics, and industry roles.",
-                "lecturer": lecturer,
+                "award_level": "Certificate",
+                "duration_years": 1,
+                "trimesters_per_year": 2,
             },
         )
-        if lecturer and course.lecturer_id != lecturer.id:
-            course.lecturer = lecturer
-            course.save(update_fields=["lecturer"])
 
-        Unit.objects.update_or_create(
-            course=course,
+        CurriculumUnit.objects.update_or_create(
+            programme=programme,
+            code="TTM101-U1",
             title="Week 1: Tourism Foundations",
+            credit_hours=3,
             defaults={"description": "Overview of tourism concepts, terminology, and industry sectors."},
         )
 

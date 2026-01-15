@@ -15,7 +15,7 @@ export const AdminAuditScreen: React.FC = () => (
     <Text style={styles.subtitle}>Review user activity, password changes, and system events.</Text>
     {logs.map((log) => (
       <View key={log.time + log.action} style={styles.card}>
-        <Ionicons name='shield-checkmark' size={28} color={palette.primary} />
+        <Ionicons name="shield-checkmark" size={28} color={palette.primary} />
         <View style={styles.cardBody}>
           <Text style={styles.cardTitle}>{log.action}</Text>
           <Text style={styles.cardMeta}>{log.detail}</Text>
@@ -23,7 +23,7 @@ export const AdminAuditScreen: React.FC = () => (
         </View>
       </View>
     ))}
-    <VoiceButton label='Export log' onPress={() => {}} />
+    <VoiceButton label="Export log" onPress={() => {}} />
   </ScrollView>
 );
 

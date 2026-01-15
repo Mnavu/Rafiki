@@ -17,17 +17,17 @@ export const HodAssignmentsScreen: React.FC = () => (
     </Text>
     {courses.map((item) => (
       <View key={item.course} style={styles.card}>
-        <Ionicons name='swap-horizontal' size={28} color={palette.accent} />
+        <Ionicons name="swap-horizontal" size={28} color={palette.accent} />
         <View style={styles.cardBody}>
           <Text style={styles.cardTitle}>{item.course}</Text>
           <Text style={styles.cardMeta}>
             {item.lecturer} � {item.status}
           </Text>
-          <VoiceButton label='Reassign' onPress={() => {}} />
+          <VoiceButton label="Reassign" onPress={() => {}} />
         </View>
       </View>
     ))}
-    <VoiceButton label='Speak summary' onPress={() => {}} />
+    <VoiceButton label="Speak summary" onPress={() => {}} />
   </ScrollView>
 );
 

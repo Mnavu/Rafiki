@@ -1,6 +1,5 @@
 import * as Speech from 'expo-speech';
 import { Audio } from 'expo-av';
-import { Platform } from 'react-native';
 
 type TTSOptions = {
   language?: string;
@@ -8,11 +7,6 @@ type TTSOptions = {
   rate?: number;
   onDone?: () => void;
   onStart?: () => void;
-  onError?: (error: Error) => void;
-};
-
-type STTOptions = {
-  onTranscription?: (text: string) => void;
   onError?: (error: Error) => void;
 };
 
@@ -27,7 +21,7 @@ class VoiceService {
 
   // Text-to-Speech (TTS)
   public async speak(text: string, options?: TTSOptions): Promise<void> {
-    if (!text) return;
+    if (!text) {return;}
 
     this.speechQueue = this.speechQueue.then(async () => {
       return new Promise<void>((resolve, reject) => {
@@ -63,7 +57,7 @@ class VoiceService {
   // Speech-to-Text (STT) - Recording
   public async startRecording(): Promise<void> {
     if (this.isRecording) {
-      console.warn("Already recording.");
+      console.warn('Already recording.');
       return;
     }
 
@@ -71,7 +65,7 @@ class VoiceService {
       await Audio.setAudioModeAsync({
         allowsRecordingIOS: true,
         playsInSilentModeIOS: true,
-        
+
         // This setting might be problematic on some Android devices.
         // It should allow playback while recording.
         // For production, more robust testing across devices is needed.
@@ -94,7 +88,7 @@ class VoiceService {
 
   public async stopRecording(): Promise<string | null> {
     if (!this.isRecording || !this.recording) {
-      console.warn("Not recording.");
+      console.warn('Not recording.');
       return null;
     }
 
@@ -132,7 +126,7 @@ class VoiceService {
     // to your backend API, which would then interface with a STT service (e.g., Google Cloud Speech-to-Text).
     // For now, return a mock transcription.
     await new Promise(resolve => setTimeout(resolve, 2000)); // Simulate API call
-    return `(Mock transcription of ${audioUri})`; 
+    return `(Mock transcription of ${audioUri})`;
   }
 }
 

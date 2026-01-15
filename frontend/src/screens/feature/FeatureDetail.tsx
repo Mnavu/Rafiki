@@ -41,7 +41,7 @@ export const FeatureDetail: React.FC<FeatureDetailProps> = ({ feature, role, onS
       </Text>
     </View>
     {onSpeak ? (
-      <VoiceButton label='Read aloud' onPress={onSpeak} accessibilityHint='Play an audio summary' />
+      <VoiceButton label="Read aloud" onPress={onSpeak} accessibilityHint="Play an audio summary" />
     ) : null}
   </ScrollView>
 );

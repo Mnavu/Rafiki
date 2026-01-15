@@ -13,7 +13,6 @@ import {
   createDirectMessage,
   type ApiCourse,
   type CourseRoster,
-  type ApiThread,
 } from '@services/api';
 
 const sessions = [

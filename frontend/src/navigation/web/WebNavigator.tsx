@@ -24,8 +24,8 @@ const AppDrawer = () => {
             )}
             {/* Add other screens for admin/hod roles here */}
         </Drawer.Navigator>
-    )
-}
+    );
+};
 
 export const WebNavigator = () => {
     const { isAuthenticated } = useAuth();
@@ -37,12 +37,12 @@ export const WebNavigator = () => {
                     <Stack.Screen name="AppDrawer" component={AppDrawer} />
                 ) : (
                     <>
-                        <Stack.Screen name='RoleSelection'>
+                        <Stack.Screen name="RoleSelection">
                             {({ navigation }) => (
                                 <RoleSelectionScreen onSelectRole={(role) => navigation.navigate('Login', { role })} />
                             )}
                         </Stack.Screen>
-                        <Stack.Screen name='Login'>
+                        <Stack.Screen name="Login">
                             {({ route }) => <LoginScreen role={route.params.role} />}
                         </Stack.Screen>
                     </>

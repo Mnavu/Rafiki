@@ -112,7 +112,7 @@ export const HodDashboardScreen: React.FC = () => {
           setStudentsByYear(groupStudentsByYear(studs));
         }
       } catch (err) {
-        console.error("Failed to load HOD dashboard data", err);
+        console.error('Failed to load HOD dashboard data', err);
       } finally {
         setLoading(false);
       }
@@ -145,7 +145,7 @@ export const HodDashboardScreen: React.FC = () => {
           onPress={() => navigation.navigate('Search')}
           onVoicePress={() => navigation.navigate('Search')}
         />
-        <AlertBanner message='Conflict: CS202 overlaps with ENG110' variant='danger' />
+        <AlertBanner message="Conflict: CS202 overlaps with ENG110" variant="danger" />
 
         <View style={styles.overviewSection}>
           <Text style={styles.sectionTitle}>Department Overview</Text>
@@ -217,5 +217,5 @@ const styles = StyleSheet.create({
   yearTitle: {
     ...typography.headingS,
     marginTop: spacing.md,
-  }
+  },
 });

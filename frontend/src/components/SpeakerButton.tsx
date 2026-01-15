@@ -12,8 +12,8 @@ export const SpeakerButton: React.FC<SpeakerButtonProps> = ({ onPress, isActive,
   return (
     <TouchableOpacity
       style={[styles.container, isActive && styles.active]}
-      accessibilityRole='button'
-      accessibilityLabel='Read this screen aloud'
+      accessibilityRole="button"
+      accessibilityLabel="Read this screen aloud"
       onPress={onPress}
     >
       {icon}

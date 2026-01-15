@@ -120,10 +120,6 @@ export const RecordsEnrollmentScreen: React.FC = () => {
     !studentUsernameValue || isValidUsername(studentUsernameValue.toLowerCase());
   const guardianUsernameValid =
     !guardianUsernameValue || isValidUsername(guardianUsernameValue.toLowerCase());
-  const studentPasswordValid =
-    studentPasswordValue.length === 0 || studentPasswordValue.length >= MIN_PASSWORD_LENGTH;
-  const guardianPasswordValid =
-    guardianPasswordValue.length === 0 || guardianPasswordValue.length >= MIN_PASSWORD_LENGTH;
   const canEnrollFamily =
     studentUsernameValue.length > 0 &&
     guardianUsernameValue.length > 0 &&
@@ -405,6 +401,12 @@ export const RecordsEnrollmentScreen: React.FC = () => {
     loadUsers,
     recordsPasscode,
     token,
+    studentUsernameValue,
+    guardianUsernameValue,
+    studentPasswordValue,
+    guardianPasswordValue,
+    studentUsernameValid,
+    guardianUsernameValid,
   ]);
 
   const handleCreateLink = useCallback(async () => {
@@ -511,13 +513,13 @@ export const RecordsEnrollmentScreen: React.FC = () => {
   return (
     <ScrollView
       contentContainerStyle={styles.container}
-      keyboardShouldPersistTaps='handled'
+      keyboardShouldPersistTaps="handled"
       showsVerticalScrollIndicator={false}
     >
-      <GreetingHeader name='Student Onboarding' />
+      <GreetingHeader name="Student Onboarding" />
       <AlertBanner
-        message='Provision guardian & student accounts, then link them for portal access.'
-        variant='info'
+        message="Provision guardian & student accounts, then link them for portal access."
+        variant="info"
       />
 
       <View style={styles.card}>
@@ -527,10 +529,10 @@ export const RecordsEnrollmentScreen: React.FC = () => {
         </Text>
         <TextInput
           style={styles.input}
-          placeholder='Enter passcode'
+          placeholder="Enter passcode"
           value={recordsPasscode}
           onChangeText={setRecordsPasscode}
-          autoCapitalize='none'
+          autoCapitalize="none"
           secureTextEntry
         />
       </View>
@@ -544,9 +546,9 @@ export const RecordsEnrollmentScreen: React.FC = () => {
         <Text style={styles.formSectionTitle}>Student details</Text>
         <TextInput
           style={styles.input}
-          placeholder='Student username'
+          placeholder="Student username"
           value={familyForm.student.username}
-          autoCapitalize='none'
+          autoCapitalize="none"
           onChangeText={(text) =>
             setFamilyForm((prev) => ({
               ...prev,
@@ -561,7 +563,7 @@ export const RecordsEnrollmentScreen: React.FC = () => {
         ) : null}
         <TextInput
           style={styles.input}
-          placeholder='Student password'
+          placeholder="Student password"
           value={familyForm.student.password}
           onChangeText={(text) =>
             setFamilyForm((prev) => ({
@@ -579,7 +581,7 @@ export const RecordsEnrollmentScreen: React.FC = () => {
         <View style={styles.inlineRow}>
           <TextInput
             style={[styles.input, styles.flexInput]}
-            placeholder='First name'
+            placeholder="First name"
             value={familyForm.student.first_name}
             onChangeText={(text) =>
               setFamilyForm((prev) => ({
@@ -590,7 +592,7 @@ export const RecordsEnrollmentScreen: React.FC = () => {
           />
           <TextInput
             style={[styles.input, styles.flexInput]}
-            placeholder='Last name'
+            placeholder="Last name"
             value={familyForm.student.last_name}
             onChangeText={(text) =>
               setFamilyForm((prev) => ({
@@ -602,7 +604,7 @@ export const RecordsEnrollmentScreen: React.FC = () => {
         </View>
         <TextInput
           style={styles.input}
-          placeholder='Display name (optional)'
+          placeholder="Display name (optional)"
           value={familyForm.student.display_name}
           onChangeText={(text) =>
             setFamilyForm((prev) => ({
@@ -613,10 +615,10 @@ export const RecordsEnrollmentScreen: React.FC = () => {
         />
         <TextInput
           style={styles.input}
-          placeholder='Student email (optional)'
+          placeholder="Student email (optional)"
           value={familyForm.student.email}
-          autoCapitalize='none'
-          keyboardType='email-address'
+          autoCapitalize="none"
+          keyboardType="email-address"
           onChangeText={(text) =>
             setFamilyForm((prev) => ({
               ...prev,
@@ -626,8 +628,8 @@ export const RecordsEnrollmentScreen: React.FC = () => {
         />
         <TextInput
           style={styles.input}
-          placeholder='Course codes (comma separated, e.g., ENG101, MAT102)'
-          autoCapitalize='characters'
+          placeholder="Course codes (comma separated, e.g., ENG101, MAT102)"
+          autoCapitalize="characters"
           value={familyForm.student.courseCodes}
           onChangeText={(text) =>
             setFamilyForm((prev) => ({
@@ -651,9 +653,9 @@ export const RecordsEnrollmentScreen: React.FC = () => {
         <Text style={styles.formSectionTitle}>Guardian details</Text>
         <TextInput
           style={styles.input}
-          placeholder='Guardian username'
+          placeholder="Guardian username"
           value={familyForm.parent.username}
-          autoCapitalize='none'
+          autoCapitalize="none"
           onChangeText={(text) =>
             setFamilyForm((prev) => ({
               ...prev,
@@ -668,7 +670,7 @@ export const RecordsEnrollmentScreen: React.FC = () => {
         ) : null}
         <TextInput
           style={styles.input}
-          placeholder='Guardian password'
+          placeholder="Guardian password"
           value={familyForm.parent.password}
           onChangeText={(text) =>
             setFamilyForm((prev) => ({
@@ -686,7 +688,7 @@ export const RecordsEnrollmentScreen: React.FC = () => {
         <View style={styles.inlineRow}>
           <TextInput
             style={[styles.input, styles.flexInput]}
-            placeholder='First name'
+            placeholder="First name"
             value={familyForm.parent.first_name}
             onChangeText={(text) =>
               setFamilyForm((prev) => ({
@@ -697,7 +699,7 @@ export const RecordsEnrollmentScreen: React.FC = () => {
           />
           <TextInput
             style={[styles.input, styles.flexInput]}
-            placeholder='Last name'
+            placeholder="Last name"
             value={familyForm.parent.last_name}
             onChangeText={(text) =>
               setFamilyForm((prev) => ({
@@ -709,7 +711,7 @@ export const RecordsEnrollmentScreen: React.FC = () => {
         </View>
         <TextInput
           style={styles.input}
-          placeholder='Display name (optional)'
+          placeholder="Display name (optional)"
           value={familyForm.parent.display_name}
           onChangeText={(text) =>
             setFamilyForm((prev) => ({
@@ -720,10 +722,10 @@ export const RecordsEnrollmentScreen: React.FC = () => {
         />
         <TextInput
           style={styles.input}
-          placeholder='Guardian email (optional)'
+          placeholder="Guardian email (optional)"
           value={familyForm.parent.email}
-          autoCapitalize='none'
-          keyboardType='email-address'
+          autoCapitalize="none"
+          keyboardType="email-address"
           onChangeText={(text) =>
             setFamilyForm((prev) => ({
               ...prev,
@@ -733,7 +735,7 @@ export const RecordsEnrollmentScreen: React.FC = () => {
         />
         <TextInput
           style={styles.input}
-          placeholder='Relationship (e.g., Mother, Guardian)'
+          placeholder="Relationship (e.g., Mother, Guardian)"
           value={familyForm.relationship}
           onChangeText={(text) =>
             setFamilyForm((prev) => ({
@@ -746,7 +748,7 @@ export const RecordsEnrollmentScreen: React.FC = () => {
         <Text style={styles.formSectionTitle}>Initial fee setup (optional)</Text>
         <TextInput
           style={styles.input}
-          placeholder='Fee title (e.g., Tuition)'
+          placeholder="Fee title (e.g., Tuition)"
           value={familyForm.feeTitle}
           onChangeText={(text) =>
             setFamilyForm((prev) => ({
@@ -758,7 +760,7 @@ export const RecordsEnrollmentScreen: React.FC = () => {
         <View style={styles.inlineRow}>
           <TextInput
             style={[styles.input, styles.flexInput]}
-            placeholder='Amount e.g., 1500'
+            placeholder="Amount e.g., 1500"
             value={familyForm.feeAmount}
             onChangeText={(text) =>
               setFamilyForm((prev) => ({
@@ -766,11 +768,11 @@ export const RecordsEnrollmentScreen: React.FC = () => {
                 feeAmount: text,
               }))
             }
-            keyboardType='decimal-pad'
+            keyboardType="decimal-pad"
           />
           <TextInput
             style={[styles.input, styles.flexInput]}
-            placeholder='Due date (YYYY-MM-DD)'
+            placeholder="Due date (YYYY-MM-DD)"
             value={familyForm.feeDueDate}
             onChangeText={(text) =>
               setFamilyForm((prev) => ({
@@ -784,7 +786,7 @@ export const RecordsEnrollmentScreen: React.FC = () => {
         <VoiceButton
           label={enrollingFamily ? 'Enrolling...' : 'Enroll student & guardian'}
           onPress={enrollingFamily || !canEnrollFamily ? undefined : handleFamilyEnroll}
-          accessibilityHint='Create linked student and guardian accounts with their starting setup'
+          accessibilityHint="Create linked student and guardian accounts with their starting setup"
         />
       </View>
 
@@ -795,28 +797,28 @@ export const RecordsEnrollmentScreen: React.FC = () => {
         </Text>
         <TextInput
           style={styles.input}
-          placeholder='Guardian username'
+          placeholder="Guardian username"
           value={linkForm.guardianUsername}
-          autoCapitalize='none'
+          autoCapitalize="none"
           onChangeText={(text) => setLinkForm((prev) => ({ ...prev, guardianUsername: text }))}
         />
         <TextInput
           style={styles.input}
-          placeholder='Student username'
+          placeholder="Student username"
           value={linkForm.studentUsername}
-          autoCapitalize='none'
+          autoCapitalize="none"
           onChangeText={(text) => setLinkForm((prev) => ({ ...prev, studentUsername: text }))}
         />
         <TextInput
           style={styles.input}
-          placeholder='Relationship (optional)'
+          placeholder="Relationship (optional)"
           value={linkForm.relationship}
           onChangeText={(text) => setLinkForm((prev) => ({ ...prev, relationship: text }))}
         />
         <VoiceButton
           label={linking ? 'Linking...' : 'Link accounts'}
           onPress={linking ? undefined : handleCreateLink}
-          accessibilityHint='Create a guardian-student relationship'
+          accessibilityHint="Create a guardian-student relationship"
         />
         <VoiceButton
           label={loadingLists ? 'Refreshing...' : 'Refresh lists'}
@@ -874,9 +876,9 @@ export const RecordsEnrollmentScreen: React.FC = () => {
         <Text style={styles.cardSubtitle}>Use approved student usernames and course codes.</Text>
         <TextInput
           style={styles.input}
-          placeholder='Student username'
+          placeholder="Student username"
           value={rosterForm.studentUsername}
-          autoCapitalize='none'
+          autoCapitalize="none"
           onChangeText={(text) => setRosterForm((prev) => ({ ...prev, studentUsername: text }))}
         />
         {filteredStudentOptions.length ? (
@@ -902,9 +904,9 @@ export const RecordsEnrollmentScreen: React.FC = () => {
         ) : null}
         <TextInput
           style={styles.input}
-          placeholder='Course code (e.g., TTM101)'
+          placeholder="Course code (e.g., TTM101)"
           value={rosterForm.courseCode}
-          autoCapitalize='characters'
+          autoCapitalize="characters"
           onChangeText={(text) => setRosterForm((prev) => ({ ...prev, courseCode: text }))}
         />
         {filteredCourseOptions.length ? (
@@ -938,7 +940,7 @@ export const RecordsEnrollmentScreen: React.FC = () => {
         <VoiceButton
           label={rostering ? 'Assigning...' : 'Assign course'}
           onPress={rostering ? undefined : handleRosterEnroll}
-          accessibilityHint='Enroll the student into the selected course'
+          accessibilityHint="Enroll the student into the selected course"
         />
       </View>
     </ScrollView>

@@ -46,22 +46,22 @@ export const PasswordResetConfirmScreen: React.FC = () => {
       </Text>
       <TextInput
         style={styles.input}
-        placeholder='Username'
+        placeholder="Username"
         value={username}
         onChangeText={setUsername}
-        autoCapitalize='none'
+        autoCapitalize="none"
       />
       <TextInput
         style={styles.input}
-        placeholder='Token'
+        placeholder="Token"
         value={token}
         onChangeText={setToken}
-        autoCapitalize='none'
+        autoCapitalize="none"
       />
       <View style={styles.inputRow}>
         <TextInput
           style={[styles.input, styles.inputFlex]}
-          placeholder='New password'
+          placeholder="New password"
           value={password}
           onChangeText={setPassword}
           secureTextEntry={!showPassword}
@@ -69,7 +69,7 @@ export const PasswordResetConfirmScreen: React.FC = () => {
         <TouchableOpacity
           onPress={() => setShowPassword((prev) => !prev)}
           style={styles.eyeButton}
-          accessibilityRole='button'
+          accessibilityRole="button"
           accessibilityLabel={showPassword ? 'Hide password' : 'Show password'}
         >
           <Ionicons
@@ -82,7 +82,7 @@ export const PasswordResetConfirmScreen: React.FC = () => {
       <View style={styles.inputRow}>
         <TextInput
           style={[styles.input, styles.inputFlex]}
-          placeholder='Confirm password'
+          placeholder="Confirm password"
           value={confirm}
           onChangeText={setConfirm}
           secureTextEntry={!showConfirm}
@@ -90,7 +90,7 @@ export const PasswordResetConfirmScreen: React.FC = () => {
         <TouchableOpacity
           onPress={() => setShowConfirm((prev) => !prev)}
           style={styles.eyeButton}
-          accessibilityRole='button'
+          accessibilityRole="button"
           accessibilityLabel={showConfirm ? 'Hide password' : 'Show password'}
         >
           <Ionicons
@@ -103,9 +103,9 @@ export const PasswordResetConfirmScreen: React.FC = () => {
       <VoiceButton
         label={submitting ? 'Saving...' : 'Save password'}
         onPress={handleSubmit}
-        accessibilityHint='Submit reset token'
+        accessibilityHint="Submit reset token"
       />
-      <VoiceButton label='Back' onPress={() => navigation.goBack()} />
+      <VoiceButton label="Back" onPress={() => navigation.goBack()} />
     </View>
   );
 };

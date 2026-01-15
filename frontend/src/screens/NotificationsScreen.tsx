@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, ScrollView, View } from 'react-native';
+import { StyleSheet, ScrollView } from 'react-native';
 import { Text } from '@components/Themed';
 import { StackScreenProps } from '@react-navigation/stack';
 import { RootStackParamList } from '@navigation/AppNavigator';

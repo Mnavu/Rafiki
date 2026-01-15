@@ -1,3 +1,6 @@
+import React, { useState, useEffect } from 'react';
+import { NavigationContainer, useNavigationContainerRef } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {
   RoleSelectionScreen,
   LoginScreen,
@@ -59,7 +62,6 @@ import {
 } from '@screens/index';
 import { useAuth } from '@context/AuthContext';
 import type { Role } from '@app-types/roles';
-import { User } from '../types/models';
 import { FeatureDescriptor } from '@data/featureCatalog';
 
 export type RootStackParamList = {
@@ -162,7 +164,7 @@ export const AppNavigator = () => {
         params = { role: state.user.role };
       }
     }
-    
+
     navigationRef.reset({
       index: 0,
       routes: [{ name: routeName, params }],
@@ -174,67 +176,67 @@ export const AppNavigator = () => {
     <NavigationContainer ref={navigationRef} onReady={() => setNavReady(true)}>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="BiometricLock" component={BiometricLockScreen} />
-        <Stack.Screen name='RoleSelection'>
+        <Stack.Screen name="RoleSelection">
           {({ navigation }) => (
             <RoleSelectionScreen onSelectRole={(role) => navigation.navigate('Login', { role })} />
           )}
         </Stack.Screen>
-        <Stack.Screen name='Login'>
+        <Stack.Screen name="Login">
           {({ route }) => <LoginScreen role={route.params.role} />}
         </Stack.Screen>
-        <Stack.Screen name='Dashboard'>
+        <Stack.Screen name="Dashboard">
           {({ route }) => {
             const Component = getDashboardComponent(route.params.role);
             return <Component />;
           }}
         </Stack.Screen>
-        <Stack.Screen name='Feature' component={FeatureScreen} />
-        <Stack.Screen name='Search' component={SearchScreen} />
-        <Stack.Screen name='Profile' component={ProfileScreen} />
-        <Stack.Screen name='ForcePasswordChange' component={ForcePasswordChangeScreen} />
-        <Stack.Screen name='PasswordResetConfirm' component={PasswordResetConfirmScreen} />
-        <Stack.Screen name='Notifications' component={NotificationsScreen} />
-        <Stack.Screen name='Library' component={LibraryScreen} />
-        <Stack.Screen name='Chatroom' component={ChatroomScreen} />
-        <Stack.Screen name='StudentTimetable' component={StudentTimetableScreen} />
-        <Stack.Screen name='StudentAssignments' component={StudentAssignmentsScreen} />
-        <Stack.Screen name='StudentCommunicate' component={StudentCommunicateScreen} />
-        <Stack.Screen name='StudentHelp' component={StudentHelpScreen} />
-        <Stack.Screen name='StudentLibrary' component={StudentLibraryScreen} />
-        <Stack.Screen name='LecturerClasses' component={LecturerClassesScreen} />
-        <Stack.Screen name='LecturerAssignments' component={LecturerAssignmentsScreen} />
-        <Stack.Screen name='LecturerMessages' component={LecturerMessagesScreen} />
-        <Stack.Screen name='LecturerManagement' component={LecturerManagementScreen} />
-        <Stack.Screen name='LecturerRecords' component={LecturerRecordsScreen} />
-        <Stack.Screen name='LecturerTimetable' component={LecturerTimetableScreen} />
-        <Stack.Screen name='FinanceOverview' component={FinanceOverviewScreen} />
-        <Stack.Screen name='FinanceStudents' component={FinanceStudentsScreen} />
-        <Stack.Screen name='FinanceInvoices' component={FinanceInvoicesScreen} />
-        <Stack.Screen name='FinanceAlerts' component={FinanceAlertsScreen} />
-        <Stack.Screen name='FinanceSettings' component={FinanceSettingsScreen} />
-        <Stack.Screen name='GuardianProgress' component={GuardianProgressScreen} />
-        <Stack.Screen name='GuardianFees' component={GuardianFeesScreen} />
-        <Stack.Screen name='GuardianMessages' component={GuardianMessagesScreen} />
-        <Stack.Screen name='GuardianTimetable' component={GuardianTimetableScreen} />
-        <Stack.Screen name='GuardianAnnouncements' component={GuardianAnnouncementsScreen} />
-        <Stack.Screen name='HodAssignments' component={HodAssignmentsScreen} />
-        <Stack.Screen name='HodTimetable' component={HodTimetableScreen} />
-        <Stack.Screen name='HodPerformance' component={HodPerformanceScreen} />
-        <Stack.Screen name='HodCommunications' component={HodCommunicationsScreen} />
-        <Stack.Screen name='HodReports' component={HodReportsScreen} />
-        <Stack.Screen name='RecordsExams' component={RecordsExamsScreen} />
-        <Stack.Screen name='RecordsTranscripts' component={RecordsTranscriptsScreen} />
-        <Stack.Screen name='RecordsProgress' component={RecordsProgressScreen} />
-        <Stack.Screen name='RecordsVerifications' component={RecordsVerificationsScreen} />
-        <Stack.Screen name='RecordsReports' component={RecordsReportsScreen} />
-        <Stack.Screen name='RecordsEnrollment' component={RecordsEnrollmentScreen} />
-        <Stack.Screen name='AdminUsers' component={AdminUsersScreen} />
-        <Stack.Screen name='AdminSystems' component={AdminSystemsScreen} />
-        <Stack.Screen name='AdminAnalytics' component={AdminAnalyticsScreen} />
-        <Stack.Screen name='AdminTheme' component={AdminThemeScreen} />
-        <Stack.Screen name='AdminAudit' component={AdminAuditScreen} />
-        <Stack.Screen name='Rewards' component={RewardsScreen} />
-        <Stack.Screen name='VideoPlayer' component={VideoPlayerScreen} />
+        <Stack.Screen name="Feature" component={FeatureScreen} />
+        <Stack.Screen name="Search" component={SearchScreen} />
+        <Stack.Screen name="Profile" component={ProfileScreen} />
+        <Stack.Screen name="ForcePasswordChange" component={ForcePasswordChangeScreen} />
+        <Stack.Screen name="PasswordResetConfirm" component={PasswordResetConfirmScreen} />
+        <Stack.Screen name="Notifications" component={NotificationsScreen} />
+        <Stack.Screen name="Library" component={LibraryScreen} />
+        <Stack.Screen name="Chatroom" component={ChatroomScreen} />
+        <Stack.Screen name="StudentTimetable" component={StudentTimetableScreen} />
+        <Stack.Screen name="StudentAssignments" component={StudentAssignmentsScreen} />
+        <Stack.Screen name="StudentCommunicate" component={StudentCommunicateScreen} />
+        <Stack.Screen name="StudentHelp" component={StudentHelpScreen} />
+        <Stack.Screen name="StudentLibrary" component={StudentLibraryScreen} />
+        <Stack.Screen name="LecturerClasses" component={LecturerClassesScreen} />
+        <Stack.Screen name="LecturerAssignments" component={LecturerAssignmentsScreen} />
+        <Stack.Screen name="LecturerMessages" component={LecturerMessagesScreen} />
+        <Stack.Screen name="LecturerManagement" component={LecturerManagementScreen} />
+        <Stack.Screen name="LecturerRecords" component={LecturerRecordsScreen} />
+        <Stack.Screen name="LecturerTimetable" component={LecturerTimetableScreen} />
+        <Stack.Screen name="FinanceOverview" component={FinanceOverviewScreen} />
+        <Stack.Screen name="FinanceStudents" component={FinanceStudentsScreen} />
+        <Stack.Screen name="FinanceInvoices" component={FinanceInvoicesScreen} />
+        <Stack.Screen name="FinanceAlerts" component={FinanceAlertsScreen} />
+        <Stack.Screen name="FinanceSettings" component={FinanceSettingsScreen} />
+        <Stack.Screen name="GuardianProgress" component={GuardianProgressScreen} />
+        <Stack.Screen name="GuardianFees" component={GuardianFeesScreen} />
+        <Stack.Screen name="GuardianMessages" component={GuardianMessagesScreen} />
+        <Stack.Screen name="GuardianTimetable" component={GuardianTimetableScreen} />
+        <Stack.Screen name="GuardianAnnouncements" component={GuardianAnnouncementsScreen} />
+        <Stack.Screen name="HodAssignments" component={HodAssignmentsScreen} />
+        <Stack.Screen name="HodTimetable" component={HodTimetableScreen} />
+        <Stack.Screen name="HodPerformance" component={HodPerformanceScreen} />
+        <Stack.Screen name="HodCommunications" component={HodCommunicationsScreen} />
+        <Stack.Screen name="HodReports" component={HodReportsScreen} />
+        <Stack.Screen name="RecordsExams" component={RecordsExamsScreen} />
+        <Stack.Screen name="RecordsTranscripts" component={RecordsTranscriptsScreen} />
+        <Stack.Screen name="RecordsProgress" component={RecordsProgressScreen} />
+        <Stack.Screen name="RecordsVerifications" component={RecordsVerificationsScreen} />
+        <Stack.Screen name="RecordsReports" component={RecordsReportsScreen} />
+        <Stack.Screen name="RecordsEnrollment" component={RecordsEnrollmentScreen} />
+        <Stack.Screen name="AdminUsers" component={AdminUsersScreen} />
+        <Stack.Screen name="AdminSystems" component={AdminSystemsScreen} />
+        <Stack.Screen name="AdminAnalytics" component={AdminAnalyticsScreen} />
+        <Stack.Screen name="AdminTheme" component={AdminThemeScreen} />
+        <Stack.Screen name="AdminAudit" component={AdminAuditScreen} />
+        <Stack.Screen name="Rewards" component={RewardsScreen} />
+        <Stack.Screen name="VideoPlayer" component={VideoPlayerScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

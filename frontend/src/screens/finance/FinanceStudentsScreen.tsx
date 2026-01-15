@@ -19,17 +19,17 @@ export const FinanceStudentsScreen: React.FC = () => (
     </Text>
     {ledgers.map((item) => (
       <View key={item.student} style={styles.card}>
-        <Ionicons name='person-circle' size={32} color={item.tag} />
+        <Ionicons name="person-circle" size={32} color={item.tag} />
         <View style={styles.cardBody}>
           <Text style={styles.cardTitle}>{item.student}</Text>
           <Text style={styles.cardMeta}>
             {item.balance} � {item.status}
           </Text>
-          <VoiceButton label='Open ledger' onPress={() => {}} />
+          <VoiceButton label="Open ledger" onPress={() => {}} />
         </View>
       </View>
     ))}
-    <VoiceButton label='Record payment' onPress={() => {}} />
+    <VoiceButton label="Record payment" onPress={() => {}} />
   </ScrollView>
 );
 

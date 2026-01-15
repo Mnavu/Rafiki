@@ -4,7 +4,8 @@ from rest_framework import status
 from rest_framework.test import APIClient
 from decimal import Decimal
 
-from users.models import User, Student, HOD, Department
+from users.models import User, Student, HOD
+from core.models import Department
 from learning.models import Programme, CurriculumUnit, Registration
 from finance.models import FinanceStatus
 
@@ -18,7 +19,7 @@ class StudentLifecycleTest(TestCase):
         self.student_user = User.objects.create_user("student", "student@test.com", "password", role=User.Roles.STUDENT)
 
         # Create department and programme
-        self.department = Department.objects.create(name="Computer Science")
+        self.department = Department.objects.create(name="Computer Science", code="CS")
         self.programme = Programme.objects.create(name="BSc. Computer Science", code="CS", department=self.department, duration_years=4, trimesters_per_year=3)
         
         # Create HOD profile

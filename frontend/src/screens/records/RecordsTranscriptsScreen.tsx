@@ -17,11 +17,11 @@ export const RecordsTranscriptsScreen: React.FC = () => (
     <Text style={styles.subtitle}>Generate watermarked PDFs and share securely.</Text>
     {transcripts.map((item) => (
       <View key={item.student} style={styles.card}>
-        <Ionicons name='document-text' size={28} color={palette.secondary} />
+        <Ionicons name="document-text" size={28} color={palette.secondary} />
         <View style={styles.cardBody}>
           <Text style={styles.cardTitle}>{item.student}</Text>
           <Text style={styles.cardMeta}>{item.status}</Text>
-          <VoiceButton label='Generate' onPress={() => {}} />
+          <VoiceButton label="Generate" onPress={() => {}} />
         </View>
       </View>
     ))}

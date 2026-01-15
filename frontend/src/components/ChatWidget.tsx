@@ -13,7 +13,6 @@ import { Ionicons } from '@expo/vector-icons';
 import * as Speech from 'expo-speech';
 import { palette, spacing, typography, radius } from '@theme/index';
 import { useAuth } from '@context/AuthContext';
-import type { Role } from '@app-types/roles';
 import { transcribeAudio, askChatbot } from '@services/api';
 import { useVoiceRecorder } from '@hooks/useVoiceRecorder';
 
@@ -21,7 +20,6 @@ type Message = { id: string; text: string; from: 'user' | 'bot' };
 
 type ChatWidgetProps = {
   onClose?: () => void;
-  onNavigateRole?: (role: Role) => void;
 };
 
 const introMessages: Message[] = [
@@ -37,7 +35,7 @@ const introMessages: Message[] = [
   },
 ];
 
-export const ChatWidget: React.FC<ChatWidgetProps> = ({ onClose, onNavigateRole }) => {
+export const ChatWidget: React.FC<ChatWidgetProps> = ({ onClose }) => {
   const { state } = useAuth();
   const token = state.accessToken;
   const userName = useMemo(
@@ -91,7 +89,7 @@ export const ChatWidget: React.FC<ChatWidgetProps> = ({ onClose, onNavigateRole 
         const response = await askChatbot(token, cleaned);
         appendBotMessage(response.text);
       } catch (error) {
-        console.error("Chatbot error:", error);
+        console.error('Chatbot error:', error);
         appendBotMessage("I'm having a little trouble right now. Please try again later.");
       }
     },

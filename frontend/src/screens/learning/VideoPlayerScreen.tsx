@@ -20,7 +20,7 @@ export const VideoPlayerScreen = () => {
                 useNativeControls
                 resizeMode={ResizeMode.CONTAIN}
                 isLooping
-                onPlaybackStatusUpdate={status => setStatus(() => status)}
+                onPlaybackStatusUpdate={newStatus => setStatus(() => newStatus)}
             />
             <View style={styles.buttons}>
                 <Button
@@ -32,7 +32,7 @@ export const VideoPlayerScreen = () => {
             </View>
         </View>
     );
-}
+};
 
 const styles = StyleSheet.create({
     container: {

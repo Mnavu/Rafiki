@@ -18,12 +18,12 @@ export const VoiceSearchBar: React.FC<VoiceSearchBarProps> = ({
     <View style={styles.wrapper}>
       <TouchableOpacity style={styles.container} activeOpacity={0.9} onPress={onPress}>
         <View style={styles.left}>
-          <Ionicons name='search' size={18} color={palette.textSecondary} />
+          <Ionicons name="search" size={18} color={palette.textSecondary} />
           <Text style={styles.placeholder}>{placeholder}</Text>
         </View>
         <View style={styles.actions}>
           <TouchableOpacity style={styles.micButton} onPress={onVoicePress}>
-            <Ionicons name='mic' size={18} color={palette.textPrimary} />
+            <Ionicons name="mic" size={18} color={palette.textPrimary} />
           </TouchableOpacity>
           <View style={styles.brandPill}>
             <Text style={styles.brandText}>EA</Text>

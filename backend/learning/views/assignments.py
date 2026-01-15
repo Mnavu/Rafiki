@@ -11,7 +11,7 @@ from users.models import User
 
 
 class AssignmentViewSet(ScopedListMixin, viewsets.ModelViewSet):
-    queryset = Assignment.objects.select_related("unit", "unit__course", "lecturer")
+    queryset = Assignment.objects.select_related("unit", "unit__programme", "lecturer")
     serializer_class = AssignmentSerializer
     permission_classes = [permissions.IsAuthenticated, IsSelfOrElevated]
 
@@ -73,7 +73,7 @@ class SubmissionViewSet(ScopedListMixin, viewsets.ModelViewSet):
 
 
 class RegistrationViewSet(ScopedListMixin, viewsets.ModelViewSet):
-    queryset = Registration.objects.select_related("student", "unit", "unit__course")
+    queryset = Registration.objects.select_related("student", "unit", "unit__programme")
     serializer_class = RegistrationSerializer
     permission_classes = [permissions.IsAuthenticated, IsSelfOrElevated]
 

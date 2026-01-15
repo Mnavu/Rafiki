@@ -15,11 +15,11 @@ export const RecordsReportsScreen: React.FC = () => (
     <Text style={styles.subtitle}>Generate documents for senate or accreditation reviews.</Text>
     {reports.map((report) => (
       <View key={report.title} style={styles.card}>
-        <Ionicons name='stats-chart' size={28} color={palette.primary} />
+        <Ionicons name="stats-chart" size={28} color={palette.primary} />
         <View style={styles.cardBody}>
           <Text style={styles.cardTitle}>{report.title}</Text>
           <Text style={styles.cardMeta}>{report.detail}</Text>
-          <VoiceButton label='Download' onPress={() => {}} />
+          <VoiceButton label="Download" onPress={() => {}} />
         </View>
       </View>
     ))}

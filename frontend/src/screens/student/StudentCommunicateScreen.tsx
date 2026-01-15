@@ -9,14 +9,14 @@ import { RootStackParamList } from '@navigation/AppNavigator';
 const fetchLecturers = async (token: string): Promise<ApiUser[]> => {
     const response = await fetch('http://127.0.0.1:8000/api/learning/my-lecturers/', {
         headers: {
-            'Authorization': `Bearer ${token}`
-        }
+            'Authorization': `Bearer ${token}`,
+        },
     });
     if (!response.ok) {
         throw new Error('Failed to fetch lecturers');
     }
     return response.json();
-}
+};
 
 export const StudentCommunicateScreen = () => {
     const { state } = useAuth();
@@ -28,7 +28,7 @@ export const StudentCommunicateScreen = () => {
         if (state.accessToken) {
             fetchLecturers(state.accessToken)
                 .then(setLecturers)
-                .catch(err => Alert.alert("Error", "Could not load lecturers."))
+                .catch(_err => Alert.alert('Error', 'Could not load lecturers.'))
                 .finally(() => setLoading(false));
         }
     }, [state.accessToken]);
@@ -37,17 +37,17 @@ export const StudentCommunicateScreen = () => {
         if (lecturer.phone) {
             Linking.openURL(`tel:${lecturer.phone}`);
         } else {
-            Alert.alert("No Phone Number", "This lecturer has not provided a phone number.");
+            Alert.alert('No Phone Number', 'This lecturer has not provided a phone number.');
         }
     };
 
     const handleVoiceNote = async (lecturer: ApiUser) => {
-        if (!state.accessToken || !state.user) return;
+        if (!state.accessToken || !state.user) {return;}
         try {
             const thread = await createStudentDirectMessage(state.accessToken, lecturer.id);
             navigation.navigate('LecturerMessages', { threadId: thread.id });
         } catch (error) {
-            Alert.alert("Error", "Could not start a conversation.");
+            Alert.alert('Error', 'Could not start a conversation.');
         }
     };
 
@@ -62,7 +62,7 @@ export const StudentCommunicateScreen = () => {
     );
 
     if (loading) {
-        return <View style={styles.container}><Text>Loading...</Text></View>
+        return <View style={styles.container}><Text>Loading...</Text></View>;
     }
 
     return (
@@ -100,5 +100,5 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-around',
         marginTop: 10,
-    }
+    },
 });

@@ -25,7 +25,7 @@ class ProgressSummaryView(APIView):
 
         registrations = Registration.objects.filter(student=student, status='approved').select_related('unit__programme')
         
-        unit_progress = []
+        programmes_progress = {}
         completed_units = 0
         total_units = registrations.count()
         
@@ -40,6 +40,17 @@ class ProgressSummaryView(APIView):
 
         for reg in registrations:
             unit = reg.unit
+            programme = unit.programme
+            
+            if programme.id not in programmes_progress:
+                programmes_progress[programme.id] = {
+                    "programme_id": programme.id,
+                    "programme_name": programme.name,
+                    "programme_code": programme.code,
+                    "unit_progress": [],
+                    "programme_grades": [],
+                }
+
             submissions_for_unit = submissions_by_unit.get(unit.id, [])
             
             grades = [float(s.grade) for s in submissions_for_unit if s.grade is not None]
@@ -49,34 +60,32 @@ class ProgressSummaryView(APIView):
 
             if is_completed:
                 completed_units += 1
+                if average_grade is not None:
+                    programmes_progress[programme.id]["programme_grades"].append(average_grade)
 
-            unit_progress.append({
+            programmes_progress[programme.id]['unit_progress'].append({
                 'unit_id': unit.id,
                 'unit_code': unit.code,
                 'unit_title': unit.title,
-                'programme_id': unit.programme.id,
-                'programme_name': unit.programme.name,
                 'average_grade': average_grade,
                 'completed': is_completed,
-                'submissions': [{
-                    'assignment_id': s.assignment.id,
-                    'assignment_title': s.assignment.title,
-                    'grade': s.grade,
-                } for s in submissions_for_unit]
             })
 
-        overall_average = sum(up['average_grade'] for up in unit_progress if up['average_grade'] is not None) / completed_units if completed_units > 0 else None
+        for prog_id, prog_data in programmes_progress.items():
+            prog_grades = prog_data["programme_grades"]
+            prog_data["average_score"] = sum(prog_grades) / len(prog_grades) if prog_grades else None
+            del prog_data["programme_grades"]
+
 
         response_data = {
             "student": {
-                "id": student.user.id,
+                "id": student.pk,
                 "username": student.user.username,
                 "display_name": student.user.display_name,
             },
-            "unit_progress": unit_progress,
+            "programmes": list(programmes_progress.values()),
             "completed_units": completed_units,
             "total_units": total_units,
-            "overall_average": overall_average,
         }
         
         return Response(response_data)

@@ -55,7 +55,7 @@ export const LecturerAssignmentsScreen: React.FC = () => {
       try {
         const data = await fetchCourses(token);
         const owned = data.filter((course) => course.lecturer === lecturerId);
-        if (!active) return;
+        if (!active) {return;}
         setCourses(owned);
         if (owned.length && !courseId) {
           setCourseId(owned[0].id);
@@ -156,7 +156,7 @@ export const LecturerAssignmentsScreen: React.FC = () => {
       </Text>
       {markingQueue.map((item) => (
         <View key={item.title} style={styles.card}>
-          <Ionicons name='reader' size={28} color={palette.accent} />
+          <Ionicons name="reader" size={28} color={palette.accent} />
           <View style={styles.cardBody}>
             <Text style={styles.cardTitle}>{item.title}</Text>
             <Text style={styles.cardMeta}>
@@ -165,7 +165,7 @@ export const LecturerAssignmentsScreen: React.FC = () => {
             <VoiceButton
               label={item.action}
               onPress={() => navigation.navigate('LecturerRecords')}
-              accessibilityHint='Opens the grading view'
+              accessibilityHint="Opens the grading view"
             />
           </View>
         </View>
@@ -173,10 +173,10 @@ export const LecturerAssignmentsScreen: React.FC = () => {
       <VoiceButton
         label={submitting ? 'Uploading...' : 'Create new assignment'}
         onPress={() => setShowUpload(true)}
-        accessibilityHint='Upload a new assignment to the Library'
+        accessibilityHint="Upload a new assignment to the Library"
       />
 
-      <Modal visible={showUpload} animationType='slide' onRequestClose={() => setShowUpload(false)}>
+      <Modal visible={showUpload} animationType="slide" onRequestClose={() => setShowUpload(false)}>
         <ScrollView contentContainerStyle={styles.modal}>
           <Text style={styles.modalTitle}>Upload to Library</Text>
           <Text style={styles.modalLabel}>Title</Text>
@@ -184,7 +184,7 @@ export const LecturerAssignmentsScreen: React.FC = () => {
             style={styles.input}
             value={title}
             onChangeText={setTitle}
-            placeholder='e.g. ICT201 Homework 5'
+            placeholder="e.g. ICT201 Homework 5"
           />
 
           <Text style={styles.modalLabel}>Where are you uploading from?</Text>
@@ -207,8 +207,8 @@ export const LecturerAssignmentsScreen: React.FC = () => {
                 style={styles.input}
                 value={linkUrl}
                 onChangeText={setLinkUrl}
-                autoCapitalize='none'
-                placeholder='https://example.com/material.pdf'
+                autoCapitalize="none"
+                placeholder="https://example.com/material.pdf"
               />
             </>
           ) : (
@@ -249,11 +249,11 @@ export const LecturerAssignmentsScreen: React.FC = () => {
 
           {showDatePicker && (
             <DateTimePicker
-              testID='dateTimePicker'
+              testID="dateTimePicker"
               value={dueDate || new Date()}
-              mode='date'
+              mode="date"
               is24Hour={true}
-              display='default'
+              display="default"
               onChange={onDateChange}
             />
           )}
@@ -264,11 +264,11 @@ export const LecturerAssignmentsScreen: React.FC = () => {
             value={description}
             onChangeText={setDescription}
             multiline
-            placeholder='Short details that help students'
+            placeholder="Short details that help students"
           />
 
           <View style={styles.modalActions}>
-            <VoiceButton label='Cancel' onPress={() => setShowUpload(false)} />
+            <VoiceButton label="Cancel" onPress={() => setShowUpload(false)} />
             <VoiceButton
               label={submitting ? 'Uploading...' : 'Upload'}
               onPress={submitUpload}

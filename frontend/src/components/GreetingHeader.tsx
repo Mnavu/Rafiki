@@ -29,8 +29,8 @@ export const GreetingHeader: React.FC<GreetingHeaderProps> = ({
         <TouchableOpacity
           style={styles.avatarWrapper}
           onPress={onSpeak}
-          accessibilityRole='button'
-          accessibilityLabel='Read greeting aloud'
+          accessibilityRole="button"
+          accessibilityLabel="Read greeting aloud"
         >
           {avatarUri ? (
             <Image source={{ uri: avatarUri }} style={styles.avatar} />

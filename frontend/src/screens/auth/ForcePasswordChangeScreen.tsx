@@ -69,7 +69,7 @@ export const ForcePasswordChangeScreen: React.FC = () => {
       <View style={styles.inputRow}>
         <TextInput
           style={[styles.input, styles.inputFlex]}
-          placeholder='New password'
+          placeholder="New password"
           secureTextEntry={!showPassword}
           value={password}
           onChangeText={setPassword}
@@ -77,7 +77,7 @@ export const ForcePasswordChangeScreen: React.FC = () => {
         <TouchableOpacity
           onPress={() => setShowPassword((prev) => !prev)}
           style={styles.eyeButton}
-          accessibilityRole='button'
+          accessibilityRole="button"
           accessibilityLabel={showPassword ? 'Hide password' : 'Show password'}
         >
           <Ionicons
@@ -90,7 +90,7 @@ export const ForcePasswordChangeScreen: React.FC = () => {
       <View style={styles.inputRow}>
         <TextInput
           style={[styles.input, styles.inputFlex]}
-          placeholder='Confirm password'
+          placeholder="Confirm password"
           secureTextEntry={!showConfirm}
           value={confirm}
           onChangeText={setConfirm}
@@ -98,7 +98,7 @@ export const ForcePasswordChangeScreen: React.FC = () => {
         <TouchableOpacity
           onPress={() => setShowConfirm((prev) => !prev)}
           style={styles.eyeButton}
-          accessibilityRole='button'
+          accessibilityRole="button"
           accessibilityLabel={showConfirm ? 'Hide password' : 'Show password'}
         >
           <Ionicons
@@ -111,9 +111,9 @@ export const ForcePasswordChangeScreen: React.FC = () => {
       <VoiceButton
         label={submitting ? 'Saving...' : 'Save password'}
         onPress={handleSubmit}
-        accessibilityHint='Set new password'
+        accessibilityHint="Set new password"
       />
-      <VoiceButton label='Logout' onPress={logout} accessibilityHint='Sign out' />
+      <VoiceButton label="Logout" onPress={logout} accessibilityHint="Sign out" />
     </View>
   );
 };

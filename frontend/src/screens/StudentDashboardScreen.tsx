@@ -54,9 +54,9 @@ const StudentDashboardScreen: React.FC<StudentDashboardScreenProps> = ({ navigat
   );
 
   useEffect(() => {
-    if (programmeData) setProgramme(programmeData);
-    if (registrationsData) setRegistrations(registrationsData);
-    if (offeredUnitsData) setOfferedUnits(offeredUnitsData);
+    if (programmeData) {setProgramme(programmeData);}
+    if (registrationsData) {setRegistrations(registrationsData);}
+    if (offeredUnitsData) {setOfferedUnits(offeredUnitsData);}
   }, [programmeData, registrationsData, offeredUnitsData]);
 
   if (!state.user || !studentProfile) {

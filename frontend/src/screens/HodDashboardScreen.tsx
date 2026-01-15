@@ -7,7 +7,7 @@ import { RootStackParamList } from '@navigation/AppNavigator';
 import { useAuth } from '@context/AuthContext';
 import { useQuery } from '@tanstack/react-query';
 import { API } from '@services/api';
-import { Hod, Department, Programme, StudentProfile, LecturerProfile } from '../types/models';
+import { Department, Programme, StudentProfile, LecturerProfile } from '../types/models';
 import Colors from '@theme/Colors';
 
 type HodDashboardScreenProps = StackScreenProps<RootStackParamList, 'Dashboard'>;
@@ -61,10 +61,10 @@ const HodDashboardScreen: React.FC<HodDashboardScreenProps> = ({ navigation }) =
   );
 
   useEffect(() => {
-    if (departmentData) setDepartment(departmentData);
-    if (departmentProgrammesData) setDepartmentProgrammes(departmentProgrammesData);
-    if (departmentLecturersData) setDepartmentLecturers(departmentLecturersData);
-    if (eligibleStudentsData) setEligibleStudents(eligibleStudentsData);
+    if (departmentData) {setDepartment(departmentData);}
+    if (departmentProgrammesData) {setDepartmentProgrammes(departmentProgrammesData);}
+    if (departmentLecturersData) {setDepartmentLecturers(departmentLecturersData);}
+    if (eligibleStudentsData) {setEligibleStudents(eligibleStudentsData);}
   }, [departmentData, departmentProgrammesData, departmentLecturersData, eligibleStudentsData]);
 
   if (!state.user || !hodProfile) {

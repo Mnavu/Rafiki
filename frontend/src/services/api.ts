@@ -705,7 +705,7 @@ export const createResource = async (
   token: string,
   payload: CreateResourcePayload,
 ): Promise<ApiResource> => {
-  const { title, description, kind, url, fileUri, fileMimeType, course } = payload;
+  const { title, description, kind, url, fileUri, course } = payload;
   const form = new FormData();
   form.append('title', title);
   form.append('kind', kind);
@@ -717,11 +717,13 @@ export const createResource = async (
   }
   form.append('course', String(course));
   if (fileUri) {
+    const fileMimeType = 'application/octet-stream'; // Or determine from file extension
     form.append('file', {
       uri: fileUri,
       // backend does not care about the exact name, use a timestamp
       name: `upload-${Date.now()}`,
-    });
+      type: fileMimeType,
+    } as any);
   }
   const response = await fetch(endpoints.resources(), {
     method: 'POST',

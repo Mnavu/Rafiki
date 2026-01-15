@@ -203,4 +203,4 @@ class HodDashboardViewSet(viewsets.ViewSet):
             }
             dashboard_data.append(dept_data)
             
-        return Response(dashboard.data) # Placeholder response
+        return Response(dashboard_data)

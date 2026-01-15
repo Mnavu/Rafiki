@@ -9,7 +9,7 @@ interface RoleBadgeProps {
 export const RoleBadge: React.FC<RoleBadgeProps> = ({ role }) => (
   <View
     style={[styles.container, { backgroundColor: roleColors[role] }]}
-    accessibilityRole='text'
+    accessibilityRole="text"
     accessibilityLabel={`Current role ${role}`}
   >
     <Text style={styles.text}>{role.toUpperCase()}</Text>

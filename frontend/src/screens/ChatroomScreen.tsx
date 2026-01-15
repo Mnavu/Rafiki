@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, ScrollView, View, TextInput, Alert, FlatList } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, View, TextInput, Alert, FlatList } from 'react-native';
 import { Text } from '@components/Themed';
 import { StackScreenProps } from '@react-navigation/stack';
 import { RootStackParamList } from '@navigation/AppNavigator';
 import { useAuth } from '@context/AuthContext';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { API } from '@services/api';
-import { ChatMessage, CourseChatroom, User } from '../types/models';
+import { ChatMessage, CourseChatroom } from '../types/models';
 import Colors from '@theme/Colors';
+import { TileButton } from '@components/TileButton';
 
 type ChatroomScreenProps = StackScreenProps<RootStackParamList, 'Chatroom'>;
 

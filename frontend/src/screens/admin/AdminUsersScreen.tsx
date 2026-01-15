@@ -237,7 +237,7 @@ export const AdminUsersScreen: React.FC = () => {
 
   const renderUserCard = (user: ApiUser) => (
     <View key={user.id} style={styles.card}>
-      <Ionicons name='person' size={28} color={palette.primary} />
+      <Ionicons name="person" size={28} color={palette.primary} />
       <View style={styles.cardBody}>
         <Text style={styles.cardTitle}>{user.username}</Text>
         <Text style={styles.cardMeta}>
@@ -257,7 +257,7 @@ export const AdminUsersScreen: React.FC = () => {
           onPress={() =>
             isSuperAdmin ? handleAssign(user) : Alert.alert('Roles', 'Review completed.')
           }
-          accessibilityHint='Cycle to the next available role for this user'
+          accessibilityHint="Cycle to the next available role for this user"
         />
       </View>
     </View>
@@ -268,9 +268,9 @@ export const AdminUsersScreen: React.FC = () => {
       <Text style={styles.title}>Users & Roles</Text>
       <Text style={styles.subtitle}>{subtitle}</Text>
       <VoiceButton
-        label='Refresh list'
+        label="Refresh list"
         onPress={loadUsers}
-        accessibilityHint='Reload the latest user roles'
+        accessibilityHint="Reload the latest user roles"
       />
       {loading ? (
         <ActivityIndicator color={palette.primary} />
@@ -336,7 +336,7 @@ export const AdminUsersScreen: React.FC = () => {
         <>
           <View style={styles.requestSection}>
             <Text style={styles.sectionTitle}>Pending provisioning requests</Text>
-            <VoiceButton label='Refresh requests' onPress={loadRequests} />
+            <VoiceButton label="Refresh requests" onPress={loadRequests} />
             {loadingRequests ? (
               <ActivityIndicator color={palette.primary} />
             ) : requestError ? (

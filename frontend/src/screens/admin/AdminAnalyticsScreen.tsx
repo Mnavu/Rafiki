@@ -24,7 +24,7 @@ export const AdminAnalyticsScreen: React.FC = () => {
   ];
 
   if (isLoading) {
-    return <ActivityIndicator style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} />;
+    return <ActivityIndicator style={styles.loadingContainer} />;
   }
 
   return (
@@ -40,13 +40,14 @@ export const AdminAnalyticsScreen: React.FC = () => {
           </View>
         </View>
       ))}
-      <VoiceButton label='Export analytics' onPress={() => {}} />
+      <VoiceButton label="Export analytics" onPress={() => {}} />
     </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: { padding: spacing.lg, gap: spacing.lg, backgroundColor: palette.background },
+  loadingContainer: { flex: 1, justifyContent: 'center', alignItems: 'center' },
   title: { ...typography.headingXL, color: palette.textPrimary },
   subtitle: { ...typography.body, color: palette.textSecondary },
   card: {

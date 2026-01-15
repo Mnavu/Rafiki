@@ -23,11 +23,11 @@ export const HodPerformanceScreen: React.FC = () => (
           <Text style={styles.cardMeta}>
             Average {metric.average}% � Pass rate {metric.passRate}
           </Text>
-          <VoiceButton label='View breakdown' onPress={() => {}} />
+          <VoiceButton label="View breakdown" onPress={() => {}} />
         </View>
       </View>
     ))}
-    <VoiceButton label='Export PDF' onPress={() => {}} />
+    <VoiceButton label="Export PDF" onPress={() => {}} />
   </ScrollView>
 );
 

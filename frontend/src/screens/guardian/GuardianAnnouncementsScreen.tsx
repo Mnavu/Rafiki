@@ -15,11 +15,11 @@ export const GuardianAnnouncementsScreen: React.FC = () => (
     <Text style={styles.subtitle}>All notices are transcribed and can be played aloud.</Text>
     {announcements.map((item) => (
       <View key={item.title} style={styles.card}>
-        <Ionicons name='megaphone' size={28} color={palette.accent} />
+        <Ionicons name="megaphone" size={28} color={palette.accent} />
         <View style={styles.cardBody}>
           <Text style={styles.cardTitle}>{item.title}</Text>
           <Text style={styles.cardMeta}>{item.detail}</Text>
-          <VoiceButton label='Play announcement' onPress={() => {}} />
+          <VoiceButton label="Play announcement" onPress={() => {}} />
         </View>
       </View>
     ))}

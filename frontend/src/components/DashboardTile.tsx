@@ -25,7 +25,7 @@ export const DashboardTile: React.FC<DashboardTileProps> = ({
 }) => {
   return (
     <TouchableOpacity
-      accessibilityRole='button'
+      accessibilityRole="button"
       accessibilityLabel={title}
       onPress={onPress}
       onLongPress={onLongPressSpeak}

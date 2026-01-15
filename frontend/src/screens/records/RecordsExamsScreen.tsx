@@ -19,11 +19,11 @@ export const RecordsExamsScreen: React.FC = () => (
         <View style={styles.cardBody}>
           <Text style={styles.cardTitle}>{item.file}</Text>
           <Text style={styles.cardMeta}>{item.status}</Text>
-          <VoiceButton label='Open' onPress={() => {}} />
+          <VoiceButton label="Open" onPress={() => {}} />
         </View>
       </View>
     ))}
-    <VoiceButton label='Download template' onPress={() => {}} />
+    <VoiceButton label="Download template" onPress={() => {}} />
   </ScrollView>
 );
 

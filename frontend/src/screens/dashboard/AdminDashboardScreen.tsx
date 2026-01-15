@@ -79,12 +79,12 @@ export const AdminDashboardScreen: React.FC = () => {
           />
         }
       >
-        <GreetingHeader name='System Admin' />
+        <GreetingHeader name="System Admin" />
         <VoiceSearchBar
           onPress={() => navigation.navigate('Search')}
           onVoicePress={() => navigation.navigate('Search')}
         />
-        <AlertBanner message='High-contrast mode enabled system wide' variant='success' />
+        <AlertBanner message="High-contrast mode enabled system wide" variant="success" />
         <View style={styles.tiles}>
           {adminTiles.map((tile) => (
             <DashboardTile

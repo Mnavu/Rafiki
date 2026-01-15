@@ -22,11 +22,11 @@ export const StudentHelpScreen: React.FC = () => (
       Ask a question or tap a topic below. Everything can be read aloud.
     </Text>
     <View style={styles.card}>
-      <Ionicons name='chatbubbles' size={32} color={palette.accent} />
+      <Ionicons name="chatbubbles" size={32} color={palette.accent} />
       <View style={styles.cardBody}>
         <Text style={styles.cardTitle}>Talk to advisor</Text>
         <Text style={styles.cardDescription}>Start a live chat with your support teacher.</Text>
-        <VoiceButton label='Start chat' onPress={() => {}} />
+        <VoiceButton label="Start chat" onPress={() => {}} />
       </View>
     </View>
     <Text style={styles.subtitle}>Popular questions</Text>
@@ -36,7 +36,7 @@ export const StudentHelpScreen: React.FC = () => (
         <Text style={styles.faqAnswer}>{faq.answer}</Text>
       </View>
     ))}
-    <VoiceButton label='Speak to EduAssist' onPress={() => {}} accessibilityHint='Open assistant' />
+    <VoiceButton label="Speak to EduAssist" onPress={() => {}} accessibilityHint="Open assistant" />
   </ScrollView>
 );
 

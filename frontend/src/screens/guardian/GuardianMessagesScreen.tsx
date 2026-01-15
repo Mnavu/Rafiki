@@ -9,10 +9,10 @@ const guardianTemplates: QuickTemplate[] = [
 
 export const GuardianMessagesScreen: React.FC = () => (
   <VoiceThreadScreen
-    title='Family communications'
-    subtitle='Share quick feedback or voice notes with lecturers and advisors.'
+    title="Family communications"
+    subtitle="Share quick feedback or voice notes with lecturers and advisors."
     quickTemplates={guardianTemplates}
-    voiceCardTitle='Guardian voice note'
+    voiceCardTitle="Guardian voice note"
     voiceCardDescription="Hold to record a short note for your child's teacher. We will attach both audio and text."
     notificationRoute={{ name: 'GuardianMessages' }}
   />

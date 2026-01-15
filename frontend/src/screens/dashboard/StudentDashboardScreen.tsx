@@ -98,7 +98,7 @@ export const StudentDashboardScreen: React.FC = () => {
           onPress={() => navigation.navigate('Search')}
           onVoicePress={() => navigation.navigate('Search')}
         />
-        <AlertBanner message='Math class starts in 15 minutes' variant='warning' />
+        <AlertBanner message="Math class starts in 15 minutes" variant="warning" />
         <View style={styles.tiles}>
           {studentTiles.map((tile) => (
             <DashboardTile
@@ -113,11 +113,11 @@ export const StudentDashboardScreen: React.FC = () => {
         </View>
       </ScrollView>
       <VoiceButton
-        label='Speak timetable'
+        label="Speak timetable"
         onPress={() => navigation.navigate('StudentTimetable')}
         accessibilityHint="Reads today's classes"
       />
-      <FloatingAssistantButton label='Chat' onPress={() => setShowAssistant(true)} />
+      <FloatingAssistantButton label="Chat" onPress={() => setShowAssistant(true)} />
       <BottomUtilityBar
         items={[
           { label: 'Home', isActive: true },

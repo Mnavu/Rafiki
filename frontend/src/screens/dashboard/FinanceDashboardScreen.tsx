@@ -85,12 +85,12 @@ export const FinanceDashboardScreen: React.FC = () => {
           />
         }
       >
-        <GreetingHeader name='Finance Team' />
+        <GreetingHeader name="Finance Team" />
         <VoiceSearchBar
           onPress={() => navigation.navigate('Search')}
           onVoicePress={() => navigation.navigate('Search')}
         />
-        <AlertBanner message='45 overdue accounts' variant='warning' />
+        <AlertBanner message="45 overdue accounts" variant="warning" />
         <View style={styles.kpiRow}>
           {kpis.map((kpi) => (
             <View
@@ -98,7 +98,7 @@ export const FinanceDashboardScreen: React.FC = () => {
               style={[styles.kpiCard, { borderColor: kpi.color }]}
               accessibilityLabel={`${kpi.label} ${kpi.value}`}
             >
-              <Ionicons name='speedometer' size={24} color={kpi.color} />
+              <Ionicons name="speedometer" size={24} color={kpi.color} />
               <Text style={styles.kpiLabel}>{kpi.label}</Text>
               <Text style={styles.kpiValue}>{kpi.value}</Text>
             </View>

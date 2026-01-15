@@ -45,13 +45,13 @@ export const StudentTimetableScreen: React.FC = () => {
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
-            <Text style={styles.title}>{filterDate ? filterDate.toLocaleDateString('en-US', { weekday: 'long' }) : "Timetable"}</Text>
+            <Text style={styles.title}>{filterDate ? filterDate.toLocaleDateString('en-US', { weekday: 'long' }) : 'Timetable'}</Text>
             <Text style={styles.subtitle}>Tap any card to hear the details or join a virtual class.</Text>
-            
+
             <View style={styles.filterContainer}>
-                <VoiceButton 
-                    label={filterDate ? `Filtering for: ${filterDate.toLocaleDateString()}` : "Filter by Date"}
-                    onPress={() => setShowDatePicker(true)} 
+                <VoiceButton
+                    label={filterDate ? `Filtering for: ${filterDate.toLocaleDateString()}` : 'Filter by Date'}
+                    onPress={() => setShowDatePicker(true)}
                 />
                 {filterDate && <VoiceButton label="Show All" onPress={() => setFilterDate(null)} />}
             </View>
@@ -69,7 +69,7 @@ export const StudentTimetableScreen: React.FC = () => {
             {filteredClasses.length > 0 ? filteredClasses.map((item) => (
             <View key={item.subject} style={styles.card}>
                 <View style={styles.iconWrapper}>
-                <Ionicons name='time' size={28} color={palette.primary} />
+                <Ionicons name="time" size={28} color={palette.primary} />
                 </View>
                 <View style={styles.cardBody}>
                 <Text style={styles.cardTitle}>{item.subject}</Text>
@@ -82,15 +82,15 @@ export const StudentTimetableScreen: React.FC = () => {
             )) : (
                 <Text style={styles.noResults}>No classes scheduled for this date.</Text>
             )}
-            
+
             <VoiceButton
-            label='Speak entire timetable'
+            label="Speak entire timetable"
             onPress={() => {}}
-            accessibilityHint='Read out schedule'
+            accessibilityHint="Read out schedule"
             />
         </ScrollView>
     );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
