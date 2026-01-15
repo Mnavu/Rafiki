@@ -174,8 +174,6 @@ Nanu is steadily evolving into a unified, voice-forward experience that rewards 
 ## Team Members
 
 - **Aaliyah**: [Hedera Certification][hederarita.pdf](https://github.com/user-attachments/files/23535738/hederarita.pdf)
-- **Leon**: [Hedera Certification][hederarene.pdf][leon.pdf](https://github.com/user-attachments/files/23535742/leon.pdf)
-
 - **Salma**: [Hedera Certification[hederasalma.pdf](https://github.com/user-attachments/files/23535740/hederasalma.pdf)
 - **Rene**: [Hedera Certification](https://github.com/user-attachments/files/23535718/hederarene.pdf)
 - **Aisha**: [Hedera Certification][hederaaisha.pdf](https://github.com/user-attachments/files/23535730/hederaaisha.pdf)
