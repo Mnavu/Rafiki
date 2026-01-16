@@ -1,9 +1,10 @@
 from django.contrib.auth import get_user_model
 from django.core.management.base import BaseCommand
 
-from learning.models import Programme, CurriculumUnit
-from repository.models import Resource
+from learning.models import Programme, CurriculumUnit, TermOffering
+from repository.models import LibraryAsset
 from users.models import Student, Guardian, Lecturer, HOD, Admin, RecordsOfficer, FinanceOfficer
+from core.models import Department
 
 DEMO_USERS = [
     {
@@ -108,7 +109,7 @@ class Command(BaseCommand):
 
             # Create role-specific profiles
             if role == 'student':
-                Student.objects.get_or_create(user=user, defaults={'student_id': username, 'year': 1, 'trimester': 1, 'trimester_label': 'T1', 'cohort_year': 2024})
+                Student.objects.get_or_create(user=user, defaults={'student_id': username, 'year': 1, 'trimester': 1, 'trimester_label': 'T1'})
             elif role == 'parent':
                 Guardian.objects.get_or_create(user=user)
             elif role == 'lecturer':
@@ -140,16 +141,97 @@ class Command(BaseCommand):
             code="TTM101-U1",
             title="Week 1: Tourism Foundations",
             credit_hours=3,
-            defaults={"description": "Overview of tourism concepts, terminology, and industry sectors."},
         )
 
-        Resource.objects.update_or_create(
+        LibraryAsset.objects.update_or_create(
             title="Tourism Basics Handbook",
             defaults={
-                "kind": Resource.Kind.PDF,
-                "description": "A primer covering tourism definitions, geography, and customer care.",
+                "type": LibraryAsset.AssetType.PDF,
                 "url": "https://example.com/tourism-basics.pdf",
             },
         )
+
+        self.stdout.write(self.style.MIGRATE_HEADING("Seeding Tourism & Travel Programme"))
+
+        # Create Department
+        tourism_dept, _ = Department.objects.get_or_create(
+            code="TT",
+            defaults={"name": "Tourism and Travel"},
+        )
+
+        # Create Programme
+        tourism_programme, _ = Programme.objects.get_or_create(
+            code="CTT01",
+            defaults={
+                "name": "Certificate in Tourism and Travel",
+                "award_level": "Certificate",
+                "duration_years": 2,
+                "trimesters_per_year": 3,
+                "department": tourism_dept,
+            },
+        )
+
+        tourism_units = {
+            1: {
+                1: [
+                    {"code": "TT-111", "title": "Introduction to the Global Travel & Tourism Industry", "credits": 3},
+                    {"code": "TT-112", "title": "Travel Products and Services", "credits": 3},
+                    {"code": "TT-113", "title": "Customer Service", "credits": 3},
+                    {"code": "TT-114", "title": "Communication Skills", "credits": 3},
+                ],
+                2: [
+                    {"code": "TT-121", "title": "Destination Awareness and Management", "credits": 3},
+                    {"code": "TT-122", "title": "Marketing and Sales in the Travel Industry", "credits": 3},
+                    {"code": "TT-123", "title": "Tour Operations & Digital Distribution Channels", "credits": 3},
+                    {"code": "TT-124", "title": "Hospitality Management", "credits": 3},
+                ],
+                3: [
+                    {"code": "TT-131", "title": "Tourism Technology Systems and Booking Platforms", "credits": 3},
+                    {"code": "TT-132", "title": "Travel Regulations and Safety", "credits": 3},
+                    {"code": "TT-133", "title": "The Business of Tourism", "credits": 3},
+                    {"code": "TT-134", "title": "Introduction to Event Management", "credits": 3},
+                ],
+            },
+            2: {
+                1: [
+                    {"code": "TT-211", "title": "Advanced Tour Operations", "credits": 3},
+                    {"code": "TT-212", "title": "Sustainable Tourism", "credits": 3},
+                    {"code": "TT-213", "title": "Financial Management in Tourism", "credits": 3},
+                    {"code": "TT-214", "title": "Human Resource Management in Tourism", "credits": 3},
+                ],
+                2: [
+                    {"code": "TT-221", "title": "Ecotourism and Protected Area Management", "credits": 3},
+                    {"code": "TT-222", "title": "Niche Tourism", "credits": 3},
+                    {"code": "TT-223", "title": "Crisis Management in Tourism", "credits": 3},
+                    {"code": "TT-224", "title": "Research Methods in Tourism", "credits": 3},
+                ],
+                3: [
+                    {"code": "TT-231", "title": "Internship/Practicum", "credits": 6},
+                    {"code": "TT-232", "title": "Final Project", "credits": 6},
+                    {"code": "TT-233", "title": "Airline and Airport Operations", "credits": 3},
+                    {"code": "TT-234", "title": "Entrepreneurship in Tourism", "credits": 3},
+                ],
+            },
+        }
+
+        for year, trimesters in tourism_units.items():
+            for trimester, units in trimesters.items():
+                for unit_data in units:
+                    unit, _ = CurriculumUnit.objects.update_or_create(
+                        programme=tourism_programme,
+                        code=unit_data["code"],
+                        defaults={
+                            "title": unit_data["title"],
+                            "credit_hours": unit_data["credits"],
+                            "trimester_hint": trimester,
+                        },
+                    )
+                    TermOffering.objects.update_or_create(
+                        programme=tourism_programme,
+                        unit=unit,
+                        academic_year=year,
+                        trimester=trimester,
+                        defaults={"offered": True},
+                    )
 
         self.stdout.write(self.style.SUCCESS("Demo data seeded successfully."))

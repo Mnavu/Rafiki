@@ -22,6 +22,8 @@ class User(AbstractUser):
     role = models.CharField(max_length=32, choices=Roles.choices, default=Roles.GUEST)
     display_name = models.CharField(max_length=255, blank=True)
     phone = models.CharField(max_length=20, blank=True)
+    date_of_birth = models.DateField(null=True, blank=True)
+    address = models.TextField(blank=True)
     must_change_password = models.BooleanField(default=False)
     
     # Accessibility preferences
@@ -84,7 +86,7 @@ class Student(TimeStampedModel):
     year = models.IntegerField()
     trimester = models.IntegerField()
     trimester_label = models.CharField(max_length=50)
-    cohort_year = models.IntegerField()
+    admission_date = models.DateField(default=timezone.now)
     current_status = models.CharField(max_length=20, choices=Status.choices, default=Status.NEW)
     stars = models.IntegerField(default=0)
 

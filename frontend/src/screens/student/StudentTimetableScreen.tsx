@@ -1,9 +1,8 @@
 import React, { useState, useMemo } from 'react';
-import { ScrollView, View, StyleSheet, Text, Platform } from 'react-native';
+import { ScrollView, View, StyleSheet, Text } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { palette, spacing, typography } from '@theme/index';
-import { VoiceButton } from '@components/index';
-import DateTimePicker, { type DateTimePickerEvent } from '@react-native-community/datetimepicker';
+import { DatePicker, VoiceButton } from '@components/index';
 
 interface ClassSlot {
     time: string;
@@ -22,10 +21,8 @@ const classesData: ClassSlot[] = [
 
 export const StudentTimetableScreen: React.FC = () => {
     const [filterDate, setFilterDate] = useState<Date | null>(new Date());
-    const [showDatePicker, setShowDatePicker] = useState(false);
 
-    const onDateChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
-        setShowDatePicker(Platform.OS === 'ios');
+    const onDateChange = (event: any, selectedDate?: Date) => {
         if (selectedDate) {
             setFilterDate(selectedDate);
         }
@@ -49,22 +46,13 @@ export const StudentTimetableScreen: React.FC = () => {
             <Text style={styles.subtitle}>Tap any card to hear the details or join a virtual class.</Text>
 
             <View style={styles.filterContainer}>
-                <VoiceButton
-                    label={filterDate ? `Filtering for: ${filterDate.toLocaleDateString()}` : 'Filter by Date'}
-                    onPress={() => setShowDatePicker(true)}
+                <DatePicker
+                    value={filterDate || new Date()}
+                    onChange={onDateChange}
+                    placeholder={filterDate ? `Filtering for: ${filterDate.toLocaleDateString()}` : 'Filter by Date'}
                 />
                 {filterDate && <VoiceButton label="Show All" onPress={() => setFilterDate(null)} />}
             </View>
-
-            {showDatePicker && (
-                <DateTimePicker
-                    testID="dateTimePicker"
-                    value={filterDate || new Date()}
-                    mode="date"
-                    display="default"
-                    onChange={onDateChange}
-                />
-            )}
 
             {filteredClasses.length > 0 ? filteredClasses.map((item) => (
             <View key={item.subject} style={styles.card}>
@@ -110,6 +98,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: spacing.md,
     alignItems: 'center',
+  },
+  arrow: {
+    padding: spacing.sm,
+  },
+  yearText: {
+    ...typography.headingM,
+    color: palette.textPrimary,
   },
   card: {
     flexDirection: 'row',

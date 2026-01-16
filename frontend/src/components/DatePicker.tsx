@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
-import { Platform, StyleSheet, TouchableOpacity, View, ViewStyle, TextStyle } from 'react-native';
-import DateTimePicker from '@react-native-community/datetimepicker';
-import { Text } from './Themed'; // Assuming a Themed Text component exists
-import Colors from '../theme/Colors'; // Assuming a Colors theme file exists
+import { StyleSheet, TouchableOpacity, View, ViewStyle, TextStyle, Modal, Pressable } from 'react-native';
+import { Text } from './Themed';
+import Colors from '../theme/Colors';
+import { Ionicons } from '@expo/vector-icons';
 
 interface DatePickerProps {
   value: Date;
   onChange: (event: any, date?: Date) => void;
-  mode?: 'date' | 'time' | 'datetime';
-  display?: 'default' | 'spinner' | 'calendar'; // 'calendar' for iOS >= 14, 'default' for others
   placeholder?: string;
   style?: ViewStyle;
   textStyle?: TextStyle;
@@ -18,14 +16,13 @@ interface DatePickerProps {
 const DatePicker: React.FC<DatePickerProps> = ({
   value,
   onChange,
-  mode = 'date',
-  display = 'default',
   placeholder = 'Select Date',
   style,
   textStyle,
   disabled = false,
 }) => {
   const [show, setShow] = useState(false);
+  const [currentDate, setCurrentDate] = useState(value || new Date());
 
   const toggleShow = () => {
     if (!disabled) {
@@ -33,69 +30,179 @@ const DatePicker: React.FC<DatePickerProps> = ({
     }
   };
 
-  const handleDateChange = (event: any, selectedDate?: Date) => {
-    toggleShow();
-    if (selectedDate) {
-      onChange(event, selectedDate);
+  const handleDateChange = (day: number) => {
+    const newDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
+    onChange({}, newDate);
+    setShow(false);
+  };
+
+  const changeMonth = (amount: number) => {
+    setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + amount, 1));
+  };
+
+  const changeYear = (amount: number) => {
+    setCurrentDate(new Date(currentDate.getFullYear() + amount, currentDate.getMonth(), 1));
+  };
+
+
+  const renderHeader = () => {
+    return (
+      <View style={styles.header}>
+        <TouchableOpacity onPress={() => changeYear(-1)}>
+            <Ionicons name="chevron-back-outline" size={24} color={Colors.light.text} />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => changeMonth(-1)}>
+          <Ionicons name="arrow-back-outline" size={24} color={Colors.light.text} />
+        </TouchableOpacity>
+        <Text style={styles.headerText}>
+          {currentDate.toLocaleString('default', { month: 'long', year: 'numeric' })}
+        </Text>
+        <TouchableOpacity onPress={() => changeMonth(1)}>
+          <Ionicons name="arrow-forward-outline" size={24} color={Colors.light.text} />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => changeYear(1)}>
+            <Ionicons name="chevron-forward-outline" size={24} color={Colors.light.text} />
+        </TouchableOpacity>
+      </View>
+    );
+  };
+
+  const renderDaysOfWeek = () => {
+    const days = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+    return (
+      <View style={styles.daysOfWeek}>
+        {days.map((day, index) => (
+          <Text key={index} style={styles.dayOfWeekText}>
+            {day}
+          </Text>
+        ))}
+      </View>
+    );
+  };
+
+  const renderDays = () => {
+    const year = currentDate.getFullYear();
+    const month = currentDate.getMonth();
+    const firstDayOfMonth = new Date(year, month, 1).getDay();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+    const days = [];
+    for (let i = 0; i < firstDayOfMonth; i++) {
+      days.push(<View key={`empty-${i}`} style={styles.day} />);
     }
+
+    for (let day = 1; day <= daysInMonth; day++) {
+      const isSelected = value && day === value.getDate() && month === value.getMonth() && year === value.getFullYear();
+      days.push(
+        <TouchableOpacity
+          key={day}
+          style={[styles.day, isSelected && styles.selectedDay]}
+          onPress={() => handleDateChange(day)}
+        >
+          <Text style={isSelected && styles.selectedDayText}>{day}</Text>
+        </TouchableOpacity>
+      );
+    }
+    return <View style={styles.daysContainer}>{days}</View>;
   };
 
   const formattedDate = value ? value.toLocaleDateString() : placeholder;
-  const formattedTime = value ? value.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : placeholder;
-
-  const renderDisplayValue = () => {
-    if (mode === 'date') {
-      return formattedDate;
-    } else if (mode === 'time') {
-      return formattedTime;
-    } else { // datetime
-      return `${formattedDate} ${formattedTime}`;
-    }
-  };
 
   return (
     <View style={[styles.container, style]}>
       <TouchableOpacity onPress={toggleShow} disabled={disabled} style={styles.touchable}>
         <Text style={[styles.dateText, textStyle, disabled && styles.disabledText]}>
-          {value ? renderDisplayValue() : placeholder}
+          {value ? formattedDate : placeholder}
         </Text>
       </TouchableOpacity>
-      {show && (
-        <DateTimePicker
-          testID="dateTimePicker"
-          value={value || new Date()} // Fallback to current date if value is null
-          mode={mode}
-          display={Platform.OS === 'ios' && parseInt(String(Platform.Version), 10) >= 14 ? display : 'default'}
-          onChange={handleDateChange}
-          minimumDate={new Date(1900, 0, 1)} // Sensible minimum date
-          maximumDate={new Date(2100, 11, 31)} // Sensible maximum date
-          accentColor={Colors.tint} // Customize for Android (iOS uses global tint)
-          textColor={Colors.text} // Customize for iOS 14+ (not available for older iOS/Android)
-        />
-      )}
+      <Modal
+        transparent={true}
+        animationType="slide"
+        visible={show}
+        onRequestClose={toggleShow}
+      >
+        <Pressable style={styles.modalOverlay} onPress={toggleShow}>
+            <View style={styles.modalContent}>
+              {renderHeader()}
+              {renderDaysOfWeek()}
+              {renderDays()}
+            </View>
+        </Pressable>
+      </Modal>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    // Basic styling for the container, adjust as needed
-  },
-  touchable: {
-    paddingVertical: 10,
-    paddingHorizontal: 12,
-    borderWidth: 1,
-    borderColor: Colors.light.text, // Assuming text color from theme
-    borderRadius: 8,
-    backgroundColor: Colors.light.background, // Assuming background color from theme
-  },
-  dateText: {
-    fontSize: 16,
-    color: Colors.light.text,
-  },
-  disabledText: {
-    color: Colors.dark.text, // Lighter color for disabled state
-  },
+    container: {},
+    touchable: {
+        paddingVertical: 10,
+        paddingHorizontal: 12,
+        borderWidth: 1,
+        borderColor: Colors.light.text,
+        borderRadius: 8,
+        backgroundColor: Colors.light.background,
+    },
+    dateText: {
+        fontSize: 16,
+        color: Colors.light.text,
+    },
+    disabledText: {
+        color: Colors.dark.text,
+    },
+    modalOverlay: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0,0,0,0.5)',
+    },
+    modalContent: {
+        width: '90%',
+        backgroundColor: Colors.light.background,
+        borderRadius: 10,
+        padding: 20,
+        alignItems: 'center',
+    },
+    header: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        width: '100%',
+        marginBottom: 10,
+    },
+    headerText: {
+        fontSize: 18,
+        fontWeight: 'bold',
+    },
+    daysOfWeek: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        width: '100%',
+        marginBottom: 10,
+    },
+    dayOfWeekText: {
+        width: 30,
+        textAlign: 'center',
+        color: Colors.light.text,
+    },
+    daysContainer: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        width: '100%',
+    },
+    day: {
+        width: '14.2%',
+        aspectRatio: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    selectedDay: {
+        backgroundColor: Colors.tint,
+        borderRadius: 20,
+    },
+    selectedDayText: {
+        color: '#fff',
+    },
 });
 
 export default DatePicker;

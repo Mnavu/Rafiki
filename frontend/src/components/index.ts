@@ -1,3 +1,4 @@
+export * from './DatePicker';
 export * from './DashboardTile';
 export * from './VoiceButton';
 export * from './SpeakerButton';

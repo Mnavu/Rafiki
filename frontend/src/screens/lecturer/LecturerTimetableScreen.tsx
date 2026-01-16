@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { ScrollView, View, StyleSheet, Text, Modal, TextInput, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { palette, spacing, typography } from '@theme/index';
-import { VoiceButton } from '@components/index';
+import { DatePicker, VoiceButton } from '@components/index';
 import DateTimePicker, { type DateTimePickerEvent } from '@react-native-community/datetimepicker';
 
 interface TimetableSlot {
@@ -27,6 +27,7 @@ type DayGrouping = {
 export const LecturerTimetableScreen: React.FC = () => {
     const [slots, setSlots] = useState<TimetableSlot[]>(initialWeek);
     const [showModal, setShowModal] = useState(false);
+    const [filterDate, setFilterDate] = useState<Date | null>(new Date());
 
     const [newTitle, setNewTitle] = useState('');
     const [newRoom, setNewRoom] = useState('');
@@ -34,6 +35,12 @@ export const LecturerTimetableScreen: React.FC = () => {
     const [newEnd, setNewEnd] = useState(new Date());
 
     const [isPickingStart, setIsPickingStart] = useState(false);
+
+    const onDateChange = (event: any, selectedDate?: Date) => {
+        if (selectedDate) {
+            setFilterDate(selectedDate);
+        }
+    };
 
     const onStartTimeChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
         const currentDate = selectedDate || newStart;
@@ -68,7 +75,19 @@ export const LecturerTimetableScreen: React.FC = () => {
         setShowModal(false);
     };
 
-    const groupedSlots = slots.reduce((acc, slot) => {
+    const filteredSlots = useMemo(() => {
+        if (!filterDate) {
+            return slots;
+        }
+        return slots.filter(
+            (slot) =>
+                slot.start.getFullYear() === filterDate.getFullYear() &&
+                slot.start.getMonth() === filterDate.getMonth() &&
+                slot.start.getDate() === filterDate.getDate()
+        );
+    }, [slots, filterDate]);
+
+    const groupedSlots = filteredSlots.reduce((acc, slot) => {
         const day = slot.start.toLocaleDateString('en-US', { weekday: 'long' });
         const existing = acc.find(d => d.day === day);
         if (existing) {
@@ -83,6 +102,16 @@ export const LecturerTimetableScreen: React.FC = () => {
         <ScrollView contentContainerStyle={styles.container}>
             <Text style={styles.title}>Weekly Timetable</Text>
             <Text style={styles.subtitle}>Toggle reminders or send reschedule notices.</Text>
+
+            <View style={styles.filterContainer}>
+                <DatePicker
+                    value={filterDate || new Date()}
+                    onChange={onDateChange}
+                    placeholder={filterDate ? `Filtering for: ${filterDate.toLocaleDateString()}` : 'Filter by Date'}
+                />
+                {filterDate && <VoiceButton label="Show All" onPress={() => setFilterDate(null)} />}
+            </View>
+
             {groupedSlots.map((day) => (
             <View key={day.day} style={styles.card}>
                 <View style={styles.cardHeader}>
@@ -150,6 +179,18 @@ const styles = StyleSheet.create({
   subtitle: {
     ...typography.body,
     color: palette.textSecondary,
+  },
+  filterContainer: {
+    flexDirection: 'row',
+    gap: spacing.md,
+    alignItems: 'center',
+  },
+  arrow: {
+    padding: spacing.sm,
+  },
+  yearText: {
+    ...typography.headingM,
+    color: palette.textPrimary,
   },
   card: {
     backgroundColor: palette.surface,

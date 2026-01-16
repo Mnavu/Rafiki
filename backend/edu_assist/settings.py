@@ -22,6 +22,7 @@ INSTALLED_APPS = [
     "drf_spectacular",
     "rest_framework_simplejwt",
     "rest_framework_simplejwt.token_blacklist",
+    "more_admin_filters",
     # Local apps
     "core",
     "users.apps.UsersConfig",
@@ -51,7 +52,7 @@ ROOT_URLCONF = "edu_assist.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -86,6 +87,12 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = "/static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
+STATICFILES_DIRS = [
+    BASE_DIR / "core/static",
+]
+
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 RECORDS_PROVISION_PASSCODE = os.environ.get("RECORDS_PROVISION_PASSCODE", "Records@2025")

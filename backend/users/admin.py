@@ -2,13 +2,32 @@ import secrets
 
 from django.contrib import admin, messages
 from django.contrib.auth.admin import UserAdmin as DjangoUserAdmin
+from django.contrib.auth.forms import UserChangeForm as BaseUserChangeForm, UserCreationForm as BaseUserCreationForm
+from django import forms
+from django.utils import timezone
+from learning.models import CurriculumUnit, Registration
 
-from .models import Lecturer, Student, User
+from .models import Lecturer, Student, User, ParentStudentLink, Guardian
 
 
 @admin.register(User)
 class UserAdmin(DjangoUserAdmin):
-    fieldsets = DjangoUserAdmin.fieldsets + (
+    fieldsets = (
+        (None, {"fields": ("username", "password")}),
+        (("Personal info"), {"fields": ("first_name", "last_name", "email", "date_of_birth", "address")}),
+        (
+            ("Permissions"),
+            {
+                "fields": (
+                    "is_active",
+                    "is_staff",
+                    "is_superuser",
+                    "groups",
+                    "user_permissions",
+                ),
+            },
+        ),
+        (("Important dates"), {"fields": ("last_login", "date_joined")}),
         (
             "Accessibility & Role",
             {
@@ -25,24 +44,23 @@ class UserAdmin(DjangoUserAdmin):
             },
         ),
     )
-    readonly_fields = ("totp_activated_at",)
+    readonly_fields = ("totp_activated_at", "last_login", "date_joined")
     add_fieldsets = (
         (
             None,
             {
                 "classes": ("wide",),
-                "fields": ("username", "email", "role", "password1", "password2"),
+                "fields": ("username", "first_name", "last_name", "email", "role", "date_of_birth", "address", "password1", "password2"),
             },
         ),
     )
     list_display = (
         "username",
         "email",
+        "first_name",
+        "last_name",
         "role",
-        "must_change_password",
-        "prefers_simple_language",
-        "prefers_high_contrast",
-        "totp_enabled",
+        "is_staff",
     )
 
     def save_model(self, request, obj, form, change):
@@ -63,12 +81,52 @@ class UserAdmin(DjangoUserAdmin):
                 f"Temporary password for {obj.username}: {generated_password}. Share securely and prompt them to reset.",
             )
 
+class ParentStudentLinkInline(admin.TabularInline):
+    model = ParentStudentLink
+    fk_name = "student"
+    extra = 1
+
+class StudentAdminForm(forms.ModelForm):
+    units = forms.ModelMultipleChoiceField(
+        queryset=CurriculumUnit.objects.all(),
+        widget=admin.widgets.FilteredSelectMultiple('Units', is_stacked=False),
+        required=False,
+    )
+
+    class Meta:
+        model = Student
+        fields = '__all__'
+
+    def clean_units(self):
+        units = self.cleaned_data.get('units')
+        if units and len(units) > 4:
+            raise forms.ValidationError("You can select a maximum of 4 units.")
+        return units
 
 @admin.register(Student)
 class StudentAdmin(admin.ModelAdmin):
+    form = StudentAdminForm
     search_fields = ("user__username", "user__first_name", "user__last_name", "user__email")
-    list_display = ("user", "programme", "year", "current_status")
-    list_filter = ("current_status", "year", "programme")
+    list_display = ("user", "programme", "admission_date", "current_status")
+    list_filter = ("current_status", "programme")
+    inlines = [ParentStudentLinkInline]
+
+    def save_model(self, request, obj, form, change):
+        super().save_model(request, obj, form, change)
+        units = form.cleaned_data.get('units')
+        if units:
+            for unit in units:
+                Registration.objects.create(
+                    student=obj,
+                    unit=unit,
+                    academic_year=obj.year,
+                    trimester=obj.trimester,
+                )
+
+@admin.register(Guardian)
+class GuardianAdmin(admin.ModelAdmin):
+    search_fields = ("user__username", "user__first_name", "user__last_name", "user__email")
+    list_display = ("user",)
 
 
 @admin.register(Lecturer)

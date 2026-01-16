@@ -1,11 +1,10 @@
 import React, { useState, useMemo } from 'react';
-import { ScrollView, View, StyleSheet, Text, Alert, Platform } from 'react-native';
+import { ScrollView, View, StyleSheet, Text, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { palette, spacing, typography } from '@theme/index';
-import { VoiceButton } from '@components/index';
+import { DatePicker, VoiceButton } from '@components/index';
 import { useAuth } from '@context/AuthContext';
 import { registerForExams } from '@services/api';
-import DateTimePicker, { type DateTimePickerEvent } from '@react-native-community/datetimepicker';
 
 const assignmentsData = [
   {
@@ -29,7 +28,6 @@ export const StudentAssignmentsScreen: React.FC = () => {
   const { state } = useAuth();
   const token = state.accessToken;
   const [filterDate, setFilterDate] = useState<Date | null>(null);
-  const [showDatePicker, setShowDatePicker] = useState(false);
 
   const handleExamRegistration = async () => {
     if (!token) {
@@ -45,8 +43,7 @@ export const StudentAssignmentsScreen: React.FC = () => {
     }
   };
 
-  const onDateChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
-    setShowDatePicker(Platform.OS === 'ios');
+  const onDateChange = (event: any, selectedDate?: Date) => {
     if (selectedDate) {
         setFilterDate(selectedDate);
     }
@@ -83,22 +80,13 @@ export const StudentAssignmentsScreen: React.FC = () => {
       </Text>
 
       <View style={styles.filterContainer}>
-        <VoiceButton
-            label={filterDate ? `Filtering for: ${filterDate.toLocaleDateString()}` : 'Filter by Due Date'}
-            onPress={() => setShowDatePicker(true)}
+        <DatePicker
+            value={filterDate || new Date()}
+            onChange={onDateChange}
+            placeholder={filterDate ? `Filtering for: ${filterDate.toLocaleDateString()}` : 'Filter by Due Date'}
         />
         {filterDate && <VoiceButton label="Clear Filter" onPress={() => setFilterDate(null)} />}
       </View>
-
-      {showDatePicker && (
-        <DateTimePicker
-            testID="dateTimePicker"
-            value={filterDate || new Date()}
-            mode="date"
-            display="default"
-            onChange={onDateChange}
-        />
-      )}
 
       {filteredAssignments.length > 0 ? filteredAssignments.map((item) => (
         <View key={item.title} style={styles.card}>

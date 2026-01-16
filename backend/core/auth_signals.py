@@ -10,11 +10,11 @@ User = get_user_model()
 @receiver(user_logged_in)
 def audit_user_login(sender, request, user, **kwargs):
     AuditLog.objects.create(
-        user=user,
+        actor_user=user,
         action="login",
-        model=user._meta.label,
-        object_id=str(user.pk),
-        changes={
+        target_table=user._meta.label,
+        target_id=str(user.pk),
+        after={
             "remote_addr": request.META.get("REMOTE_ADDR"),
             "user_agent": request.META.get("HTTP_USER_AGENT"),
         },
@@ -24,11 +24,11 @@ def audit_user_login(sender, request, user, **kwargs):
 @receiver(user_logged_out)
 def audit_user_logout(sender, request, user, **kwargs):
     AuditLog.objects.create(
-        user=user if isinstance(user, User) else None,
+        actor_user=user if isinstance(user, User) else None,
         action="logout",
-        model=user._meta.label if isinstance(user, User) else "auth.User",
-        object_id=str(user.pk) if isinstance(user, User) else "",
-        changes={
+        target_table=user._meta.label if isinstance(user, User) else "auth.User",
+        target_id=str(user.pk) if isinstance(user, User) else "",
+        after={
             "remote_addr": request.META.get("REMOTE_ADDR"),
             "user_agent": request.META.get("HTTP_USER_AGENT"),
         },

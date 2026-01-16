@@ -18,12 +18,10 @@ class AssignmentSerializer(serializers.ModelSerializer):
             "title",
             "description",
             "due_at",
-            "status",
-            "owner_user",
             "created_at",
             "updated_at",
         ]
-        read_only_fields = ["owner_user", "created_at", "updated_at"]
+        read_only_fields = ["created_at", "updated_at"]
 
 
 class SubmissionSerializer(serializers.ModelSerializer):

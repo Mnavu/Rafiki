@@ -1,15 +1,10 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { ScrollView, View, StyleSheet, Text, Modal, TextInput, Alert, Platform } from 'react-native';
+import { ScrollView, View, StyleSheet, Text, Modal, TextInput, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { palette, spacing, typography } from '@theme/index';
-import { VoiceButton } from '@components/index';
-import * as DocumentPicker from 'expo-document-picker';
-import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParamList } from '@navigation/AppNavigator';
+import { DatePicker, VoiceButton } from '@components/index';
 import { useAuth } from '@context/AuthContext';
 import { createResource, type CreateResourcePayload, fetchCourses, type ApiCourse } from '@services/api';
-import DateTimePicker, { type DateTimePickerEvent } from '@react-native-community/datetimepicker';
 
 const markingQueue = [
   { title: 'ICT201 Homework 4', submissions: 12, due: 'Submitted today', action: 'Open grading' },
@@ -32,7 +27,6 @@ export const LecturerAssignmentsScreen: React.FC = () => {
   const [courses, setCourses] = useState<ApiCourse[]>([]);
   const [courseId, setCourseId] = useState<number | null>(null);
   const [dueDate, setDueDate] = useState<Date | undefined>(new Date());
-  const [showDatePicker, setShowDatePicker] = useState(false);
 
   const canSubmit = useMemo(() => {
     if (!title.trim() || !courseId) {
@@ -95,10 +89,8 @@ export const LecturerAssignmentsScreen: React.FC = () => {
     }
   }, []);
 
-  const onDateChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
-    const currentDate = selectedDate || dueDate;
-    setShowDatePicker(Platform.OS === 'ios');
-    setDueDate(currentDate);
+  const onDateChange = (event: any, selectedDate?: Date) => {
+    setDueDate(selectedDate);
   };
 
   const submitUpload = useCallback(async () => {
@@ -240,23 +232,11 @@ export const LecturerAssignmentsScreen: React.FC = () => {
           )}
 
           <Text style={styles.modalLabel}>Due Date</Text>
-          <View style={styles.dateContainer}>
-            <VoiceButton
-              label={dueDate ? dueDate.toLocaleDateString() : 'Set Due Date'}
-              onPress={() => setShowDatePicker(true)}
-            />
-          </View>
-
-          {showDatePicker && (
-            <DateTimePicker
-              testID="dateTimePicker"
-              value={dueDate || new Date()}
-              mode="date"
-              is24Hour={true}
-              display="default"
-              onChange={onDateChange}
-            />
-          )}
+          <DatePicker
+            value={dueDate || new Date()}
+            onChange={onDateChange}
+            placeholder="Set Due Date"
+          />
 
           <Text style={styles.modalLabel}>Description (optional)</Text>
           <TextInput

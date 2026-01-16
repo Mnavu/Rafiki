@@ -18,10 +18,33 @@ class CurriculumUnitAdmin(admin.ModelAdmin):
     list_filter = ('programme', 'trimester_hint')
     autocomplete_fields = ('programme', 'prereq_unit')
 
+class ProgrammeYearFilter(admin.SimpleListFilter):
+    title = 'academic year'
+    parameter_name = 'academic_year'
+
+    def lookups(self, request, model_admin):
+        programme_id = request.GET.get('programme__id__exact')
+        if programme_id:
+            try:
+                programme = Programme.objects.get(id=programme_id)
+                years = range(1, programme.duration_years + 1)
+                return [(year, f'Year {year}') for year in years]
+            except Programme.DoesNotExist:
+                return []
+        
+        # Default case: show all unique years from TermOffering
+        years = model_admin.get_queryset(request).values_list('academic_year', flat=True).distinct()
+        return [(year, f'Year {year}') for year in sorted(years)]
+
+    def queryset(self, request, queryset):
+        if self.value():
+            return queryset.filter(academic_year=self.value())
+        return queryset
+
 @admin.register(TermOffering)
 class TermOfferingAdmin(admin.ModelAdmin):
     list_display = ('unit', 'programme', 'academic_year', 'trimester', 'offered')
-    list_filter = ('offered', 'academic_year', 'trimester', 'programme')
+    list_filter = ('offered', 'programme', ProgrammeYearFilter, 'trimester')
     autocomplete_fields = ('programme', 'unit')
 
 @admin.register(Registration)
