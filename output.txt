@@ -1,0 +1,3 @@
+The Android application has been successfully built and installed on your device/emulator. The Metro Bundler is running and serving the JavaScript bundle. The previous error regarding `libreact_featureflagsjni.so` should be resolved.
+
+You should now see the application running on your Android device/emulator. If not, please check the device logs for any new errors.

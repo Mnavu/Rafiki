@@ -15,7 +15,7 @@
 </div>
 
 <style>
-    /* Fix the 'Black Blobs' - ensuring the header icons are visible and spaced */
+    /* Prevent Jazzmin header styles from hiding icons */
     .bootstrap-datetimepicker-widget .datepicker-days table thead tr:first-child th {
         background: none !important;
         color: #333 !important;
@@ -31,70 +31,4 @@
     .prev-year-btn:hover, .next-year-btn:hover {
         background-color: rgba(0,0,0,0.05) !important;
     }
-    /* This forces the header to be wide enough for 5 buttons */
-    .bootstrap-datetimepicker-widget .datepicker-days table thead {
-        display: table-header-group !important;
-    }
 </style>
-
-<script>
-(function ($) {
-    $(function () {
-        var $picker = $('#{{ widget.attrs.id }}-wrapper');
-
-        $picker.datetimepicker({
-            format: 'YYYY-MM-DD',
-            locale: '{{ LANGUAGE_CODE }}',
-            icons: {
-                previous: 'fas fa-chevron-left',
-                next: 'fas fa-chevron-right',
-            }
-        });
-
-        function injectYearButtons() {
-            // Get the widget DOM element
-            var data = $picker.data("datetimepicker");
-            if (!data || !data.widget) return;
-            
-            var widget = data.widget;
-            var header = widget.find('.datepicker-days thead tr:first');
-
-            // If buttons already exist, don't add them again
-            if (header.find('.prev-year-btn').length > 0) return;
-
-            // Create the buttons
-            var $prevYear = $('<th class="prev-year-btn"><i class="fas fa-angle-double-left"></i></th>');
-            var $nextYear = $('<th class="next-year-btn"><i class="fas fa-angle-double-right"></i></th>');
-
-            // Insert them
-            header.find('.prev').before($prevYear);
-            header.find('.next').after($nextYear);
-
-            // Add Click Events
-            $prevYear.on('click', function (e) {
-                e.preventDefault();
-                e.stopPropagation();
-                var d = $picker.datetimepicker('date');
-                $picker.datetimepicker('date', d.subtract(1, 'year'));
-            });
-
-            $nextYear.on('click', function (e) {
-                e.preventDefault();
-                e.stopPropagation();
-                var d = $picker.datetimepicker('date');
-                $picker.datetimepicker('date', d.add(1, 'year'));
-            });
-        }
-
-        // Run injection when picker opens
-        $picker.on('show.td', function() {
-            setTimeout(injectYearButtons, 10);
-        });
-
-        // Run injection every time the view updates (month change, etc)
-        $picker.on('update.td', function() {
-            setTimeout(injectYearButtons, 10);
-        });
-    });
-})(jQuery);
-</script>

@@ -17,11 +17,13 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.eduassist.app",
+      "bundleIdentifier": "com.eduassist",
       "infoPlist": {
         "UIBackgroundModes": [
+          "remote-notification",
           "remote-notification"
-        ]
+        ],
+        "ITSAppUsesNonExemptEncryption": false
       }
     },
     "android": {
@@ -36,7 +38,7 @@
         "VIBRATE"
       ],
       "useNextNotificationsApi": true,
-      "package": "com.eduassist.app"
+      "package": "com.eduassist"
     },
     "web": {
       "bundler": "metro"
@@ -64,7 +66,7 @@
     },
     "extra": {
       "eas": {
-        "projectId": "00000000-0000-0000-0000-000000000000"
+        "projectId": "796c7c36-68cb-44e3-b8fb-039569e62d06"
       }
     }
   }

@@ -10,8 +10,54 @@ from learning.models import CurriculumUnit, Registration
 from .models import Lecturer, Student, User, ParentStudentLink, Guardian
 
 
+class CustomDateWidget(forms.DateInput):
+    def __init__(self, attrs=None):
+        if attrs is None:
+            attrs = {}
+        # Use a unique class for the new flatpickr library
+        attrs['class'] = 'flatpickr-date-input'
+        super().__init__(attrs)
+
+class CustomUserChangeForm(BaseUserChangeForm):
+    class Meta(BaseUserChangeForm.Meta):
+        model = User
+        widgets = {
+            'date_of_birth': CustomDateWidget(),
+        }
+
+class CustomUserCreationForm(BaseUserCreationForm):
+    class Meta(BaseUserCreationForm.Meta):
+        model = User
+        fields = ("username", "first_name", "last_name", "email", "role", "date_of_birth", "address")
+        widgets = {
+            'date_of_birth': CustomDateWidget(),
+        }
+
+class BaseAdminWithCalendar(admin.ModelAdmin):
+    """A base admin class to include the Flatpickr calendar assets."""
+    class Media:
+        css = {
+            'all': ('https://npmcdn.com/flatpickr/dist/flatpickr.min.css',)
+        }
+        js = (
+            'https://npmcdn.com/flatpickr/dist/flatpickr.min.js',
+            'core/js/custom_datepicker.js',
+        )
+
 @admin.register(User)
 class UserAdmin(DjangoUserAdmin):
+    form = CustomUserChangeForm
+    add_form = CustomUserCreationForm
+
+    class Media:
+        css = {
+            'all': ('https://npmcdn.com/flatpickr/dist/flatpickr.min.css',)
+        }
+        js = (
+            'https://npmcdn.com/flatpickr/dist/flatpickr.min.js',
+            'core/js/custom_datepicker.js',
+        )
+
     fieldsets = (
         (None, {"fields": ("username", "password")}),
         (("Personal info"), {"fields": ("first_name", "last_name", "email", "date_of_birth", "address")}),
@@ -104,7 +150,7 @@ class StudentAdminForm(forms.ModelForm):
         return units
 
 @admin.register(Student)
-class StudentAdmin(admin.ModelAdmin):
+class StudentAdmin(BaseAdminWithCalendar):
     form = StudentAdminForm
     search_fields = ("user__username", "user__first_name", "user__last_name", "user__email")
     list_display = ("user", "programme", "admission_date", "current_status")
@@ -124,13 +170,13 @@ class StudentAdmin(admin.ModelAdmin):
                 )
 
 @admin.register(Guardian)
-class GuardianAdmin(admin.ModelAdmin):
+class GuardianAdmin(BaseAdminWithCalendar):
     search_fields = ("user__username", "user__first_name", "user__last_name", "user__email")
     list_display = ("user",)
 
 
 @admin.register(Lecturer)
-class LecturerAdmin(admin.ModelAdmin):
+class LecturerAdmin(BaseAdminWithCalendar):
     search_fields = ("user__username", "user__first_name", "user__last_name", "user__email")
     list_display = ("user", "department")
     list_filter = ("department",)

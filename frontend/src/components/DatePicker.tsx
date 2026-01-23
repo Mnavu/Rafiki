@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { StyleSheet, TouchableOpacity, View, ViewStyle, TextStyle, Modal, Pressable } from 'react-native';
-import { Text } from './Themed';
-import Colors from '../theme/Colors';
+import { StyleSheet, TouchableOpacity, View, ViewStyle, TextStyle, Modal, Pressable, Text } from 'react-native';
+import Colors from '../theme/colors';
 import { Ionicons } from '@expo/vector-icons';
 
 interface DatePickerProps {
