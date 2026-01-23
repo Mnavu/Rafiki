@@ -5,8 +5,8 @@ buildscript {
     ext {
         buildToolsVersion = "35.0.0"
         minSdkVersion = 24           // Correct: Fixed the library mismatch
-        compileSdkVersion = 36       // Recommended: High enough for your dependencies
-        targetSdkVersion = 36        // Recommended: For Play Store compliance
+        compileSdkVersion = 35       // Recommended: High enough for your dependencies
+        targetSdkVersion = 35        // Recommended: For Play Store compliance
         ndkVersion = "27.0.12077973" // Correct: Points to your stable download
     }
 
