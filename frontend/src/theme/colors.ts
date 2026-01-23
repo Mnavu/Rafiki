@@ -34,3 +34,19 @@ export const themeColors = {
   disabled: palette.disabled,
   border: '#E5E7EB',
 };
+
+const Colors = {
+  light: {
+    text: palette.textPrimary,
+    background: palette.background,
+    tint: palette.primary,
+  },
+  dark: {
+    text: '#FFFFFF',
+    background: '#000000',
+    tint: palette.primary,
+  },
+  tint: palette.primary, // Add this for Colors.tint
+};
+
+export default Colors;
