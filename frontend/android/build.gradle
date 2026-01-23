@@ -8,7 +8,7 @@ buildscript {
       compileSdkVersion = 35       // Recommended: High enough for your dependencies
       targetSdkVersion = 35        // Recommended: For Play Store compliance
       ndkVersion = "27.0.12077973" // Correct: Points to your stable download
-      kotlinVersion = "2.0.0"
+      kotlinVersion = "1.9.24"
     }
 
     repositories {
@@ -16,12 +16,13 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath('com.android.tools.build:gradle:8.2.1')
-        classpath('com.facebook.react:react-native-gradle-plugin')
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
+    // Change from the dynamic version to this stable one
+    classpath('com.android.tools.build:gradle:8.2.1') 
+    classpath('com.facebook.react:react-native-gradle-plugin')
+    classpath('org.jetbrains.kotlin:kotlin-gradle-plugin')
+    
     }
 }
-
 allprojects {
   repositories {
     google()
