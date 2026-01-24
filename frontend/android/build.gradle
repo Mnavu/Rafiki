@@ -17,7 +17,7 @@ buildscript {
     }
     dependencies {
     // Change from the dynamic version to this stable one
-    classpath('com.android.tools.build:gradle:8.7.3')
+    classpath('com.android.tools.build:gradle:8.11.0')
     classpath('com.facebook.react:react-native-gradle-plugin')
     classpath('org.jetbrains.kotlin:kotlin-gradle-plugin')
     
