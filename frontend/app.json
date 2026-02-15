@@ -58,8 +58,17 @@
           "color": "#0a84ff"
         }
       ],
-      "@react-native-community/datetimepicker"
+      "@react-native-community/datetimepicker",
+      "@sentry/react-native/expo"
     ],
+    "hooks": {
+      "postPublish": [
+        {
+          "file": "@sentry/react-native/expo/hooks/post-publish.js",
+          "config": {}
+        }
+      ]
+    },
     "notification": {
       "icon": "./assets/icon.png",
       "color": "#0a84ff"

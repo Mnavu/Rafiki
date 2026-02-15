@@ -18,10 +18,7 @@ type LoginPayload = {
   totp_code?: string;
 };
 
-type TokenResponse = {
-  access: string;
-  refresh: string;
-};
+
 
 export type ApiUser = {
   id: number;
@@ -149,9 +146,7 @@ export type ApiAssignmentSummary = {
   status?: string;
 };
 
-type LoginResponse = TokenResponse & {
-  user?: ApiUser;
-};
+type LoginResponse = ApiUser;
 
 type PasswordResetRequestPayload = {
   username?: string;
@@ -210,36 +205,19 @@ export const endpoints = {
   adminAnalytics: () => `${API_BASE}/api/core/api/admin/analytics/`,
 };
 
-export const fetchAdminAnalytics = (token: string) =>
+export const fetchAdminAnalytics = () =>
   fetchJson<{ weekly_logins: number; chatbot_questions: number; alerts_sent: number }>(
     endpoints.adminAnalytics(),
-    token,
   );
 
 
-export const createStudentDirectMessage = (token: string, lecturerId: number) =>
-  authedPost<ApiThread>(endpoints.createStudentDirectMessage(), token, { lecturer_id: lecturerId });
+export const createStudentDirectMessage = (lecturerId: number) =>
+  authedPost<ApiThread>(endpoints.createStudentDirectMessage(), { lecturer_id: lecturerId });
 
-export const refreshToken = async (
-  refresh: string,
-): Promise<{ access: string }> => {
-  const response = await fetch(endpoints.refreshToken(), {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ refresh }),
-  });
 
-  if (!response.ok) {
-    throw await buildApiError(response);
-  }
 
-  return response.json();
-};
-
-export const fetchDepartmentLecturers = (token: string, departmentId: number) =>
-    fetchJson<any[]>(`${API_BASE}/api/core/api/departments/${departmentId}/lecturers/`, token);
+export const fetchDepartmentLecturers = (departmentId: number) =>
+    fetchJson<any[]>(`${API_BASE}/api/core/api/departments/${departmentId}/lecturers/`);
 
 type ApiError = Error & { status?: number; details?: unknown };
 
@@ -292,12 +270,11 @@ const buildApiError = async (response: Response): Promise<ApiError> => {
   return error;
 };
 
-export const fetchJson = async <T>(url: string, token?: string): Promise<T> => {
+export const fetchJson = async <T>(url: string): Promise<T> => {
   const response = await fetch(url, {
     headers: {
       'Content-Type': 'application/json',
       Accept: 'application/json',
-      ...(token ? { Authorization: `Bearer ${token}` } : {}),
     },
   });
 
@@ -309,7 +286,6 @@ export const fetchJson = async <T>(url: string, token?: string): Promise<T> => {
 };
 
 export const fetchCalendarEvents = (
-  token: string,
   range: { from: string; to: string },
   owner: 'me' | 'all' = 'me',
 ) => {
@@ -319,17 +295,17 @@ export const fetchCalendarEvents = (
     owner,
   });
   const url = `${endpoints.calendarEvents()}?${params.toString()}`;
-  return fetchJson<ApiCalendarEvent[]>(url, token);
+  return fetchJson<ApiCalendarEvent[]>(url);
 };
 
-export const fetchAssignments = (token: string, options: { unitId?: number } = {}) => {
+export const fetchAssignments = (options: { unitId?: number } = {}) => {
   const params = new URLSearchParams();
   if (typeof options.unitId === 'number') {
     params.append('unit', String(options.unitId));
   }
   const qs = params.toString();
   const url = qs ? `${endpoints.assignments()}?${qs}` : endpoints.assignments();
-  return fetchJson<ApiAssignmentSummary[]>(url, token);
+  return fetchJson<ApiAssignmentSummary[]>(url);
 };
 
 export const loginRequest = async ({
@@ -380,12 +356,11 @@ export const confirmPasswordReset = async (payload: PasswordResetConfirmPayload)
   return response.json();
 };
 
-export const changePasswordSelf = async (newPassword: string, token: string) => {
+export const changePasswordSelf = async (newPassword: string) => {
   const response = await fetch(endpoints.passwordChangeSelf(), {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({ new_password: newPassword }),
   });
@@ -398,14 +373,12 @@ export const changePasswordSelf = async (newPassword: string, token: string) => 
 
 const authedPost = async <T>(
   url: string,
-  token: string,
   body: Record<string, unknown> = {},
 ): Promise<T> => {
   const response = await fetch(url, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(body),
   });
@@ -415,20 +388,19 @@ const authedPost = async <T>(
   return response.json();
 };
 
-export const requestTotpSetup = async (token: string) =>
+export const requestTotpSetup = async () =>
   authedPost<{ secret: string; otpauth_url: string; enabled: boolean }>(
     endpoints.totpSetup(),
-    token,
   );
 
-export const activateTotp = async (token: string, code: string) =>
-  authedPost<{ detail: string; enabled: boolean }>(endpoints.totpActivate(), token, { code });
+export const activateTotp = async (code: string) =>
+  authedPost<{ detail: string; enabled: boolean }>(endpoints.totpActivate(), { code });
 
-export const disableTotp = async (token: string, code: string) =>
-  authedPost<{ detail: string; enabled: boolean }>(endpoints.totpDisable(), token, { code });
+export const disableTotp = async (code: string) =>
+  authedPost<{ detail: string; enabled: boolean }>(endpoints.totpDisable(), { code });
 
-export const assignUserRole = async (token: string, userId: number, role: Role) =>
-  authedPost<ApiUser>(endpoints.assignRole(), token, { user_id: userId, role });
+export const assignUserRole = async (userId: number, role: Role) =>
+  authedPost<ApiUser>(endpoints.assignRole(), { user_id: userId, role });
 
 export type RegisterDevicePayload = {
   platform: 'expo' | 'ios' | 'android';
@@ -436,8 +408,8 @@ export type RegisterDevicePayload = {
   app_id?: string;
 };
 
-export const registerDevice = (token: string, payload: RegisterDevicePayload) =>
-  authedPost(endpoints.registerDevice(), token, payload);
+export const registerDevice = (payload: RegisterDevicePayload) =>
+  authedPost(endpoints.registerDevice(), payload);
 
 export type ApiMessage = {
   id: number;
@@ -465,10 +437,10 @@ export type ApiThread = {
   updated_at: string;
 };
 
-export const fetchThreads = (token: string) => fetchJson<ApiThread[]>(endpoints.threads(), token);
+export const fetchThreads = () => fetchJson<ApiThread[]>(endpoints.threads());
 
-export const fetchResources = (token: string) =>
-  fetchJson<ApiResource[]>(endpoints.resources(), token);
+export const fetchResources = () =>
+  fetchJson<ApiResource[]>(endpoints.resources());
 
 export type CreateThreadPayload = {
   student: number;
@@ -477,11 +449,10 @@ export type CreateThreadPayload = {
   subject?: string;
 };
 
-export const createThread = (token: string, payload: CreateThreadPayload) =>
-  authedPost<ApiThread>(endpoints.threads(), token, payload);
+export const createThread = (payload: CreateThreadPayload) =>
+  authedPost<ApiThread>(endpoints.threads(), payload);
 
 export const fetchCourses = (
-  token: string,
   params?: Record<string, string | number | undefined>,
 ) => {
   const search =
@@ -495,16 +466,16 @@ export const fetchCourses = (
           }, {}),
         ).toString()}`
       : '';
-  return fetchJson<ApiCourse[]>(`${endpoints.courses()}${search}`, token);
+  return fetchJson<ApiCourse[]>(`${endpoints.courses()}${search}`);
 };
 
-export const fetchUsers = (token: string) => fetchJson<ApiUser[]>(endpoints.usersList(), token);
+export const fetchUsers = () => fetchJson<ApiUser[]>(endpoints.usersList());
 
-export const fetchGuardianLinks = (token: string) =>
-  fetchJson<ApiGuardianLink[]>(endpoints.parentLinks(), token);
+export const fetchGuardianLinks = () =>
+  fetchJson<ApiGuardianLink[]>(endpoints.parentLinks());
 
-export const fetchProvisionRequests = (token: string) =>
-  fetchJson<ApiProvisionRequest[]>(endpoints.provisionRequests(), token);
+export const fetchProvisionRequests = () =>
+  fetchJson<ApiProvisionRequest[]>(endpoints.provisionRequests());
 
 export type CreateUserPayload = {
   username: string;
