@@ -10,18 +10,15 @@ module.exports = function (api) {
           root: ['./src'],
           alias: {
             '@components': './src/components',
-            '@screens': './src/screens',
-            '@navigation': './src/navigation',
-            '@theme': './src/theme',
-            '@hooks': './src/hooks',
-            '@services': './src/services',
-            '@data': './src/data',
-            '@app-types': './src/types',
             '@context': './src/context',
+            '@navigation': './src/navigation',
+            '@screens': './src/screens',
+            '@services': './src/services',
+            '@theme': './src/theme',
+            '@types': './src/types',
           },
         },
       ],
-      'react-native-reanimated/plugin',
     ],
   };
 };

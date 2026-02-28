@@ -346,9 +346,9 @@ export const RecordsEnrollmentScreen: React.FC = () => {
     try {
       setEnrollingFamily(true);
       const response: FamilyEnrollResponse = await enrollFamily(token, payload);
-      const guardianUsername = response.parent_request?.username;
-      const summary = guardianUsername
-        ? `${response.student_request.username} and ${guardianUsername}`
+      const responseGuardianUsername = response.parent_request?.username;
+      const summary = responseGuardianUsername
+        ? `${response.student_request.username} and ${responseGuardianUsername}`
         : response.student_request.username;
       Alert.alert('Requests submitted', `${summary} are awaiting admin approval. You can track them under Pending provisioning requests.`);
       setFamilyForm(makeInitialFamilyForm());

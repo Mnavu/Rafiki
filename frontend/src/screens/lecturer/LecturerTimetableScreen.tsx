@@ -3,7 +3,6 @@ import { ScrollView, View, StyleSheet, Text, Modal, TextInput, Alert } from 'rea
 import { Ionicons } from '@expo/vector-icons';
 import { palette, spacing, typography } from '@theme/index';
 import { DatePicker, VoiceButton } from '@components/index';
-import DateTimePicker, { type DateTimePickerEvent } from '@react-native-community/datetimepicker';
 
 interface TimetableSlot {
   id: string;
@@ -31,10 +30,10 @@ export const LecturerTimetableScreen: React.FC = () => {
 
     const [newTitle, setNewTitle] = useState('');
     const [newRoom, setNewRoom] = useState('');
-    const [newStart, setNewStart] = useState(new Date());
-    const [newEnd, setNewEnd] = useState(new Date());
-
-    const [isPickingStart, setIsPickingStart] = useState(false);
+    const [newStartDate, setNewStartDate] = useState(new Date());
+    const [newEndDate, setNewEndDate] = useState(new Date());
+    const [newStartTime, setNewStartTime] = useState(formatTime(new Date()));
+    const [newEndTime, setNewEndTime] = useState(formatTime(new Date()));
 
     const onDateChange = (event: any, selectedDate?: Date) => {
         if (selectedDate) {
@@ -42,15 +41,16 @@ export const LecturerTimetableScreen: React.FC = () => {
         }
     };
 
-    const onStartTimeChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
-        const currentDate = selectedDate || newStart;
-        setIsPickingStart(false);
-        setNewStart(currentDate);
+    const onStartDateChange = (event: any, selectedDate?: Date) => {
+        if (selectedDate) {
+            setNewStartDate(selectedDate);
+        }
     };
 
-    const onEndTimeChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
-        const currentDate = selectedDate || newEnd;
-        setNewEnd(currentDate);
+    const onEndDateChange = (event: any, selectedDate?: Date) => {
+        if (selectedDate) {
+            setNewEndDate(selectedDate);
+        }
     };
 
     const handleAddSlot = () => {
@@ -58,20 +58,36 @@ export const LecturerTimetableScreen: React.FC = () => {
             Alert.alert('Missing Info', 'Please fill out a title and room.');
             return;
         }
+        const startDateTime = buildDateTime(newStartDate, newStartTime);
+        if (!startDateTime) {
+            Alert.alert('Invalid start time', 'Use HH:MM in 24-hour format (e.g. 08:30).');
+            return;
+        }
+        const endDateTime = buildDateTime(newEndDate, newEndTime);
+        if (!endDateTime) {
+            Alert.alert('Invalid end time', 'Use HH:MM in 24-hour format (e.g. 14:15).');
+            return;
+        }
+        if (endDateTime.getTime() <= startDateTime.getTime()) {
+            Alert.alert('Invalid time range', 'End time must be after the start time.');
+            return;
+        }
         const newSlot: TimetableSlot = {
             id: Math.random().toString(),
             title: newTitle.trim(),
             room: newRoom.trim(),
-            start: newStart,
-            end: newEnd,
+            start: startDateTime,
+            end: endDateTime,
         };
         setSlots([...slots, newSlot].sort((a,b) => a.start.getTime() - b.start.getTime()));
 
         // Reset form
         setNewTitle('');
         setNewRoom('');
-        setNewStart(new Date());
-        setNewEnd(new Date());
+        setNewStartDate(new Date());
+        setNewEndDate(new Date());
+        setNewStartTime(formatTime(new Date()));
+        setNewEndTime(formatTime(new Date()));
         setShowModal(false);
     };
 
@@ -138,23 +154,40 @@ export const LecturerTimetableScreen: React.FC = () => {
                     <TextInput style={styles.input} value={newRoom} onChangeText={setNewRoom} placeholder="e.g. Room B302"/>
 
                     <Text style={styles.modalLabel}>Start Time</Text>
-                    <VoiceButton label={newStart.toLocaleString()} onPress={() => setIsPickingStart(true)} />
-                     {isPickingStart && (
-                        <DateTimePicker
-                            value={newStart}
-                            mode="datetime"
-                            display="default"
-                            onChange={onStartTimeChange}
+                    <View style={styles.dateTimeRow}>
+                        <DatePicker
+                            value={newStartDate}
+                            onChange={onStartDateChange}
+                            placeholder="Start date"
+                            style={styles.datePicker}
                         />
-                    )}
+                        <TextInput
+                            style={styles.timeInput}
+                            value={newStartTime}
+                            onChangeText={setNewStartTime}
+                            placeholder="HH:MM"
+                            autoCorrect={false}
+                            autoCapitalize="none"
+                        />
+                    </View>
 
                     <Text style={styles.modalLabel}>End Time</Text>
-                    <DateTimePicker
-                        value={newEnd}
-                        mode="datetime"
-                        display="default"
-                        onChange={onEndTimeChange}
-                    />
+                    <View style={styles.dateTimeRow}>
+                        <DatePicker
+                            value={newEndDate}
+                            onChange={onEndDateChange}
+                            placeholder="End date"
+                            style={styles.datePicker}
+                        />
+                        <TextInput
+                            style={styles.timeInput}
+                            value={newEndTime}
+                            onChangeText={setNewEndTime}
+                            placeholder="HH:MM"
+                            autoCorrect={false}
+                            autoCapitalize="none"
+                        />
+                    </View>
 
                     <View style={styles.modalActions}>
                         <VoiceButton label="Cancel" onPress={() => setShowModal(false)} />
@@ -238,9 +271,48 @@ const styles = StyleSheet.create({
     borderColor: palette.disabled,
     color: palette.textPrimary,
   },
+  dateTimeRow: {
+    flexDirection: 'row',
+    gap: spacing.sm,
+    alignItems: 'center',
+  },
+  datePicker: {
+    flex: 1,
+  },
+  timeInput: {
+    minWidth: 110,
+    backgroundColor: palette.surface,
+    borderRadius: 12,
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.md,
+    borderWidth: 1,
+    borderColor: palette.disabled,
+    color: palette.textPrimary,
+    textAlign: 'center',
+  },
   modalActions: {
     marginTop: spacing.lg,
     flexDirection: 'row',
     gap: spacing.md,
   },
 });
+
+const padTime = (value: number) => String(value).padStart(2, '0');
+
+const formatTime = (date: Date) => `${padTime(date.getHours())}:${padTime(date.getMinutes())}`;
+
+const parseTime = (value: string) => {
+  const match = value.trim().match(/^([01]\d|2[0-3]):([0-5]\d)$/);
+  if (!match) {
+    return null;
+  }
+  return { hours: Number(match[1]), minutes: Number(match[2]) };
+};
+
+const buildDateTime = (date: Date, time: string) => {
+  const parsed = parseTime(time);
+  if (!parsed) {
+    return null;
+  }
+  return new Date(date.getFullYear(), date.getMonth(), date.getDate(), parsed.hours, parsed.minutes, 0, 0);
+};

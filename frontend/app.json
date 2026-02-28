@@ -58,7 +58,6 @@
           "color": "#0a84ff"
         }
       ],
-      "@react-native-community/datetimepicker",
       "@sentry/react-native/expo"
     ],
     "hooks": {
@@ -73,6 +72,10 @@
       "icon": "./assets/icon.png",
       "color": "#0a84ff"
     },
+    "updates": {
+      "url": "https://u.expo.dev/796c7c36-68cb-44e3-b8fb-039569e62d06"
+    },
+    "runtimeVersion": "0.1.0",
     "extra": {
       "eas": {
         "projectId": "796c7c36-68cb-44e3-b8fb-039569e62d06"

@@ -42,7 +42,8 @@ class MainApplication : Application(), ReactApplication {
     super.onCreate()
     SoLoader.init(this, false)
     if (BuildConfig.IS_NEW_ARCHITECTURE_ENABLED) {
-      // If you opted-in for the New Architecture, we load the native entry point for this app.
+      // If you opted-in for the New Architecture, we load the native entry
+     // point for this app.
       load()
     }
     ApplicationLifecycleDispatcher.onApplicationCreate(this)
@@ -53,3 +54,4 @@ class MainApplication : Application(), ReactApplication {
     ApplicationLifecycleDispatcher.onConfigurationChanged(this, newConfig)
   }
 }
+

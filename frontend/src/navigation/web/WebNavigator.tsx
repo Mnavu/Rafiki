@@ -15,7 +15,7 @@ const AppDrawer = () => {
     const user = state.user;
 
     return (
-        <Drawer.Navigator drawerContent={(props) => <WebDrawerContent {...props} />}>
+        <Drawer.Navigator drawerContent={WebDrawerContent}>
             {user?.role === 'admin' && (
                 <Drawer.Screen name="Admin Dashboard" component={AdminDashboardScreen} />
             )}

@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useEffect, useMemo, useState, useCallback } from 'react';
-import { ActivityIndicator, View, Text } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as LocalAuthentication from 'expo-local-authentication';
 import { useQueryClient } from '@tanstack/react-query';
@@ -72,53 +71,53 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [biometricsAvailable, setBiometricsAvailable] = useState(false);
   const queryClient = useQueryClient();
 
-
-
   useEffect(() => {
-        const load = async () => {
-          try {
-            const payload = await AsyncStorage.getItem(STORAGE_KEY);
-                            if (payload) {
-                              const parsed: AuthState = JSON.parse(payload);
-                              if (parsed.user && typeof parsed.user.totp_enabled !== 'boolean') {
-                                parsed.user = { ...parsed.user, totp_enabled: false };
-                              }
-                              setState(parsed);
-                    
-                                                  
-                                        const hasUser = !!parsed.user;
-                                        if (hasUser) {
-                                          try {
-                                            const hasHardware = await LocalAuthentication.hasHardwareAsync();
-                                            const isEnrolled = await LocalAuthentication.isEnrolledAsync();
-                                            if (hasHardware && isEnrolled) {
-                                              setBiometricsAvailable(true);
-                                              const result = await LocalAuthentication.authenticateAsync({
-                                                promptMessage: 'Unlock EduAssist',
-                                                fallbackLabel: 'Use passcode',
-                                              });
-                                              if (result.success) {
-                                                setBiometricLocked(false);
-                                              } else {
-                                                setBiometricLocked(true);
-                                              }
-                                            } else {
-                                              setBiometricLocked(false);
-                                              setBiometricsAvailable(false);
-                                            }
-                                          } catch (error) {
-                                            console.warn('Biometric unlock failed', error);
-                                            setBiometricLocked(false);
-                                          }
-                                        } else {
-                                          setBiometricLocked(false);
-                                          setBiometricsAvailable(false);
-                                        }                            }          } catch (error) {
-            console.warn('Failed to read auth state', error);
-          } finally {
-            setBootstrapped(true);
+    const load = async () => {
+      try {
+        const payload = await AsyncStorage.getItem(STORAGE_KEY);
+        if (payload) {
+          const parsed: AuthState = JSON.parse(payload);
+          if (parsed.user && typeof parsed.user.totp_enabled !== 'boolean') {
+            parsed.user = { ...parsed.user, totp_enabled: false };
           }
-        };
+          setState(parsed);
+
+          const hasUser = !!parsed.user;
+          if (hasUser) {
+            try {
+              const hasHardware = await LocalAuthentication.hasHardwareAsync();
+              const isEnrolled = await LocalAuthentication.isEnrolledAsync();
+              if (hasHardware && isEnrolled) {
+                setBiometricsAvailable(true);
+                const result = await LocalAuthentication.authenticateAsync({
+                  promptMessage: 'Unlock EduAssist',
+                  fallbackLabel: 'Use passcode',
+                });
+                if (result.success) {
+                  setBiometricLocked(false);
+                } else {
+                  setBiometricLocked(true);
+                }
+              } else {
+                setBiometricLocked(false);
+                setBiometricsAvailable(false);
+              }
+            } catch (error) {
+              console.warn('Biometric unlock failed', error);
+              setBiometricLocked(false);
+            }
+          } else {
+            setBiometricLocked(false);
+            setBiometricsAvailable(false);
+          }
+        }
+      } catch (error) {
+        console.warn('Failed to read auth state', error);
+      } finally {
+        setBootstrapped(true);
+      }
+    };
+
     load();
   }, []);
 
