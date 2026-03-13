@@ -11,11 +11,12 @@ module.exports = function (api) {
           alias: {
             '@components': './src/components',
             '@context': './src/context',
+            '@data': './src/data',
             '@navigation': './src/navigation',
             '@screens': './src/screens',
             '@services': './src/services',
             '@theme': './src/theme',
-            '@types': './src/types',
+            '@app-types': './src/types',
           },
         },
       ],

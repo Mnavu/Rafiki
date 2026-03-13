@@ -1,14 +1,21 @@
 from rest_framework import viewsets, status
 from rest_framework.generics import ListAPIView
+from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import action
 from rest_framework.exceptions import PermissionDenied, ValidationError
 
-from users.models import Student, Lecturer
+from users.models import Student, Lecturer, User
 from users.serializers import UserSerializer
 from ..models import Registration, CurriculumUnit
 from ..serializers import RegistrationSerializer
+
+PEER_ELIGIBLE_REGISTRATION_STATUSES = (
+    Registration.Status.SUBMITTED,
+    Registration.Status.PENDING_HOD,
+    Registration.Status.APPROVED,
+)
 
 
 class StudentUnitSelectionViewSet(viewsets.ViewSet):
@@ -88,3 +95,52 @@ class StudentLecturersView(ListAPIView):
         lecturer_ids = LecturerAssignment.objects.filter(unit_id__in=unit_ids).values_list('lecturer_id', flat=True)
         
         return User.objects.filter(lecturer_profile__id__in=lecturer_ids)
+
+
+class StudentPeersView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user = request.user
+        if user.role != User.Roles.STUDENT:
+            raise PermissionDenied("Only students can view peers.")
+        try:
+            student_profile = user.student_profile
+        except Student.DoesNotExist:
+            return Response([])
+
+        approved_regs = Registration.objects.filter(
+            student=student_profile,
+            status__in=PEER_ELIGIBLE_REGISTRATION_STATUSES,
+        )
+        unit_ids = list(approved_regs.values_list("unit_id", flat=True))
+        if not unit_ids:
+            return Response([])
+
+        peer_regs = (
+            Registration.objects.filter(
+                unit_id__in=unit_ids,
+                status__in=PEER_ELIGIBLE_REGISTRATION_STATUSES,
+            )
+            .exclude(student=student_profile)
+            .select_related("student__user", "unit")
+        )
+
+        peers = {}
+        for reg in peer_regs:
+            peer_student = reg.student
+            peer_user = peer_student.user
+            entry = peers.setdefault(
+                peer_user.id,
+                {
+                    "user_id": peer_user.id,
+                    "username": peer_user.username,
+                    "display_name": peer_user.display_name or peer_user.username,
+                    "year": peer_student.year,
+                    "shared_units": [],
+                },
+            )
+            if reg.unit.code not in entry["shared_units"]:
+                entry["shared_units"].append(reg.unit.code)
+
+        return Response(sorted(peers.values(), key=lambda item: item["display_name"].lower()))

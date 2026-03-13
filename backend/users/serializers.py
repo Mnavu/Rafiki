@@ -185,6 +185,7 @@ class ParentStudentLinkSerializer(serializers.ModelSerializer):
     )
     parent_detail = UserSerializer(source="parent.user", read_only=True)
     student_detail = UserSerializer(source="student.user", read_only=True)
+    records_passcode = serializers.CharField(write_only=True, required=False, allow_blank=True)
 
     class Meta:
         model = ParentStudentLink
@@ -193,12 +194,17 @@ class ParentStudentLinkSerializer(serializers.ModelSerializer):
             "parent",
             "student",
             "relationship",
+            "records_passcode",
             "created_at",
             "updated_at",
             "parent_detail",
             "student_detail",
         ]
         read_only_fields = ["id", "created_at", "updated_at", "parent_detail", "student_detail"]
+
+    def validate(self, attrs):
+        attrs.pop("records_passcode", None)
+        return attrs
 
 
 class FamilyAccountSerializer(serializers.Serializer):

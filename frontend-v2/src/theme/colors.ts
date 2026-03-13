@@ -22,6 +22,7 @@ export const roleColors = {
   admin: '#7C3AED',
   superadmin: '#0B4EA2',
   librarian: '#10B981',
+  guest: '#6B7280',
 };
 
 export const themeColors = {

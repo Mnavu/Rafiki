@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from uuid import uuid4
+
 from django.utils.deprecation import MiddlewareMixin
 
 from . import state
@@ -11,9 +13,12 @@ class RequestAuditMiddleware(MiddlewareMixin):
         user = getattr(request, "user", None)
         if user and not getattr(user, "is_authenticated", False):
             user = None
+        request_id = request.headers.get("X-Request-ID") or str(uuid4())
+        request.audit_request_id = request_id
         state.set_user(user)
         state.set_request_info(
             {
+                "request_id": request_id,
                 "path": request.path,
                 "method": request.method,
                 "remote_addr": request.META.get("REMOTE_ADDR"),
@@ -25,6 +30,9 @@ class RequestAuditMiddleware(MiddlewareMixin):
         try:
             if request.path.startswith("/api/"):
                 log_api_request(request, response)
+            request_id = getattr(request, "audit_request_id", None)
+            if request_id:
+                response["X-Request-ID"] = request_id
         finally:
             state.clear()
         return response

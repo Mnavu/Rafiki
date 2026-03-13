@@ -4,8 +4,8 @@ import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { DashboardTile, GreetingHeader, RoleBadge } from '@components/index';
 import { palette, spacing } from '@theme/index';
-import type { Role } from '@types/roles';
-import { roleLabels } from '@types/roles';
+import type { Role } from '@app-types/roles';
+import { roleLabels } from '@app-types/roles';
 import type { RootStackParamList } from '@navigation/AppNavigator';
 
 type RoleOption = {
@@ -16,12 +16,22 @@ type RoleOption = {
 
 const roleOptions: RoleOption[] = [
   { key: 'student', title: roleLabels.student, subtitle: 'Follow schedules and submit work.' },
-  { key: 'parent', title: roleLabels.parent, subtitle: 'Track attendance, fees, and updates.' },
+  { key: 'parent', title: roleLabels.parent, subtitle: 'Track learner progress, fees, and updates.' },
   { key: 'lecturer', title: roleLabels.lecturer, subtitle: 'Manage classes and share resources.' },
   { key: 'hod', title: roleLabels.hod, subtitle: 'Approve enrollments and monitor progress.' },
   { key: 'finance', title: roleLabels.finance, subtitle: 'Review invoices and payments.' },
   { key: 'records', title: roleLabels.records, subtitle: 'Handle transcripts and verifications.' },
   { key: 'admin', title: roleLabels.admin, subtitle: 'Manage users and system settings.' },
+  {
+    key: 'superadmin',
+    title: roleLabels.superadmin,
+    subtitle: 'Govern global roles, policy, and platform controls.',
+  },
+  {
+    key: 'librarian',
+    title: roleLabels.librarian,
+    subtitle: 'Curate digital assets and library reporting.',
+  },
 ];
 
 export const RoleSelectionScreen: React.FC = () => {

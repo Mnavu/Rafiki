@@ -63,7 +63,7 @@ class ThreadSerializer(serializers.ModelSerializer):
         queryset=User.objects.filter(role=User.Roles.STUDENT)
     )
     teacher = serializers.PrimaryKeyRelatedField(
-        queryset=User.objects.filter(role=User.Roles.LECTURER)
+        queryset=User.objects.filter(role__in=[User.Roles.LECTURER, User.Roles.STUDENT])
     )
     parent = serializers.PrimaryKeyRelatedField(
         queryset=User.objects.filter(role=User.Roles.PARENT),
@@ -98,12 +98,18 @@ class ThreadSerializer(serializers.ModelSerializer):
             return attrs
         user = request.user
         student = attrs.get("student") or getattr(self.instance, "student", None)
+        teacher = attrs.get("teacher") or getattr(self.instance, "teacher", None)
         parent = attrs.get("parent") or getattr(self.instance, "parent", None)
         if user.role == User.Roles.PARENT:
             if parent and parent != user:
                 raise serializers.ValidationError("Parents cannot reassign threads to other parents.")
             if student and not user.linked_students.filter(student=student).exists():
                 raise serializers.ValidationError("Parent must be linked to the student to start a thread.")
+        if student and teacher and teacher.role == User.Roles.STUDENT:
+            if student == teacher:
+                raise serializers.ValidationError("Student-to-student threads require two different students.")
+            if parent is not None:
+                raise serializers.ValidationError("Peer student threads cannot include a guardian participant.")
         return attrs
 
 

@@ -25,6 +25,8 @@ npm-debug.log*
 frontend/.expo/
 frontend/.expo-shared/
 frontend/node_modules/
+frontend-legacy-*.zip
+*.zip
 
 # OS
 .DS_Store

@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import type { Role } from '@types/roles';
+import type { Role } from '@app-types/roles';
 import { fetchProfile, loginRequest, type ApiUser } from '@services/api';
 
 type AuthState = {
@@ -12,7 +12,14 @@ type AuthState = {
 type LoginParams = {
   username: string;
   password: string;
-  expectedRole: Role;
+  roleHint?: Role;
+};
+
+type SavedCredentials = {
+  role: Role;
+  username: string;
+  password: string;
+  lastUsedAt: string;
 };
 
 type AuthContextValue = {
@@ -20,10 +27,18 @@ type AuthContextValue = {
   loading: boolean;
   isAuthenticated: boolean;
   login: (params: LoginParams) => Promise<{ success: boolean; error?: string }>;
+  getSavedCredentials: (role: Role) => Promise<SavedCredentials | null>;
+  getRecentCredentials: (role?: Role) => Promise<SavedCredentials[]>;
+  updatePreferences: (prefs: {
+    prefers_simple_language?: boolean;
+    prefers_high_contrast?: boolean;
+  }) => Promise<void>;
   logout: () => Promise<void>;
 };
 
 const STORAGE_KEY = 'eduassistv2.auth';
+const CREDENTIALS_KEY_PREFIX = 'eduassistv2.credentials';
+const CREDENTIALS_RECENT_KEY = 'eduassistv2.credentials.recent';
 
 const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 
@@ -61,19 +76,125 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     );
   }, [state, loading]);
 
-  const login = async ({ username, password, expectedRole }: LoginParams) => {
+  const getRecentCredentials = async (role?: Role): Promise<SavedCredentials[]> => {
+    try {
+      const raw = await AsyncStorage.getItem(CREDENTIALS_RECENT_KEY);
+      if (!raw) {
+        return [];
+      }
+      const parsed = JSON.parse(raw) as SavedCredentials[];
+      if (!Array.isArray(parsed)) {
+        return [];
+      }
+      const normalized = parsed.filter(
+        (item) =>
+          !!item &&
+          typeof item.username === 'string' &&
+          typeof item.password === 'string' &&
+          typeof item.role === 'string',
+      );
+      if (!role) {
+        return normalized;
+      }
+      return normalized.filter((item) => item.role === role);
+    } catch (error) {
+      console.warn('Failed to load recent credentials', error);
+      return [];
+    }
+  };
+
+  const getSavedCredentials = async (role: Role): Promise<SavedCredentials | null> => {
+    try {
+      const recent = await getRecentCredentials(role);
+      if (recent.length > 0) {
+        return recent[0];
+      }
+      const raw = await AsyncStorage.getItem(`${CREDENTIALS_KEY_PREFIX}.${role}`);
+      if (!raw) {
+        return null;
+      }
+      const parsed = JSON.parse(raw) as Omit<SavedCredentials, 'role' | 'lastUsedAt'>;
+      if (!parsed?.username || !parsed?.password) {
+        return null;
+      }
+      return {
+        role,
+        username: parsed.username,
+        password: parsed.password,
+        lastUsedAt: new Date().toISOString(),
+      };
+    } catch (error) {
+      console.warn('Failed to load saved credentials', error);
+      return null;
+    }
+  };
+
+  const persistCredential = async (credential: SavedCredentials) => {
+    await AsyncStorage.setItem(
+      `${CREDENTIALS_KEY_PREFIX}.${credential.role}`,
+      JSON.stringify({ username: credential.username, password: credential.password }),
+    );
+    const recent = await getRecentCredentials();
+    const deduped = recent.filter(
+      (item) =>
+        !(
+          item.role === credential.role &&
+          item.username.toLowerCase() === credential.username.toLowerCase()
+        ),
+    );
+    const next = [credential, ...deduped].slice(0, 20);
+    await AsyncStorage.setItem(CREDENTIALS_RECENT_KEY, JSON.stringify(next));
+  };
+
+  const updatePreferences = async (prefs: {
+    prefers_simple_language?: boolean;
+    prefers_high_contrast?: boolean;
+  }) => {
+    setState((current) => {
+      if (!current.user) {
+        return current;
+      }
+      return {
+        ...current,
+        user: {
+          ...current.user,
+          ...(prefs.prefers_simple_language !== undefined
+            ? { prefers_simple_language: prefs.prefers_simple_language }
+            : {}),
+          ...(prefs.prefers_high_contrast !== undefined
+            ? { prefers_high_contrast: prefs.prefers_high_contrast }
+            : {}),
+        },
+      };
+    });
+  };
+
+  const login = async ({ username, password, roleHint }: LoginParams) => {
     setLoading(true);
     try {
       const tokens = await loginRequest({ username, password });
       const profile = await fetchProfile(tokens.access);
-      if (profile.role !== expectedRole) {
-        return { success: false, error: `This account is assigned to the ${profile.role} role.` };
-      }
       setState({
         user: profile,
         accessToken: tokens.access,
         refreshToken: tokens.refresh ?? null,
       });
+      const normalizedUsername = username.trim();
+      const savedAt = new Date().toISOString();
+      await persistCredential({
+        role: profile.role,
+        username: normalizedUsername,
+        password,
+        lastUsedAt: savedAt,
+      });
+      if (roleHint && roleHint !== profile.role) {
+        await persistCredential({
+          role: roleHint,
+          username: normalizedUsername,
+          password,
+          lastUsedAt: savedAt,
+        });
+      }
       return { success: true };
     } catch (error: any) {
       console.warn('Login error', error);
@@ -94,6 +215,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       loading,
       isAuthenticated: !!state.accessToken && !!state.user,
       login,
+      getSavedCredentials,
+      getRecentCredentials,
+      updatePreferences,
       logout,
     }),
     [state, loading],

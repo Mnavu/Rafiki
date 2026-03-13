@@ -13,6 +13,7 @@ from rest_framework.routers import DefaultRouter
 # )
 from .views import (
     ProgrammeViewSet,
+    CurriculumUnitViewSet,
     TermOfferingViewSet,
     LecturerAssignmentViewSet,
     TimetableViewSet,
@@ -30,10 +31,16 @@ from .views import (
     SubmissionViewSet,
     ProgressSummaryView,
     QuizViewSet,
+    LecturerClassesDashboardView,
+    LecturerClassDetailView,
+    LecturerWeeklyPlannerView,
+    LecturerAttendanceSheetView,
+    StudentPeersView,
 )
 
 router = DefaultRouter()
 router.register(r"programmes", ProgrammeViewSet, basename="programme")
+router.register(r"curriculum-units", CurriculumUnitViewSet, basename="curriculum-unit")
 router.register(r"term-offerings", TermOfferingViewSet, basename="term-offering")
 router.register(r"lecturer-assignments", LecturerAssignmentViewSet, basename="lecturer-assignment")
 router.register(r"timetables", TimetableViewSet, basename="timetable")
@@ -57,6 +64,11 @@ router.register(r"quizzes", QuizViewSet, basename="quiz")
 custom_patterns = [
     path("students/<int:student_id>/progress/", ProgressSummaryView.as_view(), name="progress-summary"),
     path("my-lecturers/", StudentLecturersView.as_view(), name="my-lecturers"),
+    path("students/me/peers/", StudentPeersView.as_view(), name="student-peers"),
+    path("lecturer/classes/", LecturerClassesDashboardView.as_view(), name="lecturer-classes"),
+    path("lecturer/classes/<int:unit_id>/", LecturerClassDetailView.as_view(), name="lecturer-class-detail"),
+    path("lecturer/weekly-planner/", LecturerWeeklyPlannerView.as_view(), name="lecturer-weekly-planner"),
+    path("lecturer/attendance-sheet/", LecturerAttendanceSheetView.as_view(), name="lecturer-attendance-sheet"),
     # path("enrollments/quick/", QuickEnrollmentView.as_view(), name="quick-enrollment"),
     # path("courses/<int:course_id>/roster/", CourseRosterView.as_view(), name="course-roster"),
     # path("attendance/check-in/", AttendanceCheckInView.as_view(), name="attendance-check-in"),

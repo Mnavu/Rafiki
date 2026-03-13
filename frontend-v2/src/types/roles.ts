@@ -7,11 +7,12 @@ export type Role =
   | 'records'
   | 'admin'
   | 'superadmin'
-  | 'librarian';
+  | 'librarian'
+  | 'guest';
 
 export const roleLabels: Record<Role, string> = {
   student: 'Student',
-  parent: 'Parent / Guardian',
+  parent: 'Guardian',
   lecturer: 'Lecturer',
   hod: 'Head of Department',
   finance: 'Finance',
@@ -19,4 +20,5 @@ export const roleLabels: Record<Role, string> = {
   admin: 'Admin',
   superadmin: 'Super Admin',
   librarian: 'Librarian',
+  guest: 'Guest',
 };

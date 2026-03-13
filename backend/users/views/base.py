@@ -9,13 +9,14 @@ from rest_framework.exceptions import PermissionDenied, ValidationError
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 
-from core.models import AuditLog
+from core.models import AuditLog, ApprovalRequest
 # from finance.models import FeeItem
 # from learning.models import Course, Enrollment
 
 from finance.models import FinanceStatus, Payment
 from learning.models import Registration, CurriculumUnit
 from ..models import User, ParentStudentLink, UserProvisionRequest, FamilyEnrollmentIntent, Student, Guardian, Lecturer, HOD, Admin, RecordsOfficer, FinanceOfficer
+from ..role_assignment import apply_user_role, SENSITIVE_ROLES
 from ..serializers import (
     UserSerializer,
     ParentStudentLinkSerializer,
@@ -27,9 +28,21 @@ from ..notifications import notify_provision_request_approval
 
 
 class UserViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = User.objects.all().order_by("id")
     serializer_class = UserSerializer
-    permission_classes = [permissions.IsAdminUser]
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        qs = User.objects.all().order_by("id")
+        role_filter = self.request.query_params.get("role")
+        if role_filter:
+            qs = qs.filter(role=role_filter)
+
+        if user.is_superuser or user.is_staff:
+            return qs
+        if user.role in {User.Roles.ADMIN, User.Roles.SUPERADMIN, User.Roles.RECORDS, User.Roles.HOD}:
+            return qs
+        return qs.filter(pk=user.pk)
 
 
 class ParentStudentLinkViewSet(viewsets.ModelViewSet):
@@ -40,25 +53,27 @@ class ParentStudentLinkViewSet(viewsets.ModelViewSet):
         user = self.request.user
         qs = ParentStudentLink.objects.select_related("parent", "student")
         if user.role == User.Roles.PARENT:
-            return qs.filter(parent=user)
+            return qs.filter(parent__user=user)
         if user.role == User.Roles.STUDENT:
-            return qs.filter(student=user)
-        if user.role in [User.Roles.ADMIN, User.Roles.HOD, User.Roles.RECORDS] or user.is_staff:
+            return qs.filter(student__user=user)
+        if user.role in [User.Roles.ADMIN, User.Roles.SUPERADMIN, User.Roles.HOD, User.Roles.RECORDS] or user.is_staff:
             return qs
         return qs.none()
 
     def perform_create(self, serializer):
         user = self.request.user
-        if user.role not in [User.Roles.ADMIN, User.Roles.HOD, User.Roles.RECORDS] and not user.is_staff:
+        if user.role not in [User.Roles.ADMIN, User.Roles.SUPERADMIN, User.Roles.HOD, User.Roles.RECORDS] and not user.is_staff:
             raise PermissionDenied("Only admin, HOD, or records staff can create parent links.")
-        passcode = self.request.data.get("records_passcode")
-        if passcode != settings.RECORDS_PROVISION_PASSCODE:
-            raise PermissionDenied("Invalid records approval passcode.")
+        # Admin/superadmin can link directly without records passcode.
+        if user.role not in [User.Roles.ADMIN, User.Roles.SUPERADMIN]:
+            passcode = self.request.data.get("records_passcode")
+            if passcode != settings.RECORDS_PROVISION_PASSCODE:
+                raise PermissionDenied("Invalid records approval passcode.")
         serializer.save()
 
     def perform_destroy(self, instance):
         user = self.request.user
-        if user.role not in [User.Roles.ADMIN, User.Roles.HOD, User.Roles.RECORDS] and not user.is_staff:
+        if user.role not in [User.Roles.ADMIN, User.Roles.SUPERADMIN, User.Roles.HOD, User.Roles.RECORDS] and not user.is_staff:
             raise PermissionDenied("Only admin, HOD, or records staff can delete parent links.")
         instance.delete()
 
@@ -163,11 +178,11 @@ class UserProvisionRequestViewSet(viewsets.ModelViewSet):
         provision_request.temporary_password = temp_password
         provision_request.save(update_fields=["status", "reviewed_by", "reviewed_at", "created_user", "rejection_reason", "temporary_password"])
         AuditLog.objects.create(
-            user=acting,
+            actor_user=acting,
             action="user_provision_approved",
-            model=UserProvisionRequest._meta.label,
-            object_id=str(provision_request.pk),
-            changes={"username": provision_request.username, "role": provision_request.role},
+            target_table=UserProvisionRequest._meta.label,
+            target_id=str(provision_request.pk),
+            after={"username": provision_request.username, "role": provision_request.role},
         )
         notify_provision_request_approval(provision_request, temp_password)
         self._finalize_family_enrollment(provision_request)
@@ -269,11 +284,11 @@ class UserProvisionRequestViewSet(viewsets.ModelViewSet):
         provision_request.rejection_reason = reason
         provision_request.save(update_fields=["status", "reviewed_by", "reviewed_at", "rejection_reason"])
         AuditLog.objects.create(
-            user=acting,
+            actor_user=acting,
             action="user_provision_rejected",
-            model=UserProvisionRequest._meta.label,
-            object_id=str(provision_request.pk),
-            changes={"reason": reason},
+            target_table=UserProvisionRequest._meta.label,
+            target_id=str(provision_request.pk),
+            after={"reason": reason},
         )
         return Response(UserProvisionRequestSerializer(provision_request).data)
 
@@ -320,11 +335,11 @@ def password_reset_request(request):
         user._password_changed_by = actor or user
         user.save(update_fields=["must_change_password"])
         AuditLog.objects.create(
-            user=actor if actor else None,
+            actor_user=actor if actor else None,
             action="password_reset_request",
-            model=User._meta.label,
-            object_id=str(user.pk),
-            changes={"token_issued": True},
+            target_table=User._meta.label,
+            target_id=str(user.pk),
+            after={"token_issued": True},
         )
         return Response({
             "detail": "Password reset token generated.",
@@ -357,11 +372,11 @@ def password_reset_confirm(request):
     user._password_changed_by = user
     user.save(update_fields=["password", "must_change_password"])
     AuditLog.objects.create(
-        user=user,
+        actor_user=user,
         action="password_reset_confirm",
-        model=User._meta.label,
-        object_id=str(user.pk),
-        changes={"password_reset": True},
+        target_table=User._meta.label,
+        target_id=str(user.pk),
+        after={"password_reset": True},
     )
     return Response({"detail": "Password updated successfully."})
 
@@ -379,11 +394,11 @@ def password_change_self(request):
     user._password_changed_by = user
     user.save(update_fields=["password", "must_change_password"])
     AuditLog.objects.create(
-        user=user,
+        actor_user=user,
         action="password_change_self",
-        model=User._meta.label,
-        object_id=str(user.pk),
-        changes={"self_service": True},
+        target_table=User._meta.label,
+        target_id=str(user.pk),
+        after={"self_service": True},
     )
     return Response({"detail": "Password updated."})
 
@@ -446,8 +461,9 @@ def totp_disable(request):
 @permission_classes([permissions.IsAuthenticated])
 def assign_role(request):
     acting = request.user
-    if acting.role not in [User.Roles.SUPERADMIN] and not acting.is_superuser:
-        raise PermissionDenied("Only super administrators may assign roles.")
+    allowed_actors = {User.Roles.SUPERADMIN, User.Roles.ADMIN, User.Roles.RECORDS}
+    if acting.role not in allowed_actors and not acting.is_superuser:
+        raise PermissionDenied("Only super admin, admin, or records can assign roles.")
     target_id = request.data.get("user_id")
     new_role = request.data.get("role")
     if not target_id or not new_role:
@@ -456,33 +472,74 @@ def assign_role(request):
     valid_roles = {choice[0] for choice in User.Roles.choices}
     if new_role not in valid_roles:
         raise ValidationError({"detail": f"Invalid role '{new_role}'."})
+
+    if acting.role == User.Roles.ADMIN and new_role == User.Roles.SUPERADMIN:
+        raise ValidationError({"detail": "Admins cannot promote users to superadmin."})
+    if acting.role == User.Roles.RECORDS and new_role in {User.Roles.ADMIN, User.Roles.SUPERADMIN}:
+        raise ValidationError({"detail": "Records users cannot assign admin-level roles."})
     if target == acting and new_role != User.Roles.SUPERADMIN:
         raise ValidationError({"detail": "Super administrators cannot demote themselves via API."})
-    target.role = new_role
-    updates = ["role"]
-    if new_role == User.Roles.SUPERADMIN:
-        if not target.is_superuser:
-            target.is_superuser = True
-            updates.append("is_superuser")
-        if not target.is_staff:
-            target.is_staff = True
-            updates.append("is_staff")
-    elif new_role == User.Roles.ADMIN:
-        if not target.is_staff:
-            target.is_staff = True
-            updates.append("is_staff")
-        if target != acting and target.is_superuser:
-            target.is_superuser = False
-            updates.append("is_superuser")
-    else:
-        if target != acting:
-            if target.is_superuser:
-                target.is_superuser = False
-                updates.append("is_superuser")
-            if target.is_staff and not target.is_superuser:
-                target.is_staff = False
-                updates.append("is_staff")
-    target.save(update_fields=list(set(updates)))
+
+    approve_now = str(request.data.get("approve_now", "")).strip().lower() in {"1", "true", "yes"}
+    requires_approval = (
+        new_role in SENSITIVE_ROLES
+        and acting.role != User.Roles.SUPERADMIN
+        and not approve_now
+    )
+    if requires_approval:
+        pending = ApprovalRequest.objects.filter(
+            action_type=ApprovalRequest.ActionType.ASSIGN_ROLE,
+            status=ApprovalRequest.Status.PENDING,
+            target_user=target,
+            payload__role=new_role,
+        ).first()
+        if pending:
+            return Response(
+                {
+                    "detail": "A matching approval request is already pending.",
+                    "approval_request_id": pending.id,
+                },
+                status=status.HTTP_202_ACCEPTED,
+            )
+        approval = ApprovalRequest.objects.create(
+            action_type=ApprovalRequest.ActionType.ASSIGN_ROLE,
+            requested_by=acting,
+            target_user=target,
+            payload={
+                "user_id": target.id,
+                "current_role": target.role,
+                "role": new_role,
+            },
+        )
+        AuditLog.objects.create(
+            actor_user=acting,
+            action="role_change_requested",
+            target_table=User._meta.label,
+            target_id=str(target.pk),
+            after={
+                "approval_request_id": approval.id,
+                "requested_role": new_role,
+            },
+        )
+        return Response(
+            {
+                "detail": "Role change requires secondary approval.",
+                "approval_request_id": approval.id,
+                "status": approval.status,
+            },
+            status=status.HTTP_202_ACCEPTED,
+        )
+
+    previous_role = target.role
+    apply_user_role(target, new_role)
+    AuditLog.objects.create(
+        actor_user=acting,
+        action="role_assigned",
+        target_table=User._meta.label,
+        target_id=str(target.pk),
+        before={"role": previous_role},
+        after={"role": new_role},
+    )
     return Response(UserSerializer(target).data)
 
 
@@ -497,11 +554,11 @@ def provision_user(request):
     serializer.is_valid(raise_exception=True)
     user = serializer.save()
     AuditLog.objects.create(
-        user=acting,
+        actor_user=acting,
         action="user_provision",
-        model=User._meta.label,
-        object_id=str(user.pk),
-        changes={"provisioned_role": user.role},
+        target_table=User._meta.label,
+        target_id=str(user.pk),
+        after={"provisioned_role": user.role},
     )
     return Response(UserSerializer(user).data, status=status.HTTP_201_CREATED)
 
@@ -521,15 +578,14 @@ def enroll_family(request):
     student_request = payload.get("student_request")
     parent_request = payload.get("parent_request")
     AuditLog.objects.create(
-        user=acting,
+        actor_user=acting,
         action="family_enroll_queued",
-        model=UserProvisionRequest._meta.label,
-        object_id=str(student_request.get("id")),
-        changes={
+        target_table=UserProvisionRequest._meta.label,
+        target_id=str(student_request.get("id")),
+        after={
             "student_username": student_request.get("username"),
             "parent_username": parent_request.get("username") if parent_request else None,
             "course_codes": payload.get("course_codes", []),
         },
     )
     return Response(payload, status=status.HTTP_201_CREATED)
-

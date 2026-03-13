@@ -22,7 +22,9 @@ export const GreetingHeader: React.FC<GreetingHeaderProps> = ({
     <View style={styles.container}>
       <View style={styles.info}>
         <Text style={styles.greeting}>{timeAwareGreeting}</Text>
-        <Text style={styles.name}>{name}</Text>
+        <Text style={styles.name} numberOfLines={2}>
+          {name}
+        </Text>
       </View>
       <View style={styles.actions}>
         {rightAccessory ? <View style={styles.accessory}>{rightAccessory}</View> : null}
@@ -81,7 +83,7 @@ const styles = StyleSheet.create({
     color: palette.textSecondary,
   },
   name: {
-    ...typography.headingXL,
+    ...typography.headingL,
     color: palette.textPrimary,
   },
   avatarWrapper: {

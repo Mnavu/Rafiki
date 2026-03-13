@@ -114,9 +114,9 @@ python backend/manage.py runserver 0.0.0.0:8000
 
 ### Frontend setup
 ```bash
-cd frontend
+cd frontend-v2
 npm install
-# Create frontend/.env and set:
+# Create frontend-v2/.env and set:
 # EXPO_PUBLIC_API_URL=http://<your-local-IP>:8000
 npx expo start --clear
 ```
@@ -143,7 +143,7 @@ Each account comes with sensible `is_staff` / `is_superuser` settings so you can
 ### Testing & quality checks
 - Backend unit tests: `python backend/manage.py test`
 - Lint API schema or run DRF checks as needed (`python backend/manage.py spectacular --file schema.yml`)
-- Frontend linting: `cd frontend && npm run lint`
+- Frontend linting: `cd frontend-v2 && npm run lint`
 - For end-to-end manual testing, start the backend first, then Expo, log in with a demo user, and exercise dashboards, messaging, support chat, and rewards flows.
 
 ---

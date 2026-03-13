@@ -1,4 +1,6 @@
 import os
+import re
+import difflib
 from django.http import JsonResponse
 from rest_framework import permissions, status
 from rest_framework.decorators import api_view, permission_classes
@@ -6,8 +8,141 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
 from pydub import AudioSegment
+from pydub.effects import normalize as normalize_audio
 import speech_recognition as sr
 from tempfile import NamedTemporaryFile
+
+SPEECH_PHRASE_REPLACEMENTS = {
+    "time table": "timetable",
+    "table time": "timetable",
+    "class time table": "class timetable",
+    "chat boat": "chatbot",
+    "chat bot": "chatbot",
+    "a sign ment": "assignment",
+    "assigment": "assignment",
+    "assainment": "assignment",
+    "see a t": "cat",
+    "cee a tee": "cat",
+    "feez": "fees",
+    "fee status": "fees status",
+    "class group": "class community",
+}
+
+SPEECH_VOCABULARY = {
+    "timetable",
+    "class",
+    "classes",
+    "call",
+    "calls",
+    "assignment",
+    "assignments",
+    "cat",
+    "exam",
+    "course",
+    "unit",
+    "chatbot",
+    "fees",
+    "finance",
+    "group",
+    "community",
+    "message",
+    "messages",
+    "lecturer",
+    "student",
+    "guardian",
+    "schedule",
+    "activity",
+    "activities",
+    "notice",
+}
+
+
+def _normalize_speech_text(text: str) -> str:
+    if not text:
+        return ""
+    normalized = text.lower().strip()
+
+    for source, target in SPEECH_PHRASE_REPLACEMENTS.items():
+        normalized = re.sub(rf"\b{re.escape(source)}\b", target, normalized)
+
+    normalized = re.sub(r"[^a-z0-9\s]", " ", normalized)
+    normalized = re.sub(r"\s+", " ", normalized).strip()
+    if not normalized:
+        return text.strip()
+
+    corrected_tokens = []
+    for token in normalized.split():
+        if len(token) < 4 or token in SPEECH_VOCABULARY:
+            corrected_tokens.append(token)
+            continue
+        best_match = difflib.get_close_matches(token, SPEECH_VOCABULARY, n=1, cutoff=0.82)
+        corrected_tokens.append(best_match[0] if best_match else token)
+
+    corrected = " ".join(corrected_tokens).strip()
+    return corrected if corrected else text.strip()
+
+
+def _extract_google_candidates(result):
+    if isinstance(result, dict):
+        alternatives = result.get("alternative") or []
+        for alt in alternatives:
+            transcript = (alt.get("transcript") or "").strip()
+            if not transcript:
+                continue
+            confidence = alt.get("confidence")
+            try:
+                confidence_value = float(confidence) if confidence is not None else 0.0
+            except (TypeError, ValueError):
+                confidence_value = 0.0
+            yield transcript, confidence_value
+
+
+def _recognize_best_text(recognizer: sr.Recognizer, wav_paths: list[str]):
+    best_text = ""
+    best_confidence = 0.0
+    best_score = -1.0
+
+    for wav_path in wav_paths:
+        with sr.AudioFile(wav_path) as source:
+            audio_data = recognizer.record(source)
+
+        # Primary pass with alternatives and confidence scores.
+        try:
+            detailed = recognizer.recognize_google(
+                audio_data,
+                language="en-KE",
+                show_all=True,
+            )
+            for transcript, confidence in _extract_google_candidates(detailed):
+                token_count = len(transcript.split())
+                score = (confidence * 10.0) + min(token_count, 14) * 0.15
+                if score > best_score:
+                    best_score = score
+                    best_text = transcript
+                    best_confidence = confidence
+        except sr.UnknownValueError:
+            pass
+        except sr.RequestError:
+            pass
+
+        # Fallback pass if alternatives were not returned.
+        if not best_text:
+            for language in ("en-KE", "en-US"):
+                try:
+                    fallback = recognizer.recognize_google(audio_data, language=language).strip()
+                    if fallback:
+                        score = min(len(fallback.split()), 14) * 0.15
+                        if score > best_score:
+                            best_score = score
+                            best_text = fallback
+                            best_confidence = 0.0
+                        break
+                except sr.UnknownValueError:
+                    continue
+                except sr.RequestError:
+                    continue
+
+    return best_text, best_confidence
 
 
 @api_view(["GET"])
@@ -55,19 +190,45 @@ def transcribe_audio(request):
             temp_audio.write(chunk)
         temp_audio_path = temp_audio.name
 
+    wav_paths = []
     try:
-        # Convert to WAV using pydub
         audio = AudioSegment.from_file(temp_audio_path)
-        wav_path = temp_audio_path + ".wav"
-        audio.export(wav_path, format="wav")
+        prepared = normalize_audio(audio).set_channels(1).set_frame_rate(16000)
 
-        # Use speech recognition
+        # Run recognition against a few speed variants to improve hit-rate on unclear/slurred speech.
+        variants = [
+            prepared,
+            prepared._spawn(
+                prepared.raw_data,
+                overrides={"frame_rate": int(prepared.frame_rate * 0.92)},
+            ).set_frame_rate(16000),
+            prepared._spawn(
+                prepared.raw_data,
+                overrides={"frame_rate": int(prepared.frame_rate * 1.08)},
+            ).set_frame_rate(16000),
+        ]
+
+        for idx, variant in enumerate(variants):
+            variant_path = f"{temp_audio_path}.{idx}.wav"
+            variant.export(variant_path, format="wav")
+            wav_paths.append(variant_path)
+
         recognizer = sr.Recognizer()
-        with sr.AudioFile(wav_path) as source:
-            audio_data = recognizer.record(source)
-            text = recognizer.recognize_google(audio_data)
+        recognizer.dynamic_energy_threshold = True
+        recognizer.energy_threshold = 250
 
-        return Response({"text": text})
+        raw_text, confidence = _recognize_best_text(recognizer, wav_paths)
+        if not raw_text:
+            raise ValueError("No recognizable speech detected.")
+
+        normalized_text = _normalize_speech_text(raw_text)
+        return Response(
+            {
+                "text": normalized_text,
+                "raw_text": raw_text,
+                "confidence": confidence,
+            }
+        )
 
     except Exception as e:
         return Response(
@@ -79,6 +240,8 @@ def transcribe_audio(request):
         # Cleanup temp files
         try:
             os.unlink(temp_audio_path)
-            os.unlink(wav_path)
-        except:
+            for wav_path in wav_paths:
+                if os.path.exists(wav_path):
+                    os.unlink(wav_path)
+        except Exception:
             pass

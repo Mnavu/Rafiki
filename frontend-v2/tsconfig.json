@@ -6,11 +6,12 @@
     "paths": {
       "@components/*": ["components/*"],
       "@context/*": ["context/*"],
+      "@data/*": ["data/*"],
       "@navigation/*": ["navigation/*"],
       "@screens/*": ["screens/*"],
       "@services/*": ["services/*"],
       "@theme/*": ["theme/*"],
-      "@types/*": ["types/*"]
+      "@app-types/*": ["types/*"]
     }
   },
   "include": ["src", "App.tsx", "index.ts"]
