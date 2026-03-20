@@ -756,6 +756,32 @@ class GovernanceAuditLogViewSet(viewsets.ReadOnlyModelViewSet):
             )
         return queryset
 
+    @action(detail=False, methods=["get"], url_path="download-csv")
+    def download_csv(self, request):
+        _require_manager(request.user)
+        queryset = self.filter_queryset(self.get_queryset())
+        payload = [
+            {
+                "created_at": row.created_at.isoformat(),
+                "actor_username": row.actor_user.username if row.actor_user_id else "",
+                "actor_display_name": (
+                    row.actor_user.display_name if row.actor_user_id else ""
+                ) or (row.actor_user.username if row.actor_user_id else ""),
+                "actor_role": row.actor_user.role if row.actor_user_id else "",
+                "action": row.action,
+                "target_table": row.target_table,
+                "target_id": row.target_id,
+                "request_method": row.request_method,
+                "request_path": row.request_path,
+                "request_status": row.request_status,
+                "request_id": row.request_id,
+                "ip_address": row.ip_address,
+                "user_agent": row.user_agent,
+            }
+            for row in queryset
+        ]
+        return _build_csv_response("audit-logs", payload)
+
 
 class RiskFlagViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = RiskFlagSerializer

@@ -3,9 +3,26 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+try:
+    import dj_database_url
+except ImportError:
+    dj_database_url = None
+
+try:
+    import whitenoise  # noqa: F401
+except ImportError:
+    HAS_WHITENOISE = False
+else:
+    HAS_WHITENOISE = True
+
+
+def split_csv_env(name: str, default: str = "") -> list[str]:
+    raw = os.environ.get(name, default)
+    return [item.strip() for item in raw.split(",") if item.strip()]
+
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "dev-secret-key-change-me")
 DEBUG = os.environ.get("DJANGO_DEBUG", "1") == "1"
-ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "*").split(",")
+ALLOWED_HOSTS = split_csv_env("DJANGO_ALLOWED_HOSTS", "*" if DEBUG else "")
 
 INSTALLED_APPS = [
     "core",
@@ -48,6 +65,9 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
+if HAS_WHITENOISE:
+    MIDDLEWARE.insert(2, "whitenoise.middleware.WhiteNoiseMiddleware")
+
 ROOT_URLCONF = "edu_assist.urls"
 
 TEMPLATES = [
@@ -80,6 +100,16 @@ DATABASES = {
     }
 }
 
+database_url = os.environ.get("DATABASE_URL", "").strip()
+if database_url:
+    if dj_database_url is None:
+        raise RuntimeError("DATABASE_URL is set but dj-database-url is not installed.")
+    DATABASES["default"] = dj_database_url.parse(
+        database_url,
+        conn_max_age=600,
+        ssl_require=not DEBUG,
+    )
+
 AUTH_USER_MODEL = "users.User"
 
 LANGUAGE_CODE = "en-us"
@@ -94,6 +124,9 @@ STATICFILES_DIRS = [
     BASE_DIR / "core/static",
 ]
 
+if HAS_WHITENOISE:
+    STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 RECORDS_PROVISION_PASSCODE = os.environ.get("RECORDS_PROVISION_PASSCODE", "Records@2025")
@@ -102,7 +135,21 @@ ADMIN_USERNAME = os.environ.get("DJANGO_ADMIN_USERNAME", "admin")
 ADMIN_EMAIL = os.environ.get("DJANGO_ADMIN_EMAIL", "admin@example.com")
 ADMIN_PASSWORD = os.environ.get("DJANGO_ADMIN_PASSWORD", "adminpass")
 
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_ALL_ORIGINS = os.environ.get("CORS_ALLOW_ALL_ORIGINS", "1" if DEBUG else "0") == "1"
+CORS_ALLOWED_ORIGINS = split_csv_env("CORS_ALLOWED_ORIGINS")
+CORS_ALLOWED_ORIGIN_REGEXES = split_csv_env("CORS_ALLOWED_ORIGIN_REGEXES")
+CSRF_TRUSTED_ORIGINS = split_csv_env("DJANGO_CSRF_TRUSTED_ORIGINS")
+
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+USE_X_FORWARDED_HOST = True
+
+if not DEBUG:
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    SECURE_SSL_REDIRECT = os.environ.get("DJANGO_SECURE_SSL_REDIRECT", "1") == "1"
+    SECURE_HSTS_SECONDS = int(os.environ.get("DJANGO_SECURE_HSTS_SECONDS", "31536000"))
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [

@@ -1,5 +1,6 @@
 from decimal import Decimal
 from django.shortcuts import get_object_or_404
+from django.utils import timezone
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -11,7 +12,7 @@ from .serializers import PaymentSerializer, FinanceStatusSerializer, PaymentCrea
 from users.models import Student, ParentStudentLink
 
 class PaymentViewSet(viewsets.ModelViewSet):
-    queryset = Payment.objects.all()
+    queryset = Payment.objects.select_related("student__user", "student__programme")
     serializer_class = PaymentSerializer
     permission_classes = [IsAuthenticated]
 
@@ -74,7 +75,7 @@ class PaymentViewSet(viewsets.ModelViewSet):
 
 
 class FinanceStatusViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = FinanceStatus.objects.all()
+    queryset = FinanceStatus.objects.select_related("student__user", "student__programme")
     serializer_class = FinanceStatusSerializer
     permission_classes = [IsAuthenticated]
 
@@ -90,6 +91,58 @@ class FinanceStatusViewSet(viewsets.ReadOnlyModelViewSet):
         elif user.role in ['finance', 'admin', 'superadmin', 'hod']:
             return FinanceStatus.objects.all()
         return FinanceStatus.objects.none()
+
+    @action(detail=True, methods=['post'])
+    def record_payment(self, request, pk=None):
+        user = request.user
+        if user.role not in ['finance', 'admin', 'superadmin']:
+            raise PermissionDenied("Only finance or admin can record payments.")
+
+        fin_status = self.get_object()
+        try:
+            amount = Decimal(str(request.data.get("amount", "")).strip())
+        except Exception:
+            raise ValidationError("Enter a valid payment amount.")
+
+        if amount <= Decimal("0"):
+            raise ValidationError("Payment amount must be greater than zero.")
+
+        method = str(request.data.get("method", "")).strip()
+        ref = str(request.data.get("ref", "")).strip()
+
+        payment = Payment.objects.create(
+            student=fin_status.student,
+            academic_year=fin_status.academic_year,
+            trimester=fin_status.trimester,
+            amount=amount,
+            method=method,
+            ref=ref,
+            paid_at=timezone.now(),
+        )
+
+        fin_status.total_paid += amount
+        if fin_status.total_due > 0:
+            percentage_paid = (fin_status.total_paid / fin_status.total_due) * 100
+            if percentage_paid >= Decimal("100.0"):
+                fin_status.status = FinanceStatus.Status.PAID
+            elif percentage_paid >= Decimal("1.0"):
+                fin_status.status = FinanceStatus.Status.PARTIAL
+            else:
+                fin_status.status = FinanceStatus.Status.PENDING
+        else:
+            fin_status.status = FinanceStatus.Status.PAID
+            percentage_paid = Decimal("100.0")
+        fin_status.save(update_fields=["total_paid", "status", "updated_at"])
+
+        return Response(
+            {
+                "detail": "Payment recorded successfully.",
+                "payment": PaymentSerializer(payment).data,
+                "finance_status": FinanceStatusSerializer(fin_status).data,
+                "percentage_paid": float(percentage_paid),
+            },
+            status=status.HTTP_201_CREATED,
+        )
 
     @action(detail=True, methods=['post'])
     def open_registration(self, request, pk=None):

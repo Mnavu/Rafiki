@@ -200,60 +200,8 @@ export const featureCatalog: Record<Role, FeatureDescriptor[]> = {
       description: 'Semester summaries and dashboards.',
     },
   ],
-  admin: [
-    {
-      key: 'users',
-      title: 'Users & Roles',
-      description: 'Create accounts, link Guardians, and manage credentials.',
-    },
-    {
-      key: 'settings',
-      title: 'Systems',
-      description: 'Configure integrations, notifications, and schedulers.',
-    },
-    {
-      key: 'analytics',
-      title: 'Analytics',
-      description: 'Track logins, chatbot usage, and alerts.',
-    },
-    {
-      key: 'settings',
-      title: 'Theme',
-      description: 'Control branding, colors, and voice packs.',
-    },
-    {
-      key: 'audit_policies',
-      title: 'Audit & Policies',
-      description: 'Review audit trails and retention rules.',
-    },
-  ],
-  superadmin: [
-    {
-      key: 'users',
-      title: 'Role Governance',
-      description: 'Assign and revoke elevated roles across the platform.',
-    },
-    {
-      key: 'analytics',
-      title: 'Platform Health',
-      description: 'Monitor adoption, login success, and security coverage.',
-    },
-    {
-      key: 'settings',
-      title: 'System Controls',
-      description: 'Adjust global settings, integrations, and backups.',
-    },
-    {
-      key: 'audit_policies',
-      title: 'Audit Trails',
-      description: 'Review sensitive activity and authenticator events.',
-    },
-    {
-      key: 'reports',
-      title: 'Executive Reports',
-      description: 'Download compliance-ready quarterly exports.',
-    },
-  ],
+  admin: [],
+  superadmin: [],
   librarian: [
     {
       key: 'library',

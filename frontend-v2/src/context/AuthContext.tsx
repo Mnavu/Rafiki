@@ -33,6 +33,7 @@ type AuthContextValue = {
     prefers_simple_language?: boolean;
     prefers_high_contrast?: boolean;
   }) => Promise<void>;
+  applyProfileUpdate: (updatedUser: ApiUser, previousUsername?: string) => Promise<void>;
   logout: () => Promise<void>;
 };
 
@@ -146,6 +147,47 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     await AsyncStorage.setItem(CREDENTIALS_RECENT_KEY, JSON.stringify(next));
   };
 
+  const migrateSavedUsername = async (
+    oldUsername: string,
+    newUsername: string,
+    role: Role,
+  ): Promise<void> => {
+    const oldNormalized = oldUsername.trim().toLowerCase();
+    const newNormalized = newUsername.trim().toLowerCase();
+    if (!oldNormalized || !newNormalized || oldNormalized === newNormalized) {
+      return;
+    }
+
+    const recent = await getRecentCredentials();
+    if (recent.length) {
+      const updatedRecent = recent.map((item) =>
+        item.username.trim().toLowerCase() === oldNormalized
+          ? { ...item, username: newUsername.trim(), lastUsedAt: new Date().toISOString() }
+          : item,
+      );
+      await AsyncStorage.setItem(CREDENTIALS_RECENT_KEY, JSON.stringify(updatedRecent));
+    }
+
+    const roleKey = `${CREDENTIALS_KEY_PREFIX}.${role}`;
+    const roleRaw = await AsyncStorage.getItem(roleKey);
+    if (roleRaw) {
+      try {
+        const parsed = JSON.parse(roleRaw) as { username?: string; password?: string };
+        if (parsed.username?.trim().toLowerCase() === oldNormalized) {
+          await AsyncStorage.setItem(
+            roleKey,
+            JSON.stringify({
+              username: newUsername.trim(),
+              password: parsed.password || '',
+            }),
+          );
+        }
+      } catch (error) {
+        console.warn('Failed to migrate role credential username', error);
+      }
+    }
+  };
+
   const updatePreferences = async (prefs: {
     prefers_simple_language?: boolean;
     prefers_high_contrast?: boolean;
@@ -167,6 +209,21 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         },
       };
     });
+  };
+
+  const applyProfileUpdate = async (updatedUser: ApiUser, previousUsername?: string) => {
+    const oldUsername = previousUsername?.trim() || state.user?.username || '';
+    const nextUsername = updatedUser.username?.trim() || '';
+    if (oldUsername && nextUsername && oldUsername.toLowerCase() !== nextUsername.toLowerCase()) {
+      await migrateSavedUsername(oldUsername, nextUsername, updatedUser.role);
+    }
+    setState((current) => ({
+      ...current,
+      user: {
+        ...(current.user ?? updatedUser),
+        ...updatedUser,
+      },
+    }));
   };
 
   const login = async ({ username, password, roleHint }: LoginParams) => {
@@ -218,6 +275,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       getSavedCredentials,
       getRecentCredentials,
       updatePreferences,
+      applyProfileUpdate,
       logout,
     }),
     [state, loading],

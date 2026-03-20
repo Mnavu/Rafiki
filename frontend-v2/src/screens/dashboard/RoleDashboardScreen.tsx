@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   ActivityIndicator,
+  Platform,
   RefreshControl,
   ScrollView,
   StyleSheet,
@@ -347,6 +348,7 @@ export const RoleDashboardScreen: React.FC = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const { state, logout, updatePreferences } = useAuth();
   const role = state.user?.role ?? route.params.role;
+  const isControlCenterRole = role === 'admin' || role === 'superadmin';
   const userName = state.user?.display_name?.trim() || state.user?.username || roleLabels[role];
   const simpleMode = state.user?.prefers_simple_language !== false;
 
@@ -357,6 +359,11 @@ export const RoleDashboardScreen: React.FC = () => {
 
   const loadSummary = useCallback(
     async (isRefresh = false) => {
+      if (isControlCenterRole) {
+        setLoading(false);
+        setRefreshing(false);
+        return;
+      }
       if (!state.accessToken) {
         return;
       }
@@ -381,12 +388,16 @@ export const RoleDashboardScreen: React.FC = () => {
         setRefreshing(false);
       }
     },
-    [role, state.accessToken],
+    [isControlCenterRole, role, state.accessToken],
   );
 
   useEffect(() => {
+    if (isControlCenterRole) {
+      navigation.replace(Platform.OS === 'web' ? 'AdminControlCenter' : 'WebOnlyAdminNotice');
+      return;
+    }
     loadSummary(false);
-  }, [loadSummary]);
+  }, [isControlCenterRole, loadSummary, navigation]);
 
   const modules = useMemo(() => {
     const items = featureCatalog[role];
@@ -406,6 +417,10 @@ export const RoleDashboardScreen: React.FC = () => {
       navigation.navigate('LecturerClasses');
       return;
     }
+    if (role === 'lecturer' && feature.key === 'assignments') {
+      navigation.navigate('LecturerAssignments');
+      return;
+    }
     if (
       role === 'lecturer' &&
       (feature.key === 'messages' || feature.key === 'communicate' || feature.key === 'comms')
@@ -421,17 +436,6 @@ export const RoleDashboardScreen: React.FC = () => {
       navigation.navigate('RecordsControlCenter');
       return;
     }
-    if (
-      (role === 'admin' || role === 'superadmin') &&
-      (feature.key === 'audit_policies' ||
-        feature.key === 'reports' ||
-        feature.key === 'analytics' ||
-        feature.key === 'settings' ||
-        feature.key === 'users')
-    ) {
-      navigation.navigate('AdminControlCenter');
-      return;
-    }
     navigation.navigate('Feature', { role, feature });
   };
 
@@ -443,14 +447,20 @@ export const RoleDashboardScreen: React.FC = () => {
       ...(role === 'records' || role === 'hod'
         ? [{ label: 'Control center', onPress: () => navigation.navigate('RecordsControlCenter') }]
         : []),
-      ...(role === 'admin' || role === 'superadmin'
-        ? [{ label: 'Admin center', onPress: () => navigation.navigate('AdminControlCenter') }]
-        : []),
       { label: 'Refresh data', onPress: () => loadSummary(true) },
       { label: 'Log out', onPress: logout },
     ],
     [loadSummary, logout, navigation, role],
   );
+
+  if (isControlCenterRole) {
+    return (
+      <View style={styles.loader}>
+        <ActivityIndicator size="large" color={palette.primary} />
+        <Text style={styles.helper}>Opening admin control center...</Text>
+      </View>
+    );
+  }
 
   if (loading) {
     return (

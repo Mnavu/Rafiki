@@ -32,7 +32,6 @@ class StudentLifecycleTest(TestCase):
             year=1, 
             trimester=1,
             trimester_label="T1",
-            cohort_year=2024,
             current_status=Student.Status.ADMITTED
         )
 
@@ -49,7 +48,7 @@ class StudentLifecycleTest(TestCase):
         self.unit1 = CurriculumUnit.objects.create(programme=self.programme, code="CS101", title="Intro to CS", credit_hours=3)
         self.unit2 = CurriculumUnit.objects.create(programme=self.programme, code="CS102", title="Data Structures", credit_hours=3)
 
-    def test_student_can_pay_fees_and_get_cleared(self):
+    def test_student_payment_updates_finance_status(self):
         self.client.force_authenticate(user=self.student_user)
         
         # Make a payment that is more than 60%
@@ -64,13 +63,14 @@ class StudentLifecycleTest(TestCase):
         response = self.client.post(url, payment_data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
-        # Check student status
+        # Payment updates finance totals, but finance clearance is opened separately.
         self.student_profile.refresh_from_db()
-        self.assertEqual(self.student_profile.current_status, Student.Status.FINANCE_OK)
+        self.assertEqual(self.student_profile.current_status, Student.Status.ADMITTED)
 
         # Check finance status
         self.finance_status.refresh_from_db()
-        self.assertEqual(self.finance_status.clearance_status, FinanceStatus.Clearance.CLEARED_FOR_REGISTRATION)
+        self.assertEqual(self.finance_status.clearance_status, FinanceStatus.Clearance.BLOCKED)
+        self.assertEqual(self.finance_status.status, FinanceStatus.Status.PARTIAL)
         self.assertEqual(self.finance_status.total_paid, Decimal("700.00"))
 
     def test_student_can_select_units_after_fee_clearance(self):
@@ -97,6 +97,68 @@ class StudentLifecycleTest(TestCase):
         self.assertEqual(registrations.count(), 2)
         for reg in registrations:
             self.assertEqual(reg.status, Registration.Status.PENDING_HOD)
+
+    def test_student_can_adjust_units_while_pending_hod(self):
+        self.student_profile.current_status = Student.Status.FINANCE_OK
+        self.student_profile.save()
+
+        self.client.force_authenticate(user=self.student_user)
+
+        first_response = self.client.post(
+            reverse("student-unit-selection-list"),
+            {"unit_ids": [self.unit1.id, self.unit2.id]},
+            format="json",
+        )
+        self.assertEqual(first_response.status_code, status.HTTP_201_CREATED)
+
+        self.student_profile.refresh_from_db()
+        self.assertEqual(self.student_profile.current_status, Student.Status.PENDING_HOD)
+
+        second_response = self.client.post(
+            reverse("student-unit-selection-list"),
+            {"unit_ids": [self.unit1.id]},
+            format="json",
+        )
+        self.assertEqual(second_response.status_code, status.HTTP_201_CREATED)
+
+        registrations = Registration.objects.filter(student=self.student_profile).order_by("unit__code")
+        self.assertEqual(registrations.count(), 1)
+        self.assertEqual(registrations.first().unit_id, self.unit1.id)
+        self.assertEqual(registrations.first().status, Registration.Status.PENDING_HOD)
+
+    def test_student_cannot_select_more_than_four_units(self):
+        self.student_profile.current_status = Student.Status.FINANCE_OK
+        self.student_profile.save()
+
+        extra_units = [
+            CurriculumUnit.objects.create(
+                programme=self.programme,
+                code=f"CS10{index}",
+                title=f"Extra Unit {index}",
+                credit_hours=3,
+            )
+            for index in range(3, 6)
+        ]
+
+        self.client.force_authenticate(user=self.student_user)
+
+        response = self.client.post(
+            reverse("student-unit-selection-list"),
+            {
+                "unit_ids": [
+                    self.unit1.id,
+                    self.unit2.id,
+                    extra_units[0].id,
+                    extra_units[1].id,
+                    extra_units[2].id,
+                ]
+            },
+            format='json',
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn("maximum of 4 units", str(response.data))
+        self.assertFalse(Registration.objects.filter(student=self.student_profile).exists())
     
     def test_hod_can_approve_units(self):
         # Create pending registrations

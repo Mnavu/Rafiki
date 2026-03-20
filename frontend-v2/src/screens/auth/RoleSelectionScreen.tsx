@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, StyleSheet, FlatList } from 'react-native';
+import React, { useMemo } from 'react';
+import { View, StyleSheet, FlatList, Platform } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { DashboardTile, GreetingHeader, RoleBadge } from '@components/index';
@@ -27,21 +27,26 @@ const roleOptions: RoleOption[] = [
     title: roleLabels.superadmin,
     subtitle: 'Govern global roles, policy, and platform controls.',
   },
-  {
-    key: 'librarian',
-    title: roleLabels.librarian,
-    subtitle: 'Curate digital assets and library reporting.',
-  },
 ];
 
 export const RoleSelectionScreen: React.FC = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const visibleRoles = useMemo(
+    () =>
+      roleOptions.filter((item) => {
+        if (Platform.OS !== 'web' && (item.key === 'admin' || item.key === 'superadmin')) {
+          return false;
+        }
+        return true;
+      }),
+    [],
+  );
 
   return (
     <View style={styles.container}>
       <GreetingHeader name="Guest" greeting="Choose your role" />
       <FlatList
-        data={roleOptions}
+        data={visibleRoles}
         keyExtractor={(item) => item.key}
         contentContainerStyle={styles.list}
         ItemSeparatorComponent={Separator}

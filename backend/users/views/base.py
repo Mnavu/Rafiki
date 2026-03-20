@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.contrib.auth.tokens import default_token_generator
+from django.db import transaction
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
 from django.utils.crypto import get_random_string
@@ -19,6 +20,8 @@ from ..models import User, ParentStudentLink, UserProvisionRequest, FamilyEnroll
 from ..role_assignment import apply_user_role, SENSITIVE_ROLES
 from ..serializers import (
     UserSerializer,
+    SelfProfileUpdateSerializer,
+    AdminUserCreateSerializer,
     ParentStudentLinkSerializer,
     UserProvisionSerializer,
     UserProvisionRequestSerializer,
@@ -304,11 +307,34 @@ class UserProvisionRequestViewSet(viewsets.ModelViewSet):
         return Response({"detail": "Credentials re-sent to the requester."})
 
 
-@api_view(["GET"])
+@api_view(["GET", "PATCH"])
 @permission_classes([permissions.IsAuthenticated])
 def me(request):
-    """Return the current authenticated user's profile."""
-    return Response(UserSerializer(request.user).data)
+    """Return or update the current authenticated user's profile."""
+    user = request.user
+    if request.method == "GET":
+        return Response(UserSerializer(user).data)
+
+    serializer = SelfProfileUpdateSerializer(user, data=request.data, partial=True)
+    serializer.is_valid(raise_exception=True)
+    before = {
+        "username": user.username,
+        "display_name": user.display_name,
+    }
+    serializer.save()
+    user.refresh_from_db()
+    AuditLog.objects.create(
+        actor_user=user,
+        action="profile_identity_updated",
+        target_table=User._meta.label,
+        target_id=str(user.pk),
+        before=before,
+        after={
+            "username": user.username,
+            "display_name": user.display_name,
+        },
+    )
+    return Response(UserSerializer(user).data)
 
 
 @api_view(["POST"])
@@ -561,6 +587,93 @@ def provision_user(request):
         after={"provisioned_role": user.role},
     )
     return Response(UserSerializer(user).data, status=status.HTTP_201_CREATED)
+
+
+@api_view(["POST"])
+@permission_classes([permissions.IsAuthenticated])
+def admin_create_user(request):
+    acting = request.user
+    if acting.role not in {User.Roles.ADMIN, User.Roles.SUPERADMIN} and not acting.is_superuser:
+        raise PermissionDenied("Only admin or super admin users can create accounts from the control center.")
+
+    serializer = AdminUserCreateSerializer(
+        data=request.data,
+        context={
+            "request": request,
+            "acting_user": acting,
+        },
+    )
+    serializer.is_valid(raise_exception=True)
+
+    with transaction.atomic():
+        user = serializer.save()
+        previous_role = user.role or User.Roles.GUEST
+        target_role = serializer.validated_data["role"]
+        apply_user_role(user, target_role)
+
+    AuditLog.objects.create(
+        actor_user=acting,
+        action="admin_user_created",
+        target_table=User._meta.label,
+        target_id=str(user.pk),
+        before={"role": previous_role},
+        after={
+            "role": user.role,
+            "username": user.username,
+            "display_name": user.display_name,
+        },
+    )
+    return Response(UserSerializer(user).data, status=status.HTTP_201_CREATED)
+
+
+@api_view(["POST"])
+@permission_classes([permissions.IsAuthenticated])
+def admin_reset_password(request):
+    acting = request.user
+    if acting.role not in {User.Roles.ADMIN, User.Roles.SUPERADMIN} and not acting.is_superuser:
+        raise PermissionDenied("Only admin or super admin users can reset passwords from the control center.")
+
+    user_id = request.data.get("user_id")
+    username = str(request.data.get("username", "")).strip()
+    target = None
+    if user_id:
+        target = get_object_or_404(User, pk=user_id)
+    elif username:
+        target = get_object_or_404(User, username__iexact=username)
+    else:
+        raise ValidationError({"detail": "user_id or username is required."})
+
+    if acting.role == User.Roles.ADMIN and target.role == User.Roles.SUPERADMIN and not acting.is_superuser:
+        raise PermissionDenied("Admins cannot reset super admin passwords.")
+
+    temporary_password = str(request.data.get("new_password", "")).strip() or get_random_string(length=12)
+    if len(temporary_password) < 6:
+        raise ValidationError({"detail": "Temporary password must be at least 6 characters."})
+
+    target.set_password(temporary_password)
+    target.must_change_password = True
+    target._password_changed_by = acting
+    target.save(update_fields=["password", "must_change_password"])
+
+    AuditLog.objects.create(
+        actor_user=acting,
+        action="admin_password_reset",
+        target_table=User._meta.label,
+        target_id=str(target.pk),
+        after={
+            "username": target.username,
+            "role": target.role,
+            "must_change_password": True,
+        },
+    )
+    return Response(
+        {
+            "detail": "Password reset successfully.",
+            "temporary_password": temporary_password,
+            "user": UserSerializer(target).data,
+        },
+        status=status.HTTP_200_OK,
+    )
 
 
 @api_view(["POST"])

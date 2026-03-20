@@ -49,6 +49,7 @@ type QueryValue = string | number | boolean | null | undefined;
 type ListPayload<T> = T[] | { results?: T[] };
 
 export type StudentProfile = {
+  id: number;
   user: ApiUser;
   programme: number | null;
   year: number;
@@ -76,8 +77,13 @@ export type RegistrationSummary = {
   id: number;
   student: number | null;
   student_name: string;
+  student_username?: string;
   unit: number | null;
+  unit_code?: string;
   unit_title: string;
+  programme_id?: number | null;
+  programme_name?: string;
+  department_id?: number | null;
   status: string;
   academic_year: number;
   trimester: number;
@@ -102,6 +108,12 @@ export type TimetableEntry = {
 export type FinanceStatusSummary = {
   id: number;
   student: number | null;
+  student_name?: string;
+  student_username?: string;
+  student_status?: string;
+  programme_name?: string;
+  study_year?: number;
+  trimester_label?: string;
   academic_year: number;
   trimester: number;
   total_due: string;
@@ -242,9 +254,52 @@ const normalizeRole = (value: unknown): Role => {
   return ROLE_ALIASES[normalized] ?? 'guest';
 };
 
+const isPlaceholderDisplayName = (value: string | null | undefined): boolean => {
+  const normalized = value?.trim().toLowerCase() ?? '';
+  return normalized.startsWith('demo student') || normalized.startsWith('demo guardian');
+};
+
+const isPlaceholderUsername = (value: string | null | undefined): boolean => {
+  const normalized = value?.trim().toLowerCase() ?? '';
+  return normalized.startsWith('demo_student') || normalized.startsWith('demo_guardian');
+};
+
+const resolveDisplayName = (
+  user: Partial<Pick<ApiUser, 'username' | 'display_name' | 'first_name' | 'last_name'>> | null | undefined,
+): string | null => {
+  if (!user) {
+    return null;
+  }
+  const display = user.display_name?.trim();
+  const names = `${user.first_name?.trim() ?? ''} ${user.last_name?.trim() ?? ''}`.trim();
+  const username = user.username?.trim() ?? '';
+  if (display && !isPlaceholderDisplayName(display)) {
+    return display;
+  }
+  if (names) {
+    return names;
+  }
+  if (username && !isPlaceholderUsername(username)) {
+    return username;
+  }
+  return display || username || null;
+};
+
 const normalizeUser = (user: ApiUser): ApiUser => ({
   ...user,
+  display_name: resolveDisplayName(user),
   role: normalizeRole(user.role),
+});
+
+const normalizeThread = (thread: CommunicationThread): CommunicationThread => ({
+  ...thread,
+  student_detail: thread.student_detail ? normalizeUser(thread.student_detail) : thread.student_detail,
+  teacher_detail: thread.teacher_detail ? normalizeUser(thread.teacher_detail) : thread.teacher_detail,
+  parent_detail: thread.parent_detail ? normalizeUser(thread.parent_detail) : thread.parent_detail,
+  messages: thread.messages.map((message) => ({
+    ...message,
+    author_detail: message.author_detail ? normalizeUser(message.author_detail) : message.author_detail,
+  })),
 });
 
 const extractErrorMessage = (data: unknown): string | null => {
@@ -332,6 +387,39 @@ const putJson = async <T>(path: string, accessToken: string, body: unknown): Pro
   }
 };
 
+const patchJson = async <T>(path: string, accessToken: string, body: unknown): Promise<T> => {
+  try {
+    const response = await fetch(`${API_BASE}${path}`, {
+      method: 'PATCH',
+      headers: withAuthHeaders(accessToken, true),
+      body: JSON.stringify(body),
+    });
+    return handleResponse<T>(response);
+  } catch (error) {
+    if (error instanceof TypeError) {
+      throw new Error(NETWORK_ERROR_HINT);
+    }
+    throw error;
+  }
+};
+
+const deleteJson = async (path: string, accessToken: string): Promise<void> => {
+  try {
+    const response = await fetch(`${API_BASE}${path}`, {
+      method: 'DELETE',
+      headers: withAuthHeaders(accessToken),
+    });
+    if (!response.ok) {
+      await handleResponse(response);
+    }
+  } catch (error) {
+    if (error instanceof TypeError) {
+      throw new Error(NETWORK_ERROR_HINT);
+    }
+    throw error;
+  }
+};
+
 export const loginRequest = async (payload: LoginPayload): Promise<TokenResponse> => {
   try {
     const response = await fetch(`${API_BASE}/api/token/`, {
@@ -356,6 +444,14 @@ export const fetchProfile = async (accessToken: string): Promise<ApiUser> => {
   return normalizeUser(user);
 };
 
+export const updateMyProfile = async (
+  accessToken: string,
+  payload: { username?: string; display_name?: string },
+): Promise<ApiUser> => {
+  const user = await patchJson<ApiUser>('/api/users/me/', accessToken, payload);
+  return normalizeUser(user);
+};
+
 export const fetchStudentProfile = (accessToken: string, userId: number): Promise<StudentProfile> =>
   getJson<StudentProfile>(`/api/users/students/${userId}/`, {
     headers: withAuthHeaders(accessToken),
@@ -367,6 +463,44 @@ export const fetchStudentAssignments = async (accessToken: string): Promise<Assi
   });
   return normalizeList(payload);
 };
+
+export const fetchLecturerAssignments = async (
+  accessToken: string,
+  unitId?: number | null,
+): Promise<AssignmentSummary[]> => {
+  const payload = await getJson<ListPayload<AssignmentSummary>>(
+    withQuery('/api/learning/assignments/', { unit: unitId ?? undefined }),
+    {
+      headers: withAuthHeaders(accessToken),
+    },
+  );
+  return normalizeList(payload);
+};
+
+export type LecturerAssignmentPayload = {
+  unit: number;
+  title: string;
+  description: string;
+  due_at: string;
+};
+
+export const createLecturerAssignment = (
+  accessToken: string,
+  payload: LecturerAssignmentPayload,
+): Promise<AssignmentSummary> =>
+  postJson<AssignmentSummary>('/api/learning/assignments/', accessToken, payload);
+
+export const updateLecturerAssignment = (
+  accessToken: string,
+  assignmentId: number,
+  payload: Partial<LecturerAssignmentPayload>,
+): Promise<AssignmentSummary> =>
+  patchJson<AssignmentSummary>(`/api/learning/assignments/${assignmentId}/`, accessToken, payload);
+
+export const deleteLecturerAssignment = (
+  accessToken: string,
+  assignmentId: number,
+): Promise<void> => deleteJson(`/api/learning/assignments/${assignmentId}/`, accessToken);
 
 export const fetchStudentRegistrations = async (accessToken: string): Promise<RegistrationSummary[]> => {
   const payload = await getJson<ListPayload<RegistrationSummary>>('/api/learning/registrations/', {
@@ -427,7 +561,7 @@ export const fetchCommunicationThreads = async (
   const payload = await getJson<ListPayload<CommunicationThread>>('/api/communications/threads/', {
     headers: withAuthHeaders(accessToken),
   });
-  return normalizeList(payload);
+  return normalizeList(payload).map(normalizeThread);
 };
 
 export const askChatbot = (
@@ -446,18 +580,34 @@ export const fetchStudentPeers = async (accessToken: string): Promise<StudentPee
   const payload = await getJson<ListPayload<StudentPeerSummary>>('/api/learning/students/me/peers/', {
     headers: withAuthHeaders(accessToken),
   });
-  return normalizeList(payload);
+  return normalizeList(payload).map((peer) => ({
+    ...peer,
+    display_name: resolveDisplayName(peer) ?? peer.username,
+  }));
 };
+
+export const fetchStudentLecturers = async (accessToken: string): Promise<ApiUser[]> => {
+  const payload = await getJson<ListPayload<ApiUser>>('/api/learning/my-lecturers/', {
+    headers: withAuthHeaders(accessToken),
+  });
+  return normalizeList(payload).map(normalizeUser);
+};
+
+export const createStudentLecturerThread = (
+  accessToken: string,
+  lecturerId: number,
+): Promise<CommunicationThread> =>
+  postJson<CommunicationThread>('/api/communications/threads/student-direct-message/', accessToken, {
+    lecturer_id: lecturerId,
+  }).then(normalizeThread);
 
 export const createStudentPeerThread = (
   accessToken: string,
   peerStudentId: number,
 ): Promise<CommunicationThread> =>
-  postJson<CommunicationThread>(
-    '/api/communications/threads/student-peer-message/',
-    accessToken,
-    { peer_student_id: peerStudentId },
-  );
+  postJson<CommunicationThread>('/api/communications/threads/student-peer-message/', accessToken, {
+    peer_student_id: peerStudentId,
+  }).then(normalizeThread);
 
 export type CreateCommunicationMessagePayload = {
   threadId: number;
@@ -576,9 +726,69 @@ export type UserProvisionRequestSummary = {
   updated_at: string;
 };
 
+export type FamilyEnrollmentAccountPayload = {
+  username: string;
+  password: string;
+  display_name?: string;
+  first_name?: string;
+  last_name?: string;
+  email?: string;
+};
+
+export type FamilyEnrollmentPayload = {
+  records_passcode: string;
+  student: FamilyEnrollmentAccountPayload;
+  parent: FamilyEnrollmentAccountPayload;
+  relationship?: string;
+  fee_item?: {
+    title?: string;
+    amount: string;
+    due_date?: string | null;
+  };
+  programme: number;
+  year: number;
+  trimester: number;
+  trimester_label: string;
+  cohort_year: number;
+};
+
+export type FamilyEnrollmentResponse = {
+  detail: string;
+  student_request: UserProvisionRequestSummary;
+  parent_request: UserProvisionRequestSummary;
+  course_codes: string[];
+};
+
+export type ProgrammeCurriculumUnit = {
+  id: number;
+  programme: number | null;
+  code: string;
+  title: string;
+  credit_hours: number;
+  trimester_hint: number | null;
+  has_prereq: boolean;
+  prereq_unit: number | null;
+  created_at: string;
+  updated_at: string;
+};
+
+export type TermOfferingSummary = {
+  id: number;
+  programme: number | null;
+  unit: number | null;
+  academic_year: number;
+  trimester: number;
+  offered: boolean;
+  capacity: number | null;
+  created_at: string;
+  updated_at: string;
+};
+
 export type PaymentSummary = {
   id: number;
   student: number | null;
+  student_name?: string;
+  student_username?: string;
   academic_year: number;
   trimester: number;
   amount: string;
@@ -1004,6 +1214,38 @@ export const fetchUsers = async (
   return normalizeList(payload);
 };
 
+export type AdminUserCreatePayload = {
+  username: string;
+  password: string;
+  role: Role;
+  email?: string;
+  first_name?: string;
+  last_name?: string;
+  display_name?: string;
+  prefers_simple_language?: boolean;
+  prefers_high_contrast?: boolean;
+  speech_rate?: number;
+};
+
+export const createAdminUser = (
+  accessToken: string,
+  payload: AdminUserCreatePayload,
+): Promise<ApiUser> =>
+  postJson<ApiUser>('/api/users/admin-create/', accessToken, payload);
+
+export const adminResetUserPassword = (
+  accessToken: string,
+  payload: { user_id?: number; username?: string; new_password?: string },
+): Promise<{ detail: string; temporary_password: string; user: ApiUser }> =>
+  postJson<{ detail: string; temporary_password: string; user: ApiUser }>(
+    '/api/users/admin-reset-password/',
+    accessToken,
+    payload,
+  ).then((response) => ({
+    ...response,
+    user: normalizeUser(response.user),
+  }));
+
 export const assignUserRole = (
   accessToken: string,
   payload: { user_id: number; role: Role },
@@ -1022,12 +1264,72 @@ export const fetchProvisionRequests = async (
   return normalizeList(payload);
 };
 
+export const enrollFamily = (
+  accessToken: string,
+  payload: FamilyEnrollmentPayload,
+): Promise<FamilyEnrollmentResponse> =>
+  postJson<FamilyEnrollmentResponse>('/api/users/enroll-family/', accessToken, payload);
+
+export const approveProvisionRequest = (
+  accessToken: string,
+  requestId: number,
+): Promise<{ user: ApiUser; temporary_password: string }> =>
+  postJson<{ user: ApiUser; temporary_password: string }>(
+    `/api/users/provision-requests/${requestId}/approve/`,
+    accessToken,
+    {},
+  );
+
+export const rejectProvisionRequest = (
+  accessToken: string,
+  requestId: number,
+  reason?: string,
+): Promise<UserProvisionRequestSummary> =>
+  postJson<UserProvisionRequestSummary>(
+    `/api/users/provision-requests/${requestId}/reject/`,
+    accessToken,
+    { reason: reason ?? '' },
+  );
+
 export const fetchFinancePayments = async (accessToken: string): Promise<PaymentSummary[]> => {
   const payload = await getJson<ListPayload<PaymentSummary>>('/api/finance/payments/', {
     headers: withAuthHeaders(accessToken),
   });
   return normalizeList(payload);
 };
+
+export const recordFinancePayment = (
+  accessToken: string,
+  financeStatusId: number,
+  payload: { amount: string; method?: string; ref?: string },
+): Promise<{
+  detail: string;
+  payment: PaymentSummary;
+  finance_status: FinanceStatusSummary;
+  percentage_paid: number;
+}> =>
+  postJson<{
+    detail: string;
+    payment: PaymentSummary;
+    finance_status: FinanceStatusSummary;
+    percentage_paid: number;
+  }>(`/api/finance/status/${financeStatusId}/record_payment/`, accessToken, payload);
+
+export const openFinanceRegistration = (
+  accessToken: string,
+  financeStatusId: number,
+): Promise<{
+  detail: string;
+  percentage_paid: number;
+  student_id: number;
+  finance_status_id: number;
+}> =>
+  postJson<{
+    detail: string;
+    percentage_paid: number;
+    student_id: number;
+    finance_status_id: number;
+  }>(`/api/finance/status/${financeStatusId}/open_registration/`, accessToken, {});
 
 export const fetchNotifications = async (
   accessToken: string,
@@ -1062,6 +1364,43 @@ export const fetchProgrammes = async (accessToken: string): Promise<ProgrammeSum
   });
   return normalizeList(payload);
 };
+
+export const fetchProgrammeCurriculum = async (
+  accessToken: string,
+  programmeId: number,
+): Promise<ProgrammeCurriculumUnit[]> => {
+  const payload = await getJson<ListPayload<ProgrammeCurriculumUnit>>(
+    `/api/learning/programmes/${programmeId}/curriculum/`,
+    {
+      headers: withAuthHeaders(accessToken),
+    },
+  );
+  return normalizeList(payload);
+};
+
+export const fetchTermOfferings = async (
+  accessToken: string,
+  params?: { programme?: number; academic_year?: number; trimester?: number; offered?: boolean },
+): Promise<TermOfferingSummary[]> => {
+  const payload = await getJson<ListPayload<TermOfferingSummary>>(
+    withQuery('/api/learning/term-offerings/', {
+      programme: params?.programme,
+      academic_year: params?.academic_year,
+      trimester: params?.trimester,
+      offered: params?.offered,
+    }),
+    {
+      headers: withAuthHeaders(accessToken),
+    },
+  );
+  return normalizeList(payload);
+};
+
+export const submitStudentUnitSelection = (
+  accessToken: string,
+  payload: { unit_ids: number[] },
+): Promise<RegistrationSummary[]> =>
+  postJson<RegistrationSummary[]>('/api/learning/student-unit-selection/', accessToken, payload);
 
 export const fetchDepartments = async (accessToken: string): Promise<DepartmentSummary[]> => {
   const payload = await getJson<ListPayload<DepartmentSummary>>('/api/core/api/departments/', {
@@ -1311,6 +1650,33 @@ export const fetchGovernanceAuditLogs = async (
     },
   );
   return normalizeList(payload);
+};
+
+export const fetchGovernanceAuditCsv = async (
+  accessToken: string,
+  params?: { action?: string; target_table?: string; q?: string },
+): Promise<string> => {
+  try {
+    const response = await fetch(
+      `${API_BASE}${withQuery('/api/core/api/admin/governance/audit-logs/download-csv/', {
+        action: params?.action,
+        target_table: params?.target_table,
+        q: params?.q,
+      })}`,
+      {
+        headers: withAuthHeaders(accessToken),
+      },
+    );
+    if (!response.ok) {
+      await handleResponse<unknown>(response);
+    }
+    return response.text();
+  } catch (error) {
+    if (error instanceof TypeError) {
+      throw new Error(NETWORK_ERROR_HINT);
+    }
+    throw error;
+  }
 };
 
 export const fetchGovernanceRiskFlags = async (

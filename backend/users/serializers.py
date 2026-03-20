@@ -5,6 +5,7 @@ from django.db import IntegrityError, transaction
 from rest_framework import serializers
 # TODO: Refactor to use Programme instead of Course
 # from learning.models import Programme
+from .display import resolve_user_display_name
 from .models import User, ParentStudentLink, UserProvisionRequest, FamilyEnrollmentIntent, Student, Guardian, Lecturer
 
 username_validator = UnicodeUsernameValidator()
@@ -17,6 +18,11 @@ class GuardianSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
+    display_name = serializers.SerializerMethodField()
+
+    def get_display_name(self, obj):
+        return resolve_user_display_name(obj)
+
     class Meta:
         model = User
         fields = [
@@ -34,6 +40,104 @@ class UserSerializer(serializers.ModelSerializer):
             "totp_enabled",
         ]
         read_only_fields = ["totp_enabled"]
+
+
+class SelfProfileUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ["username", "display_name"]
+
+    def validate_username(self, value):
+        normalized = value.strip().lower()
+        if not normalized:
+            raise serializers.ValidationError("Username is required.")
+        try:
+            username_validator(normalized)
+        except DjangoValidationError as exc:
+            raise serializers.ValidationError(exc.message)
+        qs = User.objects.filter(username__iexact=normalized)
+        if self.instance is not None:
+            qs = qs.exclude(pk=self.instance.pk)
+        if qs.exists():
+            raise serializers.ValidationError("This username is already taken.")
+        return normalized
+
+    def validate_display_name(self, value):
+        return value.strip()
+
+
+class AdminUserCreateSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(write_only=True, min_length=6)
+
+    class Meta:
+        model = User
+        fields = [
+            "username",
+            "password",
+            "email",
+            "first_name",
+            "last_name",
+            "display_name",
+            "role",
+            "prefers_simple_language",
+            "prefers_high_contrast",
+            "speech_rate",
+        ]
+
+    def validate_username(self, value):
+        normalized = value.strip().lower()
+        if not normalized:
+            raise serializers.ValidationError("Username is required.")
+        try:
+            username_validator(normalized)
+        except DjangoValidationError as exc:
+            raise serializers.ValidationError(exc.message)
+        if User.objects.filter(username__iexact=normalized).exists():
+            raise serializers.ValidationError("This username is already taken.")
+        return normalized
+
+    def validate_display_name(self, value):
+        return value.strip()
+
+    def validate_email(self, value):
+        return value.strip().lower()
+
+    def validate_role(self, value):
+        allowed = {
+            User.Roles.PARENT,
+            User.Roles.LECTURER,
+            User.Roles.HOD,
+            User.Roles.ADMIN,
+            User.Roles.SUPERADMIN,
+            User.Roles.FINANCE,
+            User.Roles.RECORDS,
+            User.Roles.GUEST,
+        }
+        if value not in allowed:
+            raise serializers.ValidationError(
+                "Use student onboarding for student accounts. This form supports Guardian, staff, and admin roles."
+            )
+        acting_user = self.context.get("acting_user")
+        if (
+            value == User.Roles.SUPERADMIN
+            and acting_user is not None
+            and acting_user.role != User.Roles.SUPERADMIN
+            and not acting_user.is_superuser
+        ):
+            raise serializers.ValidationError("Only super admin users can create superadmin accounts.")
+        return value
+
+    def create(self, validated_data):
+        password = validated_data.pop("password")
+        validated_data.pop("role")
+        user = User(**validated_data)
+        if not user.display_name:
+            names = f"{(user.first_name or '').strip()} {(user.last_name or '').strip()}".strip()
+            user.display_name = names or user.username
+        user.set_password(password)
+        user.must_change_password = False
+        user.save()
+        return user
 
 
 class UserProvisionSerializer(serializers.ModelSerializer):
@@ -84,6 +188,7 @@ class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
         fields = [
+            'id',
             'user',
             'programme',
             'year',

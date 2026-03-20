@@ -188,6 +188,7 @@ export const LecturerClassesScreen: React.FC = () => {
 
       <AppMenu
         actions={[
+          { label: 'Assignments workspace', onPress: () => navigation.navigate('LecturerAssignments') },
           { label: 'Refresh dashboard', onPress: () => loadDashboard(true) },
           { label: 'Back', onPress: () => navigation.goBack() },
           { label: 'Log out', onPress: logout },

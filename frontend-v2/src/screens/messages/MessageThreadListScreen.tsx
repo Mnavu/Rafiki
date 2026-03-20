@@ -15,10 +15,13 @@ import type { RootStackParamList } from '@navigation/AppNavigator';
 import type { Role } from '@app-types/roles';
 import { roleLabels } from '@app-types/roles';
 import {
+  createStudentLecturerThread,
   fetchCommunicationThreads,
   fetchParentStudentLinks,
   fetchStudentAssignments,
+  fetchStudentLecturers,
   fetchStudentProfile,
+  type ApiUser,
   type CommunicationThread,
   type ParentStudentLink,
 } from '@services/api';
@@ -80,9 +83,11 @@ export const MessageThreadListScreen: React.FC = () => {
   );
   const [lecturerUnitTitle, setLecturerUnitTitle] = useState<string | null>(null);
   const [guardianLinks, setGuardianLinks] = useState<ParentStudentLink[]>([]);
+  const [availableLecturers, setAvailableLecturers] = useState<ApiUser[]>([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [creatingLecturerThreadId, setCreatingLecturerThreadId] = useState<number | null>(null);
 
   const loadThreads = useCallback(
     async (isRefresh = false) => {
@@ -98,12 +103,13 @@ export const MessageThreadListScreen: React.FC = () => {
 
       try {
         const accessToken = state.accessToken;
-        const [threadData, links, assignments] = await Promise.all([
+        const [threadData, links, assignments, lecturers] = await Promise.all([
           fetchCommunicationThreads(accessToken),
           role === 'parent' ? fetchParentStudentLinks(accessToken).catch(() => []) : Promise.resolve([]),
           role === 'lecturer'
             ? fetchStudentAssignments(accessToken).catch(() => [])
             : Promise.resolve([]),
+          role === 'student' ? fetchStudentLecturers(accessToken).catch(() => []) : Promise.resolve([]),
         ]);
 
         const sorted = [...threadData].sort(
@@ -112,6 +118,7 @@ export const MessageThreadListScreen: React.FC = () => {
         setThreads(sorted);
         setGuardianLinks(links);
         setLecturerUnitTitle(assignments[0]?.unit_title ?? null);
+        setAvailableLecturers(lecturers);
 
         const studentIds = new Set<number>();
         sorted.forEach((thread) => {
@@ -184,6 +191,48 @@ export const MessageThreadListScreen: React.FC = () => {
     });
   };
 
+  const startStudentLecturerThread = useCallback(
+    async (lecturerId: number) => {
+      if (!state.accessToken || creatingLecturerThreadId) {
+        return;
+      }
+      setCreatingLecturerThreadId(lecturerId);
+      setError(null);
+      try {
+        const thread = await createStudentLecturerThread(state.accessToken, lecturerId);
+        await loadThreads(true);
+        const title = formatThreadTitle(thread, role, {
+          viewerUserId: state.user?.id,
+          studentYearByUserId,
+          lecturerUnitTitle,
+        });
+        navigation.navigate('MessageThreadDetail', {
+          role,
+          threadId: thread.id,
+          threadTitle: title,
+        });
+      } catch (threadError) {
+        if (threadError instanceof Error) {
+          setError(threadError.message);
+        } else {
+          setError('Unable to open lecturer channel.');
+        }
+      } finally {
+        setCreatingLecturerThreadId(null);
+      }
+    },
+    [
+      creatingLecturerThreadId,
+      lecturerUnitTitle,
+      loadThreads,
+      navigation,
+      role,
+      state.accessToken,
+      state.user?.id,
+      studentYearByUserId,
+    ],
+  );
+
   if (loading) {
     return (
       <View style={styles.loader}>
@@ -251,6 +300,24 @@ export const MessageThreadListScreen: React.FC = () => {
 
         {role === 'student' ? (
           <View style={styles.section}>
+            <Text style={styles.sectionTitle}>Available lecturers</Text>
+            {availableLecturers.length ? (
+              availableLecturers.map((lecturer) => (
+                <DashboardTile
+                  key={`student-lecturer-${lecturer.id}`}
+                  title={lecturer.display_name || lecturer.username}
+                  subtitle="Tap to open or create a direct lecturer channel."
+                  onPress={() => startStudentLecturerThread(lecturer.id)}
+                  disabled={creatingLecturerThreadId === lecturer.id}
+                />
+              ))
+            ) : (
+              <DashboardTile
+                title="No lecturer channels yet"
+                subtitle="Lecturers appear here once your units are assigned and approved."
+                disabled
+              />
+            )}
             <DashboardTile
               title="Need help? Open chatbot"
               subtitle="Ask quick academic and timetable questions while messaging."

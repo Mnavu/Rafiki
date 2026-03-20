@@ -17,12 +17,10 @@ router.register(r"messages", MessageViewSet, basename="communication-message")
 router.register(r"chatrooms", CourseChatroomViewSet, basename="course-chatroom")
 router.register(r"chat-messages", ChatMessageViewSet, basename="chat-message")
 
-urlpatterns = router.urls
-
 from django.urls import path
 
-urlpatterns += [
-	path("support/chat/", SupportChatAPIView.as_view(), name="support-chat"),
+urlpatterns = [
+    path("support/chat/", SupportChatAPIView.as_view(), name="support-chat"),
     path("threads/direct-message/", CreateDirectMessageView.as_view(), name="create-direct-message"),
     path("threads/student-direct-message/", CreateStudentDirectMessageView.as_view(), name="create-student-direct-message"),
     path("threads/student-peer-message/", CreateStudentPeerMessageView.as_view(), name="create-student-peer-message"),
@@ -31,3 +29,5 @@ urlpatterns += [
     path("class-calls/", ClassCallListView.as_view(), name="class-call-list"),
     path("class-communities/", ClassCommunityListView.as_view(), name="class-community-list"),
 ]
+
+urlpatterns += router.urls

@@ -6,21 +6,33 @@ from rest_framework.decorators import action
 from rest_framework.exceptions import PermissionDenied, ValidationError
 
 from users.models import User, Student
-from ..models import Registration, LecturerAssignment
+from ..models import Registration
 from ..serializers import RegistrationSerializer
+from ..workflows import ensure_registration_channels
 
 
 class HodUnitApprovalViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = RegistrationSerializer
     permission_classes = [IsAuthenticated]
 
+    def _mapped_hod_profile(self, user):
+        try:
+            hod_profile = user.hod_profile
+        except Exception:
+            return None
+        if not hod_profile or not hod_profile.department_id:
+            return None
+        return hod_profile
+
     def get_queryset(self):
         user = self.request.user
         if user.role != User.Roles.HOD:
             return Registration.objects.none()
-        
+
         # HOD can only see registrations for their department's programmes
-        hod_profile = user.hod_profile
+        hod_profile = self._mapped_hod_profile(user)
+        if hod_profile is None:
+            return Registration.objects.none()
         return Registration.objects.filter(
             status=Registration.Status.PENDING_HOD,
             unit__programme__department=hod_profile.department
@@ -36,7 +48,9 @@ class HodUnitApprovalViewSet(viewsets.ReadOnlyModelViewSet):
         if not isinstance(registration_ids, list) or not registration_ids:
             raise ValidationError("Please provide a list of registration_ids to approve.")
         
-        hod_profile = user.hod_profile
+        hod_profile = self._mapped_hod_profile(user)
+        if hod_profile is None:
+            raise ValidationError("HOD profile must be mapped to a department before approvals can be processed.")
         registrations = Registration.objects.filter(
             id__in=registration_ids,
             status=Registration.Status.PENDING_HOD,
@@ -53,6 +67,7 @@ class HodUnitApprovalViewSet(viewsets.ReadOnlyModelViewSet):
             reg.approved_by = user
             reg.approved_at = timezone.now()
             reg.save()
+            ensure_registration_channels(reg)
             updated_registrations.append(reg)
             students_to_activate.add(reg.student)
 
@@ -76,7 +91,9 @@ class HodUnitApprovalViewSet(viewsets.ReadOnlyModelViewSet):
         if not registration_ids:
             raise ValidationError("Please provide a list of registration_ids to reject.")
 
-        hod_profile = user.hod_profile
+        hod_profile = self._mapped_hod_profile(user)
+        if hod_profile is None:
+            raise ValidationError("HOD profile must be mapped to a department before rejections can be processed.")
         registrations = Registration.objects.filter(
             id__in=registration_ids,
             status=Registration.Status.PENDING_HOD,

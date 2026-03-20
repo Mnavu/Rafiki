@@ -1,10 +1,12 @@
 Django
+dj-database-url
 djangorestframework
 djangorestframework-simplejwt
 django-cors-headers
 django-filter
 django-more-admin-filters
 drf-spectacular
+gunicorn
 psycopg2-binary
 pydub
 pyotp
@@ -13,3 +15,4 @@ SpeechRecognition
 celery
 channels
 django-jazzmin
+whitenoise

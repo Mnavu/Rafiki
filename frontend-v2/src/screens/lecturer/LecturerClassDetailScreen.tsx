@@ -341,6 +341,7 @@ export const LecturerClassDetailScreen: React.FC = () => {
 
       <AppMenu
         actions={[
+          { label: 'Assignments workspace', onPress: () => navigation.navigate('LecturerAssignments') },
           {
             label: 'Weekly planner',
             onPress: () =>

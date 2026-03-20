@@ -15,6 +15,8 @@ from users.views import (
     totp_activate,
     totp_disable,
     assign_role,
+    admin_create_user,
+    admin_reset_password,
     provision_user,
     enroll_family,
 )
@@ -35,6 +37,8 @@ urlpatterns = router.urls + [
     path("totp/activate/", totp_activate, name="users-totp-activate"),
     path("totp/disable/", totp_disable, name="users-totp-disable"),
     path("assign-role/", assign_role, name="users-assign-role"),
+    path("admin-create/", admin_create_user, name="users-admin-create"),
+    path("admin-reset-password/", admin_reset_password, name="users-admin-reset-password"),
     path("provision/", provision_user, name="users-provision"),
     path("enroll-family/", enroll_family, name="users-enroll-family"),
 ]

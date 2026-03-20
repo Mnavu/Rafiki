@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   ActivityIndicator,
+  Platform,
   RefreshControl,
   ScrollView,
   StyleSheet,
@@ -8,6 +9,7 @@ import {
   View,
 } from 'react-native';
 import { useNavigation, useRoute, type RouteProp } from '@react-navigation/native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { AppMenu, DashboardTile, GreetingHeader, RoleBadge, VoiceButton } from '@components/index';
 import { useAuth } from '@context/AuthContext';
 import type { FeatureDescriptor, FeatureKey } from '@data/featureCatalog';
@@ -40,6 +42,7 @@ import {
 import { palette, radius, spacing, typography } from '@theme/index';
 
 type FeatureRoute = RouteProp<RootStackParamList, 'Feature'>;
+type FeatureNav = NativeStackNavigationProp<RootStackParamList>;
 
 type FeatureMetric = {
   label: string;
@@ -704,11 +707,13 @@ const buildFeatureSnapshot = async ({
 
 export const RoleFeatureScreen: React.FC = () => {
   const route = useRoute<FeatureRoute>();
-  const navigation = useNavigation();
+  const navigation = useNavigation<FeatureNav>();
   const { state, logout, updatePreferences } = useAuth();
 
   const role = route.params.role;
   const feature = route.params.feature;
+  const isControlCenterRole = role === 'admin' || role === 'superadmin';
+  const isLecturerAssignmentsRoute = role === 'lecturer' && feature.key === 'assignments';
   const userName =
     state.user?.display_name?.trim() || state.user?.username || route.params.role.toUpperCase();
 
@@ -719,6 +724,11 @@ export const RoleFeatureScreen: React.FC = () => {
 
   const loadFeatureData = useCallback(
     async (isRefresh = false) => {
+      if (isControlCenterRole || isLecturerAssignmentsRoute) {
+        setLoading(false);
+        setRefreshing(false);
+        return;
+      }
       if (!state.accessToken) {
         return;
       }
@@ -748,14 +758,33 @@ export const RoleFeatureScreen: React.FC = () => {
         setRefreshing(false);
       }
     },
-    [feature, role, state.accessToken, state.user],
+    [feature, isControlCenterRole, isLecturerAssignmentsRoute, role, state.accessToken, state.user],
   );
 
   useEffect(() => {
+    if (isControlCenterRole) {
+      navigation.navigate(Platform.OS === 'web' ? 'AdminControlCenter' : 'WebOnlyAdminNotice');
+      return;
+    }
+    if (isLecturerAssignmentsRoute) {
+      navigation.navigate('LecturerAssignments');
+      return;
+    }
     loadFeatureData(false);
-  }, [loadFeatureData]);
+  }, [isControlCenterRole, isLecturerAssignmentsRoute, loadFeatureData, navigation]);
 
   const metricRows = useMemo(() => snapshot.metrics.slice(0, 6), [snapshot.metrics]);
+
+  if (isControlCenterRole || isLecturerAssignmentsRoute) {
+    return (
+      <View style={styles.loader}>
+        <ActivityIndicator size="large" color={palette.primary} />
+        <Text style={styles.helper}>
+          {isLecturerAssignmentsRoute ? 'Opening lecturer assignments workspace...' : 'Opening admin control center...'}
+        </Text>
+      </View>
+    );
+  }
 
   if (loading) {
     return (

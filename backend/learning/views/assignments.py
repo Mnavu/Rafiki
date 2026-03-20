@@ -1,11 +1,11 @@
 from django.utils import timezone
 from rest_framework import permissions, viewsets, status
 from rest_framework.decorators import action
-from rest_framework.exceptions import PermissionDenied
+from rest_framework.exceptions import PermissionDenied, ValidationError
 
 from core.mixins import ScopedListMixin
 from core.permissions import IsSelfOrElevated
-from learning.models import Assignment, Registration, Submission
+from learning.models import Assignment, LecturerAssignment, Registration, Submission
 from learning.serializers import AssignmentSerializer, RegistrationSerializer, SubmissionSerializer
 from users.models import User
 
@@ -22,21 +22,50 @@ class AssignmentViewSet(ScopedListMixin, viewsets.ModelViewSet):
             qs = qs.filter(unit_id=unit_id)
         return qs
 
+    def _get_lecturer_profile(self, user):
+        try:
+            return user.lecturer_profile
+        except Exception as exc:
+            raise PermissionDenied("Lecturer profile is missing.") from exc
+
+    def _validate_lecturer_unit_access(self, user, unit):
+        lecturer_profile = self._get_lecturer_profile(user)
+        if not unit:
+            raise ValidationError({"unit": "Unit is required."})
+        assigned = LecturerAssignment.objects.filter(
+            lecturer=lecturer_profile,
+            unit=unit,
+        ).exists()
+        if not assigned:
+            raise PermissionDenied("You can only manage assignments for classes assigned to you.")
+        return lecturer_profile
+
     def perform_create(self, serializer):
         user = self.request.user
         if getattr(user, "role", None) == User.Roles.LECTURER:
-            serializer.save(lecturer=user, owner_user=user)
+            unit = serializer.validated_data.get("unit")
+            lecturer_profile = self._validate_lecturer_unit_access(user, unit)
+            serializer.save(lecturer=lecturer_profile)
         elif user.is_staff or getattr(user, "role", None) in {User.Roles.ADMIN, User.Roles.HOD}:
-            serializer.save(owner_user=user)
+            serializer.save()
         else:
             raise PermissionDenied("Only lecturers or admins can create assignments.")
 
     def perform_update(self, serializer):
         user = self.request.user
         assignment = self.get_object()
-        if getattr(user, "role", None) == User.Roles.LECTURER and assignment.lecturer_id != user.id:
-            raise PermissionDenied("Lecturers can only update their own assignments.")
-        serializer.save(lecturer=assignment.lecturer, owner_user=assignment.owner_user)
+        if getattr(user, "role", None) == User.Roles.LECTURER:
+            if assignment.lecturer_id != user.id:
+                raise PermissionDenied("Lecturers can only update their own assignments.")
+            target_unit = serializer.validated_data.get("unit", assignment.unit)
+            self._validate_lecturer_unit_access(user, target_unit)
+        serializer.save(lecturer=assignment.lecturer)
+
+    def perform_destroy(self, instance):
+        user = self.request.user
+        if getattr(user, "role", None) == User.Roles.LECTURER and instance.lecturer_id != user.id:
+            raise PermissionDenied("Lecturers can only delete their own assignments.")
+        instance.delete()
 
 
 class SubmissionViewSet(ScopedListMixin, viewsets.ModelViewSet):

@@ -10,6 +10,7 @@ from rest_framework.views import APIView
 from core.models import CalendarEvent
 from learning.models import Assignment, Registration, Timetable
 from notifications.models import Notification
+from users.display import resolve_user_display_name
 from .models import Conversation, Turn
 from .knowledge import (
     ALLOWED_STUDENT_INTENTS,
@@ -25,10 +26,15 @@ INTENT_KEYWORDS = {
         "time table",
         "schedule",
         "next class",
+        "exact next class",
         "class time",
         "when is class",
         "when is my class",
         "lesson time",
+        "who teaches",
+        "who is teaching",
+        "teacher",
+        "lecturer",
     ),
     "scheduled_calls": (
         "call",
@@ -189,6 +195,10 @@ def _normalize_query(query: str) -> str:
 
 def _contains_any(text: str, tokens: Iterable[str]) -> bool:
     return any(token in text for token in tokens)
+
+
+def _contains_phrase(text: str, phrases: Iterable[str]) -> bool:
+    return any(re.search(rf"\b{re.escape(phrase)}\b", text) for phrase in phrases)
 
 
 def _with_followups(text: str, prompts: list[str]) -> str:
@@ -393,7 +403,7 @@ def _smalltalk_response(query: str):
             "visual_cue": "smalltalk",
         }
 
-    if _contains_any(normalized, wellbeing_tokens):
+    if _contains_phrase(normalized, wellbeing_tokens):
         return {
             "text": (
                 "I am doing well and ready to support you. "
@@ -402,7 +412,7 @@ def _smalltalk_response(query: str):
             "visual_cue": "smalltalk",
         }
 
-    if _contains_any(normalized, greeting_tokens):
+    if _contains_phrase(normalized, greeting_tokens):
         return {
             "text": (
                 "Hello. I can help with class times, scheduled calls, assignments, CAT reminders, and school notices."
@@ -410,13 +420,13 @@ def _smalltalk_response(query: str):
             "visual_cue": "smalltalk",
         }
 
-    if _contains_any(normalized, thanks_tokens):
+    if _contains_phrase(normalized, thanks_tokens):
         return {
             "text": "You are welcome. I am always here to help with your academic and schedule questions.",
             "visual_cue": "smalltalk",
         }
 
-    if _contains_any(normalized, capability_tokens):
+    if _contains_phrase(normalized, capability_tokens):
         return {
             "text": _with_followups(
                 "I can answer course and schedule questions, check upcoming calls, and explain what to do next.",
@@ -470,20 +480,50 @@ def _get_registered_unit_ids(student_profile):
     )
 
 
+def _get_student_timetable_rows(user, limit: int = 3):
+    student_profile = _get_student_profile(user)
+    if not student_profile:
+        return []
+
+    now = timezone.now()
+    unit_ids = _get_registered_unit_ids(student_profile)
+    timetable_qs = Timetable.objects.filter(end_datetime__gte=now).select_related(
+        "unit",
+        "lecturer__user",
+    )
+    if unit_ids:
+        timetable_qs = timetable_qs.filter(unit_id__in=unit_ids)
+    elif student_profile.programme_id:
+        timetable_qs = timetable_qs.filter(programme_id=student_profile.programme_id)
+    return list(timetable_qs.order_by("start_datetime")[:limit])
+
+
+def _format_next_class_exact(user):
+    student_profile = _get_student_profile(user)
+    if not student_profile:
+        return "Student timetable data is not available for this account yet."
+
+    rows = _get_student_timetable_rows(user, limit=1)
+    if not rows:
+        return "You do not have a next class scheduled right now."
+
+    row = rows[0]
+    unit_code = getattr(row.unit, "code", None) or "Class"
+    start = row.start_datetime.strftime("%a %d %b %I:%M %p")
+    room = row.room or "room not set"
+    lecturer_name = (
+        resolve_user_display_name(getattr(getattr(row, "lecturer", None), "user", None))
+        or "lecturer not assigned yet"
+    )
+    return f"Your next class is {unit_code} at {start} in {room} with {lecturer_name}."
+
+
 def _format_next_classes(user):
     student_profile = _get_student_profile(user)
     if not student_profile:
         return "Student timetable data is not available for this account yet."
 
-    now = timezone.now()
-    unit_ids = _get_registered_unit_ids(student_profile)
-    timetable_qs = Timetable.objects.filter(end_datetime__gte=now).select_related("unit")
-    if unit_ids:
-        timetable_qs = timetable_qs.filter(unit_id__in=unit_ids)
-    elif student_profile.programme_id:
-        timetable_qs = timetable_qs.filter(programme_id=student_profile.programme_id)
-
-    rows = timetable_qs.order_by("start_datetime")[:3]
+    rows = _get_student_timetable_rows(user, limit=3)
     if not rows:
         return "No upcoming timetable entries are available right now."
 
@@ -562,14 +602,66 @@ def _is_tourism_context(user, query: str) -> bool:
         "reservation",
         "agency",
     }
-    if any(keyword in normalized for keyword in tourism_keywords):
+    if _contains_phrase(normalized, tourism_keywords):
         return True
 
     student_profile = _get_student_profile(user)
     if not student_profile or not student_profile.programme_id:
         return False
     programme_name = (student_profile.programme.name or "").lower()
-    return "tourism" in programme_name or "travel" in programme_name
+    if "tourism" not in programme_name and "travel" not in programme_name:
+        return False
+
+    academic_focus_tokens = {
+        "course",
+        "unit",
+        "programme",
+        "program",
+        "topic",
+        "revise",
+        "revision",
+        "study",
+        "learn",
+    }
+    return _contains_phrase(normalized, academic_focus_tokens)
+
+
+def _student_scope_terms(user) -> set[str]:
+    student_profile = _get_student_profile(user)
+    if not student_profile:
+        return set()
+
+    terms = set()
+    if student_profile.programme_id:
+        terms.update(re.findall(r"[a-z0-9]+", (student_profile.programme.name or "").lower()))
+
+    registrations = (
+        Registration.objects.filter(student=student_profile)
+        .select_related("unit")[:16]
+    )
+    for registration in registrations:
+        if not registration.unit_id:
+            continue
+        terms.add((registration.unit.code or "").lower())
+        terms.update(re.findall(r"[a-z0-9]+", (registration.unit.title or "").lower()))
+
+    for unit_title in KEMU_TOURISM_KNOWLEDGE.get("sample_units", []):
+        terms.update(re.findall(r"[a-z0-9]+", unit_title.lower()))
+
+    return {term for term in terms if len(term) > 2}
+
+
+def _is_student_scope_query(user, query: str) -> bool:
+    normalized = _normalize_query(query)
+    if not normalized:
+        return False
+    if any(keyword in normalized for keywords in INTENT_KEYWORDS.values() for keyword in keywords):
+        return True
+    if _is_tourism_context(user, query):
+        return True
+
+    query_tokens = set(normalized.split())
+    return bool(query_tokens & _student_scope_terms(user))
 
 
 class AskView(APIView):
@@ -655,6 +747,19 @@ class AskView(APIView):
         normalized = _normalize_query(query)
 
         if user.role == "student":
+            if not _is_student_scope_query(user, query):
+                text = (
+                    "That question is not relevant to school work. "
+                    "I can only help with classes, lecturers, assignments, calls, school activities, and course revision."
+                )
+                return self._finalize_response(
+                    conversation=conversation,
+                    query=query,
+                    text=text,
+                    visual_cue="scope_guard",
+                    intent="scope_guard",
+                )
+
             if intent not in ALLOWED_STUDENT_INTENTS:
                 text = _with_followups(
                     "I can answer course-focused academic questions, class timing, scheduled calls, and school activities",
@@ -673,15 +778,27 @@ class AskView(APIView):
                 )
 
             if intent == "class_timing":
-                message = f"{_format_next_classes(user)} {_format_upcoming_calls(user)}"
-                text = _with_followups(
-                    message,
-                    [
-                        "Which class is first tomorrow?",
-                        "Do I have a call link for my next class?",
-                        "Any deadlines this week?",
-                    ],
-                )
+                if _contains_any(
+                    normalized,
+                    (
+                        "next class",
+                        "exact",
+                        "who teaches",
+                        "who is teaching",
+                        "teacher",
+                        "lecturer",
+                    ),
+                ):
+                    text = _format_next_class_exact(user)
+                else:
+                    text = _with_followups(
+                        _format_next_classes(user),
+                        [
+                            "Which class is first tomorrow?",
+                            "Do I have a call link for my next class?",
+                            "Any deadlines this week?",
+                        ],
+                    )
                 return self._finalize_response(
                     conversation=conversation,
                     query=query,

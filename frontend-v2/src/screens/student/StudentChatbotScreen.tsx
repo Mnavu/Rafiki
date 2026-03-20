@@ -6,7 +6,6 @@ import {
   TextInput,
   View,
 } from 'react-native';
-import * as Speech from 'expo-speech';
 import { Audio } from 'expo-av';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { AppMenu, DashboardTile, GreetingHeader, RoleBadge, VoiceButton } from '@components/index';
@@ -15,6 +14,13 @@ import { askChatbot, transcribeAudio } from '@services/api';
 import { palette, radius, spacing, typography } from '@theme/index';
 import { roleLabels } from '@app-types/roles';
 import { normalizeSpeechText } from '../../utils/speechNormalization';
+import {
+  loadPreferredSpeechVoice,
+  prepareSpeechPlayback,
+  speakWithFallback,
+  stopSpeechPlayback,
+  type PreferredSpeechVoice,
+} from '../../utils/speechPlayback';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '@navigation/AppNavigator';
@@ -57,6 +63,8 @@ export const StudentChatbotScreen: React.FC = () => {
   const [submitting, setSubmitting] = useState(false);
   const [recordingActive, setRecordingActive] = useState(false);
   const [voiceBusy, setVoiceBusy] = useState(false);
+  const [preferredVoice, setPreferredVoice] = useState<PreferredSpeechVoice>({});
+  const [speechStatus, setSpeechStatus] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const voiceRecordingRef = useRef<Audio.Recording | null>(null);
   const voiceSpeechDetectedRef = useRef(false);
@@ -312,18 +320,44 @@ export const StudentChatbotScreen: React.FC = () => {
       return;
     }
     try {
-      await Speech.stop();
-      Speech.speak(text, {
-        rate: state.user?.speech_rate && state.user.speech_rate > 0 ? state.user.speech_rate : 0.9,
-      });
+      setError(null);
+        await speakWithFallback({
+          text,
+          speechRate: state.user?.speech_rate,
+          preferredVoice,
+          onStatusChange: setSpeechStatus,
+          onError: (message) => {
+            setError(message);
+          },
+        });
     } catch {
-      setError('Voice playback failed on this device.');
+      setSpeechStatus('Voice failed. Check device TTS settings.');
+      setError('Voice playback failed on this device. Check media volume and device text-to-speech settings.');
     }
   };
 
+  useEffect(() => {
+    prepareSpeechPlayback();
+  }, []);
+
+  useEffect(() => {
+    let active = true;
+    const prepareTtsVoice = async () => {
+      const voice = await loadPreferredSpeechVoice();
+      if (!active) {
+        return;
+      }
+      setPreferredVoice(voice);
+    };
+    prepareTtsVoice();
+    return () => {
+      active = false;
+    };
+  }, []);
+
   useEffect(
     () => () => {
-      Speech.stop();
+      stopSpeechPlayback();
       const activeRecording = voiceRecordingRef.current;
       if (activeRecording) {
         activeRecording.stopAndUnloadAsync().catch(() => {
@@ -413,6 +447,7 @@ export const StudentChatbotScreen: React.FC = () => {
                 ? 'Conversation memory is active for your current chat.'
                 : 'Conversation memory will start as soon as you ask your first question.'}
             </Text>
+            {speechStatus ? <Text style={styles.helper}>{speechStatus}</Text> : null}
           </View>
         </View>
 
@@ -496,7 +531,7 @@ export const StudentChatbotScreen: React.FC = () => {
           {
             label: 'Stop voice',
             onPress: async () => {
-              await Speech.stop();
+              await stopSpeechPlayback();
               await cancelVoiceQuestion();
             },
           },

@@ -14,32 +14,45 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Audio } from 'expo-av';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import * as Speech from 'expo-speech';
 import { AppMenu, ChatbotBubble, DashboardTile, GreetingHeader, RoleBadge, VoiceButton } from '@components/index';
 import { useAuth } from '@context/AuthContext';
 import type { RootStackParamList } from '@navigation/AppNavigator';
 import {
   fetchClassCalls,
   fetchClassCommunities,
+  fetchFinancePayments,
+  fetchProgrammeCurriculum,
   fetchStudentAssignments,
   fetchStudentFinanceStatuses,
   fetchStudentProfile,
   fetchStudentRegistrations,
   fetchStudentRewards,
+  fetchTermOfferings,
   fetchStudentTimetable,
+  submitStudentUnitSelection,
   transcribeAudio,
   type AssignmentSummary,
   type ClassCallSummary,
   type ClassCommunitySummary,
   type FinanceStatusSummary,
+  type PaymentSummary,
+  type ProgrammeCurriculumUnit,
   type RegistrationSummary,
   type StudentProfile,
   type StudentRewardsSummary,
+  type TermOfferingSummary,
   type TimetableEntry,
 } from '@services/api';
 import { palette, radius, spacing, typography } from '@theme/index';
 import { roleLabels } from '@app-types/roles';
 import { normalizeSpeechText } from '../../utils/speechNormalization';
+import {
+  loadPreferredSpeechVoice,
+  prepareSpeechPlayback,
+  speakWithFallback,
+  stopSpeechPlayback,
+  type PreferredSpeechVoice,
+} from '../../utils/speechPlayback';
 
 type StudentOverview = {
   profile: StudentProfile;
@@ -47,9 +60,18 @@ type StudentOverview = {
   timetable: TimetableEntry[];
   registrations: RegistrationSummary[];
   financeStatus: FinanceStatusSummary | null;
+  payments: PaymentSummary[];
   rewards: StudentRewardsSummary | null;
   classCalls: ClassCallSummary[];
   classCommunities: ClassCommunitySummary[];
+  offeredUnits: ProgrammeCurriculumUnit[];
+  offeredUnitMeta: Record<
+    number,
+    {
+      trimester: number;
+      academicYear: number;
+    }
+  >;
 };
 
 type SectionHeaderProps = {
@@ -80,6 +102,8 @@ const VOICE_SEARCH_MIN_DURATION_MS = 800;
 const VOICE_SEARCH_MAX_DURATION_MS = 15000;
 const VOICE_SEARCH_NO_SPEECH_TIMEOUT_MS = 5500;
 const VOICE_SEARCH_NO_METERING_FALLBACK_MS = 5000;
+const MAX_UNIT_SELECTION = 4;
+const UNIT_SELECTION_ALLOWED_STATUSES = ['finance_ok', 'pending_hod', 'active'];
 
 const SEARCH_SYNONYMS: Record<string, string[]> = {
   call: ['communication', 'message', 'chat', 'talk', 'contact', 'video', 'meeting'],
@@ -185,12 +209,14 @@ export const StudentHomeScreen: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [voiceId, setVoiceId] = useState<string | undefined>(undefined);
+  const [preferredVoice, setPreferredVoice] = useState<PreferredSpeechVoice>({});
   const [speechStatus, setSpeechStatus] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchListening, setSearchListening] = useState(false);
   const [searchBusy, setSearchBusy] = useState(false);
   const [searchError, setSearchError] = useState<string | null>(null);
+  const [selectedUnitIds, setSelectedUnitIds] = useState<number[]>([]);
+  const [unitSelectionSubmitting, setUnitSelectionSubmitting] = useState(false);
   const searchRecordingRef = useRef<Audio.Recording | null>(null);
   const searchSpeechDetectedRef = useRef(false);
   const searchLastSpeechMsRef = useRef<number | null>(null);
@@ -202,21 +228,14 @@ export const StudentHomeScreen: React.FC = () => {
         return;
       }
       try {
-        await Audio.setAudioModeAsync({
-          allowsRecordingIOS: false,
-          playsInSilentModeIOS: true,
-          shouldDuckAndroid: true,
-          playThroughEarpieceAndroid: false,
-          staysActiveInBackground: false,
-        });
-        await Speech.stop();
-        setSpeechStatus('Speaking...');
-        Speech.speak(text, {
-          rate: state.user?.speech_rate && state.user.speech_rate > 0 ? state.user.speech_rate : 0.9,
-          ...(voiceId ? { voice: voiceId } : {}),
-          onDone: () => setSpeechStatus(null),
-          onStopped: () => setSpeechStatus(null),
-          onError: () => setSpeechStatus('Voice failed. Use Test voice from menu.'),
+        await speakWithFallback({
+          text,
+          speechRate: state.user?.speech_rate,
+          preferredVoice,
+          onStatusChange: setSpeechStatus,
+          onError: (message) => {
+            Alert.alert('Voice error', message);
+          },
         });
       } catch {
         setSpeechStatus('Voice failed. Check device TTS settings.');
@@ -226,7 +245,7 @@ export const StudentHomeScreen: React.FC = () => {
         );
       }
     },
-    [state.user?.speech_rate, voiceId],
+    [preferredVoice, state.user?.speech_rate],
   );
 
   const loadOverview = useCallback(
@@ -249,25 +268,46 @@ export const StudentHomeScreen: React.FC = () => {
           registrations,
           timetable,
           financeStatuses,
+          payments,
           rewards,
           classCalls,
           classCommunities,
+          offerings,
+          curriculum,
         ] = await Promise.all([
           fetchStudentAssignments(state.accessToken),
           fetchStudentRegistrations(state.accessToken),
           fetchStudentTimetable(state.accessToken, profile.programme),
           fetchStudentFinanceStatuses(state.accessToken),
-          fetchStudentRewards(state.accessToken, state.user.id).catch(() => null),
+          fetchFinancePayments(state.accessToken).catch(() => []),
+          fetchStudentRewards(state.accessToken, profile.id).catch(() => null),
           fetchClassCalls(state.accessToken, 'upcoming').catch(() => []),
           fetchClassCommunities(state.accessToken).catch(() => []),
+          profile.programme
+            ? fetchTermOfferings(state.accessToken, {
+                programme: profile.programme,
+                trimester: profile.trimester,
+                offered: true,
+              }).catch(() => [])
+            : Promise.resolve([] as TermOfferingSummary[]),
+          profile.programme
+            ? fetchProgrammeCurriculum(state.accessToken, profile.programme).catch(() => [])
+            : Promise.resolve([] as ProgrammeCurriculumUnit[]),
         ]);
 
         const latestFinance = [...financeStatuses].sort((a, b) => {
+          const updatedDiff = parseMillis(b.updated_at) - parseMillis(a.updated_at);
+          if (updatedDiff !== 0) {
+            return updatedDiff;
+          }
           if (a.academic_year !== b.academic_year) {
             return b.academic_year - a.academic_year;
           }
           return b.trimester - a.trimester;
         })[0] ?? null;
+        const recentPayments = [...payments]
+          .sort((a, b) => parseMillis(b.paid_at || b.created_at) - parseMillis(a.paid_at || a.created_at))
+          .slice(0, 5);
 
         const now = Date.now();
         const upcomingClasses = [...timetable]
@@ -284,16 +324,54 @@ export const StudentHomeScreen: React.FC = () => {
           .sort((a, b) => parseMillis(a.start_at) - parseMillis(b.start_at))
           .slice(0, 4);
 
+        const curriculumById = new Map<number, ProgrammeCurriculumUnit>(
+          curriculum.map((item) => [item.id, item]),
+        );
+        const offeredUnitMeta: StudentOverview['offeredUnitMeta'] = {};
+        const offeredUnits: ProgrammeCurriculumUnit[] = [];
+        offerings
+          .filter((item) => item.offered && item.unit)
+          .forEach((offering) => {
+            if (!offering.unit) {
+              return;
+            }
+            const unit = curriculumById.get(offering.unit);
+            if (!unit) {
+              return;
+            }
+            offeredUnitMeta[unit.id] = {
+              trimester: offering.trimester,
+              academicYear: offering.academic_year,
+            };
+            if (!offeredUnits.find((candidate) => candidate.id === unit.id)) {
+              offeredUnits.push(unit);
+            }
+          });
+
         setOverview({
           profile,
           assignments: upcomingAssignments,
           timetable: upcomingClasses,
           registrations,
           financeStatus: latestFinance,
+          payments: recentPayments,
           rewards,
           classCalls: upcomingClassCalls,
           classCommunities: classCommunities.slice(0, 8),
+          offeredUnits,
+          offeredUnitMeta,
         });
+        const offeredUnitIds = new Set(offeredUnits.map((unit) => unit.id));
+        setSelectedUnitIds(
+          registrations
+            .filter(
+              (registration) =>
+                ['submitted', 'pending_hod', 'approved'].includes(registration.status) &&
+                typeof registration.unit === 'number' &&
+                (offeredUnitIds.size === 0 || offeredUnitIds.has(registration.unit)),
+            )
+            .map((registration) => registration.unit as number),
+        );
       } catch (loadError) {
         if (loadError instanceof Error) {
           setError(loadError.message);
@@ -313,39 +391,17 @@ export const StudentHomeScreen: React.FC = () => {
   }, [loadOverview]);
 
   useEffect(() => {
-    Audio.setAudioModeAsync({
-      allowsRecordingIOS: false,
-      playsInSilentModeIOS: true,
-      shouldDuckAndroid: true,
-      playThroughEarpieceAndroid: false,
-      staysActiveInBackground: false,
-    }).catch(() => {
-      // Keep app usable even if audio mode update fails on some Android devices.
-    });
+    prepareSpeechPlayback();
   }, []);
 
   useEffect(() => {
     let active = true;
     const prepareTts = async () => {
-      try {
-        const voices = await Speech.getAvailableVoicesAsync();
-        if (!active) {
-          return;
-        }
-        if (!voices || voices.length === 0) {
-          setVoiceId(undefined);
-          return;
-        }
-        const englishVoice =
-          voices.find((voice) => voice.language?.toLowerCase().startsWith('en')) ??
-          voices[0];
-        setVoiceId(englishVoice?.identifier);
-      } catch {
-        if (!active) {
-          return;
-        }
-        setVoiceId(undefined);
+      const voice = await loadPreferredSpeechVoice();
+      if (!active) {
+        return;
       }
+      setPreferredVoice(voice);
     };
     prepareTts();
     return () => {
@@ -355,7 +411,7 @@ export const StudentHomeScreen: React.FC = () => {
 
   useEffect(() => {
     return () => {
-      Speech.stop();
+      stopSpeechPlayback();
       const activeRecording = searchRecordingRef.current;
       if (activeRecording) {
         activeRecording.stopAndUnloadAsync().catch(() => {
@@ -408,10 +464,13 @@ export const StudentHomeScreen: React.FC = () => {
     const feeLine = overview.financeStatus
       ? `Fee status: paid ${formatMoney(overview.financeStatus.total_paid)} of ${formatMoney(overview.financeStatus.total_due)}.`
       : 'No finance records found yet.';
+    const paymentLine = overview.payments.length
+      ? `Recent payments available: ${overview.payments.length}.`
+      : 'No payment history is available yet.';
     const rewardsLine = overview.rewards
       ? `Rewards: ${overview.rewards.stars} stars earned with ${overview.rewards.history.length} merit records.`
       : `Current stars are ${overview.profile.stars}.`;
-    return `${feeLine} ${rewardsLine}`;
+    return `${feeLine} ${paymentLine} ${rewardsLine}`;
   }, [overview]);
 
   const communitySpeech = useMemo(() => {
@@ -430,6 +489,20 @@ export const StudentHomeScreen: React.FC = () => {
       .join(' ');
   }, [overview?.classCalls]);
 
+  const unitSelectionSpeech = useMemo(() => {
+    if (!overview) {
+      return 'Unit registration is loading.';
+    }
+    if (!overview.offeredUnits.length) {
+      return 'No units are currently open for selection.';
+    }
+    const names = overview.offeredUnits
+      .slice(0, 5)
+      .map((unit) => `${unit.code} ${unit.title}`)
+      .join(', ');
+    return `You can register up to ${MAX_UNIT_SELECTION} units this term. You currently have ${selectedUnitIds.length} selected. Available examples: ${names}.`;
+  }, [overview, selectedUnitIds.length]);
+
   const searchTargets = useMemo<SearchTarget[]>(() => {
     const targets: SearchTarget[] = [
       {
@@ -442,9 +515,16 @@ export const StudentHomeScreen: React.FC = () => {
       {
         id: 'finance-and-rewards',
         title: 'Finance and rewards',
-        subtitle: 'Open fee status and rewards information.',
+        subtitle: 'Review fee status, payment history, and rewards information.',
         keywords: ['fees', 'fee', 'finance', 'payment', 'balance', 'wallet', 'rewards'],
         onPress: () => speakText(financeSpeech),
+      },
+      {
+        id: 'unit-registration',
+        title: 'Unit registration',
+        subtitle: 'Register for offered units after finance clears your account.',
+        keywords: ['courses', 'units', 'register', 'registration', 'course selection', 'unit selection'],
+        onPress: () => speakText(unitSelectionSpeech),
       },
       {
         id: 'class-communities',
@@ -559,7 +639,7 @@ export const StudentHomeScreen: React.FC = () => {
     }
 
     return targets;
-  }, [financeSpeech, navigation, overview, speakText]);
+  }, [financeSpeech, navigation, overview, speakText, unitSelectionSpeech]);
 
   const searchResults = useMemo(() => {
     const q = searchQuery.trim().toLowerCase();
@@ -741,6 +821,55 @@ export const StudentHomeScreen: React.FC = () => {
       await startVoiceSearch();
     }
   }, [searchListening, startVoiceSearch, stopVoiceSearch]);
+
+  const toggleUnitSelection = useCallback((unitId: number) => {
+    setSelectedUnitIds((current) => {
+      if (current.includes(unitId)) {
+        setError(null);
+        return current.filter((item) => item !== unitId);
+      }
+      if (current.length >= MAX_UNIT_SELECTION) {
+        setError(`You can register a maximum of ${MAX_UNIT_SELECTION} units.`);
+        setSpeechStatus(`You can only select ${MAX_UNIT_SELECTION} units.`);
+        return current;
+      }
+      setError(null);
+      return [...current, unitId];
+    });
+  }, []);
+
+  const submitUnitSelectionAction = useCallback(async () => {
+    if (!state.accessToken || !overview) {
+      return;
+    }
+    if (!UNIT_SELECTION_ALLOWED_STATUSES.includes(overview.profile.current_status)) {
+      setError('Finance team must clear your account before you can choose units.');
+      return;
+    }
+    if (!selectedUnitIds.length) {
+      setError('Select at least one unit before submitting.');
+      return;
+    }
+    if (selectedUnitIds.length > MAX_UNIT_SELECTION) {
+      setError(`You can register a maximum of ${MAX_UNIT_SELECTION} units.`);
+      return;
+    }
+    setUnitSelectionSubmitting(true);
+    setError(null);
+    try {
+      await submitStudentUnitSelection(state.accessToken, { unit_ids: selectedUnitIds });
+      setSpeechStatus('Unit selection submitted for HOD approval.');
+      await loadOverview(true);
+    } catch (submitError) {
+      if (submitError instanceof Error) {
+        setError(submitError.message);
+      } else {
+        setError('Unable to submit unit selection.');
+      }
+    } finally {
+      setUnitSelectionSubmitting(false);
+    }
+  }, [loadOverview, overview, selectedUnitIds, state.accessToken]);
 
   if (loading && !overview) {
     return (
@@ -950,6 +1079,86 @@ export const StudentHomeScreen: React.FC = () => {
           </View>
         ) : null}
 
+        {overview ? (
+          <View style={styles.section}>
+            <SectionHeader
+              title="Unit registration"
+              icon="book-education"
+              onSpeak={() => speakText(unitSelectionSpeech)}
+            />
+            <DashboardTile
+              icon={<MaterialCommunityIcons name="shield-check" size={26} color={palette.primary} />}
+              title="Finance clearance"
+              subtitle={
+                overview.profile.current_status === 'finance_ok'
+                  ? 'Cleared by finance. You can choose units below.'
+                  : overview.profile.current_status === 'pending_hod'
+                    ? 'Your current choices are pending HOD approval. You can still adjust and resubmit below.'
+                  : overview.profile.current_status === 'active'
+                    ? 'Active student. You can still review and update units for approval below.'
+                    : `Current status: ${overview.profile.current_status}. Finance clearance is required first.`
+              }
+              disabled
+            />
+            <DashboardTile
+              icon={<MaterialCommunityIcons name="format-list-checks" size={26} color={palette.secondary} />}
+              title={`Selected ${selectedUnitIds.length} of ${MAX_UNIT_SELECTION} units`}
+              subtitle="Your submitted choices appear in the records office and HOD approval queue."
+              disabled
+            />
+            {overview.offeredUnits.length ? (
+              overview.offeredUnits.map((unit) => {
+                const selected = selectedUnitIds.includes(unit.id);
+                const offeringMeta = overview.offeredUnitMeta[unit.id];
+                return (
+                  <DashboardTile
+                    key={`offered-unit-${unit.id}`}
+                    icon={
+                      <MaterialCommunityIcons
+                        name={selected ? 'check-circle' : 'checkbox-blank-circle-outline'}
+                        size={26}
+                        color={selected ? palette.success : palette.primary}
+                      />
+                    }
+                    title={`${unit.code} - ${unit.title}`}
+                    subtitle={`Credits ${unit.credit_hours} | Academic year ${offeringMeta?.academicYear ?? overview.profile.year} Trimester ${offeringMeta?.trimester ?? overview.profile.trimester}`}
+                    onPress={
+                      UNIT_SELECTION_ALLOWED_STATUSES.includes(overview.profile.current_status)
+                        ? () => toggleUnitSelection(unit.id)
+                        : undefined
+                    }
+                    disabled={!UNIT_SELECTION_ALLOWED_STATUSES.includes(overview.profile.current_status)}
+                  />
+                );
+              })
+            ) : (
+              <DashboardTile
+                icon={<MaterialCommunityIcons name="book-remove" size={26} color={palette.textSecondary} />}
+                title="No offered units for this term"
+                subtitle="The curriculum offering has not been published for your term yet."
+                disabled
+              />
+            )}
+            <VoiceButton
+              label={
+                unitSelectionSubmitting
+                  ? 'Submitting unit choices...'
+                  : `Submit ${selectedUnitIds.length} of ${MAX_UNIT_SELECTION} units`
+              }
+              onPress={
+                UNIT_SELECTION_ALLOWED_STATUSES.includes(overview.profile.current_status) &&
+                overview.offeredUnits.length
+                  ? submitUnitSelectionAction
+                  : undefined
+              }
+              isActive={unitSelectionSubmitting}
+            />
+            <Text style={styles.helper}>
+              After submission, records can review the entry and HOD approval will activate your registered classes and class communities.
+            </Text>
+          </View>
+        ) : null}
+
         <View style={styles.section}>
           <SectionHeader title="Upcoming classes" icon="calendar-clock" onSpeak={() => speakText(classesSpeech)} />
           {overview?.timetable.length ? (
@@ -1056,11 +1265,29 @@ export const StudentHomeScreen: React.FC = () => {
             title="Fee status"
             subtitle={
               overview?.financeStatus
-                ? `Paid ${formatMoney(overview.financeStatus.total_paid)} of ${formatMoney(overview.financeStatus.total_due)}`
+                ? `Paid ${formatMoney(overview.financeStatus.total_paid)} of ${formatMoney(overview.financeStatus.total_due)} | ${overview.financeStatus.clearance_status.replace(/_/g, ' ')}`
                 : 'No finance records found yet.'
             }
             disabled
           />
+          {overview?.payments.length ? (
+            overview.payments.map((payment, index) => (
+              <DashboardTile
+                key={`student-payment-${payment.id}-${index}`}
+                icon={<MaterialCommunityIcons name="receipt-text-check" size={26} color={palette.primary} />}
+                title={`${formatMoney(payment.amount)} via ${payment.method || 'Recorded payment'}`}
+                subtitle={`${payment.ref || 'No receipt reference'} | ${formatDateTime(payment.paid_at || payment.created_at)}`}
+                disabled
+              />
+            ))
+          ) : (
+            <DashboardTile
+              icon={<MaterialCommunityIcons name="receipt-text-remove" size={26} color={palette.textSecondary} />}
+              title="No payment history yet"
+              subtitle="Payments recorded by finance will appear here."
+              disabled
+            />
+          )}
           <DashboardTile
             icon={<MaterialCommunityIcons name="star-circle" size={26} color={palette.warning} />}
             title="Rewards"
@@ -1135,7 +1362,7 @@ export const StudentHomeScreen: React.FC = () => {
             onPress: () =>
               speakText('Voice test successful. Student assistant is ready to read sections aloud.'),
           },
-          { label: 'Stop voice', onPress: () => Speech.stop() },
+          { label: 'Stop voice', onPress: () => stopSpeechPlayback() },
         ]}
         simpleMode={state.user?.prefers_simple_language !== false}
         highContrast={state.user?.prefers_high_contrast === true}

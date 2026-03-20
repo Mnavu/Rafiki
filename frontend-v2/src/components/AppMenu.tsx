@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { palette, spacing } from '@theme/index';
 import { VoiceButton } from './VoiceButton';
 
@@ -26,6 +27,8 @@ export const AppMenu: React.FC<AppMenuProps> = ({
   onToggleHighContrast,
   compact = false,
 }) => {
+  const navigation = useNavigation<any>();
+  const route = useRoute();
   const [open, setOpen] = useState(false);
   const visibleActions = useMemo(() => actions.filter((item) => !item.hidden), [actions]);
 
@@ -53,6 +56,14 @@ export const AppMenu: React.FC<AppMenuProps> = ({
               size="compact"
               style={styles.actionButton}
               onPress={onToggleHighContrast}
+            />
+          ) : null}
+          {route.name !== 'ProfileSettings' ? (
+            <VoiceButton
+              label="Account settings"
+              size="compact"
+              style={styles.actionButton}
+              onPress={() => navigation.navigate('ProfileSettings')}
             />
           ) : null}
           {visibleActions.map((action, index) => (
