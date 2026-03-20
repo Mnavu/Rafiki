@@ -21,6 +21,7 @@ import { LecturerPlannerScreen } from '@screens/lecturer/LecturerPlannerScreen';
 import { VideoRoomScreen } from '@screens/lecturer/VideoRoomScreen';
 import { RecordsControlCenterScreen } from '@screens/records/RecordsControlCenterScreen';
 import { AdminControlCenterScreen } from '@screens/admin/AdminControlCenterScreen';
+import { AdminPortalOnlyNoticeScreen } from '@screens/admin/AdminPortalOnlyNoticeScreen';
 import { WebOnlyAdminNoticeScreen } from '@screens/admin/WebOnlyAdminNoticeScreen';
 import { ProfileSettingsScreen } from '@screens/settings/ProfileSettingsScreen';
 import { useAuth } from '@context/AuthContext';
@@ -43,6 +44,7 @@ export type RootStackParamList = {
   VideoRoom: { meetingUrl: string; title?: string };
   RecordsControlCenter: undefined;
   AdminControlCenter: undefined;
+  AdminPortalOnlyNotice: undefined;
   WebOnlyAdminNotice: undefined;
   ProfileSettings: undefined;
   StudentHome: undefined;
@@ -55,55 +57,68 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export const AppNavigator = () => {
   const { isAuthenticated, state } = useAuth();
+  const isAdminWebPortal =
+    Platform.OS === 'web' && (process.env.EXPO_PUBLIC_WEB_PORTAL ?? '').trim().toLowerCase() === 'admin';
   const isWebAdminUser =
     (state.user?.role === 'admin' || state.user?.role === 'superadmin') && Platform.OS === 'web';
   const isNativeAdminUser =
     (state.user?.role === 'admin' || state.user?.role === 'superadmin') && Platform.OS !== 'web';
+  const shouldRestrictToAdminPortal =
+    isAdminWebPortal &&
+    !!state.user &&
+    state.user.role !== 'admin' &&
+    state.user.role !== 'superadmin';
 
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         {isAuthenticated && state.user ? (
           <>
-            {state.user.role === 'student' ? (
-              <Stack.Screen name="StudentHome" component={StudentHomeScreen} />
-            ) : null}
-            {state.user.role === 'parent' ? (
-              <Stack.Screen name="ParentHome" component={ParentHomeScreen} />
-            ) : null}
-            {state.user.role === 'finance' ? (
-              <Stack.Screen name="FinanceControlCenter" component={FinanceControlCenterScreen} />
-            ) : null}
-            {isWebAdminUser ? (
-              <Stack.Screen name="AdminControlCenter" component={AdminControlCenterScreen} />
-            ) : null}
-            {isNativeAdminUser ? (
-              <Stack.Screen name="WebOnlyAdminNotice" component={WebOnlyAdminNoticeScreen} />
-            ) : null}
-            {state.user.role !== 'student' &&
-            state.user.role !== 'parent' &&
-            state.user.role !== 'finance' &&
-            state.user.role !== 'admin' &&
-            state.user.role !== 'superadmin' ? (
-              <Stack.Screen
-                name="Dashboard"
-                component={RoleDashboardScreen}
-                initialParams={{ role: state.user.role }}
-              />
-            ) : null}
-            <Stack.Screen name="Feature" component={RoleFeatureScreen} />
-            <Stack.Screen name="MessageThreads" component={MessageThreadListScreen} />
-            <Stack.Screen name="MessageThreadDetail" component={MessageThreadDetailScreen} />
-            <Stack.Screen name="StudentPeerDirectory" component={StudentPeerDirectoryScreen} />
-            <Stack.Screen name="ClassCommunityDetail" component={ClassCommunityDetailScreen} />
-            <Stack.Screen name="LecturerClasses" component={LecturerClassesScreen} />
-            <Stack.Screen name="LecturerClassDetail" component={LecturerClassDetailScreen} />
-            <Stack.Screen name="LecturerAssignments" component={LecturerAssignmentsScreen} />
-            <Stack.Screen name="LecturerPlanner" component={LecturerPlannerScreen} />
-            <Stack.Screen name="VideoRoom" component={VideoRoomScreen} />
-            <Stack.Screen name="RecordsControlCenter" component={RecordsControlCenterScreen} />
-            <Stack.Screen name="ProfileSettings" component={ProfileSettingsScreen} />
-            <Stack.Screen name="StudentChatbot" component={StudentChatbotScreen} />
+            {shouldRestrictToAdminPortal ? (
+              <Stack.Screen name="AdminPortalOnlyNotice" component={AdminPortalOnlyNoticeScreen} />
+            ) : (
+              <>
+                {state.user.role === 'student' ? (
+                  <Stack.Screen name="StudentHome" component={StudentHomeScreen} />
+                ) : null}
+                {state.user.role === 'parent' ? (
+                  <Stack.Screen name="ParentHome" component={ParentHomeScreen} />
+                ) : null}
+                {state.user.role === 'finance' ? (
+                  <Stack.Screen name="FinanceControlCenter" component={FinanceControlCenterScreen} />
+                ) : null}
+                {isWebAdminUser ? (
+                  <Stack.Screen name="AdminControlCenter" component={AdminControlCenterScreen} />
+                ) : null}
+                {isNativeAdminUser ? (
+                  <Stack.Screen name="WebOnlyAdminNotice" component={WebOnlyAdminNoticeScreen} />
+                ) : null}
+                {state.user.role !== 'student' &&
+                state.user.role !== 'parent' &&
+                state.user.role !== 'finance' &&
+                state.user.role !== 'admin' &&
+                state.user.role !== 'superadmin' ? (
+                  <Stack.Screen
+                    name="Dashboard"
+                    component={RoleDashboardScreen}
+                    initialParams={{ role: state.user.role }}
+                  />
+                ) : null}
+                <Stack.Screen name="Feature" component={RoleFeatureScreen} />
+                <Stack.Screen name="MessageThreads" component={MessageThreadListScreen} />
+                <Stack.Screen name="MessageThreadDetail" component={MessageThreadDetailScreen} />
+                <Stack.Screen name="StudentPeerDirectory" component={StudentPeerDirectoryScreen} />
+                <Stack.Screen name="ClassCommunityDetail" component={ClassCommunityDetailScreen} />
+                <Stack.Screen name="LecturerClasses" component={LecturerClassesScreen} />
+                <Stack.Screen name="LecturerClassDetail" component={LecturerClassDetailScreen} />
+                <Stack.Screen name="LecturerAssignments" component={LecturerAssignmentsScreen} />
+                <Stack.Screen name="LecturerPlanner" component={LecturerPlannerScreen} />
+                <Stack.Screen name="VideoRoom" component={VideoRoomScreen} />
+                <Stack.Screen name="RecordsControlCenter" component={RecordsControlCenterScreen} />
+                <Stack.Screen name="ProfileSettings" component={ProfileSettingsScreen} />
+                <Stack.Screen name="StudentChatbot" component={StudentChatbotScreen} />
+              </>
+            )}
           </>
         ) : (
           <>

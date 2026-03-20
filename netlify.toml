@@ -3,6 +3,9 @@
   command = "npm run build:web"
   publish = "dist"
 
+[build.environment]
+  EXPO_PUBLIC_WEB_PORTAL = "admin"
+
 [[redirects]]
   from = "/*"
   to = "/index.html"

@@ -41,6 +41,7 @@ Use the Netlify config at [`netlify.toml`](../netlify.toml).
    - Publish directory: `dist`
 4. Add environment variable:
    - `EXPO_PUBLIC_API_URL=https://your-render-backend-url`
+   - `EXPO_PUBLIC_WEB_PORTAL=admin`
 5. Deploy and verify the admin login page loads.
 
 ## 3. Point the local app to the public backend

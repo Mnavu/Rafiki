@@ -31,20 +31,38 @@ const roleOptions: RoleOption[] = [
 
 export const RoleSelectionScreen: React.FC = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const isAdminWebPortal =
+    Platform.OS === 'web' && (process.env.EXPO_PUBLIC_WEB_PORTAL ?? '').trim().toLowerCase() === 'admin';
   const visibleRoles = useMemo(
     () =>
       roleOptions.filter((item) => {
+        if (isAdminWebPortal) {
+          return item.key === 'admin' || item.key === 'superadmin';
+        }
         if (Platform.OS !== 'web' && (item.key === 'admin' || item.key === 'superadmin')) {
           return false;
         }
         return true;
       }),
-    [],
+    [isAdminWebPortal],
   );
 
   return (
     <View style={styles.container}>
-      <GreetingHeader name="Guest" greeting="Choose your role" />
+      <GreetingHeader
+        name={isAdminWebPortal ? 'EduAssist Admin' : 'Guest'}
+        greeting={isAdminWebPortal ? 'Choose admin access' : 'Choose your role'}
+      />
+      {isAdminWebPortal ? (
+        <View style={styles.noticeCard}>
+          <DashboardTile
+            title="Web admin workspace"
+            subtitle="This deployed web site is reserved for admin and super admin accounts. Students, lecturers, Guardians, finance, records, and HOD users should use the mobile app."
+            onPress={() => navigation.navigate('Login', { role: 'admin' })}
+            icon={<RoleBadge role="admin" />}
+          />
+        </View>
+      ) : null}
       <FlatList
         data={visibleRoles}
         keyExtractor={(item) => item.key}
@@ -74,5 +92,8 @@ const styles = StyleSheet.create({
   },
   list: {
     paddingBottom: spacing.xxl,
+  },
+  noticeCard: {
+    marginBottom: spacing.md,
   },
 });
