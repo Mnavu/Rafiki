@@ -1,0 +1,491 @@
+﻿[
+{
+  "model": "users.user",
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$IbsgoSHPoZ1ybJSOXmIe2M$n8MGEcuZQeYZJCiZy2U4n9/rPzp90nbVeRqR4HoTZLo=",
+    "last_login": null,
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "akolorita@gmail.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2026-03-21T00:42:57.917Z",
+    "role": "superadmin",
+    "display_name": "Super Admin",
+    "phone": "",
+    "date_of_birth": null,
+    "address": "",
+    "must_change_password": false,
+    "prefers_simple_language": true,
+    "prefers_high_contrast": false,
+    "speech_rate": 0.9,
+    "totp_secret": "",
+    "totp_enabled": false,
+    "totp_activated_at": null,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 1,
+  "fields": {
+    "event_id": "8d35ff15-817d-41a2-8f72-b966027bff25",
+    "actor_user": null,
+    "action": "api_request",
+    "target_table": "http",
+    "target_id": "/api/docs/",
+    "before": {},
+    "after": {
+      "method": "GET",
+      "status": 200,
+      "timestamp": "2026-03-20T22:45:27.287140+00:00",
+      "user_agent": "Go-http-client/2.0",
+      "remote_addr": "127.0.0.1"
+    },
+    "request_id": "994522d6-c883-4e62-9f0b-c69721b5068b",
+    "request_path": "/api/docs/",
+    "request_method": "GET",
+    "request_status": 200,
+    "ip_address": "127.0.0.1",
+    "user_agent": "Go-http-client/2.0",
+    "metadata": {},
+    "previous_hash": "",
+    "integrity_hash": "caaea13ccb146a2265a00db244af0584b8af68fe8ca48a03f9dd44927a7ea296",
+    "created_at": "2026-03-20T22:45:27.288Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 2,
+  "fields": {
+    "event_id": "8e2f6205-0132-4430-9c32-7687dec05447",
+    "actor_user": null,
+    "action": "api_request",
+    "target_table": "http",
+    "target_id": "/api/docs/",
+    "before": {},
+    "after": {
+      "method": "GET",
+      "status": 200,
+      "timestamp": "2026-03-20T22:46:35.144286+00:00",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36 Edg/146.0.0.0",
+      "remote_addr": "127.0.0.1"
+    },
+    "request_id": "149895d6-ad33-43e5-a1f4-fabaa9d247b6",
+    "request_path": "/api/docs/",
+    "request_method": "GET",
+    "request_status": 200,
+    "ip_address": "127.0.0.1",
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36 Edg/146.0.0.0",
+    "metadata": {},
+    "previous_hash": "caaea13ccb146a2265a00db244af0584b8af68fe8ca48a03f9dd44927a7ea296",
+    "integrity_hash": "44198657e2a1e9c0b3eb9f5a0597475412d67116c110fa2963200e9ae4670d78",
+    "created_at": "2026-03-20T22:46:35.144Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 3,
+  "fields": {
+    "event_id": "ae482ade-b612-4c9a-ad64-69e05f62ff27",
+    "actor_user": null,
+    "action": "api_request",
+    "target_table": "http",
+    "target_id": "/api/schema/",
+    "before": {},
+    "after": {
+      "method": "GET",
+      "status": 500,
+      "timestamp": "2026-03-20T22:46:39.486420+00:00",
+      "user_agent": null,
+      "remote_addr": null
+    },
+    "request_id": "",
+    "request_path": "/api/schema/",
+    "request_method": "GET",
+    "request_status": 500,
+    "ip_address": "",
+    "user_agent": "",
+    "metadata": {},
+    "previous_hash": "44198657e2a1e9c0b3eb9f5a0597475412d67116c110fa2963200e9ae4670d78",
+    "integrity_hash": "6348c0b5525b1f0738813312e3858135a22a569674b23a52d6df8a48f7a1c29c",
+    "created_at": "2026-03-20T22:46:39.486Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 4,
+  "fields": {
+    "event_id": "6cd83c64-452f-4994-838f-f69b32eee156",
+    "actor_user": null,
+    "action": "api_request",
+    "target_table": "http",
+    "target_id": "/api/schema/",
+    "before": {},
+    "after": {
+      "method": "GET",
+      "status": 500,
+      "timestamp": "2026-03-20T22:46:40.488618+00:00",
+      "user_agent": null,
+      "remote_addr": null
+    },
+    "request_id": "",
+    "request_path": "/api/schema/",
+    "request_method": "GET",
+    "request_status": 500,
+    "ip_address": "",
+    "user_agent": "",
+    "metadata": {},
+    "previous_hash": "6348c0b5525b1f0738813312e3858135a22a569674b23a52d6df8a48f7a1c29c",
+    "integrity_hash": "2fe75d015da2567cb2cfb62266bb6b896d846451996b14f076efac876a2914f4",
+    "created_at": "2026-03-20T22:46:40.488Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 5,
+  "fields": {
+    "event_id": "777d7d6b-bf1f-42e6-97f8-e02dfd43f2fb",
+    "actor_user": null,
+    "action": "password_change",
+    "target_table": "users_user",
+    "target_id": "1",
+    "before": {},
+    "after": {
+      "password_changed": true
+    },
+    "request_id": "",
+    "request_path": "",
+    "request_method": "",
+    "request_status": null,
+    "ip_address": "",
+    "user_agent": "",
+    "metadata": {},
+    "previous_hash": "2fe75d015da2567cb2cfb62266bb6b896d846451996b14f076efac876a2914f4",
+    "integrity_hash": "d4807291eb884702508cb98129f6c93c27abf583ac893c3a78e47d26f67e4f4b",
+    "created_at": "2026-03-21T00:42:58.245Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 6,
+  "fields": {
+    "event_id": "54cd8466-90f3-4575-aa5b-9137b2870b3d",
+    "actor_user": null,
+    "action": "api_request",
+    "target_table": "http",
+    "target_id": "/api/docs/",
+    "before": {},
+    "after": {
+      "method": "GET",
+      "status": 200,
+      "timestamp": "2026-03-21T00:44:17.842665+00:00",
+      "user_agent": "Go-http-client/2.0",
+      "remote_addr": "127.0.0.1"
+    },
+    "request_id": "fd1a7e11-a3b8-4e72-bb81-8f6c270c1963",
+    "request_path": "/api/docs/",
+    "request_method": "GET",
+    "request_status": 200,
+    "ip_address": "127.0.0.1",
+    "user_agent": "Go-http-client/2.0",
+    "metadata": {},
+    "previous_hash": "d4807291eb884702508cb98129f6c93c27abf583ac893c3a78e47d26f67e4f4b",
+    "integrity_hash": "b66bb8d4dc0eb7058ff9903e7030af1ed801bf4c6db5575e07fa7f171513b0ad",
+    "created_at": "2026-03-21T00:44:17.844Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 7,
+  "fields": {
+    "event_id": "45e3e1aa-1498-4df9-9628-dd42777ab86a",
+    "actor_user": null,
+    "action": "api_request",
+    "target_table": "http",
+    "target_id": "/api/docs/",
+    "before": {},
+    "after": {
+      "method": "GET",
+      "status": 200,
+      "timestamp": "2026-03-21T01:57:44.634028+00:00",
+      "user_agent": "Go-http-client/2.0",
+      "remote_addr": "127.0.0.1"
+    },
+    "request_id": "695e45d9-640f-49d6-9c00-5e392959acaf",
+    "request_path": "/api/docs/",
+    "request_method": "GET",
+    "request_status": 200,
+    "ip_address": "127.0.0.1",
+    "user_agent": "Go-http-client/2.0",
+    "metadata": {},
+    "previous_hash": "b66bb8d4dc0eb7058ff9903e7030af1ed801bf4c6db5575e07fa7f171513b0ad",
+    "integrity_hash": "78126d3e485c3e300064f3a4d13303c05eab010e82876b14d95693d284ed5102",
+    "created_at": "2026-03-21T01:57:44.635Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 8,
+  "fields": {
+    "event_id": "3842bb6c-6792-4f8b-9ed3-567349429d43",
+    "actor_user": null,
+    "action": "api_request",
+    "target_table": "http",
+    "target_id": "/api/docs/",
+    "before": {},
+    "after": {
+      "method": "GET",
+      "status": 200,
+      "timestamp": "2026-03-21T02:02:32.838395+00:00",
+      "user_agent": "Go-http-client/2.0",
+      "remote_addr": "127.0.0.1"
+    },
+    "request_id": "bde8c5ff-ab65-4aa0-8380-9cd54630121a",
+    "request_path": "/api/docs/",
+    "request_method": "GET",
+    "request_status": 200,
+    "ip_address": "127.0.0.1",
+    "user_agent": "Go-http-client/2.0",
+    "metadata": {},
+    "previous_hash": "78126d3e485c3e300064f3a4d13303c05eab010e82876b14d95693d284ed5102",
+    "integrity_hash": "451c1c28f43398a5642241be2ac0162efbff21fbabb185768587f372e88ff944",
+    "created_at": "2026-03-21T02:02:32.844Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 9,
+  "fields": {
+    "event_id": "05f716a9-b0aa-48a8-8391-d6c705815fb0",
+    "actor_user": null,
+    "action": "api_request",
+    "target_table": "http",
+    "target_id": "/api/docs/",
+    "before": {},
+    "after": {
+      "method": "GET",
+      "status": 200,
+      "timestamp": "2026-03-21T02:07:49.312702+00:00",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36 Edg/146.0.0.0",
+      "remote_addr": "127.0.0.1"
+    },
+    "request_id": "88dfc733-f5ef-4de7-9cf8-5149b5b4d1f6",
+    "request_path": "/api/docs/",
+    "request_method": "GET",
+    "request_status": 200,
+    "ip_address": "127.0.0.1",
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36 Edg/146.0.0.0",
+    "metadata": {},
+    "previous_hash": "451c1c28f43398a5642241be2ac0162efbff21fbabb185768587f372e88ff944",
+    "integrity_hash": "f19a5f0d1c2485f3df5f0d13872bf92afb03c9cce09b32cace31cbfb7028caac",
+    "created_at": "2026-03-21T02:07:49.312Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 10,
+  "fields": {
+    "event_id": "23bf490b-cb49-4200-a91f-afc905e35bc9",
+    "actor_user": null,
+    "action": "api_request",
+    "target_table": "http",
+    "target_id": "/api/schema/",
+    "before": {},
+    "after": {
+      "method": "GET",
+      "status": 500,
+      "timestamp": "2026-03-21T02:07:52.145240+00:00",
+      "user_agent": null,
+      "remote_addr": null
+    },
+    "request_id": "",
+    "request_path": "/api/schema/",
+    "request_method": "GET",
+    "request_status": 500,
+    "ip_address": "",
+    "user_agent": "",
+    "metadata": {},
+    "previous_hash": "f19a5f0d1c2485f3df5f0d13872bf92afb03c9cce09b32cace31cbfb7028caac",
+    "integrity_hash": "1075aa73b24fe194371ed000c41addff3968649a598345fd3db8ed35681308d9",
+    "created_at": "2026-03-21T02:07:52.145Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 11,
+  "fields": {
+    "event_id": "11536319-9d0b-410d-96d0-45ad89cfcb82",
+    "actor_user": null,
+    "action": "api_request",
+    "target_table": "http",
+    "target_id": "/api/schema/",
+    "before": {},
+    "after": {
+      "method": "GET",
+      "status": 500,
+      "timestamp": "2026-03-21T02:07:52.941279+00:00",
+      "user_agent": null,
+      "remote_addr": null
+    },
+    "request_id": "",
+    "request_path": "/api/schema/",
+    "request_method": "GET",
+    "request_status": 500,
+    "ip_address": "",
+    "user_agent": "",
+    "metadata": {},
+    "previous_hash": "1075aa73b24fe194371ed000c41addff3968649a598345fd3db8ed35681308d9",
+    "integrity_hash": "eb06b080d889b21a99164f02055d06cd9cde5af147c3971a30b226fd7e1053e0",
+    "created_at": "2026-03-21T02:07:52.941Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 12,
+  "fields": {
+    "event_id": "0c3a0a79-9c0f-4bb6-8a1a-3bfa8522a6b3",
+    "actor_user": null,
+    "action": "api_request",
+    "target_table": "http",
+    "target_id": "/api/docs/",
+    "before": {},
+    "after": {
+      "method": "GET",
+      "status": 200,
+      "timestamp": "2026-03-21T02:14:59.201448+00:00",
+      "user_agent": "Go-http-client/2.0",
+      "remote_addr": "127.0.0.1"
+    },
+    "request_id": "087be333-8d96-437f-8753-42be2d0397cd",
+    "request_path": "/api/docs/",
+    "request_method": "GET",
+    "request_status": 200,
+    "ip_address": "127.0.0.1",
+    "user_agent": "Go-http-client/2.0",
+    "metadata": {},
+    "previous_hash": "eb06b080d889b21a99164f02055d06cd9cde5af147c3971a30b226fd7e1053e0",
+    "integrity_hash": "99f4c435f7d0a749f6504ee1664a7e606c2073931a86173e91401318f98cb49d",
+    "created_at": "2026-03-21T02:14:59.202Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 13,
+  "fields": {
+    "event_id": "8fc467bb-f6f8-4128-b1df-52400d1b567c",
+    "actor_user": null,
+    "action": "api_request",
+    "target_table": "http",
+    "target_id": "/api/docs/",
+    "before": {},
+    "after": {
+      "method": "HEAD",
+      "status": 200,
+      "timestamp": "2026-03-21T03:27:02.751230+00:00",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36 Edg/146.0.0.0",
+      "remote_addr": "127.0.0.1"
+    },
+    "request_id": "0cd8604d-209b-4cc4-90c8-1a601732bac8",
+    "request_path": "/api/docs/",
+    "request_method": "HEAD",
+    "request_status": 200,
+    "ip_address": "127.0.0.1",
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36 Edg/146.0.0.0",
+    "metadata": {},
+    "previous_hash": "99f4c435f7d0a749f6504ee1664a7e606c2073931a86173e91401318f98cb49d",
+    "integrity_hash": "39bf53afd56daf5412d9bd11b21c0c4ead43aec91f6a08cde04516bf5b23cb7f",
+    "created_at": "2026-03-21T03:27:02.821Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 14,
+  "fields": {
+    "event_id": "36ca8a1d-71cf-4a46-9895-4e0dcf4a1d37",
+    "actor_user": null,
+    "action": "api_request",
+    "target_table": "http",
+    "target_id": "/api/docs/",
+    "before": {},
+    "after": {
+      "method": "HEAD",
+      "status": 200,
+      "timestamp": "2026-03-21T03:27:03.725890+00:00",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36 Edg/146.0.0.0",
+      "remote_addr": "127.0.0.1"
+    },
+    "request_id": "8df4e61e-1eea-4bc3-80a4-52e777ca1d03",
+    "request_path": "/api/docs/",
+    "request_method": "HEAD",
+    "request_status": 200,
+    "ip_address": "127.0.0.1",
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36 Edg/146.0.0.0",
+    "metadata": {},
+    "previous_hash": "39bf53afd56daf5412d9bd11b21c0c4ead43aec91f6a08cde04516bf5b23cb7f",
+    "integrity_hash": "9b36b49c321f8b27932237469bb77253944587a291ce56b30c72ba625934968f",
+    "created_at": "2026-03-21T03:27:03.726Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 15,
+  "fields": {
+    "event_id": "c38c4a72-51af-44e8-b975-8d7eabb6cca2",
+    "actor_user": null,
+    "action": "api_request",
+    "target_table": "http",
+    "target_id": "/api/docs/",
+    "before": {},
+    "after": {
+      "method": "GET",
+      "status": 200,
+      "timestamp": "2026-03-21T03:27:05.048042+00:00",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36 Edg/146.0.0.0",
+      "remote_addr": "127.0.0.1"
+    },
+    "request_id": "0b5ca5aa-ccf4-4bd5-8b2f-018bcc4f0981",
+    "request_path": "/api/docs/",
+    "request_method": "GET",
+    "request_status": 200,
+    "ip_address": "127.0.0.1",
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36 Edg/146.0.0.0",
+    "metadata": {},
+    "previous_hash": "9b36b49c321f8b27932237469bb77253944587a291ce56b30c72ba625934968f",
+    "integrity_hash": "5c2c73057f321374cf18f1ed6868eef4d07aec5812696b622b145b56132b20b7",
+    "created_at": "2026-03-21T03:27:05.048Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 16,
+  "fields": {
+    "event_id": "3e72a0ca-9f52-408d-b092-0abae2e3cc22",
+    "actor_user": null,
+    "action": "api_request",
+    "target_table": "http",
+    "target_id": "/api/schema/",
+    "before": {},
+    "after": {
+      "method": "GET",
+      "status": 200,
+      "timestamp": "2026-03-21T03:27:08.327067+00:00",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36 Edg/146.0.0.0",
+      "remote_addr": "127.0.0.1"
+    },
+    "request_id": "e39d544f-5893-4fc8-ac28-8f1e23ee3b3a",
+    "request_path": "/api/schema/",
+    "request_method": "GET",
+    "request_status": 200,
+    "ip_address": "127.0.0.1",
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36 Edg/146.0.0.0",
+    "metadata": {},
+    "previous_hash": "5c2c73057f321374cf18f1ed6868eef4d07aec5812696b622b145b56132b20b7",
+    "integrity_hash": "813e1d373a67fb285b7df99b358e723a4d413454a7976af00728f426c4dc20f9",
+    "created_at": "2026-03-21T03:27:08.327Z"
+  }
+}
+]

@@ -1,0 +1,674 @@
+[
+  {
+    "model": "learning.termoffering",
+    "pk": 1,
+    "fields": {
+      "created_at": "2025-11-19T11:28:50.776Z",
+      "updated_at": "2025-11-19T11:28:50.776Z",
+      "programme": 1,
+      "unit": 1,
+      "academic_year": 2025,
+      "trimester": 1,
+      "offered": true,
+      "capacity": 30
+    }
+  },
+  {
+    "model": "learning.termoffering",
+    "pk": 2,
+    "fields": {
+      "created_at": "2025-11-19T11:28:50.779Z",
+      "updated_at": "2025-11-19T11:28:50.779Z",
+      "programme": 1,
+      "unit": 2,
+      "academic_year": 2025,
+      "trimester": 1,
+      "offered": true,
+      "capacity": 30
+    }
+  },
+  {
+    "model": "learning.termoffering",
+    "pk": 3,
+    "fields": {
+      "created_at": "2025-11-19T11:28:50.783Z",
+      "updated_at": "2025-11-19T11:28:50.783Z",
+      "programme": 1,
+      "unit": 3,
+      "academic_year": 2025,
+      "trimester": 1,
+      "offered": true,
+      "capacity": 30
+    }
+  },
+  {
+    "model": "learning.termoffering",
+    "pk": 4,
+    "fields": {
+      "created_at": "2026-01-15T10:01:32.265Z",
+      "updated_at": "2026-03-12T09:31:15.451Z",
+      "programme": 3,
+      "unit": 10,
+      "academic_year": 1,
+      "trimester": 1,
+      "offered": true,
+      "capacity": 80
+    }
+  },
+  {
+    "model": "learning.termoffering",
+    "pk": 5,
+    "fields": {
+      "created_at": "2026-01-15T10:01:32.274Z",
+      "updated_at": "2026-03-12T09:31:15.460Z",
+      "programme": 3,
+      "unit": 11,
+      "academic_year": 1,
+      "trimester": 1,
+      "offered": true,
+      "capacity": 80
+    }
+  },
+  {
+    "model": "learning.termoffering",
+    "pk": 6,
+    "fields": {
+      "created_at": "2026-01-15T10:01:32.285Z",
+      "updated_at": "2026-03-12T09:31:15.466Z",
+      "programme": 3,
+      "unit": 12,
+      "academic_year": 1,
+      "trimester": 1,
+      "offered": true,
+      "capacity": 80
+    }
+  },
+  {
+    "model": "learning.termoffering",
+    "pk": 7,
+    "fields": {
+      "created_at": "2026-01-15T10:01:32.293Z",
+      "updated_at": "2026-03-12T09:31:15.472Z",
+      "programme": 3,
+      "unit": 13,
+      "academic_year": 1,
+      "trimester": 1,
+      "offered": true,
+      "capacity": 80
+    }
+  },
+  {
+    "model": "learning.termoffering",
+    "pk": 8,
+    "fields": {
+      "created_at": "2026-01-15T10:01:32.304Z",
+      "updated_at": "2026-03-12T09:31:15.505Z",
+      "programme": 3,
+      "unit": 14,
+      "academic_year": 1,
+      "trimester": 2,
+      "offered": true,
+      "capacity": 80
+    }
+  },
+  {
+    "model": "learning.termoffering",
+    "pk": 9,
+    "fields": {
+      "created_at": "2026-01-15T10:01:32.314Z",
+      "updated_at": "2026-03-12T09:31:15.510Z",
+      "programme": 3,
+      "unit": 15,
+      "academic_year": 1,
+      "trimester": 2,
+      "offered": true,
+      "capacity": 80
+    }
+  },
+  {
+    "model": "learning.termoffering",
+    "pk": 10,
+    "fields": {
+      "created_at": "2026-01-15T10:01:32.323Z",
+      "updated_at": "2026-03-12T09:31:15.515Z",
+      "programme": 3,
+      "unit": 16,
+      "academic_year": 1,
+      "trimester": 2,
+      "offered": true,
+      "capacity": 80
+    }
+  },
+  {
+    "model": "learning.termoffering",
+    "pk": 11,
+    "fields": {
+      "created_at": "2026-01-15T10:01:32.333Z",
+      "updated_at": "2026-03-12T09:31:15.524Z",
+      "programme": 3,
+      "unit": 17,
+      "academic_year": 1,
+      "trimester": 2,
+      "offered": true,
+      "capacity": 80
+    }
+  },
+  {
+    "model": "learning.termoffering",
+    "pk": 12,
+    "fields": {
+      "created_at": "2026-01-15T10:01:32.341Z",
+      "updated_at": "2026-03-12T09:31:15.556Z",
+      "programme": 3,
+      "unit": 18,
+      "academic_year": 1,
+      "trimester": 3,
+      "offered": true,
+      "capacity": 80
+    }
+  },
+  {
+    "model": "learning.termoffering",
+    "pk": 13,
+    "fields": {
+      "created_at": "2026-01-15T10:01:32.350Z",
+      "updated_at": "2026-03-12T09:31:15.561Z",
+      "programme": 3,
+      "unit": 19,
+      "academic_year": 1,
+      "trimester": 3,
+      "offered": true,
+      "capacity": 80
+    }
+  },
+  {
+    "model": "learning.termoffering",
+    "pk": 14,
+    "fields": {
+      "created_at": "2026-01-15T10:01:32.359Z",
+      "updated_at": "2026-03-12T09:31:15.566Z",
+      "programme": 3,
+      "unit": 20,
+      "academic_year": 1,
+      "trimester": 3,
+      "offered": true,
+      "capacity": 80
+    }
+  },
+  {
+    "model": "learning.termoffering",
+    "pk": 15,
+    "fields": {
+      "created_at": "2026-01-15T10:01:32.369Z",
+      "updated_at": "2026-03-12T09:31:15.575Z",
+      "programme": 3,
+      "unit": 21,
+      "academic_year": 1,
+      "trimester": 3,
+      "offered": true,
+      "capacity": 80
+    }
+  },
+  {
+    "model": "learning.termoffering",
+    "pk": 16,
+    "fields": {
+      "created_at": "2026-01-15T10:01:32.378Z",
+      "updated_at": "2026-02-26T06:51:22.482Z",
+      "programme": 3,
+      "unit": 22,
+      "academic_year": 2,
+      "trimester": 1,
+      "offered": true,
+      "capacity": null
+    }
+  },
+  {
+    "model": "learning.termoffering",
+    "pk": 17,
+    "fields": {
+      "created_at": "2026-01-15T10:01:32.389Z",
+      "updated_at": "2026-02-26T06:51:22.493Z",
+      "programme": 3,
+      "unit": 23,
+      "academic_year": 2,
+      "trimester": 1,
+      "offered": true,
+      "capacity": null
+    }
+  },
+  {
+    "model": "learning.termoffering",
+    "pk": 18,
+    "fields": {
+      "created_at": "2026-01-15T10:01:32.401Z",
+      "updated_at": "2026-02-26T06:51:22.504Z",
+      "programme": 3,
+      "unit": 24,
+      "academic_year": 2,
+      "trimester": 1,
+      "offered": true,
+      "capacity": null
+    }
+  },
+  {
+    "model": "learning.termoffering",
+    "pk": 19,
+    "fields": {
+      "created_at": "2026-01-15T10:01:32.410Z",
+      "updated_at": "2026-02-26T06:51:22.519Z",
+      "programme": 3,
+      "unit": 25,
+      "academic_year": 2,
+      "trimester": 1,
+      "offered": true,
+      "capacity": null
+    }
+  },
+  {
+    "model": "learning.termoffering",
+    "pk": 20,
+    "fields": {
+      "created_at": "2026-01-15T10:01:32.420Z",
+      "updated_at": "2026-02-26T06:51:22.531Z",
+      "programme": 3,
+      "unit": 26,
+      "academic_year": 2,
+      "trimester": 2,
+      "offered": true,
+      "capacity": null
+    }
+  },
+  {
+    "model": "learning.termoffering",
+    "pk": 21,
+    "fields": {
+      "created_at": "2026-01-15T10:01:32.430Z",
+      "updated_at": "2026-02-26T06:51:22.544Z",
+      "programme": 3,
+      "unit": 27,
+      "academic_year": 2,
+      "trimester": 2,
+      "offered": true,
+      "capacity": null
+    }
+  },
+  {
+    "model": "learning.termoffering",
+    "pk": 22,
+    "fields": {
+      "created_at": "2026-01-15T10:01:32.438Z",
+      "updated_at": "2026-02-26T06:51:22.557Z",
+      "programme": 3,
+      "unit": 28,
+      "academic_year": 2,
+      "trimester": 2,
+      "offered": true,
+      "capacity": null
+    }
+  },
+  {
+    "model": "learning.termoffering",
+    "pk": 23,
+    "fields": {
+      "created_at": "2026-01-15T10:01:32.448Z",
+      "updated_at": "2026-02-26T06:51:22.573Z",
+      "programme": 3,
+      "unit": 29,
+      "academic_year": 2,
+      "trimester": 2,
+      "offered": true,
+      "capacity": null
+    }
+  },
+  {
+    "model": "learning.termoffering",
+    "pk": 24,
+    "fields": {
+      "created_at": "2026-01-15T10:01:32.456Z",
+      "updated_at": "2026-02-26T06:51:22.590Z",
+      "programme": 3,
+      "unit": 30,
+      "academic_year": 2,
+      "trimester": 3,
+      "offered": true,
+      "capacity": null
+    }
+  },
+  {
+    "model": "learning.termoffering",
+    "pk": 25,
+    "fields": {
+      "created_at": "2026-01-15T10:01:32.468Z",
+      "updated_at": "2026-02-26T06:51:22.607Z",
+      "programme": 3,
+      "unit": 31,
+      "academic_year": 2,
+      "trimester": 3,
+      "offered": true,
+      "capacity": null
+    }
+  },
+  {
+    "model": "learning.termoffering",
+    "pk": 26,
+    "fields": {
+      "created_at": "2026-01-15T10:01:32.477Z",
+      "updated_at": "2026-02-26T06:51:22.623Z",
+      "programme": 3,
+      "unit": 32,
+      "academic_year": 2,
+      "trimester": 3,
+      "offered": true,
+      "capacity": null
+    }
+  },
+  {
+    "model": "learning.termoffering",
+    "pk": 27,
+    "fields": {
+      "created_at": "2026-01-15T10:01:32.487Z",
+      "updated_at": "2026-02-26T06:51:22.635Z",
+      "programme": 3,
+      "unit": 33,
+      "academic_year": 2,
+      "trimester": 3,
+      "offered": true,
+      "capacity": null
+    }
+  },
+  {
+    "model": "learning.termoffering",
+    "pk": 28,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.783Z",
+      "updated_at": "2026-03-12T09:31:15.478Z",
+      "programme": 3,
+      "unit": 22,
+      "academic_year": 1,
+      "trimester": 1,
+      "offered": true,
+      "capacity": 80
+    }
+  },
+  {
+    "model": "learning.termoffering",
+    "pk": 29,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.792Z",
+      "updated_at": "2026-03-12T09:31:15.483Z",
+      "programme": 3,
+      "unit": 23,
+      "academic_year": 1,
+      "trimester": 1,
+      "offered": true,
+      "capacity": 80
+    }
+  },
+  {
+    "model": "learning.termoffering",
+    "pk": 30,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.797Z",
+      "updated_at": "2026-03-12T09:31:15.493Z",
+      "programme": 3,
+      "unit": 24,
+      "academic_year": 1,
+      "trimester": 1,
+      "offered": true,
+      "capacity": 80
+    }
+  },
+  {
+    "model": "learning.termoffering",
+    "pk": 31,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.802Z",
+      "updated_at": "2026-03-12T09:31:15.498Z",
+      "programme": 3,
+      "unit": 25,
+      "academic_year": 1,
+      "trimester": 1,
+      "offered": true,
+      "capacity": 80
+    }
+  },
+  {
+    "model": "learning.termoffering",
+    "pk": 32,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.834Z",
+      "updated_at": "2026-03-12T09:31:15.529Z",
+      "programme": 3,
+      "unit": 26,
+      "academic_year": 1,
+      "trimester": 2,
+      "offered": true,
+      "capacity": 80
+    }
+  },
+  {
+    "model": "learning.termoffering",
+    "pk": 33,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.841Z",
+      "updated_at": "2026-03-12T09:31:15.537Z",
+      "programme": 3,
+      "unit": 27,
+      "academic_year": 1,
+      "trimester": 2,
+      "offered": true,
+      "capacity": 80
+    }
+  },
+  {
+    "model": "learning.termoffering",
+    "pk": 34,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.846Z",
+      "updated_at": "2026-03-12T09:31:15.543Z",
+      "programme": 3,
+      "unit": 28,
+      "academic_year": 1,
+      "trimester": 2,
+      "offered": true,
+      "capacity": 80
+    }
+  },
+  {
+    "model": "learning.termoffering",
+    "pk": 35,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.852Z",
+      "updated_at": "2026-03-12T09:31:15.548Z",
+      "programme": 3,
+      "unit": 29,
+      "academic_year": 1,
+      "trimester": 2,
+      "offered": true,
+      "capacity": 80
+    }
+  },
+  {
+    "model": "learning.termoffering",
+    "pk": 36,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.886Z",
+      "updated_at": "2026-03-12T09:31:15.581Z",
+      "programme": 3,
+      "unit": 30,
+      "academic_year": 1,
+      "trimester": 3,
+      "offered": true,
+      "capacity": 80
+    }
+  },
+  {
+    "model": "learning.termoffering",
+    "pk": 37,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.895Z",
+      "updated_at": "2026-03-12T09:31:15.587Z",
+      "programme": 3,
+      "unit": 31,
+      "academic_year": 1,
+      "trimester": 3,
+      "offered": true,
+      "capacity": 80
+    }
+  },
+  {
+    "model": "learning.termoffering",
+    "pk": 38,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.900Z",
+      "updated_at": "2026-03-12T09:31:15.593Z",
+      "programme": 3,
+      "unit": 32,
+      "academic_year": 1,
+      "trimester": 3,
+      "offered": true,
+      "capacity": 80
+    }
+  },
+  {
+    "model": "learning.termoffering",
+    "pk": 39,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.907Z",
+      "updated_at": "2026-03-12T09:31:15.598Z",
+      "programme": 3,
+      "unit": 33,
+      "academic_year": 1,
+      "trimester": 3,
+      "offered": true,
+      "capacity": 80
+    }
+  },
+  {
+    "model": "learning.termoffering",
+    "pk": 40,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.992Z",
+      "updated_at": "2026-03-12T09:31:15.687Z",
+      "programme": 1,
+      "unit": 1,
+      "academic_year": 1,
+      "trimester": 1,
+      "offered": true,
+      "capacity": 80
+    }
+  },
+  {
+    "model": "learning.termoffering",
+    "pk": 41,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.997Z",
+      "updated_at": "2026-03-12T09:31:15.693Z",
+      "programme": 1,
+      "unit": 2,
+      "academic_year": 1,
+      "trimester": 1,
+      "offered": true,
+      "capacity": 80
+    }
+  },
+  {
+    "model": "learning.termoffering",
+    "pk": 42,
+    "fields": {
+      "created_at": "2026-03-12T09:30:32.003Z",
+      "updated_at": "2026-03-12T09:31:15.698Z",
+      "programme": 1,
+      "unit": 3,
+      "academic_year": 1,
+      "trimester": 1,
+      "offered": true,
+      "capacity": 80
+    }
+  },
+  {
+    "model": "learning.termoffering",
+    "pk": 43,
+    "fields": {
+      "created_at": "2026-03-12T09:30:32.010Z",
+      "updated_at": "2026-03-12T09:31:15.705Z",
+      "programme": 1,
+      "unit": 4,
+      "academic_year": 1,
+      "trimester": 2,
+      "offered": true,
+      "capacity": 80
+    }
+  },
+  {
+    "model": "learning.termoffering",
+    "pk": 44,
+    "fields": {
+      "created_at": "2026-03-12T09:30:32.015Z",
+      "updated_at": "2026-03-12T09:31:15.710Z",
+      "programme": 1,
+      "unit": 5,
+      "academic_year": 1,
+      "trimester": 2,
+      "offered": true,
+      "capacity": 80
+    }
+  },
+  {
+    "model": "learning.termoffering",
+    "pk": 45,
+    "fields": {
+      "created_at": "2026-03-12T09:30:32.021Z",
+      "updated_at": "2026-03-12T09:31:15.716Z",
+      "programme": 1,
+      "unit": 6,
+      "academic_year": 1,
+      "trimester": 3,
+      "offered": true,
+      "capacity": 80
+    }
+  },
+  {
+    "model": "learning.termoffering",
+    "pk": 46,
+    "fields": {
+      "created_at": "2026-03-12T09:30:32.029Z",
+      "updated_at": "2026-03-12T09:31:15.726Z",
+      "programme": 1,
+      "unit": 7,
+      "academic_year": 1,
+      "trimester": 4,
+      "offered": true,
+      "capacity": 80
+    }
+  },
+  {
+    "model": "learning.termoffering",
+    "pk": 47,
+    "fields": {
+      "created_at": "2026-03-12T09:30:32.035Z",
+      "updated_at": "2026-03-12T09:31:15.731Z",
+      "programme": 1,
+      "unit": 8,
+      "academic_year": 1,
+      "trimester": 4,
+      "offered": true,
+      "capacity": 80
+    }
+  },
+  {
+    "model": "learning.termoffering",
+    "pk": 48,
+    "fields": {
+      "created_at": "2026-03-12T09:30:32.116Z",
+      "updated_at": "2026-03-12T09:31:15.816Z",
+      "programme": 2,
+      "unit": 9,
+      "academic_year": 1,
+      "trimester": 1,
+      "offered": true,
+      "capacity": 80
+    }
+  }
+]

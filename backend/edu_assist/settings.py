@@ -134,6 +134,9 @@ RECORDS_PROVISION_PASSCODE = os.environ.get("RECORDS_PROVISION_PASSCODE", "Recor
 ADMIN_USERNAME = os.environ.get("DJANGO_ADMIN_USERNAME", "admin")
 ADMIN_EMAIL = os.environ.get("DJANGO_ADMIN_EMAIL", "admin@example.com")
 ADMIN_PASSWORD = os.environ.get("DJANGO_ADMIN_PASSWORD", "adminpass")
+AUTO_SEED_DEMO_DATA = os.environ.get("AUTO_SEED_DEMO_DATA", "0") == "1"
+AUTO_SEED_UAT_DATA = os.environ.get("AUTO_SEED_UAT_DATA", "1") == "1"
+AUTO_ACTIVATE_DEMO_WORKFLOWS = os.environ.get("AUTO_ACTIVATE_DEMO_WORKFLOWS", "1") == "1"
 
 CORS_ALLOW_ALL_ORIGINS = os.environ.get("CORS_ALLOW_ALL_ORIGINS", "1" if DEBUG else "0") == "1"
 CORS_ALLOWED_ORIGINS = split_csv_env("CORS_ALLOWED_ORIGINS")

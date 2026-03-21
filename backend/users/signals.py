@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.core.management import call_command
 from django.db.models.signals import pre_save, post_save, post_migrate
 from django.dispatch import receiver
 
@@ -91,3 +92,28 @@ def ensure_render_admin_user(sender, app_config=None, **kwargs):
 
     if updated_fields:
         user.save(update_fields=updated_fields)
+
+    auto_seed = str(getattr(settings, "AUTO_SEED_DEMO_DATA", False)).lower() in {"1", "true", "yes", "on"}
+    if not auto_seed:
+        return
+
+    if User.objects.exclude(username=username).exists():
+        return
+
+    call_command("seed_demo")
+
+    auto_seed_uat = str(getattr(settings, "AUTO_SEED_UAT_DATA", True)).lower() in {"1", "true", "yes", "on"}
+    if auto_seed_uat:
+        call_command("seed_uat_data")
+
+    auto_activate = str(getattr(settings, "AUTO_ACTIVATE_DEMO_WORKFLOWS", True)).lower() in {"1", "true", "yes", "on"}
+    if auto_activate:
+        call_command(
+            "activate_demo_workflows",
+            department_code="TT",
+            hod_username="hod1",
+            student_username="student1",
+            guardian_username="parent1",
+            all_students=True,
+            bootstrap_count=3,
+        )

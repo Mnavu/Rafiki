@@ -1,0 +1,18 @@
+[
+  {
+    "model": "core.datagovernancepolicy",
+    "pk": 1,
+    "fields": {
+      "created_at": "2026-03-11T19:39:05.532Z",
+      "updated_at": "2026-03-11T19:39:05.532Z",
+      "name": "default",
+      "audit_retention_days": 365,
+      "chat_retention_days": 365,
+      "report_retention_days": 365,
+      "backup_enabled": true,
+      "backup_frequency": "weekly",
+      "backup_location": "",
+      "immutable_audit_enabled": true
+    }
+  }
+]

@@ -1,0 +1,420 @@
+[
+  {
+    "model": "chatbot.turn",
+    "pk": 1,
+    "fields": {
+      "created_at": "2026-03-16T15:44:30.302Z",
+      "updated_at": "2026-03-16T15:44:30.302Z",
+      "conversation": 1,
+      "sender": "user",
+      "text": "hi how are you"
+    }
+  },
+  {
+    "model": "chatbot.turn",
+    "pk": 2,
+    "fields": {
+      "created_at": "2026-03-16T15:44:30.333Z",
+      "updated_at": "2026-03-16T15:44:30.333Z",
+      "conversation": 1,
+      "sender": "bot",
+      "text": "I am doing well and ready to support you. Tell me what you need, and I will keep it simple and clear."
+    }
+  },
+  {
+    "model": "chatbot.turn",
+    "pk": 3,
+    "fields": {
+      "created_at": "2026-03-16T15:44:50.450Z",
+      "updated_at": "2026-03-16T15:44:50.450Z",
+      "conversation": 1,
+      "sender": "user",
+      "text": "what time is my next class"
+    }
+  },
+  {
+    "model": "chatbot.turn",
+    "pk": 4,
+    "fields": {
+      "created_at": "2026-03-16T15:44:50.512Z",
+      "updated_at": "2026-03-16T15:44:50.512Z",
+      "conversation": 1,
+      "sender": "bot",
+      "text": "Your next classes: DTM102 at Tue 17 Mar 10:00 AM in Room 102; DTM103 at Wed 18 Mar 11:00 AM in Room 103; DTM101 at Mon 23 Mar 09:00 AM in Room 101 You do not have an upcoming class call right now. You can also ask: Which class is first tomorrow?, Do I have a call link for my next class?, Any deadlines this week?."
+    }
+  },
+  {
+    "model": "chatbot.turn",
+    "pk": 5,
+    "fields": {
+      "created_at": "2026-03-19T07:56:44.741Z",
+      "updated_at": "2026-03-19T07:56:44.741Z",
+      "conversation": 1,
+      "sender": "user",
+      "text": "what time is my next class"
+    }
+  },
+  {
+    "model": "chatbot.turn",
+    "pk": 6,
+    "fields": {
+      "created_at": "2026-03-19T07:56:44.766Z",
+      "updated_at": "2026-03-19T07:56:44.766Z",
+      "conversation": 1,
+      "sender": "bot",
+      "text": "Your next classes: DTM101 at Mon 23 Mar 09:00 AM in Room 101; DTM102 at Tue 24 Mar 10:00 AM in Room 102; DTM103 at Wed 25 Mar 11:00 AM in Room 103 You do not have an upcoming class call right now. You can also ask: Which class is first tomorrow?, Do I have a call link for my next class?, Any deadlines this week?."
+    }
+  },
+  {
+    "model": "chatbot.turn",
+    "pk": 7,
+    "fields": {
+      "created_at": "2026-03-19T07:58:46.872Z",
+      "updated_at": "2026-03-19T07:58:46.872Z",
+      "conversation": 1,
+      "sender": "user",
+      "text": "what are mangoes"
+    }
+  },
+  {
+    "model": "chatbot.turn",
+    "pk": 8,
+    "fields": {
+      "created_at": "2026-03-19T07:58:46.895Z",
+      "updated_at": "2026-03-19T07:58:46.895Z",
+      "conversation": 1,
+      "sender": "bot",
+      "text": "Your next classes: DTM101 at Mon 23 Mar 09:00 AM in Room 101; DTM102 at Tue 24 Mar 10:00 AM in Room 102; DTM103 at Wed 25 Mar 11:00 AM in Room 103 You do not have an upcoming class call right now. You can also ask: Which class is first tomorrow?, Do I have a call link for my next class?, Any deadlines this week?."
+    }
+  },
+  {
+    "model": "chatbot.turn",
+    "pk": 9,
+    "fields": {
+      "created_at": "2026-03-19T07:59:06.060Z",
+      "updated_at": "2026-03-19T07:59:06.060Z",
+      "conversation": 1,
+      "sender": "user",
+      "text": "who is"
+    }
+  },
+  {
+    "model": "chatbot.turn",
+    "pk": 10,
+    "fields": {
+      "created_at": "2026-03-19T07:59:06.091Z",
+      "updated_at": "2026-03-19T07:59:06.091Z",
+      "conversation": 1,
+      "sender": "bot",
+      "text": "Your next classes: DTM101 at Mon 23 Mar 09:00 AM in Room 101; DTM102 at Tue 24 Mar 10:00 AM in Room 102; DTM103 at Wed 25 Mar 11:00 AM in Room 103 You do not have an upcoming class call right now. You can also ask: Which class is first tomorrow?, Do I have a call link for my next class?, Any deadlines this week?."
+    }
+  },
+  {
+    "model": "chatbot.turn",
+    "pk": 11,
+    "fields": {
+      "created_at": "2026-03-19T07:59:24.206Z",
+      "updated_at": "2026-03-19T07:59:24.206Z",
+      "conversation": 1,
+      "sender": "user",
+      "text": "who who is the lecturer for the next class"
+    }
+  },
+  {
+    "model": "chatbot.turn",
+    "pk": 12,
+    "fields": {
+      "created_at": "2026-03-19T07:59:24.231Z",
+      "updated_at": "2026-03-19T07:59:24.231Z",
+      "conversation": 1,
+      "sender": "bot",
+      "text": "Your next classes: DTM101 at Mon 23 Mar 09:00 AM in Room 101; DTM102 at Tue 24 Mar 10:00 AM in Room 102; DTM103 at Wed 25 Mar 11:00 AM in Room 103 You do not have an upcoming class call right now. You can also ask: Which class is first tomorrow?, Do I have a call link for my next class?, Any deadlines this week?."
+    }
+  },
+  {
+    "model": "chatbot.turn",
+    "pk": 13,
+    "fields": {
+      "created_at": "2026-03-19T08:22:31.044Z",
+      "updated_at": "2026-03-19T08:22:31.044Z",
+      "conversation": 1,
+      "sender": "user",
+      "text": "What is my next class?"
+    }
+  },
+  {
+    "model": "chatbot.turn",
+    "pk": 14,
+    "fields": {
+      "created_at": "2026-03-19T08:22:31.071Z",
+      "updated_at": "2026-03-19T08:22:31.071Z",
+      "conversation": 1,
+      "sender": "bot",
+      "text": "Your next class is DTM101 at Mon 23 Mar 09:00 AM in Room 101 with Peter Lecturer."
+    }
+  },
+  {
+    "model": "chatbot.turn",
+    "pk": 15,
+    "fields": {
+      "created_at": "2026-03-19T08:23:04.039Z",
+      "updated_at": "2026-03-19T08:23:04.039Z",
+      "conversation": 1,
+      "sender": "user",
+      "text": "What notes are pending for me to submit?"
+    }
+  },
+  {
+    "model": "chatbot.turn",
+    "pk": 16,
+    "fields": {
+      "created_at": "2026-03-19T08:23:04.068Z",
+      "updated_at": "2026-03-19T08:23:04.068Z",
+      "conversation": 1,
+      "sender": "bot",
+      "text": "I can guide you step by step on your course topics, timetable, class calls, assignments, and CAT planning. Tell me one specific unit or topic and I will simplify it. You can also ask: When is my next class?, What assignments are due this week?, Help me revise one topic."
+    }
+  },
+  {
+    "model": "chatbot.turn",
+    "pk": 17,
+    "fields": {
+      "created_at": "2026-03-19T08:23:51.471Z",
+      "updated_at": "2026-03-19T08:23:51.471Z",
+      "conversation": 1,
+      "sender": "user",
+      "text": "What are my pending assignments"
+    }
+  },
+  {
+    "model": "chatbot.turn",
+    "pk": 18,
+    "fields": {
+      "created_at": "2026-03-19T08:23:51.489Z",
+      "updated_at": "2026-03-19T08:23:51.489Z",
+      "conversation": 1,
+      "sender": "bot",
+      "text": "Upcoming deadlines: DTM101 - DTM101 Week assignment due Thu 19 Mar 09:31 AM; DTM102 - DTM102 Week assignment due Thu 19 Mar 09:31 AM; DTM103 - DTM103 Week assignment due Thu 19 Mar 09:31 AM. You can also ask: What should I revise first?, When is my next class?, Do I have an online class call?."
+    }
+  },
+  {
+    "model": "chatbot.turn",
+    "pk": 19,
+    "fields": {
+      "created_at": "2026-03-19T08:32:51.307Z",
+      "updated_at": "2026-03-19T08:32:51.307Z",
+      "conversation": 1,
+      "sender": "user",
+      "text": "Do I have an upcoming class call?"
+    }
+  },
+  {
+    "model": "chatbot.turn",
+    "pk": 20,
+    "fields": {
+      "created_at": "2026-03-19T08:32:51.334Z",
+      "updated_at": "2026-03-19T08:32:51.334Z",
+      "conversation": 1,
+      "sender": "bot",
+      "text": "You do not have an upcoming class call right now. You can also ask: When is my next class?, Show class communities, Any school notices?."
+    }
+  },
+  {
+    "model": "chatbot.turn",
+    "pk": 21,
+    "fields": {
+      "created_at": "2026-03-19T08:33:10.453Z",
+      "updated_at": "2026-03-19T08:33:10.453Z",
+      "conversation": 1,
+      "sender": "user",
+      "text": "When is my next class?"
+    }
+  },
+  {
+    "model": "chatbot.turn",
+    "pk": 22,
+    "fields": {
+      "created_at": "2026-03-19T08:33:10.480Z",
+      "updated_at": "2026-03-19T08:33:10.480Z",
+      "conversation": 1,
+      "sender": "bot",
+      "text": "Your next class is DTM101 at Mon 23 Mar 09:00 AM in Room 101 with Peter Lecturer."
+    }
+  },
+  {
+    "model": "chatbot.turn",
+    "pk": 23,
+    "fields": {
+      "created_at": "2026-03-19T08:33:32.411Z",
+      "updated_at": "2026-03-19T08:33:32.411Z",
+      "conversation": 1,
+      "sender": "user",
+      "text": "What school activities are coming up?"
+    }
+  },
+  {
+    "model": "chatbot.turn",
+    "pk": 24,
+    "fields": {
+      "created_at": "2026-03-19T08:33:32.438Z",
+      "updated_at": "2026-03-19T08:33:32.438Z",
+      "conversation": 1,
+      "sender": "bot",
+      "text": "Recent notices: Online class session (2026-03-12T22:17:00+00:00). You can also ask: Do I have upcoming calls?, What classes are next?, Any assignment deadlines?."
+    }
+  },
+  {
+    "model": "chatbot.turn",
+    "pk": 25,
+    "fields": {
+      "created_at": "2026-03-19T08:33:53.296Z",
+      "updated_at": "2026-03-19T08:33:53.296Z",
+      "conversation": 1,
+      "sender": "user",
+      "text": "Hello good morning"
+    }
+  },
+  {
+    "model": "chatbot.turn",
+    "pk": 26,
+    "fields": {
+      "created_at": "2026-03-19T08:33:53.324Z",
+      "updated_at": "2026-03-19T08:33:53.324Z",
+      "conversation": 1,
+      "sender": "bot",
+      "text": "Hello. I can help with class times, scheduled calls, assignments, CAT reminders, and school notices."
+    }
+  },
+  {
+    "model": "chatbot.turn",
+    "pk": 27,
+    "fields": {
+      "created_at": "2026-03-19T08:34:12.154Z",
+      "updated_at": "2026-03-19T08:34:12.154Z",
+      "conversation": 1,
+      "sender": "user",
+      "text": "What is a mango"
+    }
+  },
+  {
+    "model": "chatbot.turn",
+    "pk": 28,
+    "fields": {
+      "created_at": "2026-03-19T08:34:12.184Z",
+      "updated_at": "2026-03-19T08:34:12.184Z",
+      "conversation": 1,
+      "sender": "bot",
+      "text": "That question is not relevant to school work. I can only help with classes, lecturers, assignments, calls, school activities, and course revision."
+    }
+  },
+  {
+    "model": "chatbot.turn",
+    "pk": 29,
+    "fields": {
+      "created_at": "2026-03-19T08:35:17.839Z",
+      "updated_at": "2026-03-19T08:35:17.839Z",
+      "conversation": 1,
+      "sender": "user",
+      "text": "when is my next class"
+    }
+  },
+  {
+    "model": "chatbot.turn",
+    "pk": 30,
+    "fields": {
+      "created_at": "2026-03-19T08:35:17.862Z",
+      "updated_at": "2026-03-19T08:35:17.862Z",
+      "conversation": 1,
+      "sender": "bot",
+      "text": "Your next class is DTM101 at Mon 23 Mar 09:00 AM in Room 101 with Peter Lecturer."
+    }
+  },
+  {
+    "model": "chatbot.turn",
+    "pk": 31,
+    "fields": {
+      "created_at": "2026-03-19T09:16:02.574Z",
+      "updated_at": "2026-03-19T09:16:02.574Z",
+      "conversation": 1,
+      "sender": "user",
+      "text": "When is my next class?"
+    }
+  },
+  {
+    "model": "chatbot.turn",
+    "pk": 32,
+    "fields": {
+      "created_at": "2026-03-19T09:16:02.632Z",
+      "updated_at": "2026-03-19T09:16:02.632Z",
+      "conversation": 1,
+      "sender": "bot",
+      "text": "Your next class is DTM101 at Mon 23 Mar 09:00 AM in Room 101 with Peter Lecturer."
+    }
+  },
+  {
+    "model": "chatbot.turn",
+    "pk": 33,
+    "fields": {
+      "created_at": "2026-03-19T09:16:12.280Z",
+      "updated_at": "2026-03-19T09:16:12.280Z",
+      "conversation": 1,
+      "sender": "user",
+      "text": "When is my next class?"
+    }
+  },
+  {
+    "model": "chatbot.turn",
+    "pk": 34,
+    "fields": {
+      "created_at": "2026-03-19T09:16:12.312Z",
+      "updated_at": "2026-03-19T09:16:12.312Z",
+      "conversation": 1,
+      "sender": "bot",
+      "text": "Your next class is DTM101 at Mon 23 Mar 09:00 AM in Room 101 with Peter Lecturer."
+    }
+  },
+  {
+    "model": "chatbot.turn",
+    "pk": 35,
+    "fields": {
+      "created_at": "2026-03-19T09:16:14.312Z",
+      "updated_at": "2026-03-19T09:16:14.312Z",
+      "conversation": 1,
+      "sender": "user",
+      "text": "Do I have an upcoming class call?"
+    }
+  },
+  {
+    "model": "chatbot.turn",
+    "pk": 36,
+    "fields": {
+      "created_at": "2026-03-19T09:16:14.337Z",
+      "updated_at": "2026-03-19T09:16:14.337Z",
+      "conversation": 1,
+      "sender": "bot",
+      "text": "You do not have an upcoming class call right now. You can also ask: When is my next class?, Show class communities, Any school notices?."
+    }
+  },
+  {
+    "model": "chatbot.turn",
+    "pk": 37,
+    "fields": {
+      "created_at": "2026-03-19T09:16:31.642Z",
+      "updated_at": "2026-03-19T09:16:31.642Z",
+      "conversation": 1,
+      "sender": "user",
+      "text": "What is a fruit"
+    }
+  },
+  {
+    "model": "chatbot.turn",
+    "pk": 38,
+    "fields": {
+      "created_at": "2026-03-19T09:16:31.682Z",
+      "updated_at": "2026-03-19T09:16:31.682Z",
+      "conversation": 1,
+      "sender": "bot",
+      "text": "That question is not relevant to school work. I can only help with classes, lecturers, assignments, calls, school activities, and course revision."
+    }
+  }
+]

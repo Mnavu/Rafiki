@@ -1,0 +1,20 @@
+[
+  {
+    "model": "users.hod",
+    "pk": 2,
+    "fields": {
+      "created_at": "2025-11-19T11:28:48.080Z",
+      "updated_at": "2025-11-19T11:28:48.080Z",
+      "department": 1
+    }
+  },
+  {
+    "model": "users.hod",
+    "pk": 8,
+    "fields": {
+      "created_at": "2026-01-15T10:01:30.161Z",
+      "updated_at": "2026-01-15T10:01:30.161Z",
+      "department": null
+    }
+  }
+]

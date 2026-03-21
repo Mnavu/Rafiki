@@ -1,0 +1,431 @@
+[
+  {
+    "model": "communications.chatmessage",
+    "pk": 1,
+    "fields": {
+      "created_at": "2026-03-12T09:42:52.567Z",
+      "updated_at": "2026-03-12T09:42:52.567Z",
+      "chatroom": 2,
+      "author_user": [
+        "lecturer1"
+      ],
+      "message": "Hello"
+    }
+  },
+  {
+    "model": "communications.chatmessage",
+    "pk": 3,
+    "fields": {
+      "created_at": "2026-03-19T08:35:44.044Z",
+      "updated_at": "2026-03-19T08:35:44.044Z",
+      "chatroom": 3,
+      "author_user": [
+        "lecturer2"
+      ],
+      "message": "Welcome to DTM103. This class community is ready for course updates, questions, and lecturer announcements."
+    }
+  },
+  {
+    "model": "communications.chatmessage",
+    "pk": 4,
+    "fields": {
+      "created_at": "2026-03-19T08:35:44.054Z",
+      "updated_at": "2026-03-19T08:35:44.054Z",
+      "chatroom": 4,
+      "author_user": [
+        "lecturer2"
+      ],
+      "message": "Welcome to DTM104. This class community is ready for course updates, questions, and lecturer announcements."
+    }
+  },
+  {
+    "model": "communications.chatmessage",
+    "pk": 5,
+    "fields": {
+      "created_at": "2026-03-19T08:35:44.064Z",
+      "updated_at": "2026-03-19T08:35:44.064Z",
+      "chatroom": 5,
+      "author_user": [
+        "lecturer1"
+      ],
+      "message": "Welcome to DTM105. This class community is ready for course updates, questions, and lecturer announcements."
+    }
+  },
+  {
+    "model": "communications.chatmessage",
+    "pk": 6,
+    "fields": {
+      "created_at": "2026-03-19T08:35:44.075Z",
+      "updated_at": "2026-03-19T08:35:44.075Z",
+      "chatroom": 6,
+      "author_user": [
+        "lecturer2"
+      ],
+      "message": "Welcome to DTM106. This class community is ready for course updates, questions, and lecturer announcements."
+    }
+  },
+  {
+    "model": "communications.chatmessage",
+    "pk": 7,
+    "fields": {
+      "created_at": "2026-03-19T08:35:44.089Z",
+      "updated_at": "2026-03-19T08:35:44.089Z",
+      "chatroom": 7,
+      "author_user": [
+        "lecturer1"
+      ],
+      "message": "Welcome to DTM201. This class community is ready for course updates, questions, and lecturer announcements."
+    }
+  },
+  {
+    "model": "communications.chatmessage",
+    "pk": 8,
+    "fields": {
+      "created_at": "2026-03-19T08:35:44.103Z",
+      "updated_at": "2026-03-19T08:35:44.103Z",
+      "chatroom": 8,
+      "author_user": [
+        "lecturer2"
+      ],
+      "message": "Welcome to DTM202. This class community is ready for course updates, questions, and lecturer announcements."
+    }
+  },
+  {
+    "model": "communications.chatmessage",
+    "pk": 9,
+    "fields": {
+      "created_at": "2026-03-19T08:35:44.115Z",
+      "updated_at": "2026-03-19T08:35:44.115Z",
+      "chatroom": 9,
+      "author_user": [
+        "lecturer1"
+      ],
+      "message": "Welcome to TT-111. This class community is ready for course updates, questions, and lecturer announcements."
+    }
+  },
+  {
+    "model": "communications.chatmessage",
+    "pk": 10,
+    "fields": {
+      "created_at": "2026-03-19T08:35:44.128Z",
+      "updated_at": "2026-03-19T08:35:44.128Z",
+      "chatroom": 10,
+      "author_user": [
+        "lecturer2"
+      ],
+      "message": "Welcome to TT-112. This class community is ready for course updates, questions, and lecturer announcements."
+    }
+  },
+  {
+    "model": "communications.chatmessage",
+    "pk": 11,
+    "fields": {
+      "created_at": "2026-03-19T08:35:44.140Z",
+      "updated_at": "2026-03-19T08:35:44.140Z",
+      "chatroom": 11,
+      "author_user": [
+        "lecturer1"
+      ],
+      "message": "Welcome to TT-113. This class community is ready for course updates, questions, and lecturer announcements."
+    }
+  },
+  {
+    "model": "communications.chatmessage",
+    "pk": 12,
+    "fields": {
+      "created_at": "2026-03-19T08:35:44.150Z",
+      "updated_at": "2026-03-19T08:35:44.150Z",
+      "chatroom": 12,
+      "author_user": [
+        "lecturer2"
+      ],
+      "message": "Welcome to TT-114. This class community is ready for course updates, questions, and lecturer announcements."
+    }
+  },
+  {
+    "model": "communications.chatmessage",
+    "pk": 13,
+    "fields": {
+      "created_at": "2026-03-19T08:35:44.160Z",
+      "updated_at": "2026-03-19T08:35:44.160Z",
+      "chatroom": 13,
+      "author_user": [
+        "lecturer1"
+      ],
+      "message": "Welcome to TT-121. This class community is ready for course updates, questions, and lecturer announcements."
+    }
+  },
+  {
+    "model": "communications.chatmessage",
+    "pk": 14,
+    "fields": {
+      "created_at": "2026-03-19T08:35:44.173Z",
+      "updated_at": "2026-03-19T08:35:44.173Z",
+      "chatroom": 14,
+      "author_user": [
+        "lecturer2"
+      ],
+      "message": "Welcome to TT-122. This class community is ready for course updates, questions, and lecturer announcements."
+    }
+  },
+  {
+    "model": "communications.chatmessage",
+    "pk": 15,
+    "fields": {
+      "created_at": "2026-03-19T08:35:44.184Z",
+      "updated_at": "2026-03-19T08:35:44.184Z",
+      "chatroom": 15,
+      "author_user": [
+        "lecturer1"
+      ],
+      "message": "Welcome to TT-123. This class community is ready for course updates, questions, and lecturer announcements."
+    }
+  },
+  {
+    "model": "communications.chatmessage",
+    "pk": 16,
+    "fields": {
+      "created_at": "2026-03-19T08:35:44.194Z",
+      "updated_at": "2026-03-19T08:35:44.194Z",
+      "chatroom": 16,
+      "author_user": [
+        "lecturer2"
+      ],
+      "message": "Welcome to TT-124. This class community is ready for course updates, questions, and lecturer announcements."
+    }
+  },
+  {
+    "model": "communications.chatmessage",
+    "pk": 17,
+    "fields": {
+      "created_at": "2026-03-19T08:35:44.208Z",
+      "updated_at": "2026-03-19T08:35:44.208Z",
+      "chatroom": 17,
+      "author_user": [
+        "lecturer1"
+      ],
+      "message": "Welcome to TT-131. This class community is ready for course updates, questions, and lecturer announcements."
+    }
+  },
+  {
+    "model": "communications.chatmessage",
+    "pk": 18,
+    "fields": {
+      "created_at": "2026-03-19T08:35:44.222Z",
+      "updated_at": "2026-03-19T08:35:44.222Z",
+      "chatroom": 18,
+      "author_user": [
+        "lecturer2"
+      ],
+      "message": "Welcome to TT-132. This class community is ready for course updates, questions, and lecturer announcements."
+    }
+  },
+  {
+    "model": "communications.chatmessage",
+    "pk": 19,
+    "fields": {
+      "created_at": "2026-03-19T08:35:44.232Z",
+      "updated_at": "2026-03-19T08:35:44.232Z",
+      "chatroom": 19,
+      "author_user": [
+        "lecturer1"
+      ],
+      "message": "Welcome to TT-133. This class community is ready for course updates, questions, and lecturer announcements."
+    }
+  },
+  {
+    "model": "communications.chatmessage",
+    "pk": 20,
+    "fields": {
+      "created_at": "2026-03-19T08:35:44.244Z",
+      "updated_at": "2026-03-19T08:35:44.244Z",
+      "chatroom": 20,
+      "author_user": [
+        "lecturer2"
+      ],
+      "message": "Welcome to TT-134. This class community is ready for course updates, questions, and lecturer announcements."
+    }
+  },
+  {
+    "model": "communications.chatmessage",
+    "pk": 21,
+    "fields": {
+      "created_at": "2026-03-19T08:35:44.258Z",
+      "updated_at": "2026-03-19T08:35:44.258Z",
+      "chatroom": 21,
+      "author_user": [
+        "lecturer1"
+      ],
+      "message": "Welcome to TT-211. This class community is ready for course updates, questions, and lecturer announcements."
+    }
+  },
+  {
+    "model": "communications.chatmessage",
+    "pk": 22,
+    "fields": {
+      "created_at": "2026-03-19T08:35:44.271Z",
+      "updated_at": "2026-03-19T08:35:44.271Z",
+      "chatroom": 22,
+      "author_user": [
+        "lecturer2"
+      ],
+      "message": "Welcome to TT-212. This class community is ready for course updates, questions, and lecturer announcements."
+    }
+  },
+  {
+    "model": "communications.chatmessage",
+    "pk": 23,
+    "fields": {
+      "created_at": "2026-03-19T08:35:44.287Z",
+      "updated_at": "2026-03-19T08:35:44.287Z",
+      "chatroom": 23,
+      "author_user": [
+        "lecturer1"
+      ],
+      "message": "Welcome to TT-213. This class community is ready for course updates, questions, and lecturer announcements."
+    }
+  },
+  {
+    "model": "communications.chatmessage",
+    "pk": 24,
+    "fields": {
+      "created_at": "2026-03-19T08:35:44.301Z",
+      "updated_at": "2026-03-19T08:35:44.301Z",
+      "chatroom": 24,
+      "author_user": [
+        "lecturer2"
+      ],
+      "message": "Welcome to TT-214. This class community is ready for course updates, questions, and lecturer announcements."
+    }
+  },
+  {
+    "model": "communications.chatmessage",
+    "pk": 25,
+    "fields": {
+      "created_at": "2026-03-19T08:35:44.316Z",
+      "updated_at": "2026-03-19T08:35:44.316Z",
+      "chatroom": 25,
+      "author_user": [
+        "lecturer1"
+      ],
+      "message": "Welcome to TT-221. This class community is ready for course updates, questions, and lecturer announcements."
+    }
+  },
+  {
+    "model": "communications.chatmessage",
+    "pk": 26,
+    "fields": {
+      "created_at": "2026-03-19T08:35:44.343Z",
+      "updated_at": "2026-03-19T08:35:44.343Z",
+      "chatroom": 26,
+      "author_user": [
+        "lecturer2"
+      ],
+      "message": "Welcome to TT-222. This class community is ready for course updates, questions, and lecturer announcements."
+    }
+  },
+  {
+    "model": "communications.chatmessage",
+    "pk": 27,
+    "fields": {
+      "created_at": "2026-03-19T08:35:44.376Z",
+      "updated_at": "2026-03-19T08:35:44.376Z",
+      "chatroom": 27,
+      "author_user": [
+        "lecturer1"
+      ],
+      "message": "Welcome to TT-223. This class community is ready for course updates, questions, and lecturer announcements."
+    }
+  },
+  {
+    "model": "communications.chatmessage",
+    "pk": 28,
+    "fields": {
+      "created_at": "2026-03-19T08:35:44.407Z",
+      "updated_at": "2026-03-19T08:35:44.407Z",
+      "chatroom": 28,
+      "author_user": [
+        "lecturer2"
+      ],
+      "message": "Welcome to TT-224. This class community is ready for course updates, questions, and lecturer announcements."
+    }
+  },
+  {
+    "model": "communications.chatmessage",
+    "pk": 29,
+    "fields": {
+      "created_at": "2026-03-19T08:35:44.437Z",
+      "updated_at": "2026-03-19T08:35:44.437Z",
+      "chatroom": 29,
+      "author_user": [
+        "lecturer1"
+      ],
+      "message": "Welcome to TT-231. This class community is ready for course updates, questions, and lecturer announcements."
+    }
+  },
+  {
+    "model": "communications.chatmessage",
+    "pk": 30,
+    "fields": {
+      "created_at": "2026-03-19T08:35:44.460Z",
+      "updated_at": "2026-03-19T08:35:44.460Z",
+      "chatroom": 30,
+      "author_user": [
+        "lecturer2"
+      ],
+      "message": "Welcome to TT-232. This class community is ready for course updates, questions, and lecturer announcements."
+    }
+  },
+  {
+    "model": "communications.chatmessage",
+    "pk": 31,
+    "fields": {
+      "created_at": "2026-03-19T08:35:44.479Z",
+      "updated_at": "2026-03-19T08:35:44.479Z",
+      "chatroom": 31,
+      "author_user": [
+        "lecturer1"
+      ],
+      "message": "Welcome to TT-233. This class community is ready for course updates, questions, and lecturer announcements."
+    }
+  },
+  {
+    "model": "communications.chatmessage",
+    "pk": 32,
+    "fields": {
+      "created_at": "2026-03-19T08:35:44.505Z",
+      "updated_at": "2026-03-19T08:35:44.505Z",
+      "chatroom": 32,
+      "author_user": [
+        "lecturer2"
+      ],
+      "message": "Welcome to TT-234. This class community is ready for course updates, questions, and lecturer announcements."
+    }
+  },
+  {
+    "model": "communications.chatmessage",
+    "pk": 33,
+    "fields": {
+      "created_at": "2026-03-19T08:35:44.533Z",
+      "updated_at": "2026-03-19T08:35:44.534Z",
+      "chatroom": 33,
+      "author_user": [
+        "lecturer1"
+      ],
+      "message": "Welcome to TTM101-U1. This class community is ready for course updates, questions, and lecturer announcements."
+    }
+  },
+  {
+    "model": "communications.chatmessage",
+    "pk": 34,
+    "fields": {
+      "created_at": "2026-03-19T08:37:53.187Z",
+      "updated_at": "2026-03-19T08:37:53.187Z",
+      "chatroom": 1,
+      "author_user": [
+        "lecturer1"
+      ],
+      "message": "Welcome to DTM101. This class community is ready for course updates, questions, and lecturer announcements."
+    }
+  }
+]

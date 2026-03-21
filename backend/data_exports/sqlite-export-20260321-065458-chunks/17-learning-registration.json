@@ -1,0 +1,1159 @@
+[
+  {
+    "model": "learning.registration",
+    "pk": 1,
+    "fields": {
+      "created_at": "2025-11-19T11:28:50.793Z",
+      "updated_at": "2025-11-19T11:28:50.794Z",
+      "student": 5,
+      "unit": 1,
+      "academic_year": 2025,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": null
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 2,
+    "fields": {
+      "created_at": "2025-11-19T11:28:50.799Z",
+      "updated_at": "2025-11-19T11:28:50.799Z",
+      "student": 5,
+      "unit": 2,
+      "academic_year": 2025,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": null
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 3,
+    "fields": {
+      "created_at": "2026-03-12T09:30:32.140Z",
+      "updated_at": "2026-03-12T09:31:15.839Z",
+      "student": 5,
+      "unit": 1,
+      "academic_year": 1,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-12T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 4,
+    "fields": {
+      "created_at": "2026-03-12T09:30:32.144Z",
+      "updated_at": "2026-03-12T09:31:15.843Z",
+      "student": 5,
+      "unit": 2,
+      "academic_year": 1,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-12T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 5,
+    "fields": {
+      "created_at": "2026-03-12T09:30:32.149Z",
+      "updated_at": "2026-03-12T09:31:15.846Z",
+      "student": 5,
+      "unit": 3,
+      "academic_year": 1,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-12T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 6,
+    "fields": {
+      "created_at": "2026-03-12T09:30:32.164Z",
+      "updated_at": "2026-03-12T09:31:15.863Z",
+      "student": 13,
+      "unit": 10,
+      "academic_year": 1,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-12T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 7,
+    "fields": {
+      "created_at": "2026-03-12T09:30:32.167Z",
+      "updated_at": "2026-03-12T09:31:15.866Z",
+      "student": 13,
+      "unit": 11,
+      "academic_year": 1,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-12T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 8,
+    "fields": {
+      "created_at": "2026-03-12T09:30:32.171Z",
+      "updated_at": "2026-03-12T09:31:15.870Z",
+      "student": 13,
+      "unit": 12,
+      "academic_year": 1,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-12T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 9,
+    "fields": {
+      "created_at": "2026-03-12T09:31:15.880Z",
+      "updated_at": "2026-03-12T09:31:15.880Z",
+      "student": 15,
+      "unit": 10,
+      "academic_year": 1,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-12T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 10,
+    "fields": {
+      "created_at": "2026-03-12T09:31:15.882Z",
+      "updated_at": "2026-03-12T09:31:15.882Z",
+      "student": 15,
+      "unit": 11,
+      "academic_year": 1,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-12T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 11,
+    "fields": {
+      "created_at": "2026-03-12T09:31:15.886Z",
+      "updated_at": "2026-03-12T09:31:15.886Z",
+      "student": 15,
+      "unit": 12,
+      "academic_year": 1,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-12T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 12,
+    "fields": {
+      "created_at": "2026-03-12T09:31:15.897Z",
+      "updated_at": "2026-03-12T09:31:15.897Z",
+      "student": 17,
+      "unit": 10,
+      "academic_year": 1,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-12T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 13,
+    "fields": {
+      "created_at": "2026-03-12T09:31:15.899Z",
+      "updated_at": "2026-03-12T09:31:15.899Z",
+      "student": 17,
+      "unit": 11,
+      "academic_year": 1,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-12T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 14,
+    "fields": {
+      "created_at": "2026-03-12T09:31:15.906Z",
+      "updated_at": "2026-03-12T09:31:15.906Z",
+      "student": 17,
+      "unit": 12,
+      "academic_year": 1,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-12T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 15,
+    "fields": {
+      "created_at": "2026-03-12T09:31:15.916Z",
+      "updated_at": "2026-03-12T09:31:15.916Z",
+      "student": 19,
+      "unit": 10,
+      "academic_year": 1,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-12T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 16,
+    "fields": {
+      "created_at": "2026-03-12T09:31:15.919Z",
+      "updated_at": "2026-03-12T09:31:15.919Z",
+      "student": 19,
+      "unit": 11,
+      "academic_year": 1,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-12T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 17,
+    "fields": {
+      "created_at": "2026-03-12T09:31:15.922Z",
+      "updated_at": "2026-03-12T09:31:15.922Z",
+      "student": 19,
+      "unit": 12,
+      "academic_year": 1,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-12T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 18,
+    "fields": {
+      "created_at": "2026-03-12T09:31:15.931Z",
+      "updated_at": "2026-03-12T09:31:15.931Z",
+      "student": 21,
+      "unit": 10,
+      "academic_year": 2,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-12T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 19,
+    "fields": {
+      "created_at": "2026-03-12T09:31:15.935Z",
+      "updated_at": "2026-03-12T09:31:15.935Z",
+      "student": 21,
+      "unit": 11,
+      "academic_year": 2,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-12T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 20,
+    "fields": {
+      "created_at": "2026-03-12T09:31:15.939Z",
+      "updated_at": "2026-03-12T09:31:15.939Z",
+      "student": 21,
+      "unit": 12,
+      "academic_year": 2,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-12T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 21,
+    "fields": {
+      "created_at": "2026-03-12T09:31:15.950Z",
+      "updated_at": "2026-03-12T09:31:15.950Z",
+      "student": 23,
+      "unit": 10,
+      "academic_year": 2,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-12T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 22,
+    "fields": {
+      "created_at": "2026-03-12T09:31:15.955Z",
+      "updated_at": "2026-03-12T09:31:15.955Z",
+      "student": 23,
+      "unit": 11,
+      "academic_year": 2,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-12T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 23,
+    "fields": {
+      "created_at": "2026-03-12T09:31:15.957Z",
+      "updated_at": "2026-03-12T09:31:15.957Z",
+      "student": 23,
+      "unit": 12,
+      "academic_year": 2,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-12T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 24,
+    "fields": {
+      "created_at": "2026-03-12T09:31:15.966Z",
+      "updated_at": "2026-03-12T09:31:15.966Z",
+      "student": 25,
+      "unit": 10,
+      "academic_year": 2,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-12T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 25,
+    "fields": {
+      "created_at": "2026-03-12T09:31:15.970Z",
+      "updated_at": "2026-03-12T09:31:15.970Z",
+      "student": 25,
+      "unit": 11,
+      "academic_year": 2,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-12T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 26,
+    "fields": {
+      "created_at": "2026-03-12T09:31:15.973Z",
+      "updated_at": "2026-03-12T09:31:15.973Z",
+      "student": 25,
+      "unit": 12,
+      "academic_year": 2,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-12T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 27,
+    "fields": {
+      "created_at": "2026-03-12T09:31:15.982Z",
+      "updated_at": "2026-03-12T09:31:15.982Z",
+      "student": 27,
+      "unit": 1,
+      "academic_year": 1,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-12T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 28,
+    "fields": {
+      "created_at": "2026-03-12T09:31:15.986Z",
+      "updated_at": "2026-03-12T09:31:15.986Z",
+      "student": 27,
+      "unit": 2,
+      "academic_year": 1,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-12T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 29,
+    "fields": {
+      "created_at": "2026-03-12T09:31:15.989Z",
+      "updated_at": "2026-03-12T09:31:15.989Z",
+      "student": 27,
+      "unit": 3,
+      "academic_year": 1,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-12T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 30,
+    "fields": {
+      "created_at": "2026-03-12T09:31:15.998Z",
+      "updated_at": "2026-03-12T09:31:15.998Z",
+      "student": 29,
+      "unit": 1,
+      "academic_year": 1,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-12T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 31,
+    "fields": {
+      "created_at": "2026-03-12T09:31:16.002Z",
+      "updated_at": "2026-03-12T09:31:16.002Z",
+      "student": 29,
+      "unit": 2,
+      "academic_year": 1,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-12T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 32,
+    "fields": {
+      "created_at": "2026-03-12T09:31:16.005Z",
+      "updated_at": "2026-03-12T09:31:16.005Z",
+      "student": 29,
+      "unit": 3,
+      "academic_year": 1,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-12T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 33,
+    "fields": {
+      "created_at": "2026-03-12T09:31:16.014Z",
+      "updated_at": "2026-03-12T09:31:16.014Z",
+      "student": 31,
+      "unit": 1,
+      "academic_year": 1,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-12T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 34,
+    "fields": {
+      "created_at": "2026-03-12T09:31:16.016Z",
+      "updated_at": "2026-03-12T09:31:16.016Z",
+      "student": 31,
+      "unit": 2,
+      "academic_year": 1,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-12T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 35,
+    "fields": {
+      "created_at": "2026-03-12T09:31:16.022Z",
+      "updated_at": "2026-03-12T09:31:16.022Z",
+      "student": 31,
+      "unit": 3,
+      "academic_year": 1,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-12T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 36,
+    "fields": {
+      "created_at": "2026-03-12T09:31:16.031Z",
+      "updated_at": "2026-03-12T09:31:16.031Z",
+      "student": 33,
+      "unit": 1,
+      "academic_year": 2,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-12T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 37,
+    "fields": {
+      "created_at": "2026-03-12T09:31:16.034Z",
+      "updated_at": "2026-03-12T09:31:16.035Z",
+      "student": 33,
+      "unit": 2,
+      "academic_year": 2,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-12T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 38,
+    "fields": {
+      "created_at": "2026-03-12T09:31:16.039Z",
+      "updated_at": "2026-03-12T09:31:16.039Z",
+      "student": 33,
+      "unit": 3,
+      "academic_year": 2,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-12T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 39,
+    "fields": {
+      "created_at": "2026-03-12T09:31:16.050Z",
+      "updated_at": "2026-03-12T09:31:16.050Z",
+      "student": 35,
+      "unit": 1,
+      "academic_year": 2,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-12T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 40,
+    "fields": {
+      "created_at": "2026-03-12T09:31:16.053Z",
+      "updated_at": "2026-03-12T09:31:16.053Z",
+      "student": 35,
+      "unit": 2,
+      "academic_year": 2,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-12T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 41,
+    "fields": {
+      "created_at": "2026-03-12T09:31:16.055Z",
+      "updated_at": "2026-03-12T09:31:16.055Z",
+      "student": 35,
+      "unit": 3,
+      "academic_year": 2,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-12T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 42,
+    "fields": {
+      "created_at": "2026-03-12T09:31:16.069Z",
+      "updated_at": "2026-03-12T09:31:16.069Z",
+      "student": 37,
+      "unit": 1,
+      "academic_year": 2,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-12T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 43,
+    "fields": {
+      "created_at": "2026-03-12T09:31:16.072Z",
+      "updated_at": "2026-03-12T09:31:16.072Z",
+      "student": 37,
+      "unit": 2,
+      "academic_year": 2,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-12T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 44,
+    "fields": {
+      "created_at": "2026-03-12T09:31:16.074Z",
+      "updated_at": "2026-03-12T09:31:16.074Z",
+      "student": 37,
+      "unit": 3,
+      "academic_year": 2,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-12T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 45,
+    "fields": {
+      "created_at": "2026-03-12T09:31:16.087Z",
+      "updated_at": "2026-03-12T09:31:16.087Z",
+      "student": 39,
+      "unit": 9,
+      "academic_year": 1,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-12T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 46,
+    "fields": {
+      "created_at": "2026-03-12T09:31:16.097Z",
+      "updated_at": "2026-03-12T09:31:16.097Z",
+      "student": 41,
+      "unit": 9,
+      "academic_year": 1,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-12T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 47,
+    "fields": {
+      "created_at": "2026-03-12T09:31:16.110Z",
+      "updated_at": "2026-03-12T09:31:16.110Z",
+      "student": 43,
+      "unit": 9,
+      "academic_year": 1,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-12T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 48,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.279Z",
+      "updated_at": "2026-03-19T07:17:03.279Z",
+      "student": 27,
+      "unit": 1,
+      "academic_year": 2025,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-19T07:17:03.278Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 49,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.283Z",
+      "updated_at": "2026-03-19T07:17:03.283Z",
+      "student": 27,
+      "unit": 2,
+      "academic_year": 2025,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-19T07:17:03.282Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 50,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.287Z",
+      "updated_at": "2026-03-19T07:17:03.287Z",
+      "student": 27,
+      "unit": 3,
+      "academic_year": 2025,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-19T07:17:03.286Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 51,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.319Z",
+      "updated_at": "2026-03-19T07:17:03.319Z",
+      "student": 29,
+      "unit": 1,
+      "academic_year": 2025,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-19T07:17:03.318Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 52,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.323Z",
+      "updated_at": "2026-03-19T07:17:03.323Z",
+      "student": 29,
+      "unit": 2,
+      "academic_year": 2025,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-19T07:17:03.322Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 53,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.328Z",
+      "updated_at": "2026-03-19T07:17:03.328Z",
+      "student": 29,
+      "unit": 3,
+      "academic_year": 2025,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-19T07:17:03.327Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 54,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.367Z",
+      "updated_at": "2026-03-19T07:17:03.367Z",
+      "student": 31,
+      "unit": 1,
+      "academic_year": 2025,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-19T07:17:03.366Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 55,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.371Z",
+      "updated_at": "2026-03-19T07:17:03.371Z",
+      "student": 31,
+      "unit": 2,
+      "academic_year": 2025,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-19T07:17:03.370Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 56,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.374Z",
+      "updated_at": "2026-03-19T07:17:03.374Z",
+      "student": 31,
+      "unit": 3,
+      "academic_year": 2025,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-19T07:17:03.373Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 57,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.401Z",
+      "updated_at": "2026-03-19T07:17:03.401Z",
+      "student": 33,
+      "unit": 1,
+      "academic_year": 2025,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-19T07:17:03.400Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 58,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.405Z",
+      "updated_at": "2026-03-19T07:17:03.405Z",
+      "student": 33,
+      "unit": 2,
+      "academic_year": 2025,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-19T07:17:03.404Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 59,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.408Z",
+      "updated_at": "2026-03-19T07:17:03.408Z",
+      "student": 33,
+      "unit": 3,
+      "academic_year": 2025,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-19T07:17:03.407Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 60,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.441Z",
+      "updated_at": "2026-03-19T07:17:03.441Z",
+      "student": 35,
+      "unit": 1,
+      "academic_year": 2025,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-19T07:17:03.440Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 61,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.444Z",
+      "updated_at": "2026-03-19T07:17:03.444Z",
+      "student": 35,
+      "unit": 2,
+      "academic_year": 2025,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-19T07:17:03.443Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 62,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.448Z",
+      "updated_at": "2026-03-19T07:17:03.448Z",
+      "student": 35,
+      "unit": 3,
+      "academic_year": 2025,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-19T07:17:03.446Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 63,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.479Z",
+      "updated_at": "2026-03-19T07:17:03.479Z",
+      "student": 37,
+      "unit": 1,
+      "academic_year": 2025,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-19T07:17:03.478Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 64,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.482Z",
+      "updated_at": "2026-03-19T07:17:03.482Z",
+      "student": 37,
+      "unit": 2,
+      "academic_year": 2025,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-19T07:17:03.481Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 65,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.486Z",
+      "updated_at": "2026-03-19T07:17:03.486Z",
+      "student": 37,
+      "unit": 3,
+      "academic_year": 2025,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-19T07:17:03.485Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 66,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.518Z",
+      "updated_at": "2026-03-19T07:17:03.518Z",
+      "student": 13,
+      "unit": 22,
+      "academic_year": 2,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-19T07:17:03.517Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 67,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.521Z",
+      "updated_at": "2026-03-19T07:17:03.521Z",
+      "student": 13,
+      "unit": 23,
+      "academic_year": 2,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-19T07:17:03.520Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 68,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.526Z",
+      "updated_at": "2026-03-19T07:17:03.526Z",
+      "student": 13,
+      "unit": 24,
+      "academic_year": 2,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-19T07:17:03.524Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 69,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.572Z",
+      "updated_at": "2026-03-19T07:40:08.553Z",
+      "student": 15,
+      "unit": 22,
+      "academic_year": 2,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": [
+        "hod1"
+      ],
+      "approved_at": "2026-03-19T07:40:08.553Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 70,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.579Z",
+      "updated_at": "2026-03-19T07:17:03.813Z",
+      "student": 15,
+      "unit": 23,
+      "academic_year": 2,
+      "trimester": 1,
+      "status": "pending_hod",
+      "approved_by": null,
+      "approved_at": null
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 71,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.582Z",
+      "updated_at": "2026-03-19T07:17:03.582Z",
+      "student": 15,
+      "unit": 24,
+      "academic_year": 2,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-19T07:17:03.581Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 72,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.616Z",
+      "updated_at": "2026-03-19T07:17:03.616Z",
+      "student": 17,
+      "unit": 22,
+      "academic_year": 2,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-19T07:17:03.615Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 73,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.620Z",
+      "updated_at": "2026-03-19T07:17:03.620Z",
+      "student": 17,
+      "unit": 23,
+      "academic_year": 2,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-19T07:17:03.619Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 74,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.625Z",
+      "updated_at": "2026-03-19T07:17:03.625Z",
+      "student": 17,
+      "unit": 24,
+      "academic_year": 2,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-19T07:17:03.624Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 75,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.649Z",
+      "updated_at": "2026-03-19T07:17:03.649Z",
+      "student": 19,
+      "unit": 22,
+      "academic_year": 2,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-19T07:17:03.648Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 76,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.654Z",
+      "updated_at": "2026-03-19T07:17:03.655Z",
+      "student": 19,
+      "unit": 23,
+      "academic_year": 2,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-19T07:17:03.653Z"
+    }
+  },
+  {
+    "model": "learning.registration",
+    "pk": 77,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.659Z",
+      "updated_at": "2026-03-19T07:17:03.659Z",
+      "student": 19,
+      "unit": 24,
+      "academic_year": 2,
+      "trimester": 1,
+      "status": "approved",
+      "approved_by": null,
+      "approved_at": "2026-03-19T07:17:03.657Z"
+    }
+  }
+]

@@ -1,0 +1,542 @@
+[
+  {
+    "model": "finance.payment",
+    "pk": 1,
+    "fields": {
+      "created_at": "2026-03-12T09:30:32.158Z",
+      "updated_at": "2026-03-12T09:31:15.859Z",
+      "student": 5,
+      "academic_year": 1,
+      "trimester": 1,
+      "amount": "54000.00",
+      "method": "seeded-mobile-money",
+      "ref": "SEED-5-1-1",
+      "paid_at": "2026-03-11T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "finance.payment",
+    "pk": 2,
+    "fields": {
+      "created_at": "2026-03-12T09:30:32.160Z",
+      "updated_at": "2026-03-12T09:31:15.861Z",
+      "student": 5,
+      "academic_year": 1,
+      "trimester": 1,
+      "amount": "36000.00",
+      "method": "seeded-mobile-money",
+      "ref": "SEED-5-1-2",
+      "paid_at": "2026-03-10T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "finance.payment",
+    "pk": 3,
+    "fields": {
+      "created_at": "2026-03-12T09:30:32.175Z",
+      "updated_at": "2026-03-12T09:31:15.875Z",
+      "student": 13,
+      "academic_year": 1,
+      "trimester": 1,
+      "amount": "39600.00",
+      "method": "seeded-mobile-money",
+      "ref": "SEED-13-1-1",
+      "paid_at": "2026-03-11T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "finance.payment",
+    "pk": 4,
+    "fields": {
+      "created_at": "2026-03-12T09:30:32.177Z",
+      "updated_at": "2026-03-12T09:31:15.877Z",
+      "student": 13,
+      "academic_year": 1,
+      "trimester": 1,
+      "amount": "26400.00",
+      "method": "seeded-mobile-money",
+      "ref": "SEED-13-1-2",
+      "paid_at": "2026-03-10T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "finance.payment",
+    "pk": 5,
+    "fields": {
+      "created_at": "2026-03-12T09:31:15.891Z",
+      "updated_at": "2026-03-12T09:31:15.891Z",
+      "student": 15,
+      "academic_year": 1,
+      "trimester": 1,
+      "amount": "54000.00",
+      "method": "seeded-mobile-money",
+      "ref": "SEED-15-1-1",
+      "paid_at": "2026-03-11T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "finance.payment",
+    "pk": 6,
+    "fields": {
+      "created_at": "2026-03-12T09:31:15.893Z",
+      "updated_at": "2026-03-12T09:31:15.893Z",
+      "student": 15,
+      "academic_year": 1,
+      "trimester": 1,
+      "amount": "36000.00",
+      "method": "seeded-mobile-money",
+      "ref": "SEED-15-1-2",
+      "paid_at": "2026-03-10T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "finance.payment",
+    "pk": 7,
+    "fields": {
+      "created_at": "2026-03-12T09:31:15.910Z",
+      "updated_at": "2026-03-12T09:31:15.910Z",
+      "student": 17,
+      "academic_year": 1,
+      "trimester": 1,
+      "amount": "39600.00",
+      "method": "seeded-mobile-money",
+      "ref": "SEED-17-1-1",
+      "paid_at": "2026-03-11T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "finance.payment",
+    "pk": 8,
+    "fields": {
+      "created_at": "2026-03-12T09:31:15.912Z",
+      "updated_at": "2026-03-12T09:31:15.912Z",
+      "student": 17,
+      "academic_year": 1,
+      "trimester": 1,
+      "amount": "26400.00",
+      "method": "seeded-mobile-money",
+      "ref": "SEED-17-1-2",
+      "paid_at": "2026-03-10T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "finance.payment",
+    "pk": 9,
+    "fields": {
+      "created_at": "2026-03-12T09:31:15.926Z",
+      "updated_at": "2026-03-12T09:31:15.926Z",
+      "student": 19,
+      "academic_year": 1,
+      "trimester": 1,
+      "amount": "54000.00",
+      "method": "seeded-mobile-money",
+      "ref": "SEED-19-1-1",
+      "paid_at": "2026-03-11T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "finance.payment",
+    "pk": 10,
+    "fields": {
+      "created_at": "2026-03-12T09:31:15.928Z",
+      "updated_at": "2026-03-12T09:31:15.928Z",
+      "student": 19,
+      "academic_year": 1,
+      "trimester": 1,
+      "amount": "36000.00",
+      "method": "seeded-mobile-money",
+      "ref": "SEED-19-1-2",
+      "paid_at": "2026-03-10T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "finance.payment",
+    "pk": 11,
+    "fields": {
+      "created_at": "2026-03-12T09:31:15.944Z",
+      "updated_at": "2026-03-12T09:31:15.944Z",
+      "student": 21,
+      "academic_year": 2,
+      "trimester": 1,
+      "amount": "39600.00",
+      "method": "seeded-mobile-money",
+      "ref": "SEED-21-1-1",
+      "paid_at": "2026-03-11T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "finance.payment",
+    "pk": 12,
+    "fields": {
+      "created_at": "2026-03-12T09:31:15.946Z",
+      "updated_at": "2026-03-12T09:31:15.946Z",
+      "student": 21,
+      "academic_year": 2,
+      "trimester": 1,
+      "amount": "26400.00",
+      "method": "seeded-mobile-money",
+      "ref": "SEED-21-1-2",
+      "paid_at": "2026-03-10T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "finance.payment",
+    "pk": 13,
+    "fields": {
+      "created_at": "2026-03-12T09:31:15.961Z",
+      "updated_at": "2026-03-12T09:31:15.961Z",
+      "student": 23,
+      "academic_year": 2,
+      "trimester": 1,
+      "amount": "54000.00",
+      "method": "seeded-mobile-money",
+      "ref": "SEED-23-1-1",
+      "paid_at": "2026-03-11T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "finance.payment",
+    "pk": 14,
+    "fields": {
+      "created_at": "2026-03-12T09:31:15.963Z",
+      "updated_at": "2026-03-12T09:31:15.963Z",
+      "student": 23,
+      "academic_year": 2,
+      "trimester": 1,
+      "amount": "36000.00",
+      "method": "seeded-mobile-money",
+      "ref": "SEED-23-1-2",
+      "paid_at": "2026-03-10T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "finance.payment",
+    "pk": 15,
+    "fields": {
+      "created_at": "2026-03-12T09:31:15.977Z",
+      "updated_at": "2026-03-12T09:31:15.977Z",
+      "student": 25,
+      "academic_year": 2,
+      "trimester": 1,
+      "amount": "39600.00",
+      "method": "seeded-mobile-money",
+      "ref": "SEED-25-1-1",
+      "paid_at": "2026-03-11T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "finance.payment",
+    "pk": 16,
+    "fields": {
+      "created_at": "2026-03-12T09:31:15.979Z",
+      "updated_at": "2026-03-12T09:31:15.979Z",
+      "student": 25,
+      "academic_year": 2,
+      "trimester": 1,
+      "amount": "26400.00",
+      "method": "seeded-mobile-money",
+      "ref": "SEED-25-1-2",
+      "paid_at": "2026-03-10T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "finance.payment",
+    "pk": 17,
+    "fields": {
+      "created_at": "2026-03-12T09:31:15.993Z",
+      "updated_at": "2026-03-12T09:31:15.993Z",
+      "student": 27,
+      "academic_year": 1,
+      "trimester": 1,
+      "amount": "54000.00",
+      "method": "seeded-mobile-money",
+      "ref": "SEED-27-1-1",
+      "paid_at": "2026-03-11T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "finance.payment",
+    "pk": 18,
+    "fields": {
+      "created_at": "2026-03-12T09:31:15.995Z",
+      "updated_at": "2026-03-12T09:31:15.995Z",
+      "student": 27,
+      "academic_year": 1,
+      "trimester": 1,
+      "amount": "36000.00",
+      "method": "seeded-mobile-money",
+      "ref": "SEED-27-1-2",
+      "paid_at": "2026-03-10T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "finance.payment",
+    "pk": 19,
+    "fields": {
+      "created_at": "2026-03-12T09:31:16.009Z",
+      "updated_at": "2026-03-12T09:31:16.009Z",
+      "student": 29,
+      "academic_year": 1,
+      "trimester": 1,
+      "amount": "39600.00",
+      "method": "seeded-mobile-money",
+      "ref": "SEED-29-1-1",
+      "paid_at": "2026-03-11T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "finance.payment",
+    "pk": 20,
+    "fields": {
+      "created_at": "2026-03-12T09:31:16.011Z",
+      "updated_at": "2026-03-12T09:31:16.011Z",
+      "student": 29,
+      "academic_year": 1,
+      "trimester": 1,
+      "amount": "26400.00",
+      "method": "seeded-mobile-money",
+      "ref": "SEED-29-1-2",
+      "paid_at": "2026-03-10T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "finance.payment",
+    "pk": 21,
+    "fields": {
+      "created_at": "2026-03-12T09:31:16.026Z",
+      "updated_at": "2026-03-12T09:31:16.026Z",
+      "student": 31,
+      "academic_year": 1,
+      "trimester": 1,
+      "amount": "54000.00",
+      "method": "seeded-mobile-money",
+      "ref": "SEED-31-1-1",
+      "paid_at": "2026-03-11T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "finance.payment",
+    "pk": 22,
+    "fields": {
+      "created_at": "2026-03-12T09:31:16.028Z",
+      "updated_at": "2026-03-12T09:31:16.028Z",
+      "student": 31,
+      "academic_year": 1,
+      "trimester": 1,
+      "amount": "36000.00",
+      "method": "seeded-mobile-money",
+      "ref": "SEED-31-1-2",
+      "paid_at": "2026-03-10T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "finance.payment",
+    "pk": 23,
+    "fields": {
+      "created_at": "2026-03-12T09:31:16.044Z",
+      "updated_at": "2026-03-12T09:31:16.044Z",
+      "student": 33,
+      "academic_year": 2,
+      "trimester": 1,
+      "amount": "39600.00",
+      "method": "seeded-mobile-money",
+      "ref": "SEED-33-1-1",
+      "paid_at": "2026-03-11T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "finance.payment",
+    "pk": 24,
+    "fields": {
+      "created_at": "2026-03-12T09:31:16.046Z",
+      "updated_at": "2026-03-12T09:31:16.046Z",
+      "student": 33,
+      "academic_year": 2,
+      "trimester": 1,
+      "amount": "26400.00",
+      "method": "seeded-mobile-money",
+      "ref": "SEED-33-1-2",
+      "paid_at": "2026-03-10T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "finance.payment",
+    "pk": 25,
+    "fields": {
+      "created_at": "2026-03-12T09:31:16.063Z",
+      "updated_at": "2026-03-12T09:31:16.063Z",
+      "student": 35,
+      "academic_year": 2,
+      "trimester": 1,
+      "amount": "54000.00",
+      "method": "seeded-mobile-money",
+      "ref": "SEED-35-1-1",
+      "paid_at": "2026-03-11T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "finance.payment",
+    "pk": 26,
+    "fields": {
+      "created_at": "2026-03-12T09:31:16.065Z",
+      "updated_at": "2026-03-12T09:31:16.065Z",
+      "student": 35,
+      "academic_year": 2,
+      "trimester": 1,
+      "amount": "36000.00",
+      "method": "seeded-mobile-money",
+      "ref": "SEED-35-1-2",
+      "paid_at": "2026-03-10T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "finance.payment",
+    "pk": 27,
+    "fields": {
+      "created_at": "2026-03-12T09:31:16.078Z",
+      "updated_at": "2026-03-12T09:31:16.078Z",
+      "student": 37,
+      "academic_year": 2,
+      "trimester": 1,
+      "amount": "39600.00",
+      "method": "seeded-mobile-money",
+      "ref": "SEED-37-1-1",
+      "paid_at": "2026-03-11T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "finance.payment",
+    "pk": 28,
+    "fields": {
+      "created_at": "2026-03-12T09:31:16.081Z",
+      "updated_at": "2026-03-12T09:31:16.081Z",
+      "student": 37,
+      "academic_year": 2,
+      "trimester": 1,
+      "amount": "26400.00",
+      "method": "seeded-mobile-money",
+      "ref": "SEED-37-1-2",
+      "paid_at": "2026-03-10T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "finance.payment",
+    "pk": 29,
+    "fields": {
+      "created_at": "2026-03-12T09:31:16.092Z",
+      "updated_at": "2026-03-12T09:31:16.092Z",
+      "student": 39,
+      "academic_year": 1,
+      "trimester": 1,
+      "amount": "54000.00",
+      "method": "seeded-mobile-money",
+      "ref": "SEED-39-1-1",
+      "paid_at": "2026-03-11T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "finance.payment",
+    "pk": 30,
+    "fields": {
+      "created_at": "2026-03-12T09:31:16.094Z",
+      "updated_at": "2026-03-12T09:31:16.094Z",
+      "student": 39,
+      "academic_year": 1,
+      "trimester": 1,
+      "amount": "36000.00",
+      "method": "seeded-mobile-money",
+      "ref": "SEED-39-1-2",
+      "paid_at": "2026-03-10T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "finance.payment",
+    "pk": 31,
+    "fields": {
+      "created_at": "2026-03-12T09:31:16.103Z",
+      "updated_at": "2026-03-12T09:31:16.103Z",
+      "student": 41,
+      "academic_year": 1,
+      "trimester": 1,
+      "amount": "39600.00",
+      "method": "seeded-mobile-money",
+      "ref": "SEED-41-1-1",
+      "paid_at": "2026-03-11T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "finance.payment",
+    "pk": 32,
+    "fields": {
+      "created_at": "2026-03-12T09:31:16.106Z",
+      "updated_at": "2026-03-12T09:31:16.106Z",
+      "student": 41,
+      "academic_year": 1,
+      "trimester": 1,
+      "amount": "26400.00",
+      "method": "seeded-mobile-money",
+      "ref": "SEED-41-1-2",
+      "paid_at": "2026-03-10T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "finance.payment",
+    "pk": 33,
+    "fields": {
+      "created_at": "2026-03-12T09:31:16.114Z",
+      "updated_at": "2026-03-12T09:31:16.114Z",
+      "student": 43,
+      "academic_year": 1,
+      "trimester": 1,
+      "amount": "54000.00",
+      "method": "seeded-mobile-money",
+      "ref": "SEED-43-1-1",
+      "paid_at": "2026-03-11T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "finance.payment",
+    "pk": 34,
+    "fields": {
+      "created_at": "2026-03-12T09:31:16.116Z",
+      "updated_at": "2026-03-12T09:31:16.116Z",
+      "student": 43,
+      "academic_year": 1,
+      "trimester": 1,
+      "amount": "36000.00",
+      "method": "seeded-mobile-money",
+      "ref": "SEED-43-1-2",
+      "paid_at": "2026-03-10T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "finance.payment",
+    "pk": 35,
+    "fields": {
+      "created_at": "2026-03-19T07:37:50.803Z",
+      "updated_at": "2026-03-19T07:37:50.804Z",
+      "student": 13,
+      "academic_year": 1,
+      "trimester": 1,
+      "amount": "20000.00",
+      "method": "Cash",
+      "ref": "Y579ggrhb",
+      "paid_at": "2026-03-19T07:37:50.803Z"
+    }
+  },
+  {
+    "model": "finance.payment",
+    "pk": 36,
+    "fields": {
+      "created_at": "2026-03-19T08:24:54.515Z",
+      "updated_at": "2026-03-19T08:24:54.515Z",
+      "student": 5,
+      "academic_year": 2025,
+      "trimester": 1,
+      "amount": "30000.00",
+      "method": "Cash",
+      "ref": "Behsneke",
+      "paid_at": "2026-03-19T08:24:54.515Z"
+    }
+  }
+]

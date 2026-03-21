@@ -1,0 +1,257 @@
+[
+  {
+    "model": "users.student",
+    "pk": 5,
+    "fields": {
+      "created_at": "2025-11-19T11:28:50.104Z",
+      "updated_at": "2026-03-11T21:19:08.607Z",
+      "programme": 1,
+      "year": 1,
+      "trimester": 1,
+      "trimester_label": "Year 1, Trimester 1",
+      "admission_date": "2026-01-15",
+      "current_status": "active",
+      "stars": 0
+    }
+  },
+  {
+    "model": "users.student",
+    "pk": 13,
+    "fields": {
+      "created_at": "2026-01-15T11:56:35.453Z",
+      "updated_at": "2026-03-19T08:29:27.920Z",
+      "programme": 3,
+      "year": 1,
+      "trimester": 1,
+      "trimester_label": "Year 1, Trimester 1",
+      "admission_date": "2026-01-15",
+      "current_status": "finance_ok",
+      "stars": 0
+    }
+  },
+  {
+    "model": "users.student",
+    "pk": 15,
+    "fields": {
+      "created_at": "2026-03-12T09:30:50.828Z",
+      "updated_at": "2026-03-19T07:40:08.594Z",
+      "programme": 3,
+      "year": 1,
+      "trimester": 1,
+      "trimester_label": "Year 1, Trimester 1",
+      "admission_date": "2026-03-12",
+      "current_status": "active",
+      "stars": 0
+    }
+  },
+  {
+    "model": "users.student",
+    "pk": 17,
+    "fields": {
+      "created_at": "2026-03-12T09:30:51.933Z",
+      "updated_at": "2026-03-12T09:30:51.933Z",
+      "programme": 3,
+      "year": 1,
+      "trimester": 1,
+      "trimester_label": "Year 1, Trimester 1",
+      "admission_date": "2026-03-12",
+      "current_status": "active",
+      "stars": 0
+    }
+  },
+  {
+    "model": "users.student",
+    "pk": 19,
+    "fields": {
+      "created_at": "2026-03-12T09:30:52.890Z",
+      "updated_at": "2026-03-12T09:30:52.891Z",
+      "programme": 3,
+      "year": 1,
+      "trimester": 1,
+      "trimester_label": "Year 1, Trimester 1",
+      "admission_date": "2026-03-12",
+      "current_status": "active",
+      "stars": 0
+    }
+  },
+  {
+    "model": "users.student",
+    "pk": 21,
+    "fields": {
+      "created_at": "2026-03-12T09:30:53.849Z",
+      "updated_at": "2026-03-12T09:30:53.849Z",
+      "programme": 3,
+      "year": 2,
+      "trimester": 1,
+      "trimester_label": "Year 2, Trimester 1",
+      "admission_date": "2026-03-12",
+      "current_status": "active",
+      "stars": 0
+    }
+  },
+  {
+    "model": "users.student",
+    "pk": 23,
+    "fields": {
+      "created_at": "2026-03-12T09:30:54.809Z",
+      "updated_at": "2026-03-12T09:30:54.809Z",
+      "programme": 3,
+      "year": 2,
+      "trimester": 1,
+      "trimester_label": "Year 2, Trimester 1",
+      "admission_date": "2026-03-12",
+      "current_status": "active",
+      "stars": 0
+    }
+  },
+  {
+    "model": "users.student",
+    "pk": 25,
+    "fields": {
+      "created_at": "2026-03-12T09:30:55.780Z",
+      "updated_at": "2026-03-12T09:30:55.780Z",
+      "programme": 3,
+      "year": 2,
+      "trimester": 1,
+      "trimester_label": "Year 2, Trimester 1",
+      "admission_date": "2026-03-12",
+      "current_status": "active",
+      "stars": 0
+    }
+  },
+  {
+    "model": "users.student",
+    "pk": 27,
+    "fields": {
+      "created_at": "2026-03-12T09:30:56.729Z",
+      "updated_at": "2026-03-12T09:30:56.729Z",
+      "programme": 1,
+      "year": 1,
+      "trimester": 1,
+      "trimester_label": "Year 1, Trimester 1",
+      "admission_date": "2026-03-12",
+      "current_status": "active",
+      "stars": 0
+    }
+  },
+  {
+    "model": "users.student",
+    "pk": 29,
+    "fields": {
+      "created_at": "2026-03-12T09:30:57.674Z",
+      "updated_at": "2026-03-12T09:30:57.674Z",
+      "programme": 1,
+      "year": 1,
+      "trimester": 1,
+      "trimester_label": "Year 1, Trimester 1",
+      "admission_date": "2026-03-12",
+      "current_status": "active",
+      "stars": 0
+    }
+  },
+  {
+    "model": "users.student",
+    "pk": 31,
+    "fields": {
+      "created_at": "2026-03-12T09:30:58.628Z",
+      "updated_at": "2026-03-12T09:30:58.628Z",
+      "programme": 1,
+      "year": 1,
+      "trimester": 1,
+      "trimester_label": "Year 1, Trimester 1",
+      "admission_date": "2026-03-12",
+      "current_status": "active",
+      "stars": 0
+    }
+  },
+  {
+    "model": "users.student",
+    "pk": 33,
+    "fields": {
+      "created_at": "2026-03-12T09:30:59.567Z",
+      "updated_at": "2026-03-12T09:30:59.567Z",
+      "programme": 1,
+      "year": 2,
+      "trimester": 1,
+      "trimester_label": "Year 2, Trimester 1",
+      "admission_date": "2026-03-12",
+      "current_status": "active",
+      "stars": 0
+    }
+  },
+  {
+    "model": "users.student",
+    "pk": 35,
+    "fields": {
+      "created_at": "2026-03-12T09:31:00.527Z",
+      "updated_at": "2026-03-12T09:31:00.527Z",
+      "programme": 1,
+      "year": 2,
+      "trimester": 1,
+      "trimester_label": "Year 2, Trimester 1",
+      "admission_date": "2026-03-12",
+      "current_status": "active",
+      "stars": 0
+    }
+  },
+  {
+    "model": "users.student",
+    "pk": 37,
+    "fields": {
+      "created_at": "2026-03-12T09:31:01.477Z",
+      "updated_at": "2026-03-12T09:31:01.477Z",
+      "programme": 1,
+      "year": 2,
+      "trimester": 1,
+      "trimester_label": "Year 2, Trimester 1",
+      "admission_date": "2026-03-12",
+      "current_status": "active",
+      "stars": 0
+    }
+  },
+  {
+    "model": "users.student",
+    "pk": 39,
+    "fields": {
+      "created_at": "2026-03-12T09:31:02.427Z",
+      "updated_at": "2026-03-12T09:31:02.427Z",
+      "programme": 2,
+      "year": 1,
+      "trimester": 1,
+      "trimester_label": "Year 1, Trimester 1",
+      "admission_date": "2026-03-12",
+      "current_status": "finance_ok",
+      "stars": 0
+    }
+  },
+  {
+    "model": "users.student",
+    "pk": 41,
+    "fields": {
+      "created_at": "2026-03-12T09:31:03.380Z",
+      "updated_at": "2026-03-12T09:31:03.380Z",
+      "programme": 2,
+      "year": 1,
+      "trimester": 1,
+      "trimester_label": "Year 1, Trimester 1",
+      "admission_date": "2026-03-12",
+      "current_status": "blocked",
+      "stars": 0
+    }
+  },
+  {
+    "model": "users.student",
+    "pk": 43,
+    "fields": {
+      "created_at": "2026-03-12T09:31:04.321Z",
+      "updated_at": "2026-03-12T09:31:04.321Z",
+      "programme": 2,
+      "year": 1,
+      "trimester": 1,
+      "trimester_label": "Year 1, Trimester 1",
+      "admission_date": "2026-03-12",
+      "current_status": "finance_ok",
+      "stars": 0
+    }
+  }
+]

@@ -1,0 +1,422 @@
+[
+  {
+    "model": "finance.financestatus",
+    "pk": 1,
+    "fields": {
+      "created_at": "2026-03-12T09:30:32.153Z",
+      "updated_at": "2026-03-12T09:31:15.856Z",
+      "student": 5,
+      "academic_year": 1,
+      "trimester": 1,
+      "total_due": "120000.00",
+      "total_paid": "90000.00",
+      "status": "partial",
+      "clearance_status": "cleared_for_registration"
+    }
+  },
+  {
+    "model": "finance.financestatus",
+    "pk": 2,
+    "fields": {
+      "created_at": "2026-03-12T09:30:32.173Z",
+      "updated_at": "2026-03-19T08:25:05.662Z",
+      "student": 13,
+      "academic_year": 1,
+      "trimester": 1,
+      "total_due": "120000.00",
+      "total_paid": "86000.00",
+      "status": "partial",
+      "clearance_status": "cleared_for_registration"
+    }
+  },
+  {
+    "model": "finance.financestatus",
+    "pk": 3,
+    "fields": {
+      "created_at": "2026-03-12T09:31:15.889Z",
+      "updated_at": "2026-03-12T09:31:15.889Z",
+      "student": 15,
+      "academic_year": 1,
+      "trimester": 1,
+      "total_due": "120000.00",
+      "total_paid": "90000.00",
+      "status": "partial",
+      "clearance_status": "cleared_for_registration"
+    }
+  },
+  {
+    "model": "finance.financestatus",
+    "pk": 4,
+    "fields": {
+      "created_at": "2026-03-12T09:31:15.908Z",
+      "updated_at": "2026-03-12T09:31:15.908Z",
+      "student": 17,
+      "academic_year": 1,
+      "trimester": 1,
+      "total_due": "120000.00",
+      "total_paid": "66000.00",
+      "status": "partial",
+      "clearance_status": "blocked"
+    }
+  },
+  {
+    "model": "finance.financestatus",
+    "pk": 5,
+    "fields": {
+      "created_at": "2026-03-12T09:31:15.924Z",
+      "updated_at": "2026-03-12T09:31:15.924Z",
+      "student": 19,
+      "academic_year": 1,
+      "trimester": 1,
+      "total_due": "120000.00",
+      "total_paid": "90000.00",
+      "status": "partial",
+      "clearance_status": "cleared_for_registration"
+    }
+  },
+  {
+    "model": "finance.financestatus",
+    "pk": 6,
+    "fields": {
+      "created_at": "2026-03-12T09:31:15.942Z",
+      "updated_at": "2026-03-19T07:17:03.725Z",
+      "student": 21,
+      "academic_year": 2,
+      "trimester": 1,
+      "total_due": "120000.00",
+      "total_paid": "90000.00",
+      "status": "partial",
+      "clearance_status": "cleared_for_registration"
+    }
+  },
+  {
+    "model": "finance.financestatus",
+    "pk": 7,
+    "fields": {
+      "created_at": "2026-03-12T09:31:15.959Z",
+      "updated_at": "2026-03-19T07:17:03.750Z",
+      "student": 23,
+      "academic_year": 2,
+      "trimester": 1,
+      "total_due": "120000.00",
+      "total_paid": "90000.00",
+      "status": "partial",
+      "clearance_status": "cleared_for_registration"
+    }
+  },
+  {
+    "model": "finance.financestatus",
+    "pk": 8,
+    "fields": {
+      "created_at": "2026-03-12T09:31:15.975Z",
+      "updated_at": "2026-03-19T07:17:03.781Z",
+      "student": 25,
+      "academic_year": 2,
+      "trimester": 1,
+      "total_due": "120000.00",
+      "total_paid": "90000.00",
+      "status": "partial",
+      "clearance_status": "cleared_for_registration"
+    }
+  },
+  {
+    "model": "finance.financestatus",
+    "pk": 9,
+    "fields": {
+      "created_at": "2026-03-12T09:31:15.991Z",
+      "updated_at": "2026-03-12T09:31:15.991Z",
+      "student": 27,
+      "academic_year": 1,
+      "trimester": 1,
+      "total_due": "120000.00",
+      "total_paid": "90000.00",
+      "status": "partial",
+      "clearance_status": "cleared_for_registration"
+    }
+  },
+  {
+    "model": "finance.financestatus",
+    "pk": 10,
+    "fields": {
+      "created_at": "2026-03-12T09:31:16.007Z",
+      "updated_at": "2026-03-12T09:31:16.007Z",
+      "student": 29,
+      "academic_year": 1,
+      "trimester": 1,
+      "total_due": "120000.00",
+      "total_paid": "66000.00",
+      "status": "partial",
+      "clearance_status": "blocked"
+    }
+  },
+  {
+    "model": "finance.financestatus",
+    "pk": 11,
+    "fields": {
+      "created_at": "2026-03-12T09:31:16.024Z",
+      "updated_at": "2026-03-12T09:31:16.024Z",
+      "student": 31,
+      "academic_year": 1,
+      "trimester": 1,
+      "total_due": "120000.00",
+      "total_paid": "90000.00",
+      "status": "partial",
+      "clearance_status": "cleared_for_registration"
+    }
+  },
+  {
+    "model": "finance.financestatus",
+    "pk": 12,
+    "fields": {
+      "created_at": "2026-03-12T09:31:16.041Z",
+      "updated_at": "2026-03-12T09:31:16.041Z",
+      "student": 33,
+      "academic_year": 2,
+      "trimester": 1,
+      "total_due": "120000.00",
+      "total_paid": "66000.00",
+      "status": "partial",
+      "clearance_status": "blocked"
+    }
+  },
+  {
+    "model": "finance.financestatus",
+    "pk": 13,
+    "fields": {
+      "created_at": "2026-03-12T09:31:16.060Z",
+      "updated_at": "2026-03-12T09:31:16.061Z",
+      "student": 35,
+      "academic_year": 2,
+      "trimester": 1,
+      "total_due": "120000.00",
+      "total_paid": "90000.00",
+      "status": "partial",
+      "clearance_status": "cleared_for_registration"
+    }
+  },
+  {
+    "model": "finance.financestatus",
+    "pk": 14,
+    "fields": {
+      "created_at": "2026-03-12T09:31:16.077Z",
+      "updated_at": "2026-03-12T09:31:16.077Z",
+      "student": 37,
+      "academic_year": 2,
+      "trimester": 1,
+      "total_due": "120000.00",
+      "total_paid": "66000.00",
+      "status": "partial",
+      "clearance_status": "blocked"
+    }
+  },
+  {
+    "model": "finance.financestatus",
+    "pk": 15,
+    "fields": {
+      "created_at": "2026-03-12T09:31:16.090Z",
+      "updated_at": "2026-03-12T09:31:16.090Z",
+      "student": 39,
+      "academic_year": 1,
+      "trimester": 1,
+      "total_due": "120000.00",
+      "total_paid": "90000.00",
+      "status": "partial",
+      "clearance_status": "cleared_for_registration"
+    }
+  },
+  {
+    "model": "finance.financestatus",
+    "pk": 16,
+    "fields": {
+      "created_at": "2026-03-12T09:31:16.099Z",
+      "updated_at": "2026-03-12T09:31:16.099Z",
+      "student": 41,
+      "academic_year": 1,
+      "trimester": 1,
+      "total_due": "120000.00",
+      "total_paid": "66000.00",
+      "status": "partial",
+      "clearance_status": "blocked"
+    }
+  },
+  {
+    "model": "finance.financestatus",
+    "pk": 17,
+    "fields": {
+      "created_at": "2026-03-12T09:31:16.112Z",
+      "updated_at": "2026-03-12T09:31:16.112Z",
+      "student": 43,
+      "academic_year": 1,
+      "trimester": 1,
+      "total_due": "120000.00",
+      "total_paid": "90000.00",
+      "status": "partial",
+      "clearance_status": "cleared_for_registration"
+    }
+  },
+  {
+    "model": "finance.financestatus",
+    "pk": 18,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.268Z",
+      "updated_at": "2026-03-19T08:24:54.540Z",
+      "student": 5,
+      "academic_year": 2025,
+      "trimester": 1,
+      "total_due": "120000.00",
+      "total_paid": "120000.00",
+      "status": "paid",
+      "clearance_status": "cleared_for_registration"
+    }
+  },
+  {
+    "model": "finance.financestatus",
+    "pk": 19,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.310Z",
+      "updated_at": "2026-03-19T07:17:03.310Z",
+      "student": 27,
+      "academic_year": 2025,
+      "trimester": 1,
+      "total_due": "120000.00",
+      "total_paid": "90000.00",
+      "status": "partial",
+      "clearance_status": "cleared_for_registration"
+    }
+  },
+  {
+    "model": "finance.financestatus",
+    "pk": 20,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.359Z",
+      "updated_at": "2026-03-19T07:17:03.359Z",
+      "student": 29,
+      "academic_year": 2025,
+      "trimester": 1,
+      "total_due": "120000.00",
+      "total_paid": "90000.00",
+      "status": "partial",
+      "clearance_status": "cleared_for_registration"
+    }
+  },
+  {
+    "model": "finance.financestatus",
+    "pk": 21,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.394Z",
+      "updated_at": "2026-03-19T07:17:03.394Z",
+      "student": 31,
+      "academic_year": 2025,
+      "trimester": 1,
+      "total_due": "120000.00",
+      "total_paid": "90000.00",
+      "status": "partial",
+      "clearance_status": "cleared_for_registration"
+    }
+  },
+  {
+    "model": "finance.financestatus",
+    "pk": 22,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.433Z",
+      "updated_at": "2026-03-19T07:17:03.433Z",
+      "student": 33,
+      "academic_year": 2025,
+      "trimester": 1,
+      "total_due": "120000.00",
+      "total_paid": "90000.00",
+      "status": "partial",
+      "clearance_status": "cleared_for_registration"
+    }
+  },
+  {
+    "model": "finance.financestatus",
+    "pk": 23,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.471Z",
+      "updated_at": "2026-03-19T07:17:03.471Z",
+      "student": 35,
+      "academic_year": 2025,
+      "trimester": 1,
+      "total_due": "120000.00",
+      "total_paid": "90000.00",
+      "status": "partial",
+      "clearance_status": "cleared_for_registration"
+    }
+  },
+  {
+    "model": "finance.financestatus",
+    "pk": 24,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.509Z",
+      "updated_at": "2026-03-19T07:17:03.509Z",
+      "student": 37,
+      "academic_year": 2025,
+      "trimester": 1,
+      "total_due": "120000.00",
+      "total_paid": "90000.00",
+      "status": "partial",
+      "clearance_status": "cleared_for_registration"
+    }
+  },
+  {
+    "model": "finance.financestatus",
+    "pk": 25,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.563Z",
+      "updated_at": "2026-03-19T07:17:03.563Z",
+      "student": 13,
+      "academic_year": 2,
+      "trimester": 1,
+      "total_due": "120000.00",
+      "total_paid": "90000.00",
+      "status": "partial",
+      "clearance_status": "cleared_for_registration"
+    }
+  },
+  {
+    "model": "finance.financestatus",
+    "pk": 26,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.606Z",
+      "updated_at": "2026-03-19T07:17:03.606Z",
+      "student": 15,
+      "academic_year": 2,
+      "trimester": 1,
+      "total_due": "120000.00",
+      "total_paid": "90000.00",
+      "status": "partial",
+      "clearance_status": "cleared_for_registration"
+    }
+  },
+  {
+    "model": "finance.financestatus",
+    "pk": 27,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.641Z",
+      "updated_at": "2026-03-19T07:17:03.641Z",
+      "student": 17,
+      "academic_year": 2,
+      "trimester": 1,
+      "total_due": "120000.00",
+      "total_paid": "90000.00",
+      "status": "partial",
+      "clearance_status": "cleared_for_registration"
+    }
+  },
+  {
+    "model": "finance.financestatus",
+    "pk": 28,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.678Z",
+      "updated_at": "2026-03-19T07:17:03.678Z",
+      "student": 19,
+      "academic_year": 2,
+      "trimester": 1,
+      "total_due": "120000.00",
+      "total_paid": "90000.00",
+      "status": "partial",
+      "clearance_status": "cleared_for_registration"
+    }
+  }
+]

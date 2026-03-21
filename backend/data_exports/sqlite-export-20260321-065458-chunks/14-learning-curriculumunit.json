@@ -1,0 +1,497 @@
+[
+  {
+    "model": "learning.curriculumunit",
+    "pk": 1,
+    "fields": {
+      "created_at": "2025-11-19T11:28:48.087Z",
+      "updated_at": "2025-11-19T11:28:48.087Z",
+      "programme": 1,
+      "code": "DTM101",
+      "title": "Introduction to Tourism",
+      "credit_hours": 3,
+      "trimester_hint": 1,
+      "has_prereq": false,
+      "prereq_unit": null
+    }
+  },
+  {
+    "model": "learning.curriculumunit",
+    "pk": 2,
+    "fields": {
+      "created_at": "2025-11-19T11:28:48.090Z",
+      "updated_at": "2025-11-19T11:28:48.090Z",
+      "programme": 1,
+      "code": "DTM102",
+      "title": "Travel Geography",
+      "credit_hours": 3,
+      "trimester_hint": 1,
+      "has_prereq": false,
+      "prereq_unit": null
+    }
+  },
+  {
+    "model": "learning.curriculumunit",
+    "pk": 3,
+    "fields": {
+      "created_at": "2025-11-19T11:28:48.092Z",
+      "updated_at": "2025-11-19T11:28:48.092Z",
+      "programme": 1,
+      "code": "DTM103",
+      "title": "Customer Service in Hospitality",
+      "credit_hours": 3,
+      "trimester_hint": 1,
+      "has_prereq": false,
+      "prereq_unit": null
+    }
+  },
+  {
+    "model": "learning.curriculumunit",
+    "pk": 4,
+    "fields": {
+      "created_at": "2025-11-19T11:28:48.096Z",
+      "updated_at": "2025-11-19T11:28:48.096Z",
+      "programme": 1,
+      "code": "DTM104",
+      "title": "Tour Guiding Techniques",
+      "credit_hours": 3,
+      "trimester_hint": 2,
+      "has_prereq": true,
+      "prereq_unit": 1
+    }
+  },
+  {
+    "model": "learning.curriculumunit",
+    "pk": 5,
+    "fields": {
+      "created_at": "2025-11-19T11:28:48.099Z",
+      "updated_at": "2025-11-19T11:28:48.099Z",
+      "programme": 1,
+      "code": "DTM105",
+      "title": "Sustainable Tourism Practices",
+      "credit_hours": 3,
+      "trimester_hint": 2,
+      "has_prereq": false,
+      "prereq_unit": null
+    }
+  },
+  {
+    "model": "learning.curriculumunit",
+    "pk": 6,
+    "fields": {
+      "created_at": "2025-11-19T11:28:48.101Z",
+      "updated_at": "2025-11-19T11:28:48.101Z",
+      "programme": 1,
+      "code": "DTM106",
+      "title": "Event Management Fundamentals",
+      "credit_hours": 3,
+      "trimester_hint": 3,
+      "has_prereq": false,
+      "prereq_unit": null
+    }
+  },
+  {
+    "model": "learning.curriculumunit",
+    "pk": 7,
+    "fields": {
+      "created_at": "2025-11-19T11:28:48.104Z",
+      "updated_at": "2025-11-19T11:28:48.104Z",
+      "programme": 1,
+      "code": "DTM201",
+      "title": "Tourism Marketing",
+      "credit_hours": 3,
+      "trimester_hint": 4,
+      "has_prereq": true,
+      "prereq_unit": 4
+    }
+  },
+  {
+    "model": "learning.curriculumunit",
+    "pk": 8,
+    "fields": {
+      "created_at": "2025-11-19T11:28:48.106Z",
+      "updated_at": "2025-11-19T11:28:48.106Z",
+      "programme": 1,
+      "code": "DTM202",
+      "title": "Travel Agency Operations",
+      "credit_hours": 3,
+      "trimester_hint": 4,
+      "has_prereq": false,
+      "prereq_unit": null
+    }
+  },
+  {
+    "model": "learning.curriculumunit",
+    "pk": 9,
+    "fields": {
+      "created_at": "2026-01-15T10:01:32.244Z",
+      "updated_at": "2026-02-26T06:51:22.358Z",
+      "programme": 2,
+      "code": "TTM101-U1",
+      "title": "Week 1: Tourism Foundations",
+      "credit_hours": 3,
+      "trimester_hint": null,
+      "has_prereq": false,
+      "prereq_unit": null
+    }
+  },
+  {
+    "model": "learning.curriculumunit",
+    "pk": 10,
+    "fields": {
+      "created_at": "2026-01-15T10:01:32.260Z",
+      "updated_at": "2026-02-26T06:51:22.368Z",
+      "programme": 3,
+      "code": "TT-111",
+      "title": "Introduction to the Global Travel & Tourism Industry",
+      "credit_hours": 3,
+      "trimester_hint": 1,
+      "has_prereq": false,
+      "prereq_unit": null
+    }
+  },
+  {
+    "model": "learning.curriculumunit",
+    "pk": 11,
+    "fields": {
+      "created_at": "2026-01-15T10:01:32.270Z",
+      "updated_at": "2026-02-26T06:51:22.379Z",
+      "programme": 3,
+      "code": "TT-112",
+      "title": "Travel Products and Services",
+      "credit_hours": 3,
+      "trimester_hint": 1,
+      "has_prereq": false,
+      "prereq_unit": null
+    }
+  },
+  {
+    "model": "learning.curriculumunit",
+    "pk": 12,
+    "fields": {
+      "created_at": "2026-01-15T10:01:32.281Z",
+      "updated_at": "2026-02-26T06:51:22.388Z",
+      "programme": 3,
+      "code": "TT-113",
+      "title": "Customer Service",
+      "credit_hours": 3,
+      "trimester_hint": 1,
+      "has_prereq": false,
+      "prereq_unit": null
+    }
+  },
+  {
+    "model": "learning.curriculumunit",
+    "pk": 13,
+    "fields": {
+      "created_at": "2026-01-15T10:01:32.289Z",
+      "updated_at": "2026-02-26T06:51:22.396Z",
+      "programme": 3,
+      "code": "TT-114",
+      "title": "Communication Skills",
+      "credit_hours": 3,
+      "trimester_hint": 1,
+      "has_prereq": false,
+      "prereq_unit": null
+    }
+  },
+  {
+    "model": "learning.curriculumunit",
+    "pk": 14,
+    "fields": {
+      "created_at": "2026-01-15T10:01:32.299Z",
+      "updated_at": "2026-02-26T06:51:22.405Z",
+      "programme": 3,
+      "code": "TT-121",
+      "title": "Destination Awareness and Management",
+      "credit_hours": 3,
+      "trimester_hint": 2,
+      "has_prereq": false,
+      "prereq_unit": null
+    }
+  },
+  {
+    "model": "learning.curriculumunit",
+    "pk": 15,
+    "fields": {
+      "created_at": "2026-01-15T10:01:32.308Z",
+      "updated_at": "2026-02-26T06:51:22.413Z",
+      "programme": 3,
+      "code": "TT-122",
+      "title": "Marketing and Sales in the Travel Industry",
+      "credit_hours": 3,
+      "trimester_hint": 2,
+      "has_prereq": false,
+      "prereq_unit": null
+    }
+  },
+  {
+    "model": "learning.curriculumunit",
+    "pk": 16,
+    "fields": {
+      "created_at": "2026-01-15T10:01:32.319Z",
+      "updated_at": "2026-02-26T06:51:22.423Z",
+      "programme": 3,
+      "code": "TT-123",
+      "title": "Tour Operations & Digital Distribution Channels",
+      "credit_hours": 3,
+      "trimester_hint": 2,
+      "has_prereq": false,
+      "prereq_unit": null
+    }
+  },
+  {
+    "model": "learning.curriculumunit",
+    "pk": 17,
+    "fields": {
+      "created_at": "2026-01-15T10:01:32.327Z",
+      "updated_at": "2026-02-26T06:51:22.432Z",
+      "programme": 3,
+      "code": "TT-124",
+      "title": "Hospitality Management",
+      "credit_hours": 3,
+      "trimester_hint": 2,
+      "has_prereq": false,
+      "prereq_unit": null
+    }
+  },
+  {
+    "model": "learning.curriculumunit",
+    "pk": 18,
+    "fields": {
+      "created_at": "2026-01-15T10:01:32.337Z",
+      "updated_at": "2026-02-26T06:51:22.441Z",
+      "programme": 3,
+      "code": "TT-131",
+      "title": "Tourism Technology Systems and Booking Platforms",
+      "credit_hours": 3,
+      "trimester_hint": 3,
+      "has_prereq": false,
+      "prereq_unit": null
+    }
+  },
+  {
+    "model": "learning.curriculumunit",
+    "pk": 19,
+    "fields": {
+      "created_at": "2026-01-15T10:01:32.346Z",
+      "updated_at": "2026-02-26T06:51:22.450Z",
+      "programme": 3,
+      "code": "TT-132",
+      "title": "Travel Regulations and Safety",
+      "credit_hours": 3,
+      "trimester_hint": 3,
+      "has_prereq": false,
+      "prereq_unit": null
+    }
+  },
+  {
+    "model": "learning.curriculumunit",
+    "pk": 20,
+    "fields": {
+      "created_at": "2026-01-15T10:01:32.354Z",
+      "updated_at": "2026-02-26T06:51:22.460Z",
+      "programme": 3,
+      "code": "TT-133",
+      "title": "The Business of Tourism",
+      "credit_hours": 3,
+      "trimester_hint": 3,
+      "has_prereq": false,
+      "prereq_unit": null
+    }
+  },
+  {
+    "model": "learning.curriculumunit",
+    "pk": 21,
+    "fields": {
+      "created_at": "2026-01-15T10:01:32.365Z",
+      "updated_at": "2026-02-26T06:51:22.469Z",
+      "programme": 3,
+      "code": "TT-134",
+      "title": "Introduction to Event Management",
+      "credit_hours": 3,
+      "trimester_hint": 3,
+      "has_prereq": false,
+      "prereq_unit": null
+    }
+  },
+  {
+    "model": "learning.curriculumunit",
+    "pk": 22,
+    "fields": {
+      "created_at": "2026-01-15T10:01:32.373Z",
+      "updated_at": "2026-02-26T06:51:22.478Z",
+      "programme": 3,
+      "code": "TT-211",
+      "title": "Advanced Tour Operations",
+      "credit_hours": 3,
+      "trimester_hint": 1,
+      "has_prereq": false,
+      "prereq_unit": null
+    }
+  },
+  {
+    "model": "learning.curriculumunit",
+    "pk": 23,
+    "fields": {
+      "created_at": "2026-01-15T10:01:32.385Z",
+      "updated_at": "2026-02-26T06:51:22.487Z",
+      "programme": 3,
+      "code": "TT-212",
+      "title": "Sustainable Tourism",
+      "credit_hours": 3,
+      "trimester_hint": 1,
+      "has_prereq": false,
+      "prereq_unit": null
+    }
+  },
+  {
+    "model": "learning.curriculumunit",
+    "pk": 24,
+    "fields": {
+      "created_at": "2026-01-15T10:01:32.394Z",
+      "updated_at": "2026-02-26T06:51:22.499Z",
+      "programme": 3,
+      "code": "TT-213",
+      "title": "Financial Management in Tourism",
+      "credit_hours": 3,
+      "trimester_hint": 1,
+      "has_prereq": false,
+      "prereq_unit": null
+    }
+  },
+  {
+    "model": "learning.curriculumunit",
+    "pk": 25,
+    "fields": {
+      "created_at": "2026-01-15T10:01:32.405Z",
+      "updated_at": "2026-02-26T06:51:22.512Z",
+      "programme": 3,
+      "code": "TT-214",
+      "title": "Human Resource Management in Tourism",
+      "credit_hours": 3,
+      "trimester_hint": 1,
+      "has_prereq": false,
+      "prereq_unit": null
+    }
+  },
+  {
+    "model": "learning.curriculumunit",
+    "pk": 26,
+    "fields": {
+      "created_at": "2026-01-15T10:01:32.416Z",
+      "updated_at": "2026-02-26T06:51:22.525Z",
+      "programme": 3,
+      "code": "TT-221",
+      "title": "Ecotourism and Protected Area Management",
+      "credit_hours": 3,
+      "trimester_hint": 2,
+      "has_prereq": false,
+      "prereq_unit": null
+    }
+  },
+  {
+    "model": "learning.curriculumunit",
+    "pk": 27,
+    "fields": {
+      "created_at": "2026-01-15T10:01:32.424Z",
+      "updated_at": "2026-02-26T06:51:22.537Z",
+      "programme": 3,
+      "code": "TT-222",
+      "title": "Niche Tourism",
+      "credit_hours": 3,
+      "trimester_hint": 2,
+      "has_prereq": false,
+      "prereq_unit": null
+    }
+  },
+  {
+    "model": "learning.curriculumunit",
+    "pk": 28,
+    "fields": {
+      "created_at": "2026-01-15T10:01:32.434Z",
+      "updated_at": "2026-02-26T06:51:22.549Z",
+      "programme": 3,
+      "code": "TT-223",
+      "title": "Crisis Management in Tourism",
+      "credit_hours": 3,
+      "trimester_hint": 2,
+      "has_prereq": false,
+      "prereq_unit": null
+    }
+  },
+  {
+    "model": "learning.curriculumunit",
+    "pk": 29,
+    "fields": {
+      "created_at": "2026-01-15T10:01:32.442Z",
+      "updated_at": "2026-02-26T06:51:22.565Z",
+      "programme": 3,
+      "code": "TT-224",
+      "title": "Research Methods in Tourism",
+      "credit_hours": 3,
+      "trimester_hint": 2,
+      "has_prereq": false,
+      "prereq_unit": null
+    }
+  },
+  {
+    "model": "learning.curriculumunit",
+    "pk": 30,
+    "fields": {
+      "created_at": "2026-01-15T10:01:32.452Z",
+      "updated_at": "2026-02-26T06:51:22.582Z",
+      "programme": 3,
+      "code": "TT-231",
+      "title": "Internship/Practicum",
+      "credit_hours": 6,
+      "trimester_hint": 3,
+      "has_prereq": false,
+      "prereq_unit": null
+    }
+  },
+  {
+    "model": "learning.curriculumunit",
+    "pk": 31,
+    "fields": {
+      "created_at": "2026-01-15T10:01:32.462Z",
+      "updated_at": "2026-02-26T06:51:22.598Z",
+      "programme": 3,
+      "code": "TT-232",
+      "title": "Final Project",
+      "credit_hours": 6,
+      "trimester_hint": 3,
+      "has_prereq": false,
+      "prereq_unit": null
+    }
+  },
+  {
+    "model": "learning.curriculumunit",
+    "pk": 32,
+    "fields": {
+      "created_at": "2026-01-15T10:01:32.472Z",
+      "updated_at": "2026-02-26T06:51:22.615Z",
+      "programme": 3,
+      "code": "TT-233",
+      "title": "Airline and Airport Operations",
+      "credit_hours": 3,
+      "trimester_hint": 3,
+      "has_prereq": false,
+      "prereq_unit": null
+    }
+  },
+  {
+    "model": "learning.curriculumunit",
+    "pk": 33,
+    "fields": {
+      "created_at": "2026-01-15T10:01:32.483Z",
+      "updated_at": "2026-02-26T06:51:22.630Z",
+      "programme": 3,
+      "code": "TT-234",
+      "title": "Entrepreneurship in Tourism",
+      "credit_hours": 3,
+      "trimester_hint": 3,
+      "has_prereq": false,
+      "prereq_unit": null
+    }
+  }
+]

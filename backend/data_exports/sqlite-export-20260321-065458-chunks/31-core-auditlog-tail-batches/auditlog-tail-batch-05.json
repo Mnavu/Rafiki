@@ -1,0 +1,2966 @@
+[
+  {
+    "model": "core.auditlog",
+    "pk": 1401,
+    "fields": {
+      "event_id": "09053140-fcdb-4cf5-a933-b33643cba3a7",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/finance/status/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:41:09.108373+00:00"
+      },
+      "request_id": "b7c375e0-3f19-4e64-ae63-f354a0baed87",
+      "request_path": "/api/finance/status/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "d0fdc5c1ac6e964eb18116d8fb2bb3f91d846e6de28b90a01ece81da9d317486",
+      "integrity_hash": "c73325a3cf61b616c444fd356d3b70270b7fe04508ba146c9068462a2ef58096",
+      "created_at": "2026-03-19T07:41:09.108Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1402,
+    "fields": {
+      "event_id": "1b75eadd-cdcd-4716-b355-232d247b7174",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/communications/threads/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:41:13.060656+00:00"
+      },
+      "request_id": "577ec67b-8d50-4d22-9377-ee1e9139d8bb",
+      "request_path": "/api/communications/threads/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "c73325a3cf61b616c444fd356d3b70270b7fe04508ba146c9068462a2ef58096",
+      "integrity_hash": "1e5921bb80810ef4e8f128c3930e9c2f471db621172ba653bd0f3fa3450b87ab",
+      "created_at": "2026-03-19T07:41:13.060Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1403,
+    "fields": {
+      "event_id": "bb58a302-c4bd-4776-a463-c61db7bbfcd4",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/communications/threads/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:41:29.369647+00:00"
+      },
+      "request_id": "5729e140-6082-4528-ba72-6b8a2a4c44c5",
+      "request_path": "/api/communications/threads/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "1e5921bb80810ef4e8f128c3930e9c2f471db621172ba653bd0f3fa3450b87ab",
+      "integrity_hash": "ca8bbe073d23ad9683e656ac4bbb49d29dbe51d1b2d6e3b251d1593764d02da2",
+      "created_at": "2026-03-19T07:41:29.369Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1404,
+    "fields": {
+      "event_id": "06011df9-f377-4881-91bf-64cda65dc308",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/core/api/departments/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:43:16.849930+00:00"
+      },
+      "request_id": "6aa681ff-996c-4a88-bcad-35a93213d115",
+      "request_path": "/api/core/api/departments/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "ca8bbe073d23ad9683e656ac4bbb49d29dbe51d1b2d6e3b251d1593764d02da2",
+      "integrity_hash": "5940616a57d7fc1cd2a41f0096095bb6b07a2cb38a00ce06897ac5773be01512",
+      "created_at": "2026-03-19T07:43:16.850Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1405,
+    "fields": {
+      "event_id": "14bde4a0-c3df-410a-a7f3-70032665573e",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/learning/programmes/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:43:16.860498+00:00"
+      },
+      "request_id": "5fc54449-c578-4919-affa-3cde732b31b2",
+      "request_path": "/api/learning/programmes/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "ca8bbe073d23ad9683e656ac4bbb49d29dbe51d1b2d6e3b251d1593764d02da2",
+      "integrity_hash": "ad24e2086f5de55e4708b96346889e0b038a40853995f851ddad1dddb0a6e4a5",
+      "created_at": "2026-03-19T07:43:16.860Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1406,
+    "fields": {
+      "event_id": "b6f96f9f-9c54-468b-a2bd-64f94f86ea16",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/learning/assignments/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:43:17.183809+00:00"
+      },
+      "request_id": "36ed5b25-b3bf-48f4-92ed-9cccff8a34d3",
+      "request_path": "/api/learning/assignments/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "ad24e2086f5de55e4708b96346889e0b038a40853995f851ddad1dddb0a6e4a5",
+      "integrity_hash": "bced865a13add5bef6b7ae096c4ffe708ec9bcaebcccba0d3a1e1815d1496aaa",
+      "created_at": "2026-03-19T07:43:17.183Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1407,
+    "fields": {
+      "event_id": "683061eb-8a08-4636-a790-caec5f10764e",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/learning/registrations/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:43:17.312666+00:00"
+      },
+      "request_id": "3669ec39-dd44-49dd-8da6-9a7e235f0a76",
+      "request_path": "/api/learning/registrations/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "bced865a13add5bef6b7ae096c4ffe708ec9bcaebcccba0d3a1e1815d1496aaa",
+      "integrity_hash": "034fa0e5687f0c2025843c7ab80cdffe751320b7c5200e778607b804a2e5daea",
+      "created_at": "2026-03-19T07:43:17.312Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1408,
+    "fields": {
+      "event_id": "ec589ad3-cab3-4e0b-aed2-7ddf4842e43c",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/finance/status/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:43:17.346566+00:00"
+      },
+      "request_id": "bacd2d25-32d5-4e5e-a75b-db91a05540a8",
+      "request_path": "/api/finance/status/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "034fa0e5687f0c2025843c7ab80cdffe751320b7c5200e778607b804a2e5daea",
+      "integrity_hash": "e21090bdde392850561cf4d9620662059b741f90cb86805a74f6766b4c81d855",
+      "created_at": "2026-03-19T07:43:17.346Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1409,
+    "fields": {
+      "event_id": "11bc75d3-97bd-42d5-9eca-baa6870acbec",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/learning/hod-unit-approval/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:44:07.877272+00:00"
+      },
+      "request_id": "b7f3e278-98a2-4187-bd23-7ec55fe911b8",
+      "request_path": "/api/learning/hod-unit-approval/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "e21090bdde392850561cf4d9620662059b741f90cb86805a74f6766b4c81d855",
+      "integrity_hash": "7e2a57ef7ceeb64c696b03f6e7270fcd9eadb3105c367139e974e1e80d566d9d",
+      "created_at": "2026-03-19T07:44:07.877Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1410,
+    "fields": {
+      "event_id": "2cd39828-6600-4f31-84d6-a91419f95ede",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/learning/quizzes/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:44:07.928129+00:00"
+      },
+      "request_id": "4c67b216-3a51-4544-9b48-1168967e11c9",
+      "request_path": "/api/learning/quizzes/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "7e2a57ef7ceeb64c696b03f6e7270fcd9eadb3105c367139e974e1e80d566d9d",
+      "integrity_hash": "df213761c483e823f89d667fbc415db956892ac8662bcee9dbb1ca47b81f680b",
+      "created_at": "2026-03-19T07:44:07.928Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1411,
+    "fields": {
+      "event_id": "6e982646-33eb-45e2-b3ca-34571f019e11",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/finance/status/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:44:08.056461+00:00"
+      },
+      "request_id": "416d1b13-b097-45c2-bd55-b1d9923af840",
+      "request_path": "/api/finance/status/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "df213761c483e823f89d667fbc415db956892ac8662bcee9dbb1ca47b81f680b",
+      "integrity_hash": "dfdff16deee4b8bc8317de224d0352f16dd1d19b3897cf05f0ad73a795c9feea",
+      "created_at": "2026-03-19T07:44:08.056Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1412,
+    "fields": {
+      "event_id": "d34264ff-e486-4daf-834e-8a3ab2935a14",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/learning/hod-unit-approval/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:44:09.992896+00:00"
+      },
+      "request_id": "3a8052b2-896a-4cbf-b17e-d2b58ea23378",
+      "request_path": "/api/learning/hod-unit-approval/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "dfdff16deee4b8bc8317de224d0352f16dd1d19b3897cf05f0ad73a795c9feea",
+      "integrity_hash": "fa21ad059267cc3e9224d8db3373fa8d0d138eb16dc3bc304055bdc235fc2dd8",
+      "created_at": "2026-03-19T07:44:09.993Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1413,
+    "fields": {
+      "event_id": "97ba6f52-a2de-4a91-8b45-1e62a3ea9616",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/learning/quizzes/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:44:10.011295+00:00"
+      },
+      "request_id": "a9507638-6b7d-438b-898a-db26c9aa45cc",
+      "request_path": "/api/learning/quizzes/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "dfdff16deee4b8bc8317de224d0352f16dd1d19b3897cf05f0ad73a795c9feea",
+      "integrity_hash": "58c0be9a7418d0a328e1811c8f3947ec8c48aa053ac0991e1f9adb67dcb9296e",
+      "created_at": "2026-03-19T07:44:10.011Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1414,
+    "fields": {
+      "event_id": "e6a03935-1567-4d14-ba0b-8db787a85b15",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/finance/status/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:44:10.115641+00:00"
+      },
+      "request_id": "e4565242-ea2b-49ef-a8f2-5eff482a4510",
+      "request_path": "/api/finance/status/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "58c0be9a7418d0a328e1811c8f3947ec8c48aa053ac0991e1f9adb67dcb9296e",
+      "integrity_hash": "b20a0e1ae83ee495c28f37f8f15dde2adf68e7ad043262a1afb119517828eee3",
+      "created_at": "2026-03-19T07:44:10.115Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1415,
+    "fields": {
+      "event_id": "66408e55-fe91-4dc9-aa08-b1c974574009",
+      "actor_user": null,
+      "action": "updated",
+      "target_table": "users.User",
+      "target_id": "10",
+      "before": {},
+      "after": {
+        "id": 10,
+        "password": "pbkdf2_sha256$1000000$WBx6mrFgY7cFW7eLl4g014$hWzur8JIGHcBE8VOzSXN+Gt6Ung0zvrkk2SG9J1Uf2U=",
+        "last_login": "2026-03-19T07:45:48.421Z",
+        "is_superuser": false,
+        "username": "records1",
+        "first_name": "",
+        "last_name": "",
+        "email": "records1@example.com",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2026-01-15T10:01:30.692Z",
+        "role": "records",
+        "display_name": "Linda Records",
+        "phone": "",
+        "date_of_birth": null,
+        "address": "",
+        "must_change_password": false,
+        "prefers_simple_language": true,
+        "prefers_high_contrast": false,
+        "speech_rate": 0.9,
+        "totp_secret": "",
+        "totp_enabled": false,
+        "totp_activated_at": null,
+        "groups": [],
+        "user_permissions": []
+      },
+      "request_id": "",
+      "request_path": "",
+      "request_method": "",
+      "request_status": null,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "b20a0e1ae83ee495c28f37f8f15dde2adf68e7ad043262a1afb119517828eee3",
+      "integrity_hash": "2e9d0c454615d05d2b1da1572dee1c798c81104ee7dcdd0b01d5ca458b97024c",
+      "created_at": "2026-03-19T07:45:48.434Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1416,
+    "fields": {
+      "event_id": "4cc3dc51-5575-44ae-8c6c-515a2d01746d",
+      "actor_user": [
+        "records1"
+      ],
+      "action": "user_login",
+      "target_table": "users_user",
+      "target_id": "10",
+      "before": {},
+      "after": {},
+      "request_id": "",
+      "request_path": "",
+      "request_method": "",
+      "request_status": null,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "2e9d0c454615d05d2b1da1572dee1c798c81104ee7dcdd0b01d5ca458b97024c",
+      "integrity_hash": "44af86bf64eea3ad488c9020d0b1c521a49cbacc85a1615a0b32e921e353e33f",
+      "created_at": "2026-03-19T07:45:48.447Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1417,
+    "fields": {
+      "event_id": "f21c7306-0778-433e-9fd2-781ef6fa453e",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/token/",
+      "before": {},
+      "after": {
+        "method": "POST",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:45:48.459200+00:00"
+      },
+      "request_id": "582b6c92-1483-47d0-8851-c366397a7c6d",
+      "request_path": "/api/token/",
+      "request_method": "POST",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "44af86bf64eea3ad488c9020d0b1c521a49cbacc85a1615a0b32e921e353e33f",
+      "integrity_hash": "5745bcd644f6d1266484baccd32823c434ba58e3ac2bf25f48ba20267c7249a3",
+      "created_at": "2026-03-19T07:45:48.459Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1418,
+    "fields": {
+      "event_id": "314f558f-f4b8-488c-9e74-3319ad701267",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/me/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:45:48.515528+00:00"
+      },
+      "request_id": "e82d56eb-65f3-420e-82cf-cba6699e3cef",
+      "request_path": "/api/users/me/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "5745bcd644f6d1266484baccd32823c434ba58e3ac2bf25f48ba20267c7249a3",
+      "integrity_hash": "a9834f939afcb11d1be2a72a502deca7da9dd483596ab7a1cb7b7a1cf8997a51",
+      "created_at": "2026-03-19T07:45:48.515Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1419,
+    "fields": {
+      "event_id": "957fa660-ebc1-4032-9daa-40bbff8ed786",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/provision-requests/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:45:48.643954+00:00"
+      },
+      "request_id": "7577bd45-2e55-435d-93ff-9d8d87a3c83e",
+      "request_path": "/api/users/provision-requests/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "a9834f939afcb11d1be2a72a502deca7da9dd483596ab7a1cb7b7a1cf8997a51",
+      "integrity_hash": "9621a5ca60fb31b4f948e9a421715e389b9f1cbd6d54d339dd9201a71b664049",
+      "created_at": "2026-03-19T07:45:48.644Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1420,
+    "fields": {
+      "event_id": "78a0e040-c3a8-472d-83a4-02c226efbb47",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/parent-links/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:45:48.772374+00:00"
+      },
+      "request_id": "93adb38f-00e5-4db0-bed6-b7a38cfe4a32",
+      "request_path": "/api/users/parent-links/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "9621a5ca60fb31b4f948e9a421715e389b9f1cbd6d54d339dd9201a71b664049",
+      "integrity_hash": "fce9032aef503584637d523b53f92c7c9b0d3344adf72aff35447d68d7893122",
+      "created_at": "2026-03-19T07:45:48.772Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1421,
+    "fields": {
+      "event_id": "1a69e8f8-9756-4e30-bbc7-99aa6cbb58c7",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/learning/registrations/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:45:48.865373+00:00"
+      },
+      "request_id": "96e4900b-f5e2-4742-bbd5-b53e8367f366",
+      "request_path": "/api/learning/registrations/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "fce9032aef503584637d523b53f92c7c9b0d3344adf72aff35447d68d7893122",
+      "integrity_hash": "724f5eef314d89a5a414380403ee2746b4fe3d5c2a7d136be18acc4b05d9bcd2",
+      "created_at": "2026-03-19T07:45:48.865Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1422,
+    "fields": {
+      "event_id": "1844aaae-5445-41d3-bffe-8b71d900cc2f",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/learning/programmes/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:45:50.374412+00:00"
+      },
+      "request_id": "059e2c58-9b43-4a06-938d-ba4c28149671",
+      "request_path": "/api/learning/programmes/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "724f5eef314d89a5a414380403ee2746b4fe3d5c2a7d136be18acc4b05d9bcd2",
+      "integrity_hash": "7d143d31a03c515b1591cc96bd1b10c93ad619c98a699fdd97b6afd23c50fa5f",
+      "created_at": "2026-03-19T07:45:50.374Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1423,
+    "fields": {
+      "event_id": "b9550bbf-324e-44a7-a282-cf6b8f48f83d",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/provision-requests/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:45:50.376955+00:00"
+      },
+      "request_id": "0b34ea44-6b56-4bd2-a2e6-7dc7e5592257",
+      "request_path": "/api/users/provision-requests/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "724f5eef314d89a5a414380403ee2746b4fe3d5c2a7d136be18acc4b05d9bcd2",
+      "integrity_hash": "bcd574c9a26f3e0df460bb572786d355194025defc568cdf6080f4978b0b4414",
+      "created_at": "2026-03-19T07:45:50.377Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1424,
+    "fields": {
+      "event_id": "f70355af-a7f3-4dfa-af26-7d9381ab43b8",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/core/api/departments/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:45:50.379050+00:00"
+      },
+      "request_id": "8d924b9a-bda5-40f0-b227-9e930fce2dda",
+      "request_path": "/api/core/api/departments/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "724f5eef314d89a5a414380403ee2746b4fe3d5c2a7d136be18acc4b05d9bcd2",
+      "integrity_hash": "41989711cfeac1c99bebb7167cb2b90d4fd8e265964f445ff7a7d35067b4db43",
+      "created_at": "2026-03-19T07:45:50.379Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1425,
+    "fields": {
+      "event_id": "c8f2d432-b87a-442b-b578-69333d8231e1",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/learning/registrations/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:45:50.554819+00:00"
+      },
+      "request_id": "a4dd1b02-a891-4d74-b35c-a03bb9b1c56e",
+      "request_path": "/api/learning/registrations/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "41989711cfeac1c99bebb7167cb2b90d4fd8e265964f445ff7a7d35067b4db43",
+      "integrity_hash": "7dc7c3595f73919b26b616a7e937f9cb43ccafbe2527034dfd54b37c4d841b8c",
+      "created_at": "2026-03-19T07:45:50.554Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1426,
+    "fields": {
+      "event_id": "f06d3c63-05f2-4a6b-8ac0-d3ef73448066",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/provision-requests/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:45:50.710863+00:00"
+      },
+      "request_id": "6777b6ed-50c5-4437-93db-1412bbe004da",
+      "request_path": "/api/users/provision-requests/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "7dc7c3595f73919b26b616a7e937f9cb43ccafbe2527034dfd54b37c4d841b8c",
+      "integrity_hash": "e885bebb863cdd2613bfa5ab1c8614607eacfa2d39d5576f0afa5c03a7e52bc0",
+      "created_at": "2026-03-19T07:45:50.710Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1427,
+    "fields": {
+      "event_id": "5e57888e-b5ad-4a30-88aa-ebd13503fe93",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/learning/programmes/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:45:50.715917+00:00"
+      },
+      "request_id": "0a122623-2543-435b-9ba0-d6f199a6a5ab",
+      "request_path": "/api/learning/programmes/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "7dc7c3595f73919b26b616a7e937f9cb43ccafbe2527034dfd54b37c4d841b8c",
+      "integrity_hash": "9e8f18d1cf8f1dc4cffbfe8318f09416af8e2d0c8aac8ab44a394b00a86769ae",
+      "created_at": "2026-03-19T07:45:50.716Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1428,
+    "fields": {
+      "event_id": "5b07a06a-078c-4f2b-bed5-509db6583d9e",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/core/api/departments/1/structure/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:45:50.734953+00:00"
+      },
+      "request_id": "791e4f60-5885-47e6-a2f5-b64a4c38890c",
+      "request_path": "/api/core/api/departments/1/structure/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "e885bebb863cdd2613bfa5ab1c8614607eacfa2d39d5576f0afa5c03a7e52bc0",
+      "integrity_hash": "df4d5b0fac5eba5b3cf1eb3bcf7feed0879d5d8f081194d18e9a1cbf20f83cf9",
+      "created_at": "2026-03-19T07:45:50.735Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1429,
+    "fields": {
+      "event_id": "b726fdc3-db5e-436f-b994-252f0eb5fb77",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/core/api/departments/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:45:50.707575+00:00"
+      },
+      "request_id": "5bea1d80-afc5-4a4b-835e-2dbe57df0a55",
+      "request_path": "/api/core/api/departments/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "7dc7c3595f73919b26b616a7e937f9cb43ccafbe2527034dfd54b37c4d841b8c",
+      "integrity_hash": "a6b05710a0e3210b2c9bf71578bd13b7f0c0c673a0dc39a0a8780c36224ab015",
+      "created_at": "2026-03-19T07:45:50.707Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1430,
+    "fields": {
+      "event_id": "083ffe9e-bb4c-4d24-ad7d-561bea87b943",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/core/api/departments/1/course_matrix/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:45:50.871964+00:00"
+      },
+      "request_id": "8a8c14ea-ba58-4033-8d43-74c498d4287a",
+      "request_path": "/api/core/api/departments/1/course_matrix/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "df4d5b0fac5eba5b3cf1eb3bcf7feed0879d5d8f081194d18e9a1cbf20f83cf9",
+      "integrity_hash": "6adb0cf43d5a8e41b714013eeeea99d02460b21ec460278be9e73adaee2fb0c7",
+      "created_at": "2026-03-19T07:45:50.872Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1431,
+    "fields": {
+      "event_id": "a787e16c-f5e1-4d4f-9d89-1198a666c64b",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/core/api/departments/1/available_staff/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:45:50.869836+00:00"
+      },
+      "request_id": "e84c03e6-952f-47a7-8e07-cd1ab905c691",
+      "request_path": "/api/core/api/departments/1/available_staff/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "df4d5b0fac5eba5b3cf1eb3bcf7feed0879d5d8f081194d18e9a1cbf20f83cf9",
+      "integrity_hash": "095417de3dcde430f8393cd0c017666273fa4e1124c5157ec27976d2b6212c9d",
+      "created_at": "2026-03-19T07:45:50.870Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1432,
+    "fields": {
+      "event_id": "e73ad94e-14bf-413d-a8dc-3ef84589dec1",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/learning/registrations/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:45:51.087154+00:00"
+      },
+      "request_id": "37ace798-4878-4ec1-a2c8-f4730a816417",
+      "request_path": "/api/learning/registrations/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "6adb0cf43d5a8e41b714013eeeea99d02460b21ec460278be9e73adaee2fb0c7",
+      "integrity_hash": "d2da7b24845ed96bb409e65f5de493832c2458526e96621d4def7183a16253af",
+      "created_at": "2026-03-19T07:45:51.087Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1433,
+    "fields": {
+      "event_id": "c539481c-b360-4bb7-8655-8e4a74753e6e",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/learning/registrations/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:45:51.125663+00:00"
+      },
+      "request_id": "121e56e2-769e-414c-8b41-f52a6417e452",
+      "request_path": "/api/learning/registrations/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "d2da7b24845ed96bb409e65f5de493832c2458526e96621d4def7183a16253af",
+      "integrity_hash": "8c094eab7cbbc69d399b783364e84b7b5ada21150cee77d0a3410140c1abe74e",
+      "created_at": "2026-03-19T07:45:51.125Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1434,
+    "fields": {
+      "event_id": "3eb71057-4221-4467-8a61-202caaa681e0",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/learning/programmes/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:46:25.877845+00:00"
+      },
+      "request_id": "d75a34a7-253c-4d6d-b897-d1e0c83e02e0",
+      "request_path": "/api/learning/programmes/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "8c094eab7cbbc69d399b783364e84b7b5ada21150cee77d0a3410140c1abe74e",
+      "integrity_hash": "62d0871e6ed7aac85c69542f2f69a78c16897b11f18ffaba7fbc65c5b61bdcb1",
+      "created_at": "2026-03-19T07:46:25.878Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1435,
+    "fields": {
+      "event_id": "059b4c99-10b0-4204-b25f-909faf7a2c3c",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/finance/status/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:46:25.960684+00:00"
+      },
+      "request_id": "91400581-88ec-4f78-968a-e04bb06e7ffb",
+      "request_path": "/api/finance/status/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "62d0871e6ed7aac85c69542f2f69a78c16897b11f18ffaba7fbc65c5b61bdcb1",
+      "integrity_hash": "6f2e00f0383a8fffa73a06381d111501a25c80d23b787176af4f523d46d26248",
+      "created_at": "2026-03-19T07:46:25.961Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1436,
+    "fields": {
+      "event_id": "02343dab-e059-49c1-a32c-3df722f1a90b",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/core/api/departments/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:46:25.964254+00:00"
+      },
+      "request_id": "2a776d24-d266-4e49-99cd-69389351f289",
+      "request_path": "/api/core/api/departments/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "62d0871e6ed7aac85c69542f2f69a78c16897b11f18ffaba7fbc65c5b61bdcb1",
+      "integrity_hash": "1f898bd7df81c4fcec9eea59f9d45ce019a535bae44780b2461bb678b93c99c1",
+      "created_at": "2026-03-19T07:46:25.964Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1437,
+    "fields": {
+      "event_id": "ff7e01eb-7ad9-429d-aca4-74175f257855",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/learning/assignments/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:46:26.172130+00:00"
+      },
+      "request_id": "df9d32f4-cf22-4511-8c5f-08c31dab8cc0",
+      "request_path": "/api/learning/assignments/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "1f898bd7df81c4fcec9eea59f9d45ce019a535bae44780b2461bb678b93c99c1",
+      "integrity_hash": "420799f1948adba1a064fcf4dcbe0a921d63d162f34e341e6f95a52138d86c34",
+      "created_at": "2026-03-19T07:46:26.172Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1438,
+    "fields": {
+      "event_id": "4dc55703-5e6f-406d-9ae5-04a17b6cdd94",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/learning/registrations/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:46:26.289730+00:00"
+      },
+      "request_id": "8d30b250-b5c1-4a85-ae83-ec95fb2442f7",
+      "request_path": "/api/learning/registrations/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "420799f1948adba1a064fcf4dcbe0a921d63d162f34e341e6f95a52138d86c34",
+      "integrity_hash": "3dfb55d43dd4bc5144c2b7fc9442570ded187e806b4c722415268e7387bb6fe2",
+      "created_at": "2026-03-19T07:46:26.289Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1439,
+    "fields": {
+      "event_id": "b7ce923c-4dc1-4e08-b568-d20c60c6508d",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/learning/registrations/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:46:34.892226+00:00"
+      },
+      "request_id": "0a1dea9d-2174-4ab2-ab0e-ff079d669cd8",
+      "request_path": "/api/learning/registrations/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "3dfb55d43dd4bc5144c2b7fc9442570ded187e806b4c722415268e7387bb6fe2",
+      "integrity_hash": "e49a2dcc2d26704d10f787b276f55621f1802aff0a1c34b2577f136c9e80d88a",
+      "created_at": "2026-03-19T07:46:34.892Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1440,
+    "fields": {
+      "event_id": "89e89ced-5ad6-4493-b479-5832e638bee3",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/notifications/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:48:49.004019+00:00"
+      },
+      "request_id": "c491bae4-ccd2-43df-af94-e13926440b88",
+      "request_path": "/api/notifications/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "e49a2dcc2d26704d10f787b276f55621f1802aff0a1c34b2577f136c9e80d88a",
+      "integrity_hash": "6a233c18e157838f04cf4a4dce8448d2990ea06e82ea55cf64516464aec355b9",
+      "created_at": "2026-03-19T07:48:49.004Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1441,
+    "fields": {
+      "event_id": "d8c9ee1b-64ce-4980-9a9e-206fcdbf566e",
+      "actor_user": null,
+      "action": "updated",
+      "target_table": "users.User",
+      "target_id": "8",
+      "before": {},
+      "after": {
+        "id": 8,
+        "password": "pbkdf2_sha256$1000000$hjHJXIwdD438rnHhYeBiOK$MiC9sbdYT2k9eyIdxR1hfgzVzApmrzauNNJ/X2xyj3I=",
+        "last_login": "2026-03-19T07:52:38.017Z",
+        "is_superuser": false,
+        "username": "hod1",
+        "first_name": "",
+        "last_name": "",
+        "email": "hod1@example.com",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2026-01-15T10:01:29.651Z",
+        "role": "hod",
+        "display_name": "Mary HoD",
+        "phone": "",
+        "date_of_birth": null,
+        "address": "",
+        "must_change_password": false,
+        "prefers_simple_language": true,
+        "prefers_high_contrast": false,
+        "speech_rate": 0.9,
+        "totp_secret": "",
+        "totp_enabled": false,
+        "totp_activated_at": null,
+        "groups": [],
+        "user_permissions": []
+      },
+      "request_id": "",
+      "request_path": "",
+      "request_method": "",
+      "request_status": null,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "6a233c18e157838f04cf4a4dce8448d2990ea06e82ea55cf64516464aec355b9",
+      "integrity_hash": "3e1828ecfdaad89e0715f0e437f05868cdfb58011d05456ca04196202832342e",
+      "created_at": "2026-03-19T07:52:38.026Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1442,
+    "fields": {
+      "event_id": "a4ad96b6-1fa2-4d58-9d8f-394c525e1859",
+      "actor_user": [
+        "hod1"
+      ],
+      "action": "user_login",
+      "target_table": "users_user",
+      "target_id": "8",
+      "before": {},
+      "after": {},
+      "request_id": "",
+      "request_path": "",
+      "request_method": "",
+      "request_status": null,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "3e1828ecfdaad89e0715f0e437f05868cdfb58011d05456ca04196202832342e",
+      "integrity_hash": "1a793dffec4ab6dcd3837f89249466a140bfd06fa5075719a3886858a081c5dd",
+      "created_at": "2026-03-19T07:52:38.039Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1443,
+    "fields": {
+      "event_id": "60664a71-6eaf-4dcc-b28d-7610721a2fd0",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/token/",
+      "before": {},
+      "after": {
+        "method": "POST",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:52:38.053164+00:00"
+      },
+      "request_id": "49715725-f08a-4157-8e5d-997e8369fb7f",
+      "request_path": "/api/token/",
+      "request_method": "POST",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "1a793dffec4ab6dcd3837f89249466a140bfd06fa5075719a3886858a081c5dd",
+      "integrity_hash": "d3143a326c93486829665e205fa245fba444beaa572ace7868f96c0f75c116c3",
+      "created_at": "2026-03-19T07:52:38.053Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1444,
+    "fields": {
+      "event_id": "1eb56235-ef37-465c-9e2a-9225ceea922c",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/me/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:52:38.092376+00:00"
+      },
+      "request_id": "5c7cdf57-7a18-4f78-9697-f0d928cd2a77",
+      "request_path": "/api/users/me/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "d3143a326c93486829665e205fa245fba444beaa572ace7868f96c0f75c116c3",
+      "integrity_hash": "4e90a6c9fee5ceaa6000f7bdc299dcf09a536c372d66343a2d37e5317b765e91",
+      "created_at": "2026-03-19T07:52:38.092Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1445,
+    "fields": {
+      "event_id": "0e89fce6-ecbe-419a-9fa7-c9faf642288f",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/learning/hod-unit-approval/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:52:38.237413+00:00"
+      },
+      "request_id": "f02134ca-62af-4e9f-981d-38324f5a34a5",
+      "request_path": "/api/learning/hod-unit-approval/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "4e90a6c9fee5ceaa6000f7bdc299dcf09a536c372d66343a2d37e5317b765e91",
+      "integrity_hash": "5c72f4eea2080e100b6534fd3562a45b6f3649257fdd0ad7c3f4fbd3063aaaa2",
+      "created_at": "2026-03-19T07:52:38.238Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1446,
+    "fields": {
+      "event_id": "dfc69cdc-f150-439d-a2d5-d0babd603369",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/learning/programmes/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:52:38.266893+00:00"
+      },
+      "request_id": "27bbe2a9-115d-4e06-99fb-39e703da02b1",
+      "request_path": "/api/learning/programmes/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "5c72f4eea2080e100b6534fd3562a45b6f3649257fdd0ad7c3f4fbd3063aaaa2",
+      "integrity_hash": "54097780a13eb673aad36061d8350066babf1b7bfef2f856bb6c33b4cd69f378",
+      "created_at": "2026-03-19T07:52:38.267Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1447,
+    "fields": {
+      "event_id": "02745005-5f60-4c41-b251-591ba948e0b8",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/core/api/departments/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:52:38.273354+00:00"
+      },
+      "request_id": "495f441f-2e34-47ce-a4aa-0eb53c59c9a1",
+      "request_path": "/api/core/api/departments/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "5c72f4eea2080e100b6534fd3562a45b6f3649257fdd0ad7c3f4fbd3063aaaa2",
+      "integrity_hash": "eb936dd7d848a82fd3b3f2bb13d3c62a400adcf4ad43ad3daa342e809a1b5fb5",
+      "created_at": "2026-03-19T07:52:38.273Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1448,
+    "fields": {
+      "event_id": "0db533b3-60ad-47e8-9ef0-343131292fd5",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/finance/status/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:52:38.427529+00:00"
+      },
+      "request_id": "af897ef9-80fa-48a5-9243-0bff091f829f",
+      "request_path": "/api/finance/status/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "eb936dd7d848a82fd3b3f2bb13d3c62a400adcf4ad43ad3daa342e809a1b5fb5",
+      "integrity_hash": "f59013a46995e63b9f37477b205a1c1b738fc98947035c8ac79458212cf7b656",
+      "created_at": "2026-03-19T07:52:38.427Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1449,
+    "fields": {
+      "event_id": "4eeab602-69ab-472e-8cbd-6e0071da30db",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/learning/timetables/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:52:51.210142+00:00"
+      },
+      "request_id": "811fe35d-48c9-4a59-9430-fc5188de1e44",
+      "request_path": "/api/learning/timetables/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "f59013a46995e63b9f37477b205a1c1b738fc98947035c8ac79458212cf7b656",
+      "integrity_hash": "8f25147a93e3198ca19a87cd0e463741feb8617205c4a6a3b30607e61bbb7058",
+      "created_at": "2026-03-19T07:52:51.210Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1450,
+    "fields": {
+      "event_id": "3b206501-36e1-422e-9c76-fb01a7b4fee1",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/learning/timetables/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:52:53.287645+00:00"
+      },
+      "request_id": "aa2c82b9-eb0e-4919-9482-ac2b5aca32e2",
+      "request_path": "/api/learning/timetables/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "8f25147a93e3198ca19a87cd0e463741feb8617205c4a6a3b30607e61bbb7058",
+      "integrity_hash": "be8005cf92f22fb2babf787d5c7cababdb616ea12fc1d567f7c8fbbaa5ca4d2a",
+      "created_at": "2026-03-19T07:52:53.287Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1451,
+    "fields": {
+      "event_id": "d5c4b418-ab9b-4626-b5b2-de9082f37e62",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/core/api/departments/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:52:54.594466+00:00"
+      },
+      "request_id": "fb78240f-4eea-40b8-9aff-3c8346b1c17a",
+      "request_path": "/api/core/api/departments/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "be8005cf92f22fb2babf787d5c7cababdb616ea12fc1d567f7c8fbbaa5ca4d2a",
+      "integrity_hash": "c602f136b858ed1421f92ae0177d496ee72a701523e626f7a67c0f38e958836e",
+      "created_at": "2026-03-19T07:52:54.594Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1452,
+    "fields": {
+      "event_id": "e758da27-8d39-44ef-ad04-cb7c5cdb6fb8",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/learning/hod-unit-approval/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:52:54.609535+00:00"
+      },
+      "request_id": "a7f4468b-243a-46fb-888a-aeb8bb9a7cab",
+      "request_path": "/api/learning/hod-unit-approval/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "be8005cf92f22fb2babf787d5c7cababdb616ea12fc1d567f7c8fbbaa5ca4d2a",
+      "integrity_hash": "77c8cdcc99d27a3625e35264c2bd5e09019e11ed8635fdd0d7de4611f1c5e767",
+      "created_at": "2026-03-19T07:52:54.609Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1453,
+    "fields": {
+      "event_id": "05cf1e57-04b0-4aa6-b769-2272615ba089",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/provision-requests/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:52:54.605257+00:00"
+      },
+      "request_id": "1e25cc20-f503-444b-a505-27be3d3382aa",
+      "request_path": "/api/users/provision-requests/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "be8005cf92f22fb2babf787d5c7cababdb616ea12fc1d567f7c8fbbaa5ca4d2a",
+      "integrity_hash": "ef6d65528aed47f32b556ec1cf297ae6e96c33e3e79eeda382ba0fb15f6217b2",
+      "created_at": "2026-03-19T07:52:54.605Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1454,
+    "fields": {
+      "event_id": "faac50c6-e771-491a-8528-2b3fbf1abe3e",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/learning/programmes/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:52:54.607613+00:00"
+      },
+      "request_id": "de16de60-43f1-4807-a1fb-6d16a54c83df",
+      "request_path": "/api/learning/programmes/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "be8005cf92f22fb2babf787d5c7cababdb616ea12fc1d567f7c8fbbaa5ca4d2a",
+      "integrity_hash": "6719b130d7b913260e6fd61d5c983b2be812a951da2606763be5486bf01d47c0",
+      "created_at": "2026-03-19T07:52:54.607Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1455,
+    "fields": {
+      "event_id": "3f5dff3a-2f9f-407b-880c-ac20d0594328",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/learning/registrations/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:52:54.765669+00:00"
+      },
+      "request_id": "78efa939-b130-4292-ada3-4461aaca43df",
+      "request_path": "/api/learning/registrations/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "77c8cdcc99d27a3625e35264c2bd5e09019e11ed8635fdd0d7de4611f1c5e767",
+      "integrity_hash": "e6e15f32c2caa7f73a548166e9ecea904314e64b2f69109fca8a23d472ac4af5",
+      "created_at": "2026-03-19T07:52:54.765Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1456,
+    "fields": {
+      "event_id": "b9ca8f86-fe8f-428a-a18f-183a8e49b3dd",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/learning/programmes/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:54:31.601926+00:00"
+      },
+      "request_id": "ea5254bc-ec42-4d7c-bd36-24f989abc2aa",
+      "request_path": "/api/learning/programmes/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "e6e15f32c2caa7f73a548166e9ecea904314e64b2f69109fca8a23d472ac4af5",
+      "integrity_hash": "d3aa3412697066fcbb4979054da5e8692d457efd87166c973cb118a3e78c3944",
+      "created_at": "2026-03-19T07:54:31.602Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1457,
+    "fields": {
+      "event_id": "0be2504c-5c5c-4e81-b39c-56af1763905d",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/provision-requests/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:54:31.605893+00:00"
+      },
+      "request_id": "49f5e424-0444-47fb-ae49-61db61040bdb",
+      "request_path": "/api/users/provision-requests/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "e6e15f32c2caa7f73a548166e9ecea904314e64b2f69109fca8a23d472ac4af5",
+      "integrity_hash": "88297da05508f8ec485aaa083c0a59ff45f3a04c5fa5d0cea811d0a5e432ee22",
+      "created_at": "2026-03-19T07:54:31.605Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1458,
+    "fields": {
+      "event_id": "a685a272-0aca-45db-995f-a3e987b7a338",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/core/api/departments/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:54:31.608146+00:00"
+      },
+      "request_id": "db3a8d05-5c30-48e0-a2f6-7dad53163240",
+      "request_path": "/api/core/api/departments/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "e6e15f32c2caa7f73a548166e9ecea904314e64b2f69109fca8a23d472ac4af5",
+      "integrity_hash": "6d820056a982fa789554ba13aaf18cbbbf3c9c2e197e8abe24455a26d087db24",
+      "created_at": "2026-03-19T07:54:31.608Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1459,
+    "fields": {
+      "event_id": "11fee205-687d-43fa-8a4f-7760ab39c250",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/learning/hod-unit-approval/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:54:31.609515+00:00"
+      },
+      "request_id": "5ec211d0-b0c4-4536-aab9-f6f832bbb17d",
+      "request_path": "/api/learning/hod-unit-approval/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "e6e15f32c2caa7f73a548166e9ecea904314e64b2f69109fca8a23d472ac4af5",
+      "integrity_hash": "fd0138e3a2d46305228ac8d2e72acbf56769efaa16bc288d17e331211672fb44",
+      "created_at": "2026-03-19T07:54:31.609Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1460,
+    "fields": {
+      "event_id": "0be2bee4-5310-4856-a909-de1ca15a9fe5",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/learning/registrations/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:54:31.793108+00:00"
+      },
+      "request_id": "f2a1e0a6-eeb3-403c-84f2-4f0978811891",
+      "request_path": "/api/learning/registrations/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "fd0138e3a2d46305228ac8d2e72acbf56769efaa16bc288d17e331211672fb44",
+      "integrity_hash": "7ddb9cc02e424770ba4ab3761e28fb3487cd863901e94fce07fcba7da8c6522d",
+      "created_at": "2026-03-19T07:54:31.793Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1461,
+    "fields": {
+      "event_id": "fceda2a1-c9d0-42fc-b193-53c002e29678",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/learning/timetables/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:54:34.038763+00:00"
+      },
+      "request_id": "f7239e97-4449-4eea-8b37-77c27f0cf68a",
+      "request_path": "/api/learning/timetables/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "7ddb9cc02e424770ba4ab3761e28fb3487cd863901e94fce07fcba7da8c6522d",
+      "integrity_hash": "5514461206019dbd75d968ca1b11743e3f45f3503850c81082ba69e8fe0adcb9",
+      "created_at": "2026-03-19T07:54:34.038Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1462,
+    "fields": {
+      "event_id": "f45281c1-4a12-4188-b014-438181a215eb",
+      "actor_user": null,
+      "action": "updated",
+      "target_table": "users.User",
+      "target_id": "10",
+      "before": {},
+      "after": {
+        "id": 10,
+        "password": "pbkdf2_sha256$1000000$WBx6mrFgY7cFW7eLl4g014$hWzur8JIGHcBE8VOzSXN+Gt6Ung0zvrkk2SG9J1Uf2U=",
+        "last_login": "2026-03-19T07:55:07.877Z",
+        "is_superuser": false,
+        "username": "records1",
+        "first_name": "",
+        "last_name": "",
+        "email": "records1@example.com",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2026-01-15T10:01:30.692Z",
+        "role": "records",
+        "display_name": "Linda Records",
+        "phone": "",
+        "date_of_birth": null,
+        "address": "",
+        "must_change_password": false,
+        "prefers_simple_language": true,
+        "prefers_high_contrast": false,
+        "speech_rate": 0.9,
+        "totp_secret": "",
+        "totp_enabled": false,
+        "totp_activated_at": null,
+        "groups": [],
+        "user_permissions": []
+      },
+      "request_id": "",
+      "request_path": "",
+      "request_method": "",
+      "request_status": null,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "5514461206019dbd75d968ca1b11743e3f45f3503850c81082ba69e8fe0adcb9",
+      "integrity_hash": "bb75d63107579ef8c1f6b902da9f7183df8fdc6cba5920770ff6ba0de9e81995",
+      "created_at": "2026-03-19T07:55:07.885Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1463,
+    "fields": {
+      "event_id": "ca4551d6-bf34-4899-aa34-7a6569eca4e4",
+      "actor_user": [
+        "records1"
+      ],
+      "action": "user_login",
+      "target_table": "users_user",
+      "target_id": "10",
+      "before": {},
+      "after": {},
+      "request_id": "",
+      "request_path": "",
+      "request_method": "",
+      "request_status": null,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "bb75d63107579ef8c1f6b902da9f7183df8fdc6cba5920770ff6ba0de9e81995",
+      "integrity_hash": "aba33c4a4d052c89dd586c60b03b43659c487c136fb2e4df1a8589dcc3d29f1e",
+      "created_at": "2026-03-19T07:55:07.892Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1464,
+    "fields": {
+      "event_id": "ef52d460-c533-4dbd-a5c5-c10343af9ea9",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/token/",
+      "before": {},
+      "after": {
+        "method": "POST",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:55:07.900537+00:00"
+      },
+      "request_id": "f9ae8a2d-a7cc-48c7-a881-87aa561fc2a0",
+      "request_path": "/api/token/",
+      "request_method": "POST",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "aba33c4a4d052c89dd586c60b03b43659c487c136fb2e4df1a8589dcc3d29f1e",
+      "integrity_hash": "c991a3502f9e7e8f52cc9eda2a8ae776be28757805ec7fb9b9377247b16a2537",
+      "created_at": "2026-03-19T07:55:07.900Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1465,
+    "fields": {
+      "event_id": "85d3df99-f384-426d-8e04-d3d006f51af5",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/me/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:55:08.036722+00:00"
+      },
+      "request_id": "7ae17b25-620a-49b7-9b58-837b27079f8d",
+      "request_path": "/api/users/me/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "c991a3502f9e7e8f52cc9eda2a8ae776be28757805ec7fb9b9377247b16a2537",
+      "integrity_hash": "62d1ffd06cfa39e6c901b9dd5008300a6b19210d02398ee98e800dcfa15ff155",
+      "created_at": "2026-03-19T07:55:08.036Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1466,
+    "fields": {
+      "event_id": "6516e145-686a-4add-a8d1-a2c40b330718",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/provision-requests/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:55:08.148074+00:00"
+      },
+      "request_id": "f5de4755-3812-420e-9cef-d40b60772f61",
+      "request_path": "/api/users/provision-requests/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "62d1ffd06cfa39e6c901b9dd5008300a6b19210d02398ee98e800dcfa15ff155",
+      "integrity_hash": "219fff33a7d5c17414a369cfd77ef1c3a4a237435ca21e663033c72f6254bb9b",
+      "created_at": "2026-03-19T07:55:08.148Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1467,
+    "fields": {
+      "event_id": "7e72a0c0-b9ba-47f1-9ee5-89261ef8f835",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/parent-links/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:55:08.219465+00:00"
+      },
+      "request_id": "7c5bf7de-441f-43ac-9c35-46544851ef4b",
+      "request_path": "/api/users/parent-links/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "219fff33a7d5c17414a369cfd77ef1c3a4a237435ca21e663033c72f6254bb9b",
+      "integrity_hash": "266e31f4de5541fb887f323a9b27858cbc736c9f13ce627e245c73cfb05ec630",
+      "created_at": "2026-03-19T07:55:08.219Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1468,
+    "fields": {
+      "event_id": "0aefbee3-3bc6-4cd3-a595-dc61290f7588",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/learning/registrations/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:55:08.276227+00:00"
+      },
+      "request_id": "1420e72a-cac3-4f28-a8cc-fd99d5f15f9d",
+      "request_path": "/api/learning/registrations/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "266e31f4de5541fb887f323a9b27858cbc736c9f13ce627e245c73cfb05ec630",
+      "integrity_hash": "31c86985a4e0e8b8e1a3e19f867bc83c7c75a522e04dbd15cea684a17305069e",
+      "created_at": "2026-03-19T07:55:08.276Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1469,
+    "fields": {
+      "event_id": "46a4f9e9-60bb-4f73-a4a3-0d14069e328e",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/learning/programmes/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:55:09.690136+00:00"
+      },
+      "request_id": "6c90755e-ef47-4655-b1f5-dd60130b42a9",
+      "request_path": "/api/learning/programmes/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "31c86985a4e0e8b8e1a3e19f867bc83c7c75a522e04dbd15cea684a17305069e",
+      "integrity_hash": "be758de2ab86696d017baf64ac0ba47e0af3a358b757c880ea4fcd0d8dc58ec5",
+      "created_at": "2026-03-19T07:55:09.690Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1470,
+    "fields": {
+      "event_id": "9a9080ea-947e-43ab-996b-6db163c2e35c",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/core/api/departments/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:55:09.687809+00:00"
+      },
+      "request_id": "2849a22c-7e01-4004-b276-4253b0b7c9ff",
+      "request_path": "/api/core/api/departments/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "31c86985a4e0e8b8e1a3e19f867bc83c7c75a522e04dbd15cea684a17305069e",
+      "integrity_hash": "12d629f3b213827eff8ef34a38489f88497ab668bc5863f6f9000201565f8c0f",
+      "created_at": "2026-03-19T07:55:09.687Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1471,
+    "fields": {
+      "event_id": "41076474-f3bc-4dd3-b2ff-078d53e6b23d",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/provision-requests/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:55:09.700096+00:00"
+      },
+      "request_id": "6b48dd83-5e30-4c70-b394-11bfc5448c0d",
+      "request_path": "/api/users/provision-requests/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "31c86985a4e0e8b8e1a3e19f867bc83c7c75a522e04dbd15cea684a17305069e",
+      "integrity_hash": "8c3ce5e2d29f415224795902f566bc27b41d5289077c7b48d55da44899a53c26",
+      "created_at": "2026-03-19T07:55:09.700Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1472,
+    "fields": {
+      "event_id": "e064749e-0053-4254-b112-ac2b5e94f9d3",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/learning/registrations/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:55:09.868028+00:00"
+      },
+      "request_id": "443b3e41-1559-4cfd-a529-121bf3588209",
+      "request_path": "/api/learning/registrations/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "8c3ce5e2d29f415224795902f566bc27b41d5289077c7b48d55da44899a53c26",
+      "integrity_hash": "cf417a258e94c63b0428b1638b1709a2f04bbab7880c7fc3c4780d9d8ff24049",
+      "created_at": "2026-03-19T07:55:09.868Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1473,
+    "fields": {
+      "event_id": "162928da-dd81-4336-aafe-8b271228c37e",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/provision-requests/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:55:10.084974+00:00"
+      },
+      "request_id": "5e07929f-de05-4c41-af1c-b4aaad5501b8",
+      "request_path": "/api/users/provision-requests/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "cf417a258e94c63b0428b1638b1709a2f04bbab7880c7fc3c4780d9d8ff24049",
+      "integrity_hash": "20cca0903dc57130a6dbfa04a31cbc18a0c75619f6a600adb7f4cf48addafcf3",
+      "created_at": "2026-03-19T07:55:10.085Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1474,
+    "fields": {
+      "event_id": "cbe59688-f28b-4a15-9f4a-a63eb419930d",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/core/api/departments/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:55:10.098368+00:00"
+      },
+      "request_id": "63741a5b-d1af-4f81-bc9b-255a6c8a617a",
+      "request_path": "/api/core/api/departments/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "cf417a258e94c63b0428b1638b1709a2f04bbab7880c7fc3c4780d9d8ff24049",
+      "integrity_hash": "5000ee6eb16c5ea30f539874125881b29b6d28f9881f15d6176777fea1694585",
+      "created_at": "2026-03-19T07:55:10.098Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1475,
+    "fields": {
+      "event_id": "d8dbdd58-5cff-483f-9c62-dac5ba6f2f23",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/core/api/departments/1/structure/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:55:10.118950+00:00"
+      },
+      "request_id": "a032b244-c908-40e1-bec4-083d5f013823",
+      "request_path": "/api/core/api/departments/1/structure/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "20cca0903dc57130a6dbfa04a31cbc18a0c75619f6a600adb7f4cf48addafcf3",
+      "integrity_hash": "e23ef1fefa0cb506bf16807bccefb645ced619160bd70336657906cc78dcf57c",
+      "created_at": "2026-03-19T07:55:10.119Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1476,
+    "fields": {
+      "event_id": "04738fb6-6ef3-4d5a-a9e3-cd383c9afd50",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/core/api/departments/1/course_matrix/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:55:10.187274+00:00"
+      },
+      "request_id": "311502d8-980f-4559-a9b2-9e0b074def17",
+      "request_path": "/api/core/api/departments/1/course_matrix/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "e23ef1fefa0cb506bf16807bccefb645ced619160bd70336657906cc78dcf57c",
+      "integrity_hash": "8fdca41a16ee8be7edf2a08e3ab2f131bc76098be1fca2dc6b27dc3a787407d8",
+      "created_at": "2026-03-19T07:55:10.187Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1477,
+    "fields": {
+      "event_id": "15f14952-232c-4f6a-a6d6-b8fd2f3fc705",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/learning/programmes/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:55:10.106018+00:00"
+      },
+      "request_id": "69c9f1d2-1306-4430-b7a0-6114680b0993",
+      "request_path": "/api/learning/programmes/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "20cca0903dc57130a6dbfa04a31cbc18a0c75619f6a600adb7f4cf48addafcf3",
+      "integrity_hash": "e2f4866b0b6d7cef93b740925398681fa4c54d9355205d0da39903a32a509924",
+      "created_at": "2026-03-19T07:55:10.106Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1478,
+    "fields": {
+      "event_id": "a79f0fb7-cae1-4878-9661-312724724e89",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/core/api/departments/1/available_staff/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:55:10.253138+00:00"
+      },
+      "request_id": "e39f417d-8e33-4886-8ac8-014b1353c09c",
+      "request_path": "/api/core/api/departments/1/available_staff/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "8fdca41a16ee8be7edf2a08e3ab2f131bc76098be1fca2dc6b27dc3a787407d8",
+      "integrity_hash": "bf5fd0fc3cde792e547f187f11f0105d952f964988549b56af1a87b4f664aaf3",
+      "created_at": "2026-03-19T07:55:10.253Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1479,
+    "fields": {
+      "event_id": "c860f01b-b0d6-4d16-a6c0-78a34401aeb5",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/learning/registrations/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:55:10.447072+00:00"
+      },
+      "request_id": "f8271a10-f809-4fb4-b95e-588df2e7b486",
+      "request_path": "/api/learning/registrations/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "bf5fd0fc3cde792e547f187f11f0105d952f964988549b56af1a87b4f664aaf3",
+      "integrity_hash": "4f93e1c2b9bd77abc63c47fd499a9d813ce4a87e188581cd1cc7f815298fb6c5",
+      "created_at": "2026-03-19T07:55:10.447Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1480,
+    "fields": {
+      "event_id": "e0e201fd-8c5d-4565-82b9-5ece323257ff",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/learning/registrations/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:55:10.501846+00:00"
+      },
+      "request_id": "b18e8ea1-6994-4e98-a48f-dcace034dc31",
+      "request_path": "/api/learning/registrations/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "4f93e1c2b9bd77abc63c47fd499a9d813ce4a87e188581cd1cc7f815298fb6c5",
+      "integrity_hash": "e604de5808b173e00e6516601336ed7a2f50b844c53374481183e3914fc1d918",
+      "created_at": "2026-03-19T07:55:10.501Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1481,
+    "fields": {
+      "event_id": "a678782c-f7c6-491c-86a7-6057c1cb0b82",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/core/api/departments/1/course_matrix/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:55:38.487695+00:00"
+      },
+      "request_id": "09d0ca60-2d20-4273-8af1-251dba797b6c",
+      "request_path": "/api/core/api/departments/1/course_matrix/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "e604de5808b173e00e6516601336ed7a2f50b844c53374481183e3914fc1d918",
+      "integrity_hash": "5b88e461a25e2fc694c017b377f19c1f9c57e80f9d93dec061132155ca1d635b",
+      "created_at": "2026-03-19T07:55:38.487Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1482,
+    "fields": {
+      "event_id": "7769f055-119b-43b5-8948-8101e270cc70",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/core/api/departments/1/available_staff/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:55:38.497802+00:00"
+      },
+      "request_id": "cae540fd-0135-480a-8d0a-a6fdc4f84572",
+      "request_path": "/api/core/api/departments/1/available_staff/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "5b88e461a25e2fc694c017b377f19c1f9c57e80f9d93dec061132155ca1d635b",
+      "integrity_hash": "b2157591ed15768bc088452f1c3c18d7445cedb5072413efb53b1c478655c44e",
+      "created_at": "2026-03-19T07:55:38.497Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1483,
+    "fields": {
+      "event_id": "f78e456b-571d-4b30-bf64-9d83f1b58bcc",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/core/api/departments/1/structure/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:55:38.525346+00:00"
+      },
+      "request_id": "a9c14f2b-12f3-4ea0-8553-b71868cd6923",
+      "request_path": "/api/core/api/departments/1/structure/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "5b88e461a25e2fc694c017b377f19c1f9c57e80f9d93dec061132155ca1d635b",
+      "integrity_hash": "d664e423908ea85d868f76031f78004ff48290728c83ab92d44f278d7d864fcd",
+      "created_at": "2026-03-19T07:55:38.525Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1484,
+    "fields": {
+      "event_id": "12e949d6-f364-440d-b879-8bdcd5963a6d",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/learning/registrations/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:55:38.638991+00:00"
+      },
+      "request_id": "9ca27405-a11f-42a2-bfdc-463f37ec7b24",
+      "request_path": "/api/learning/registrations/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "d664e423908ea85d868f76031f78004ff48290728c83ab92d44f278d7d864fcd",
+      "integrity_hash": "76f95feb9aacf94e3ce50207f38a76594a2973739a646417cf7326124a794dd4",
+      "created_at": "2026-03-19T07:55:38.639Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1485,
+    "fields": {
+      "event_id": "8198acc4-6ebf-4a80-9064-f022fa60f980",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/core/api/departments/1/structure/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:55:42.822248+00:00"
+      },
+      "request_id": "cb75e6e7-3186-4ebe-921d-7a615252ce90",
+      "request_path": "/api/core/api/departments/1/structure/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "76f95feb9aacf94e3ce50207f38a76594a2973739a646417cf7326124a794dd4",
+      "integrity_hash": "d7a8b0c50b28d9ca219571c26f451877dac20930f8b486bc6266a65260a78089",
+      "created_at": "2026-03-19T07:55:42.822Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1486,
+    "fields": {
+      "event_id": "227601eb-6967-4ba1-8426-ccfbfe345635",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/core/api/departments/1/available_staff/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:55:42.830470+00:00"
+      },
+      "request_id": "fc7b1057-611b-414e-9227-a4242bdb8375",
+      "request_path": "/api/core/api/departments/1/available_staff/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "76f95feb9aacf94e3ce50207f38a76594a2973739a646417cf7326124a794dd4",
+      "integrity_hash": "e76352c58c109109c77bbbbc931218bb81b9a8ef1ab3e9cc01658dad37966ca8",
+      "created_at": "2026-03-19T07:55:42.830Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1487,
+    "fields": {
+      "event_id": "3d1e3d10-771c-440f-89f7-97ba4ab164fd",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/core/api/departments/1/course_matrix/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:55:42.832651+00:00"
+      },
+      "request_id": "b138ce9a-cd24-452f-9d74-c91a3c7a243a",
+      "request_path": "/api/core/api/departments/1/course_matrix/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "76f95feb9aacf94e3ce50207f38a76594a2973739a646417cf7326124a794dd4",
+      "integrity_hash": "d0398154bd812f1197b2aabc5f1af7edaad074911fb0b3b991e697a5f0f3ef4c",
+      "created_at": "2026-03-19T07:55:42.832Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1488,
+    "fields": {
+      "event_id": "a4787172-4478-4587-b232-44815dcc645d",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/learning/registrations/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:55:43.013764+00:00"
+      },
+      "request_id": "31e3f6c3-5c4c-4cb2-b64d-9ba1968aed18",
+      "request_path": "/api/learning/registrations/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "d0398154bd812f1197b2aabc5f1af7edaad074911fb0b3b991e697a5f0f3ef4c",
+      "integrity_hash": "2079cecab89aeaca3da24b483a85c0c33d29ab12350c193ea6085a7e8908f29d",
+      "created_at": "2026-03-19T07:55:43.013Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1489,
+    "fields": {
+      "event_id": "104993f4-8b20-412e-9c65-f2181c3ffaeb",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/learning/registrations/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:55:47.475512+00:00"
+      },
+      "request_id": "1d997263-4941-451d-96e4-6db88643c10e",
+      "request_path": "/api/learning/registrations/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "2079cecab89aeaca3da24b483a85c0c33d29ab12350c193ea6085a7e8908f29d",
+      "integrity_hash": "e04463614d607e594f5aea111bec3091cf3aabdbf08a55626890e202bb6c3036",
+      "created_at": "2026-03-19T07:55:47.475Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1490,
+    "fields": {
+      "event_id": "87d746a9-1556-49a5-980b-d029a0138557",
+      "actor_user": null,
+      "action": "updated",
+      "target_table": "users.User",
+      "target_id": "5",
+      "before": {},
+      "after": {
+        "id": 5,
+        "password": "pbkdf2_sha256$1000000$L0K5fCEyCTFT4Pd8awN2eK$s/m66DzMKfQ6zSoF/ZdbHbdAx80KY4AEDLKu4fFzb08=",
+        "last_login": "2026-03-19T07:56:04.336Z",
+        "is_superuser": false,
+        "username": "student1",
+        "first_name": "",
+        "last_name": "",
+        "email": "student1@example.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2025-11-19T11:28:49.438Z",
+        "role": "student",
+        "display_name": "Aisha Student",
+        "phone": "",
+        "date_of_birth": null,
+        "address": "",
+        "must_change_password": false,
+        "prefers_simple_language": true,
+        "prefers_high_contrast": false,
+        "speech_rate": 0.9,
+        "totp_secret": "",
+        "totp_enabled": false,
+        "totp_activated_at": null,
+        "groups": [],
+        "user_permissions": []
+      },
+      "request_id": "",
+      "request_path": "",
+      "request_method": "",
+      "request_status": null,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "e04463614d607e594f5aea111bec3091cf3aabdbf08a55626890e202bb6c3036",
+      "integrity_hash": "57899802c43d7b25501c9f877f7209d0c8c6b50812df46426d3aac1b50956f42",
+      "created_at": "2026-03-19T07:56:04.345Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1491,
+    "fields": {
+      "event_id": "f22092a7-8554-409d-9aad-2bc06a777684",
+      "actor_user": [
+        "student1"
+      ],
+      "action": "user_login",
+      "target_table": "users_user",
+      "target_id": "5",
+      "before": {},
+      "after": {},
+      "request_id": "",
+      "request_path": "",
+      "request_method": "",
+      "request_status": null,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "57899802c43d7b25501c9f877f7209d0c8c6b50812df46426d3aac1b50956f42",
+      "integrity_hash": "55f3397c27596053ff2a43e7f17e51169c1d8fc1bf08586c3b841a5c3625f78c",
+      "created_at": "2026-03-19T07:56:04.354Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1492,
+    "fields": {
+      "event_id": "5bbaadf0-fc38-4205-a0fc-7ee30bcfb13a",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/token/",
+      "before": {},
+      "after": {
+        "method": "POST",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:56:04.365816+00:00"
+      },
+      "request_id": "084dfbf5-43dd-4f6d-9bea-857b3bc2bacd",
+      "request_path": "/api/token/",
+      "request_method": "POST",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "55f3397c27596053ff2a43e7f17e51169c1d8fc1bf08586c3b841a5c3625f78c",
+      "integrity_hash": "0e0c1d3237b5aa949527751c2ab311738e49c07e60196f807456c7cb65648035",
+      "created_at": "2026-03-19T07:56:04.365Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1493,
+    "fields": {
+      "event_id": "2eff3391-6281-4c08-8f15-c24adb6b51d8",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/me/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:56:04.414378+00:00"
+      },
+      "request_id": "3de1a607-e3d2-40a0-8776-f2f0d3d6ae84",
+      "request_path": "/api/users/me/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "0e0c1d3237b5aa949527751c2ab311738e49c07e60196f807456c7cb65648035",
+      "integrity_hash": "618e03944bc6a403808b1e3a1e480a0078cb902647375d18bfcdbe05b0a8c96b",
+      "created_at": "2026-03-19T07:56:04.414Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1494,
+    "fields": {
+      "event_id": "56fcb76c-68e1-4579-a745-d5a59b8600eb",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/5/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:56:04.577766+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/5/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "618e03944bc6a403808b1e3a1e480a0078cb902647375d18bfcdbe05b0a8c96b",
+      "integrity_hash": "10ee235bbd67c896a5ef092a2bd5e4dc922d776d2517690f460dbf34ae5b3d34",
+      "created_at": "2026-03-19T07:56:04.577Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1495,
+    "fields": {
+      "event_id": "e438ad95-f03f-4045-b89a-8b2857dd5147",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/learning/students/me/peers/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:56:07.928586+00:00"
+      },
+      "request_id": "075b1811-4248-44fa-b965-4c9da36856f0",
+      "request_path": "/api/learning/students/me/peers/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "10ee235bbd67c896a5ef092a2bd5e4dc922d776d2517690f460dbf34ae5b3d34",
+      "integrity_hash": "17132c5f41a33e118e412882907c424c391d8615a8813b32e9957070198d096a",
+      "created_at": "2026-03-19T07:56:07.928Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1496,
+    "fields": {
+      "event_id": "a0928742-b532-4bd0-b6cc-5fca1aa36af2",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/communications/threads/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:56:07.939192+00:00"
+      },
+      "request_id": "f49982c9-11d4-4426-80f0-01846a1d592e",
+      "request_path": "/api/communications/threads/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "10ee235bbd67c896a5ef092a2bd5e4dc922d776d2517690f460dbf34ae5b3d34",
+      "integrity_hash": "86528c0bc785a8d6f816bd3f318b864f56ad6b277787b0ae470b9897fe69fa8e",
+      "created_at": "2026-03-19T07:56:07.939Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1497,
+    "fields": {
+      "event_id": "e1541093-793b-43ad-97c1-5d94dbb4d521",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/communications/threads/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:56:09.775474+00:00"
+      },
+      "request_id": "e8fe3716-1ad1-417e-b0e8-5ef20c82d341",
+      "request_path": "/api/communications/threads/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "86528c0bc785a8d6f816bd3f318b864f56ad6b277787b0ae470b9897fe69fa8e",
+      "integrity_hash": "8919997dc57b5674877cb3c3ec21879f626116a4b3684ea03bd34f0f1c84833d",
+      "created_at": "2026-03-19T07:56:09.775Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1498,
+    "fields": {
+      "event_id": "894df954-723b-4d55-bde6-d2c8c8e3344f",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/learning/students/me/peers/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:56:09.783970+00:00"
+      },
+      "request_id": "29202bd0-6cbc-4c64-a8ef-3656789088e3",
+      "request_path": "/api/learning/students/me/peers/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "86528c0bc785a8d6f816bd3f318b864f56ad6b277787b0ae470b9897fe69fa8e",
+      "integrity_hash": "175c1a7bcce96fbb378ee0f5896a3c208777567e0793e1d82ee09e70788f2ba4",
+      "created_at": "2026-03-19T07:56:09.784Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1499,
+    "fields": {
+      "event_id": "3ecddfe9-6247-4b57-8291-20f96f8e13ed",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/communications/threads/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:56:11.743505+00:00"
+      },
+      "request_id": "1a58ba90-0864-4186-ac9a-a9a328d9f188",
+      "request_path": "/api/communications/threads/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "175c1a7bcce96fbb378ee0f5896a3c208777567e0793e1d82ee09e70788f2ba4",
+      "integrity_hash": "d17acdac65851dac836f423bc097e920e41e2088397cfbfdc7cd3b20c4d34bbe",
+      "created_at": "2026-03-19T07:56:11.743Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1500,
+    "fields": {
+      "event_id": "9d6409f1-2f7b-4456-ae2e-a037a339f17c",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/learning/students/me/peers/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:56:11.749616+00:00"
+      },
+      "request_id": "b90247a2-d8e3-4b3b-bf25-7e76e3f283bb",
+      "request_path": "/api/learning/students/me/peers/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "175c1a7bcce96fbb378ee0f5896a3c208777567e0793e1d82ee09e70788f2ba4",
+      "integrity_hash": "ece9ca86b1127a8718bd7b32ccf69f4122dce39b83e060f9a7dcb1b2cf57730e",
+      "created_at": "2026-03-19T07:56:11.749Z"
+    }
+  }
+]

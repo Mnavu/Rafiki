@@ -1,0 +1,431 @@
+[
+  {
+    "model": "learning.assignment",
+    "pk": 1,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.763Z",
+      "updated_at": "2026-03-12T09:31:15.458Z",
+      "unit": 10,
+      "lecturer": 3,
+      "title": "TT-111 Week assignment",
+      "description": "Complete the weekly learning task for Introduction to the Global Travel & Tourism Industry.",
+      "due_at": "2026-03-19T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.assignment",
+    "pk": 2,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.768Z",
+      "updated_at": "2026-03-12T09:31:15.463Z",
+      "unit": 11,
+      "lecturer": 4,
+      "title": "TT-112 Week assignment",
+      "description": "Complete the weekly learning task for Travel Products and Services.",
+      "due_at": "2026-03-19T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.assignment",
+    "pk": 3,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.775Z",
+      "updated_at": "2026-03-12T09:31:15.470Z",
+      "unit": 12,
+      "lecturer": 3,
+      "title": "TT-113 Week assignment",
+      "description": "Complete the weekly learning task for Customer Service.",
+      "due_at": "2026-03-19T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.assignment",
+    "pk": 4,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.782Z",
+      "updated_at": "2026-03-12T09:31:15.476Z",
+      "unit": 13,
+      "lecturer": 4,
+      "title": "TT-114 Week assignment",
+      "description": "Complete the weekly learning task for Communication Skills.",
+      "due_at": "2026-03-19T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.assignment",
+    "pk": 5,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.790Z",
+      "updated_at": "2026-03-12T09:31:15.481Z",
+      "unit": 22,
+      "lecturer": 3,
+      "title": "TT-211 Week assignment",
+      "description": "Complete the weekly learning task for Advanced Tour Operations.",
+      "due_at": "2026-03-19T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.assignment",
+    "pk": 6,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.795Z",
+      "updated_at": "2026-03-12T09:31:15.490Z",
+      "unit": 23,
+      "lecturer": 4,
+      "title": "TT-212 Week assignment",
+      "description": "Complete the weekly learning task for Sustainable Tourism.",
+      "due_at": "2026-03-19T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.assignment",
+    "pk": 7,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.800Z",
+      "updated_at": "2026-03-12T09:31:15.496Z",
+      "unit": 24,
+      "lecturer": 3,
+      "title": "TT-213 Week assignment",
+      "description": "Complete the weekly learning task for Financial Management in Tourism.",
+      "due_at": "2026-03-19T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.assignment",
+    "pk": 8,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.808Z",
+      "updated_at": "2026-03-12T09:31:15.503Z",
+      "unit": 25,
+      "lecturer": 4,
+      "title": "TT-214 Week assignment",
+      "description": "Complete the weekly learning task for Human Resource Management in Tourism.",
+      "due_at": "2026-03-19T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.assignment",
+    "pk": 9,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.814Z",
+      "updated_at": "2026-03-12T09:31:15.508Z",
+      "unit": 14,
+      "lecturer": 3,
+      "title": "TT-121 Week assignment",
+      "description": "Complete the weekly learning task for Destination Awareness and Management.",
+      "due_at": "2026-03-26T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.assignment",
+    "pk": 10,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.821Z",
+      "updated_at": "2026-03-12T09:31:15.513Z",
+      "unit": 15,
+      "lecturer": 4,
+      "title": "TT-122 Week assignment",
+      "description": "Complete the weekly learning task for Marketing and Sales in the Travel Industry.",
+      "due_at": "2026-03-26T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.assignment",
+    "pk": 11,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.826Z",
+      "updated_at": "2026-03-12T09:31:15.521Z",
+      "unit": 16,
+      "lecturer": 3,
+      "title": "TT-123 Week assignment",
+      "description": "Complete the weekly learning task for Tour Operations & Digital Distribution Channels.",
+      "due_at": "2026-03-26T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.assignment",
+    "pk": 12,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.831Z",
+      "updated_at": "2026-03-12T09:31:15.527Z",
+      "unit": 17,
+      "lecturer": 4,
+      "title": "TT-124 Week assignment",
+      "description": "Complete the weekly learning task for Hospitality Management.",
+      "due_at": "2026-03-26T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.assignment",
+    "pk": 13,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.839Z",
+      "updated_at": "2026-03-12T09:31:15.532Z",
+      "unit": 26,
+      "lecturer": 3,
+      "title": "TT-221 Week assignment",
+      "description": "Complete the weekly learning task for Ecotourism and Protected Area Management.",
+      "due_at": "2026-03-26T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.assignment",
+    "pk": 14,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.845Z",
+      "updated_at": "2026-03-12T09:31:15.541Z",
+      "unit": 27,
+      "lecturer": 4,
+      "title": "TT-222 Week assignment",
+      "description": "Complete the weekly learning task for Niche Tourism.",
+      "due_at": "2026-03-26T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.assignment",
+    "pk": 15,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.850Z",
+      "updated_at": "2026-03-12T09:31:15.546Z",
+      "unit": 28,
+      "lecturer": 3,
+      "title": "TT-223 Week assignment",
+      "description": "Complete the weekly learning task for Crisis Management in Tourism.",
+      "due_at": "2026-03-26T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.assignment",
+    "pk": 16,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.857Z",
+      "updated_at": "2026-03-12T09:31:15.554Z",
+      "unit": 29,
+      "lecturer": 4,
+      "title": "TT-224 Week assignment",
+      "description": "Complete the weekly learning task for Research Methods in Tourism.",
+      "due_at": "2026-03-26T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.assignment",
+    "pk": 17,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.863Z",
+      "updated_at": "2026-03-12T09:31:15.559Z",
+      "unit": 18,
+      "lecturer": 3,
+      "title": "TT-131 Week assignment",
+      "description": "Complete the weekly learning task for Tourism Technology Systems and Booking Platforms.",
+      "due_at": "2026-04-02T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.assignment",
+    "pk": 18,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.868Z",
+      "updated_at": "2026-03-12T09:31:15.564Z",
+      "unit": 19,
+      "lecturer": 4,
+      "title": "TT-132 Week assignment",
+      "description": "Complete the weekly learning task for Travel Regulations and Safety.",
+      "due_at": "2026-04-02T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.assignment",
+    "pk": 19,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.878Z",
+      "updated_at": "2026-03-12T09:31:15.571Z",
+      "unit": 20,
+      "lecturer": 3,
+      "title": "TT-133 Week assignment",
+      "description": "Complete the weekly learning task for The Business of Tourism.",
+      "due_at": "2026-04-02T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.assignment",
+    "pk": 20,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.883Z",
+      "updated_at": "2026-03-12T09:31:15.578Z",
+      "unit": 21,
+      "lecturer": 4,
+      "title": "TT-134 Week assignment",
+      "description": "Complete the weekly learning task for Introduction to Event Management.",
+      "due_at": "2026-04-02T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.assignment",
+    "pk": 21,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.893Z",
+      "updated_at": "2026-03-12T09:31:15.584Z",
+      "unit": 30,
+      "lecturer": 3,
+      "title": "TT-231 Week assignment",
+      "description": "Complete the weekly learning task for Internship/Practicum.",
+      "due_at": "2026-04-02T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.assignment",
+    "pk": 22,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.899Z",
+      "updated_at": "2026-03-12T09:31:15.591Z",
+      "unit": 31,
+      "lecturer": 4,
+      "title": "TT-232 Week assignment",
+      "description": "Complete the weekly learning task for Final Project.",
+      "due_at": "2026-04-02T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.assignment",
+    "pk": 23,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.905Z",
+      "updated_at": "2026-03-12T09:31:15.596Z",
+      "unit": 32,
+      "lecturer": 3,
+      "title": "TT-233 Week assignment",
+      "description": "Complete the weekly learning task for Airline and Airport Operations.",
+      "due_at": "2026-04-02T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.assignment",
+    "pk": 24,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.911Z",
+      "updated_at": "2026-03-12T09:31:15.604Z",
+      "unit": 33,
+      "lecturer": 4,
+      "title": "TT-234 Week assignment",
+      "description": "Complete the weekly learning task for Entrepreneurship in Tourism.",
+      "due_at": "2026-04-02T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.assignment",
+    "pk": 25,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.995Z",
+      "updated_at": "2026-03-12T09:31:15.691Z",
+      "unit": 1,
+      "lecturer": 3,
+      "title": "DTM101 Week assignment",
+      "description": "Complete the weekly learning task for Introduction to Tourism.",
+      "due_at": "2026-03-19T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.assignment",
+    "pk": 26,
+    "fields": {
+      "created_at": "2026-03-12T09:30:32.001Z",
+      "updated_at": "2026-03-12T09:31:15.696Z",
+      "unit": 2,
+      "lecturer": 4,
+      "title": "DTM102 Week assignment",
+      "description": "Complete the weekly learning task for Travel Geography.",
+      "due_at": "2026-03-19T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.assignment",
+    "pk": 27,
+    "fields": {
+      "created_at": "2026-03-12T09:30:32.008Z",
+      "updated_at": "2026-03-12T09:31:15.703Z",
+      "unit": 3,
+      "lecturer": 3,
+      "title": "DTM103 Week assignment",
+      "description": "Complete the weekly learning task for Customer Service in Hospitality.",
+      "due_at": "2026-03-19T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.assignment",
+    "pk": 28,
+    "fields": {
+      "created_at": "2026-03-12T09:30:32.013Z",
+      "updated_at": "2026-03-12T09:31:15.708Z",
+      "unit": 4,
+      "lecturer": 4,
+      "title": "DTM104 Week assignment",
+      "description": "Complete the weekly learning task for Tour Guiding Techniques.",
+      "due_at": "2026-03-26T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.assignment",
+    "pk": 29,
+    "fields": {
+      "created_at": "2026-03-12T09:30:32.018Z",
+      "updated_at": "2026-03-12T09:31:15.714Z",
+      "unit": 5,
+      "lecturer": 3,
+      "title": "DTM105 Week assignment",
+      "description": "Complete the weekly learning task for Sustainable Tourism Practices.",
+      "due_at": "2026-03-26T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.assignment",
+    "pk": 30,
+    "fields": {
+      "created_at": "2026-03-12T09:30:32.027Z",
+      "updated_at": "2026-03-12T09:31:15.723Z",
+      "unit": 6,
+      "lecturer": 4,
+      "title": "DTM106 Week assignment",
+      "description": "Complete the weekly learning task for Event Management Fundamentals.",
+      "due_at": "2026-04-02T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.assignment",
+    "pk": 31,
+    "fields": {
+      "created_at": "2026-03-12T09:30:32.033Z",
+      "updated_at": "2026-03-12T09:31:15.729Z",
+      "unit": 7,
+      "lecturer": 3,
+      "title": "DTM201 Week assignment",
+      "description": "Complete the weekly learning task for Tourism Marketing.",
+      "due_at": "2026-04-09T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.assignment",
+    "pk": 32,
+    "fields": {
+      "created_at": "2026-03-12T09:30:32.040Z",
+      "updated_at": "2026-03-12T09:31:15.736Z",
+      "unit": 8,
+      "lecturer": 4,
+      "title": "DTM202 Week assignment",
+      "description": "Complete the weekly learning task for Travel Agency Operations.",
+      "due_at": "2026-04-09T09:31:15.448Z"
+    }
+  },
+  {
+    "model": "learning.assignment",
+    "pk": 33,
+    "fields": {
+      "created_at": "2026-03-12T09:30:32.121Z",
+      "updated_at": "2026-03-12T09:31:15.823Z",
+      "unit": 9,
+      "lecturer": 3,
+      "title": "TTM101-U1 Week assignment",
+      "description": "Complete the weekly learning task for Week 1: Tourism Foundations.",
+      "due_at": "2026-03-19T09:31:15.448Z"
+    }
+  }
+]

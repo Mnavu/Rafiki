@@ -1,0 +1,2542 @@
+[
+  {
+    "model": "core.auditlog",
+    "pk": 1701,
+    "fields": {
+      "event_id": "446fbcb8-5b75-4323-9f44-022496f6b43b",
+      "actor_user": null,
+      "action": "created",
+      "target_table": "communications.ChatMessage",
+      "target_id": "5",
+      "before": {},
+      "after": {
+        "id": 5,
+        "chatroom": 5,
+        "author_user": 3,
+        "message": "Welcome to DTM105. This class community is ready for course updates, questions, and lecturer announcements."
+      },
+      "request_id": "",
+      "request_path": "",
+      "request_method": "",
+      "request_status": null,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "37d57bcf38c476e7e9abe690bec022070c0ea6d31d1c697a8b8bfaa0f7767c78",
+      "integrity_hash": "fa32a93323284c3b06c2724fca1f44758d46c1b1e5d016e5c8bfeedcecb41807",
+      "created_at": "2026-03-19T08:35:44.068Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1702,
+    "fields": {
+      "event_id": "ddb09a57-5cf5-4e7a-97b1-23ac9666f3da",
+      "actor_user": null,
+      "action": "created",
+      "target_table": "communications.ChatMessage",
+      "target_id": "6",
+      "before": {},
+      "after": {
+        "id": 6,
+        "chatroom": 6,
+        "author_user": 4,
+        "message": "Welcome to DTM106. This class community is ready for course updates, questions, and lecturer announcements."
+      },
+      "request_id": "",
+      "request_path": "",
+      "request_method": "",
+      "request_status": null,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "fa32a93323284c3b06c2724fca1f44758d46c1b1e5d016e5c8bfeedcecb41807",
+      "integrity_hash": "4cd712fa7908d0f45766ac35997b2e948dbb6a9506d88aaa04f06d3937875c50",
+      "created_at": "2026-03-19T08:35:44.079Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1703,
+    "fields": {
+      "event_id": "c18c25d9-e24a-4045-8227-cf50c3ecfaa7",
+      "actor_user": null,
+      "action": "created",
+      "target_table": "communications.ChatMessage",
+      "target_id": "7",
+      "before": {},
+      "after": {
+        "id": 7,
+        "chatroom": 7,
+        "author_user": 3,
+        "message": "Welcome to DTM201. This class community is ready for course updates, questions, and lecturer announcements."
+      },
+      "request_id": "",
+      "request_path": "",
+      "request_method": "",
+      "request_status": null,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "4cd712fa7908d0f45766ac35997b2e948dbb6a9506d88aaa04f06d3937875c50",
+      "integrity_hash": "4fb645777e76802bc010377819bdeba98518e0c9bd5a5f0fcbcb9b66090f8a1c",
+      "created_at": "2026-03-19T08:35:44.093Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1704,
+    "fields": {
+      "event_id": "d997806d-d8cc-4c47-aae4-f97a5dc0813f",
+      "actor_user": null,
+      "action": "created",
+      "target_table": "communications.ChatMessage",
+      "target_id": "8",
+      "before": {},
+      "after": {
+        "id": 8,
+        "chatroom": 8,
+        "author_user": 4,
+        "message": "Welcome to DTM202. This class community is ready for course updates, questions, and lecturer announcements."
+      },
+      "request_id": "",
+      "request_path": "",
+      "request_method": "",
+      "request_status": null,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "4fb645777e76802bc010377819bdeba98518e0c9bd5a5f0fcbcb9b66090f8a1c",
+      "integrity_hash": "389bb84c11d569b4997e3d93780d0967934bf7f68e5799999c1e6d5dae017dde",
+      "created_at": "2026-03-19T08:35:44.107Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1705,
+    "fields": {
+      "event_id": "cd9f4617-7163-4e95-b771-ee460072a9bd",
+      "actor_user": null,
+      "action": "created",
+      "target_table": "communications.ChatMessage",
+      "target_id": "9",
+      "before": {},
+      "after": {
+        "id": 9,
+        "chatroom": 9,
+        "author_user": 3,
+        "message": "Welcome to TT-111. This class community is ready for course updates, questions, and lecturer announcements."
+      },
+      "request_id": "",
+      "request_path": "",
+      "request_method": "",
+      "request_status": null,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "389bb84c11d569b4997e3d93780d0967934bf7f68e5799999c1e6d5dae017dde",
+      "integrity_hash": "213c3d0646b5d463e25b122045c3ea042fd430ffb1c9465a580a001f9b862298",
+      "created_at": "2026-03-19T08:35:44.119Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1706,
+    "fields": {
+      "event_id": "7c4c77ab-ea42-4cda-894c-066941f198bf",
+      "actor_user": null,
+      "action": "created",
+      "target_table": "communications.ChatMessage",
+      "target_id": "10",
+      "before": {},
+      "after": {
+        "id": 10,
+        "chatroom": 10,
+        "author_user": 4,
+        "message": "Welcome to TT-112. This class community is ready for course updates, questions, and lecturer announcements."
+      },
+      "request_id": "",
+      "request_path": "",
+      "request_method": "",
+      "request_status": null,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "213c3d0646b5d463e25b122045c3ea042fd430ffb1c9465a580a001f9b862298",
+      "integrity_hash": "5d186fdb9f078d63c2bbe3181e6f340cd8ffa2026cff70278c2c2468980155c1",
+      "created_at": "2026-03-19T08:35:44.134Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1707,
+    "fields": {
+      "event_id": "7f1086cf-226d-40f6-9c3c-d4b7085ab8cf",
+      "actor_user": null,
+      "action": "created",
+      "target_table": "communications.ChatMessage",
+      "target_id": "11",
+      "before": {},
+      "after": {
+        "id": 11,
+        "chatroom": 11,
+        "author_user": 3,
+        "message": "Welcome to TT-113. This class community is ready for course updates, questions, and lecturer announcements."
+      },
+      "request_id": "",
+      "request_path": "",
+      "request_method": "",
+      "request_status": null,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "5d186fdb9f078d63c2bbe3181e6f340cd8ffa2026cff70278c2c2468980155c1",
+      "integrity_hash": "7f0ae366273d7e2d0b397d790d0adecd25ad76e37d730a1986cb27d3c9391adc",
+      "created_at": "2026-03-19T08:35:44.144Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1708,
+    "fields": {
+      "event_id": "f3ac6caf-69dd-435c-a3c1-c2833c70fbf8",
+      "actor_user": null,
+      "action": "created",
+      "target_table": "communications.ChatMessage",
+      "target_id": "12",
+      "before": {},
+      "after": {
+        "id": 12,
+        "chatroom": 12,
+        "author_user": 4,
+        "message": "Welcome to TT-114. This class community is ready for course updates, questions, and lecturer announcements."
+      },
+      "request_id": "",
+      "request_path": "",
+      "request_method": "",
+      "request_status": null,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "7f0ae366273d7e2d0b397d790d0adecd25ad76e37d730a1986cb27d3c9391adc",
+      "integrity_hash": "25bc30a8edc914e7218014e9815fa2a34bdb14e3e1bc09ba86258b1618773cb6",
+      "created_at": "2026-03-19T08:35:44.153Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1709,
+    "fields": {
+      "event_id": "8536616d-a4a2-48c9-b20f-c602b5c39609",
+      "actor_user": null,
+      "action": "created",
+      "target_table": "communications.ChatMessage",
+      "target_id": "13",
+      "before": {},
+      "after": {
+        "id": 13,
+        "chatroom": 13,
+        "author_user": 3,
+        "message": "Welcome to TT-121. This class community is ready for course updates, questions, and lecturer announcements."
+      },
+      "request_id": "",
+      "request_path": "",
+      "request_method": "",
+      "request_status": null,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "25bc30a8edc914e7218014e9815fa2a34bdb14e3e1bc09ba86258b1618773cb6",
+      "integrity_hash": "8eac19dfa917ce2e2be15c5edde21102e5873ba4fd79556ef4c68283e0167cbc",
+      "created_at": "2026-03-19T08:35:44.165Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1710,
+    "fields": {
+      "event_id": "37d5ee1e-bf78-4a2d-87a2-a83c2ba2e207",
+      "actor_user": null,
+      "action": "created",
+      "target_table": "communications.ChatMessage",
+      "target_id": "14",
+      "before": {},
+      "after": {
+        "id": 14,
+        "chatroom": 14,
+        "author_user": 4,
+        "message": "Welcome to TT-122. This class community is ready for course updates, questions, and lecturer announcements."
+      },
+      "request_id": "",
+      "request_path": "",
+      "request_method": "",
+      "request_status": null,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "8eac19dfa917ce2e2be15c5edde21102e5873ba4fd79556ef4c68283e0167cbc",
+      "integrity_hash": "5e52aee9ee33d3b4b243a822d43dd00da8dd2126dee8b5bea5a84f7c77159f49",
+      "created_at": "2026-03-19T08:35:44.178Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1711,
+    "fields": {
+      "event_id": "61ed0088-5842-4dbb-a7eb-82665cb5d355",
+      "actor_user": null,
+      "action": "created",
+      "target_table": "communications.ChatMessage",
+      "target_id": "15",
+      "before": {},
+      "after": {
+        "id": 15,
+        "chatroom": 15,
+        "author_user": 3,
+        "message": "Welcome to TT-123. This class community is ready for course updates, questions, and lecturer announcements."
+      },
+      "request_id": "",
+      "request_path": "",
+      "request_method": "",
+      "request_status": null,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "5e52aee9ee33d3b4b243a822d43dd00da8dd2126dee8b5bea5a84f7c77159f49",
+      "integrity_hash": "f3538054229f2fa70857f9fedc38dfe15dbebaa525288343deaf4dbb0444b450",
+      "created_at": "2026-03-19T08:35:44.187Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1712,
+    "fields": {
+      "event_id": "8e05d174-2a94-4b5f-873c-f22452a7189c",
+      "actor_user": null,
+      "action": "created",
+      "target_table": "communications.ChatMessage",
+      "target_id": "16",
+      "before": {},
+      "after": {
+        "id": 16,
+        "chatroom": 16,
+        "author_user": 4,
+        "message": "Welcome to TT-124. This class community is ready for course updates, questions, and lecturer announcements."
+      },
+      "request_id": "",
+      "request_path": "",
+      "request_method": "",
+      "request_status": null,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "f3538054229f2fa70857f9fedc38dfe15dbebaa525288343deaf4dbb0444b450",
+      "integrity_hash": "6836f22e16de5e1acb47defa49c3b616dfbce58330b93c734bd04fa2272d861f",
+      "created_at": "2026-03-19T08:35:44.198Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1713,
+    "fields": {
+      "event_id": "f5fbb1bf-1f69-4b74-b951-d109fb8aeb94",
+      "actor_user": null,
+      "action": "created",
+      "target_table": "communications.ChatMessage",
+      "target_id": "17",
+      "before": {},
+      "after": {
+        "id": 17,
+        "chatroom": 17,
+        "author_user": 3,
+        "message": "Welcome to TT-131. This class community is ready for course updates, questions, and lecturer announcements."
+      },
+      "request_id": "",
+      "request_path": "",
+      "request_method": "",
+      "request_status": null,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "6836f22e16de5e1acb47defa49c3b616dfbce58330b93c734bd04fa2272d861f",
+      "integrity_hash": "17304cc742891e3b064cbfd11b37071aef09ba4fecea91aeb2457d062a6d2837",
+      "created_at": "2026-03-19T08:35:44.214Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1714,
+    "fields": {
+      "event_id": "0290987c-9560-4df4-98fb-3138e8459d35",
+      "actor_user": null,
+      "action": "created",
+      "target_table": "communications.ChatMessage",
+      "target_id": "18",
+      "before": {},
+      "after": {
+        "id": 18,
+        "chatroom": 18,
+        "author_user": 4,
+        "message": "Welcome to TT-132. This class community is ready for course updates, questions, and lecturer announcements."
+      },
+      "request_id": "",
+      "request_path": "",
+      "request_method": "",
+      "request_status": null,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "17304cc742891e3b064cbfd11b37071aef09ba4fecea91aeb2457d062a6d2837",
+      "integrity_hash": "61c4c767f3ca407c06a5064acf9211c0644f85a2bf9040c0ee47895abaca5326",
+      "created_at": "2026-03-19T08:35:44.225Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1715,
+    "fields": {
+      "event_id": "f078845b-7c76-419d-89c0-2088890347a8",
+      "actor_user": null,
+      "action": "created",
+      "target_table": "communications.ChatMessage",
+      "target_id": "19",
+      "before": {},
+      "after": {
+        "id": 19,
+        "chatroom": 19,
+        "author_user": 3,
+        "message": "Welcome to TT-133. This class community is ready for course updates, questions, and lecturer announcements."
+      },
+      "request_id": "",
+      "request_path": "",
+      "request_method": "",
+      "request_status": null,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "61c4c767f3ca407c06a5064acf9211c0644f85a2bf9040c0ee47895abaca5326",
+      "integrity_hash": "944b01d723d3c720acbc905700c586cd86fa9a12bc71fbd640befd65378aab94",
+      "created_at": "2026-03-19T08:35:44.238Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1716,
+    "fields": {
+      "event_id": "83d195c0-ab47-4454-8afd-fa06cc587e88",
+      "actor_user": null,
+      "action": "created",
+      "target_table": "communications.ChatMessage",
+      "target_id": "20",
+      "before": {},
+      "after": {
+        "id": 20,
+        "chatroom": 20,
+        "author_user": 4,
+        "message": "Welcome to TT-134. This class community is ready for course updates, questions, and lecturer announcements."
+      },
+      "request_id": "",
+      "request_path": "",
+      "request_method": "",
+      "request_status": null,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "944b01d723d3c720acbc905700c586cd86fa9a12bc71fbd640befd65378aab94",
+      "integrity_hash": "6d4c90960cc222454f26797ff3f5d0b767b745296635fb01ef0cef46a0f265dd",
+      "created_at": "2026-03-19T08:35:44.248Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1717,
+    "fields": {
+      "event_id": "4827756a-67d9-4d11-ba7c-177ec4740e67",
+      "actor_user": null,
+      "action": "created",
+      "target_table": "communications.ChatMessage",
+      "target_id": "21",
+      "before": {},
+      "after": {
+        "id": 21,
+        "chatroom": 21,
+        "author_user": 3,
+        "message": "Welcome to TT-211. This class community is ready for course updates, questions, and lecturer announcements."
+      },
+      "request_id": "",
+      "request_path": "",
+      "request_method": "",
+      "request_status": null,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "6d4c90960cc222454f26797ff3f5d0b767b745296635fb01ef0cef46a0f265dd",
+      "integrity_hash": "1a2be79b5d260ee6dcb99d52ec5c58e3c2d39adae479ee391d26ee14e4e1c417",
+      "created_at": "2026-03-19T08:35:44.264Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1718,
+    "fields": {
+      "event_id": "2077184a-7028-414c-bf80-95016eca39f3",
+      "actor_user": null,
+      "action": "created",
+      "target_table": "communications.ChatMessage",
+      "target_id": "22",
+      "before": {},
+      "after": {
+        "id": 22,
+        "chatroom": 22,
+        "author_user": 4,
+        "message": "Welcome to TT-212. This class community is ready for course updates, questions, and lecturer announcements."
+      },
+      "request_id": "",
+      "request_path": "",
+      "request_method": "",
+      "request_status": null,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "1a2be79b5d260ee6dcb99d52ec5c58e3c2d39adae479ee391d26ee14e4e1c417",
+      "integrity_hash": "bb605b99fa7c306c3ba50ca577192a1cc6e43ad5e9b146135a6c497fbe4aa3fb",
+      "created_at": "2026-03-19T08:35:44.275Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1719,
+    "fields": {
+      "event_id": "8366618c-832d-4876-adb3-1ebba77436eb",
+      "actor_user": null,
+      "action": "created",
+      "target_table": "communications.ChatMessage",
+      "target_id": "23",
+      "before": {},
+      "after": {
+        "id": 23,
+        "chatroom": 23,
+        "author_user": 3,
+        "message": "Welcome to TT-213. This class community is ready for course updates, questions, and lecturer announcements."
+      },
+      "request_id": "",
+      "request_path": "",
+      "request_method": "",
+      "request_status": null,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "bb605b99fa7c306c3ba50ca577192a1cc6e43ad5e9b146135a6c497fbe4aa3fb",
+      "integrity_hash": "5d798d743a587b66b2b183173d5b6b6ae5fc656bfe6f231d4dea3cf7578b89ea",
+      "created_at": "2026-03-19T08:35:44.292Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1720,
+    "fields": {
+      "event_id": "c7bcf589-3db6-4469-b134-20685ab1acb8",
+      "actor_user": null,
+      "action": "created",
+      "target_table": "communications.ChatMessage",
+      "target_id": "24",
+      "before": {},
+      "after": {
+        "id": 24,
+        "chatroom": 24,
+        "author_user": 4,
+        "message": "Welcome to TT-214. This class community is ready for course updates, questions, and lecturer announcements."
+      },
+      "request_id": "",
+      "request_path": "",
+      "request_method": "",
+      "request_status": null,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "5d798d743a587b66b2b183173d5b6b6ae5fc656bfe6f231d4dea3cf7578b89ea",
+      "integrity_hash": "ffa69cb30b82bfdd8823c00e5d23237179051a1d551a0651b0713b5caff93f55",
+      "created_at": "2026-03-19T08:35:44.306Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1721,
+    "fields": {
+      "event_id": "2fce0705-6a79-43a9-ae3c-ab796ffa2093",
+      "actor_user": null,
+      "action": "created",
+      "target_table": "communications.ChatMessage",
+      "target_id": "25",
+      "before": {},
+      "after": {
+        "id": 25,
+        "chatroom": 25,
+        "author_user": 3,
+        "message": "Welcome to TT-221. This class community is ready for course updates, questions, and lecturer announcements."
+      },
+      "request_id": "",
+      "request_path": "",
+      "request_method": "",
+      "request_status": null,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "ffa69cb30b82bfdd8823c00e5d23237179051a1d551a0651b0713b5caff93f55",
+      "integrity_hash": "cda5c4f9bc8b6ba9140b8c69f57b8a944a29230dfd09d4d9f80f33c3515c68a6",
+      "created_at": "2026-03-19T08:35:44.323Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1722,
+    "fields": {
+      "event_id": "1b6be1e5-3d06-45a9-9c28-5bafaf5873f2",
+      "actor_user": null,
+      "action": "created",
+      "target_table": "communications.ChatMessage",
+      "target_id": "26",
+      "before": {},
+      "after": {
+        "id": 26,
+        "chatroom": 26,
+        "author_user": 4,
+        "message": "Welcome to TT-222. This class community is ready for course updates, questions, and lecturer announcements."
+      },
+      "request_id": "",
+      "request_path": "",
+      "request_method": "",
+      "request_status": null,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "cda5c4f9bc8b6ba9140b8c69f57b8a944a29230dfd09d4d9f80f33c3515c68a6",
+      "integrity_hash": "dd141670f50c2f5189dbc7cb7a08499e449bd43c2578f55b37614a960d87af61",
+      "created_at": "2026-03-19T08:35:44.356Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1723,
+    "fields": {
+      "event_id": "f82b4f33-5698-44d9-9b1e-b7d1cdb07f1f",
+      "actor_user": null,
+      "action": "created",
+      "target_table": "communications.ChatMessage",
+      "target_id": "27",
+      "before": {},
+      "after": {
+        "id": 27,
+        "chatroom": 27,
+        "author_user": 3,
+        "message": "Welcome to TT-223. This class community is ready for course updates, questions, and lecturer announcements."
+      },
+      "request_id": "",
+      "request_path": "",
+      "request_method": "",
+      "request_status": null,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "dd141670f50c2f5189dbc7cb7a08499e449bd43c2578f55b37614a960d87af61",
+      "integrity_hash": "25a67ab0bf53d23a81a176f8fbfcbf9c1cdad78418e349aef34b33774d238d61",
+      "created_at": "2026-03-19T08:35:44.388Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1724,
+    "fields": {
+      "event_id": "cb18c977-2bc6-49f3-9982-d80c17521ca3",
+      "actor_user": null,
+      "action": "created",
+      "target_table": "communications.ChatMessage",
+      "target_id": "28",
+      "before": {},
+      "after": {
+        "id": 28,
+        "chatroom": 28,
+        "author_user": 4,
+        "message": "Welcome to TT-224. This class community is ready for course updates, questions, and lecturer announcements."
+      },
+      "request_id": "",
+      "request_path": "",
+      "request_method": "",
+      "request_status": null,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "25a67ab0bf53d23a81a176f8fbfcbf9c1cdad78418e349aef34b33774d238d61",
+      "integrity_hash": "55712fdc23bf91784259de783838a661a38c6542392ea44f0d4f9d919090f15e",
+      "created_at": "2026-03-19T08:35:44.418Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1725,
+    "fields": {
+      "event_id": "a41cb821-7adf-4a9c-865d-db939ad7e983",
+      "actor_user": null,
+      "action": "created",
+      "target_table": "communications.ChatMessage",
+      "target_id": "29",
+      "before": {},
+      "after": {
+        "id": 29,
+        "chatroom": 29,
+        "author_user": 3,
+        "message": "Welcome to TT-231. This class community is ready for course updates, questions, and lecturer announcements."
+      },
+      "request_id": "",
+      "request_path": "",
+      "request_method": "",
+      "request_status": null,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "55712fdc23bf91784259de783838a661a38c6542392ea44f0d4f9d919090f15e",
+      "integrity_hash": "ac17dd34465abe3fff6e3382a02f802f552f7dea12c47f2919a7886ffd2437e7",
+      "created_at": "2026-03-19T08:35:44.444Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1726,
+    "fields": {
+      "event_id": "f5f8f6d8-9b82-4f90-9a70-291f60fea7b1",
+      "actor_user": null,
+      "action": "created",
+      "target_table": "communications.ChatMessage",
+      "target_id": "30",
+      "before": {},
+      "after": {
+        "id": 30,
+        "chatroom": 30,
+        "author_user": 4,
+        "message": "Welcome to TT-232. This class community is ready for course updates, questions, and lecturer announcements."
+      },
+      "request_id": "",
+      "request_path": "",
+      "request_method": "",
+      "request_status": null,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "ac17dd34465abe3fff6e3382a02f802f552f7dea12c47f2919a7886ffd2437e7",
+      "integrity_hash": "7ba28184b340488fffbad96ae1421bf09ab39d215f8003afdacfdc903ee968f6",
+      "created_at": "2026-03-19T08:35:44.467Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1727,
+    "fields": {
+      "event_id": "82fb1d4d-fb38-4388-88c0-60fa39d910ea",
+      "actor_user": null,
+      "action": "created",
+      "target_table": "communications.ChatMessage",
+      "target_id": "31",
+      "before": {},
+      "after": {
+        "id": 31,
+        "chatroom": 31,
+        "author_user": 3,
+        "message": "Welcome to TT-233. This class community is ready for course updates, questions, and lecturer announcements."
+      },
+      "request_id": "",
+      "request_path": "",
+      "request_method": "",
+      "request_status": null,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "7ba28184b340488fffbad96ae1421bf09ab39d215f8003afdacfdc903ee968f6",
+      "integrity_hash": "85e8425aa6ce737f2d03b761ec24a962b38cc47acd3acd13c89f02da9da4302b",
+      "created_at": "2026-03-19T08:35:44.489Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1728,
+    "fields": {
+      "event_id": "d9b2784c-5ba3-4aaf-97a5-f18df744af52",
+      "actor_user": null,
+      "action": "created",
+      "target_table": "communications.ChatMessage",
+      "target_id": "32",
+      "before": {},
+      "after": {
+        "id": 32,
+        "chatroom": 32,
+        "author_user": 4,
+        "message": "Welcome to TT-234. This class community is ready for course updates, questions, and lecturer announcements."
+      },
+      "request_id": "",
+      "request_path": "",
+      "request_method": "",
+      "request_status": null,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "85e8425aa6ce737f2d03b761ec24a962b38cc47acd3acd13c89f02da9da4302b",
+      "integrity_hash": "4c3e5aa4df7ca65654a24bb66a2a64f5d6882db8e7b06ad1f84d1382db755c48",
+      "created_at": "2026-03-19T08:35:44.514Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1729,
+    "fields": {
+      "event_id": "3aaabd93-2e60-4460-8833-7f3938e2e319",
+      "actor_user": null,
+      "action": "created",
+      "target_table": "communications.ChatMessage",
+      "target_id": "33",
+      "before": {},
+      "after": {
+        "id": 33,
+        "chatroom": 33,
+        "author_user": 3,
+        "message": "Welcome to TTM101-U1. This class community is ready for course updates, questions, and lecturer announcements."
+      },
+      "request_id": "",
+      "request_path": "",
+      "request_method": "",
+      "request_status": null,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "4c3e5aa4df7ca65654a24bb66a2a64f5d6882db8e7b06ad1f84d1382db755c48",
+      "integrity_hash": "62a16e30a91762b2840bf601b9cf56058ad253f1d7b5c608db58f68b82ce5fee",
+      "created_at": "2026-03-19T08:35:44.543Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1730,
+    "fields": {
+      "event_id": "2b30e48c-1a09-4e49-b9ad-aeb22dc73f35",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/learning/students/me/peers/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T08:35:46.550273+00:00"
+      },
+      "request_id": "d2126caa-806f-4a26-b74c-2feda6953813",
+      "request_path": "/api/learning/students/me/peers/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "62a16e30a91762b2840bf601b9cf56058ad253f1d7b5c608db58f68b82ce5fee",
+      "integrity_hash": "fae2e0f175d87d8e95dc3a5cd090e71e5414698bba055c804eab27e84b0f2fd8",
+      "created_at": "2026-03-19T08:35:46.550Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1731,
+    "fields": {
+      "event_id": "1dd5b38d-1f01-4fab-a352-94de3408a8e3",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/communications/threads/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T08:35:46.558234+00:00"
+      },
+      "request_id": "16a4c2b8-8f7a-4a07-bbdf-bc1485ef17a0",
+      "request_path": "/api/communications/threads/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "62a16e30a91762b2840bf601b9cf56058ad253f1d7b5c608db58f68b82ce5fee",
+      "integrity_hash": "c0464d2c83a3ea772401e083e1ba846f9854276960e62c474905a799f57595f5",
+      "created_at": "2026-03-19T08:35:46.558Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1732,
+    "fields": {
+      "event_id": "294a1ddb-3c73-46c1-99fd-8752714795cf",
+      "actor_user": null,
+      "action": "created",
+      "target_table": "communications.Thread",
+      "target_id": "46",
+      "before": {},
+      "after": {
+        "id": 46,
+        "subject": "Peer chat between Aisha Student and Michael John",
+        "student": 5,
+        "teacher": 31,
+        "parent": null
+      },
+      "request_id": "",
+      "request_path": "",
+      "request_method": "",
+      "request_status": null,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "c0464d2c83a3ea772401e083e1ba846f9854276960e62c474905a799f57595f5",
+      "integrity_hash": "1b4224c4d973b8a0ec6188442502972beba8221f75d948aad884b0ff1071eb5b",
+      "created_at": "2026-03-19T08:35:56.009Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1733,
+    "fields": {
+      "event_id": "124d4024-a50d-4e1e-becc-81a28b6dfedb",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/communications/threads/student-peer-message/",
+      "before": {},
+      "after": {
+        "method": "POST",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T08:35:56.022690+00:00"
+      },
+      "request_id": "de41acad-b28d-46aa-acbb-41dd6cf11375",
+      "request_path": "/api/communications/threads/student-peer-message/",
+      "request_method": "POST",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "1b4224c4d973b8a0ec6188442502972beba8221f75d948aad884b0ff1071eb5b",
+      "integrity_hash": "a84414edf3d2c622d123e6b5faa265168f13f410ff682bc62874842d50ef1d75",
+      "created_at": "2026-03-19T08:35:56.022Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1734,
+    "fields": {
+      "event_id": "0c35f8c7-f6fe-4fa0-9bb7-8309a0b79677",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/communications/threads/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T08:35:56.112551+00:00"
+      },
+      "request_id": "5e10cbd5-1422-4915-97d7-00addd16fff0",
+      "request_path": "/api/communications/threads/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "a84414edf3d2c622d123e6b5faa265168f13f410ff682bc62874842d50ef1d75",
+      "integrity_hash": "9523cfe036806c49c077bbae00517a313b9d895410d75dbeb1efb5ab1eb10c49",
+      "created_at": "2026-03-19T08:35:56.112Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1735,
+    "fields": {
+      "event_id": "d62825cf-133d-4dcc-bfaf-0900125862fa",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/5/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T08:35:56.183195+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/5/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "9523cfe036806c49c077bbae00517a313b9d895410d75dbeb1efb5ab1eb10c49",
+      "integrity_hash": "5b6a64f79d469363f99d709a1bb319e78aba1c973b52c3ac96649aaf4e0fe15c",
+      "created_at": "2026-03-19T08:35:56.183Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1736,
+    "fields": {
+      "event_id": "ca1b6e69-dfe9-41bf-bf90-e8a625d87ee2",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/communications/chat-messages/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "127.0.0.1",
+        "user_agent": null,
+        "timestamp": "2026-03-19T08:36:02.534698+00:00"
+      },
+      "request_id": "5e77b41f-5d63-49b0-84af-342a3f3a0950",
+      "request_path": "/api/communications/chat-messages/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "127.0.0.1",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "5b6a64f79d469363f99d709a1bb319e78aba1c973b52c3ac96649aaf4e0fe15c",
+      "integrity_hash": "c9c2f6de534f0c121ab3561183957d8b78fd31063c15ffa09339afbfb209bcd5",
+      "created_at": "2026-03-19T08:36:02.534Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1737,
+    "fields": {
+      "event_id": "f05dac24-71e2-4feb-81f4-c023b34cb11c",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/communications/threads/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T08:36:04.045394+00:00"
+      },
+      "request_id": "cc3df15b-3b51-4c9e-825b-35065daff442",
+      "request_path": "/api/communications/threads/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "c9c2f6de534f0c121ab3561183957d8b78fd31063c15ffa09339afbfb209bcd5",
+      "integrity_hash": "d01bfcc14820d9f6680364404ec1984641e4f855a91bacb5507a9ff55107c7d9",
+      "created_at": "2026-03-19T08:36:04.045Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1738,
+    "fields": {
+      "event_id": "dcf681c3-0bc2-4c88-9bff-b61ba053aa79",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/learning/my-lecturers/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T08:36:04.104947+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/learning/my-lecturers/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "d01bfcc14820d9f6680364404ec1984641e4f855a91bacb5507a9ff55107c7d9",
+      "integrity_hash": "ea37af8ab79466889c2c911490dd95dba5d5658408883237014fd9897267364b",
+      "created_at": "2026-03-19T08:36:04.105Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1739,
+    "fields": {
+      "event_id": "f0679ddd-9d83-485c-bc78-f4cc8f8ff106",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/5/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T08:36:04.212027+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/5/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "ea37af8ab79466889c2c911490dd95dba5d5658408883237014fd9897267364b",
+      "integrity_hash": "7b614f4958035c631c24ce617a433ba1bfe8877cb92437d1d0a678a2f8bf250a",
+      "created_at": "2026-03-19T08:36:04.212Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1740,
+    "fields": {
+      "event_id": "ecd336fa-00c1-43d0-87c7-837d4228592f",
+      "actor_user": null,
+      "action": "updated",
+      "target_table": "users.User",
+      "target_id": "5",
+      "before": {},
+      "after": {
+        "id": 5,
+        "password": "pbkdf2_sha256$1000000$L0K5fCEyCTFT4Pd8awN2eK$s/m66DzMKfQ6zSoF/ZdbHbdAx80KY4AEDLKu4fFzb08=",
+        "last_login": "2026-03-19T08:36:38.212Z",
+        "is_superuser": false,
+        "username": "student1",
+        "first_name": "",
+        "last_name": "",
+        "email": "student1@example.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2025-11-19T11:28:49.438Z",
+        "role": "student",
+        "display_name": "Aisha Student",
+        "phone": "",
+        "date_of_birth": null,
+        "address": "",
+        "must_change_password": false,
+        "prefers_simple_language": true,
+        "prefers_high_contrast": false,
+        "speech_rate": 0.9,
+        "totp_secret": "",
+        "totp_enabled": false,
+        "totp_activated_at": null,
+        "groups": [],
+        "user_permissions": []
+      },
+      "request_id": "",
+      "request_path": "",
+      "request_method": "",
+      "request_status": null,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "7b614f4958035c631c24ce617a433ba1bfe8877cb92437d1d0a678a2f8bf250a",
+      "integrity_hash": "af640d4db139e5a23f0a6b6110fce2dae27378894b4c19cc7df3c9d0910fcc95",
+      "created_at": "2026-03-19T08:36:38.219Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1741,
+    "fields": {
+      "event_id": "cc8af293-2b14-4add-b87d-4b1615cb5ca9",
+      "actor_user": [
+        "student1"
+      ],
+      "action": "user_login",
+      "target_table": "users_user",
+      "target_id": "5",
+      "before": {},
+      "after": {},
+      "request_id": "",
+      "request_path": "",
+      "request_method": "",
+      "request_status": null,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "af640d4db139e5a23f0a6b6110fce2dae27378894b4c19cc7df3c9d0910fcc95",
+      "integrity_hash": "2ef46d1d3abaa95e9b684b9d9d48a5ab808a9544bb4147fdbddd620f59117ae1",
+      "created_at": "2026-03-19T08:36:38.228Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1742,
+    "fields": {
+      "event_id": "23e5434b-397a-4e71-b9a6-b4ea567e104b",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/token/",
+      "before": {},
+      "after": {
+        "method": "POST",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T08:36:38.237168+00:00"
+      },
+      "request_id": "4bd160d4-43d7-4a5f-9c93-44a646e8f72a",
+      "request_path": "/api/token/",
+      "request_method": "POST",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "2ef46d1d3abaa95e9b684b9d9d48a5ab808a9544bb4147fdbddd620f59117ae1",
+      "integrity_hash": "d7279a430d9a6dd573b121f9814bccd55a288085007360f262b577fb8ed40a8d",
+      "created_at": "2026-03-19T08:36:38.237Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1743,
+    "fields": {
+      "event_id": "29a67bd3-5097-4158-8474-43dcca96092f",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/me/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T08:36:38.319468+00:00"
+      },
+      "request_id": "df373b4a-ee95-470c-8315-e8bb56b9ea10",
+      "request_path": "/api/users/me/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "d7279a430d9a6dd573b121f9814bccd55a288085007360f262b577fb8ed40a8d",
+      "integrity_hash": "d0d6bb72e37bdc1b075f09bae096ab2c931f4e6e6926a69416e1bc1879127b54",
+      "created_at": "2026-03-19T08:36:38.319Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1744,
+    "fields": {
+      "event_id": "48aa2756-e7cd-45d5-b8ab-1e1ad8c7dd89",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/5/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T08:36:38.463314+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/5/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "d0d6bb72e37bdc1b075f09bae096ab2c931f4e6e6926a69416e1bc1879127b54",
+      "integrity_hash": "ff47a69d785e0c580b51eac5a7ad12edc351cc0c1b311ccebb1ea9bfd3fc1760",
+      "created_at": "2026-03-19T08:36:38.463Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1745,
+    "fields": {
+      "event_id": "e11ddb4f-7920-471f-8058-84ea90a38efc",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/core/transcribe/",
+      "before": {},
+      "after": {
+        "method": "POST",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T08:37:01.730021+00:00"
+      },
+      "request_id": "b4adc15c-2d09-4bf7-bfab-bb0447335eb9",
+      "request_path": "/api/core/transcribe/",
+      "request_method": "POST",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "ff47a69d785e0c580b51eac5a7ad12edc351cc0c1b311ccebb1ea9bfd3fc1760",
+      "integrity_hash": "9178bb0e955773564fa053e5c95fd7a8c1c10f2934b0225388c8d49a704461ff",
+      "created_at": "2026-03-19T08:37:01.730Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1746,
+    "fields": {
+      "event_id": "4941508c-0555-46e0-9b27-8092505b3695",
+      "actor_user": null,
+      "action": "deleted",
+      "target_table": "learning.Registration",
+      "target_id": "78",
+      "before": {},
+      "after": {
+        "id": 78,
+        "student": 5,
+        "unit": 3,
+        "academic_year": 2025,
+        "trimester": 1,
+        "status": "pending_hod",
+        "approved_by": null,
+        "approved_at": null
+      },
+      "request_id": "",
+      "request_path": "",
+      "request_method": "",
+      "request_status": null,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "9178bb0e955773564fa053e5c95fd7a8c1c10f2934b0225388c8d49a704461ff",
+      "integrity_hash": "f0e8ea0bb5b47d5934731dc0240d83cac9d5e8307fa3da8551c978ea1ba41b30",
+      "created_at": "2026-03-19T08:37:37.570Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1747,
+    "fields": {
+      "event_id": "c75dfad6-ec1e-424b-9d98-318ac2682849",
+      "actor_user": null,
+      "action": "deleted",
+      "target_table": "communications.ChatMessage",
+      "target_id": "2",
+      "before": {},
+      "after": {
+        "id": 2,
+        "chatroom": 1,
+        "author_user": 5,
+        "message": "Hello class"
+      },
+      "request_id": "",
+      "request_path": "",
+      "request_method": "",
+      "request_status": null,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "f0e8ea0bb5b47d5934731dc0240d83cac9d5e8307fa3da8551c978ea1ba41b30",
+      "integrity_hash": "3a4299b190848b437254992a023b67b19d33c41230c8951182a95ed6350c8cac",
+      "created_at": "2026-03-19T08:37:37.578Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1748,
+    "fields": {
+      "event_id": "dc471a5c-2d42-472f-be40-d5d3f75d7047",
+      "actor_user": null,
+      "action": "updated",
+      "target_table": "users.Student",
+      "target_id": "5",
+      "before": {},
+      "after": {
+        "user": 5,
+        "programme": 1,
+        "year": 1,
+        "trimester": 1,
+        "trimester_label": "Year 1, Trimester 1",
+        "admission_date": "2026-01-15",
+        "current_status": "active",
+        "stars": 0
+      },
+      "request_id": "",
+      "request_path": "",
+      "request_method": "",
+      "request_status": null,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "3a4299b190848b437254992a023b67b19d33c41230c8951182a95ed6350c8cac",
+      "integrity_hash": "3442c20ba3cbfb01cb4dbcf02f0e164ba9b723e6785b789c2568f6f847a508b3",
+      "created_at": "2026-03-19T08:37:37.587Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1749,
+    "fields": {
+      "event_id": "5d918f88-475d-4e36-bb97-54b8b5d3c770",
+      "actor_user": null,
+      "action": "created",
+      "target_table": "communications.ChatMessage",
+      "target_id": "34",
+      "before": {},
+      "after": {
+        "id": 34,
+        "chatroom": 1,
+        "author_user": 3,
+        "message": "Welcome to DTM101. This class community is ready for course updates, questions, and lecturer announcements."
+      },
+      "request_id": "",
+      "request_path": "",
+      "request_method": "",
+      "request_status": null,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "3442c20ba3cbfb01cb4dbcf02f0e164ba9b723e6785b789c2568f6f847a508b3",
+      "integrity_hash": "a3fa843552179595213ebfbcaf06a2da59d76870512491316eccadaf44c602b3",
+      "created_at": "2026-03-19T08:37:53.193Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1750,
+    "fields": {
+      "event_id": "18e770df-125c-4798-b402-12ba49cf828b",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/communications/chat-messages/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "127.0.0.1",
+        "user_agent": null,
+        "timestamp": "2026-03-19T08:38:12.396887+00:00"
+      },
+      "request_id": "f636ae21-82ff-4962-a593-49bdd117f323",
+      "request_path": "/api/communications/chat-messages/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "127.0.0.1",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "a3fa843552179595213ebfbcaf06a2da59d76870512491316eccadaf44c602b3",
+      "integrity_hash": "d6937eceb87a63599f23980b6e7691c2cae874c6b6f2f102450a0961371bb463",
+      "created_at": "2026-03-19T08:38:12.397Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1751,
+    "fields": {
+      "event_id": "501c058b-8c11-4580-a6b5-f97117a272ef",
+      "actor_user": null,
+      "action": "updated",
+      "target_table": "users.User",
+      "target_id": "5",
+      "before": {},
+      "after": {
+        "id": 5,
+        "password": "pbkdf2_sha256$1000000$L0K5fCEyCTFT4Pd8awN2eK$s/m66DzMKfQ6zSoF/ZdbHbdAx80KY4AEDLKu4fFzb08=",
+        "last_login": "2026-03-19T08:39:01.927Z",
+        "is_superuser": false,
+        "username": "student1",
+        "first_name": "",
+        "last_name": "",
+        "email": "student1@example.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2025-11-19T11:28:49.438Z",
+        "role": "student",
+        "display_name": "Aisha Student",
+        "phone": "",
+        "date_of_birth": null,
+        "address": "",
+        "must_change_password": false,
+        "prefers_simple_language": true,
+        "prefers_high_contrast": false,
+        "speech_rate": 0.9,
+        "totp_secret": "",
+        "totp_enabled": false,
+        "totp_activated_at": null,
+        "groups": [],
+        "user_permissions": []
+      },
+      "request_id": "",
+      "request_path": "",
+      "request_method": "",
+      "request_status": null,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "d6937eceb87a63599f23980b6e7691c2cae874c6b6f2f102450a0961371bb463",
+      "integrity_hash": "42e07fbcc5106c16b888597b86e3b5ca0c4f76db8e2d4ab50dcf951b9f18ba2a",
+      "created_at": "2026-03-19T08:39:01.940Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1752,
+    "fields": {
+      "event_id": "c4423f2c-187b-4736-8945-058a4cb64f9d",
+      "actor_user": [
+        "student1"
+      ],
+      "action": "user_login",
+      "target_table": "users_user",
+      "target_id": "5",
+      "before": {},
+      "after": {},
+      "request_id": "",
+      "request_path": "",
+      "request_method": "",
+      "request_status": null,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "42e07fbcc5106c16b888597b86e3b5ca0c4f76db8e2d4ab50dcf951b9f18ba2a",
+      "integrity_hash": "549bd6c7d357e64311ac5852d5fa597303a576976bde1dd9392889ed11d00b3d",
+      "created_at": "2026-03-19T08:39:01.952Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1753,
+    "fields": {
+      "event_id": "81a61838-df40-4a2a-8495-e69b3e35f0e9",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/token/",
+      "before": {},
+      "after": {
+        "method": "POST",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T08:39:01.966540+00:00"
+      },
+      "request_id": "ae0ca317-2df8-48f9-a7bd-932b7115cf14",
+      "request_path": "/api/token/",
+      "request_method": "POST",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "549bd6c7d357e64311ac5852d5fa597303a576976bde1dd9392889ed11d00b3d",
+      "integrity_hash": "8a28c170d328e64c1eb54d8dff97f60ed2b7dfd24d5d16f03e53cfe194c3f97b",
+      "created_at": "2026-03-19T08:39:01.966Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1754,
+    "fields": {
+      "event_id": "f3a1aa5a-dd54-4d56-aea6-26be00fcbb32",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/me/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T08:39:02.041355+00:00"
+      },
+      "request_id": "cf1099a7-87be-40ef-9a2a-66b6b31714e1",
+      "request_path": "/api/users/me/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "8a28c170d328e64c1eb54d8dff97f60ed2b7dfd24d5d16f03e53cfe194c3f97b",
+      "integrity_hash": "231a1a210d96f16204bfa344e6dd8edf631e7c7361a18b4e1407454a058617a3",
+      "created_at": "2026-03-19T08:39:02.041Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1755,
+    "fields": {
+      "event_id": "d8e39bfe-632b-4e21-9f5a-c213cbd4ff9c",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/5/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T08:39:02.257872+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/5/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "231a1a210d96f16204bfa344e6dd8edf631e7c7361a18b4e1407454a058617a3",
+      "integrity_hash": "5f401450c8d766d11d4d33859581dbaac6781e00779cacdb62af0a0725939dd8",
+      "created_at": "2026-03-19T08:39:02.258Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1756,
+    "fields": {
+      "event_id": "e8457cfe-2af6-48e7-a42a-fc61f6d393d9",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/communications/threads/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T08:39:50.989010+00:00"
+      },
+      "request_id": "48ca4f52-542c-49c8-8c92-b30850ac61e8",
+      "request_path": "/api/communications/threads/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "5f401450c8d766d11d4d33859581dbaac6781e00779cacdb62af0a0725939dd8",
+      "integrity_hash": "569324ee99c93bdc4c6bc97e5bf79acfdb98d3419d2042076948b3d069b53a34",
+      "created_at": "2026-03-19T08:39:50.989Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1757,
+    "fields": {
+      "event_id": "77bf5679-0a7f-4120-b04c-06a6222cb662",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/learning/my-lecturers/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T08:39:51.120177+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/learning/my-lecturers/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "569324ee99c93bdc4c6bc97e5bf79acfdb98d3419d2042076948b3d069b53a34",
+      "integrity_hash": "2b926b4b5ee5af6617a1e937048d31f04eb2b5e6153bfe69e93902d23256201a",
+      "created_at": "2026-03-19T08:39:51.120Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1758,
+    "fields": {
+      "event_id": "ab689614-2cae-4f1b-9bbc-a06ff892c35b",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/5/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T08:39:51.263310+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/5/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "2b926b4b5ee5af6617a1e937048d31f04eb2b5e6153bfe69e93902d23256201a",
+      "integrity_hash": "533ff862829f0e6cf25f3434e8074e436d70421a9ec395acbdff5052f42161f6",
+      "created_at": "2026-03-19T08:39:51.263Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1759,
+    "fields": {
+      "event_id": "b0ec2ac9-c5a9-47e9-8d14-b8a069359f70",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/communications/threads/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T08:39:53.449788+00:00"
+      },
+      "request_id": "d389d662-aa7b-4b54-8a22-d3cb09d2ef53",
+      "request_path": "/api/communications/threads/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "533ff862829f0e6cf25f3434e8074e436d70421a9ec395acbdff5052f42161f6",
+      "integrity_hash": "a5176c1737636553222a6f662ac9a43ec31c9fd35718b5e8dddf27703f9c7a18",
+      "created_at": "2026-03-19T08:39:53.450Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1760,
+    "fields": {
+      "event_id": "3de7fab0-b954-4a7f-a435-823d5742a655",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/5/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T08:39:53.573944+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/5/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "a5176c1737636553222a6f662ac9a43ec31c9fd35718b5e8dddf27703f9c7a18",
+      "integrity_hash": "e32cd160a4e5cfcc3de23137dcc34e0844c90d972a597d4d44767b86ad4c06f2",
+      "created_at": "2026-03-19T08:39:53.574Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1761,
+    "fields": {
+      "event_id": "7ed71428-0e6c-434e-83cf-7f7e145492bd",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/communications/threads/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T08:40:00.131245+00:00"
+      },
+      "request_id": "d0327ad6-e79f-4627-869f-c0de244f13a0",
+      "request_path": "/api/communications/threads/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "e32cd160a4e5cfcc3de23137dcc34e0844c90d972a597d4d44767b86ad4c06f2",
+      "integrity_hash": "72ee7ea7178405f0b3615c0ccad2a40bb52015fcf2d235ebd8770f8eab34ddd2",
+      "created_at": "2026-03-19T08:40:00.131Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1762,
+    "fields": {
+      "event_id": "d2faf694-d2e9-4573-9446-c5116e82786c",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/5/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T08:40:00.265437+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/5/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "72ee7ea7178405f0b3615c0ccad2a40bb52015fcf2d235ebd8770f8eab34ddd2",
+      "integrity_hash": "594dd9c4b6ba818ec96629ead56fcd8c0c7645752a6776e118b5b29704b77d7c",
+      "created_at": "2026-03-19T08:40:00.265Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1763,
+    "fields": {
+      "event_id": "3d3cb9e1-45d2-4398-b41c-4fdcea2de815",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/5/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T08:41:25.397296+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/5/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "594dd9c4b6ba818ec96629ead56fcd8c0c7645752a6776e118b5b29704b77d7c",
+      "integrity_hash": "0c1209e31cb58d109f1c4d8197fb6033bf35125f0ce362ee8061007af107e7f8",
+      "created_at": "2026-03-19T08:41:25.397Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1764,
+    "fields": {
+      "event_id": "0dc9be7c-5aba-4707-8aad-9aaf21191043",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/5/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T08:41:25.409813+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/5/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "0c1209e31cb58d109f1c4d8197fb6033bf35125f0ce362ee8061007af107e7f8",
+      "integrity_hash": "fb966ad94a145d1d4b79823e808f1c194b9d311170f30d0d0c1dfac1a65bb3de",
+      "created_at": "2026-03-19T08:41:25.410Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1765,
+    "fields": {
+      "event_id": "fe5e25d2-4c06-433b-9d7d-44e527f94da8",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/5/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T09:15:55.690101+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/5/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "fb966ad94a145d1d4b79823e808f1c194b9d311170f30d0d0c1dfac1a65bb3de",
+      "integrity_hash": "a08c94632f3752617f23515a99caf71e6fdad21d371ac56d8d1c0fffb9262f0e",
+      "created_at": "2026-03-19T09:15:55.690Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1766,
+    "fields": {
+      "event_id": "b1cf9b83-88cf-4a57-861a-b2b27ccc1906",
+      "actor_user": null,
+      "action": "created",
+      "target_table": "chatbot.Turn",
+      "target_id": "31",
+      "before": {},
+      "after": {
+        "id": 31,
+        "conversation": 1,
+        "sender": "user",
+        "text": "When is my next class?"
+      },
+      "request_id": "",
+      "request_path": "",
+      "request_method": "",
+      "request_status": null,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "a08c94632f3752617f23515a99caf71e6fdad21d371ac56d8d1c0fffb9262f0e",
+      "integrity_hash": "34a3617792a678a4bc5d9dc23b31a4d491b2addb01b438bda62a49bf069d5708",
+      "created_at": "2026-03-19T09:16:02.586Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1767,
+    "fields": {
+      "event_id": "5b119712-7c1a-45d9-83da-f101dfa432a7",
+      "actor_user": null,
+      "action": "created",
+      "target_table": "chatbot.Turn",
+      "target_id": "32",
+      "before": {},
+      "after": {
+        "id": 32,
+        "conversation": 1,
+        "sender": "bot",
+        "text": "Your next class is DTM101 at Mon 23 Mar 09:00 AM in Room 101 with Peter Lecturer."
+      },
+      "request_id": "",
+      "request_path": "",
+      "request_method": "",
+      "request_status": null,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "34a3617792a678a4bc5d9dc23b31a4d491b2addb01b438bda62a49bf069d5708",
+      "integrity_hash": "78f058de5b749e7e0538d3e1605e80c7514c59eb1607eb1db1b9228f655f1a59",
+      "created_at": "2026-03-19T09:16:02.645Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1768,
+    "fields": {
+      "event_id": "7ec5a7e7-7273-43ca-adf1-949ffba460cd",
+      "actor_user": null,
+      "action": "updated",
+      "target_table": "chatbot.Conversation",
+      "target_id": "1",
+      "before": {},
+      "after": {
+        "id": 1,
+        "user": 5,
+        "title": "Student assistant",
+        "state": {
+          "last_intent": "class_timing",
+          "last_query": "When is my next class?",
+          "last_visual_cue": "schedule",
+          "last_updated_at": "2026-03-19T09:16:02.666639+00:00"
+        }
+      },
+      "request_id": "",
+      "request_path": "",
+      "request_method": "",
+      "request_status": null,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "78f058de5b749e7e0538d3e1605e80c7514c59eb1607eb1db1b9228f655f1a59",
+      "integrity_hash": "781970fe89caca92605ac42762efd49d65b6fb68ccffb6c3ce7a628a6a3a0983",
+      "created_at": "2026-03-19T09:16:02.679Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1769,
+    "fields": {
+      "event_id": "0a3ab604-d268-4acc-80d5-f2448fe3d1d5",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/chatbot/ask/",
+      "before": {},
+      "after": {
+        "method": "POST",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T09:16:02.699552+00:00"
+      },
+      "request_id": "e175221a-e210-4e9d-a01a-5e3ec2e2d7cc",
+      "request_path": "/api/chatbot/ask/",
+      "request_method": "POST",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "781970fe89caca92605ac42762efd49d65b6fb68ccffb6c3ce7a628a6a3a0983",
+      "integrity_hash": "f30154e57b7a8346532a0f78a8c3f45d3840a2ce2e77e22bc35fd83baaa7991e",
+      "created_at": "2026-03-19T09:16:02.699Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1770,
+    "fields": {
+      "event_id": "4f401a0b-7f1f-4f9d-a330-75c3f6a5fbff",
+      "actor_user": null,
+      "action": "created",
+      "target_table": "chatbot.Turn",
+      "target_id": "33",
+      "before": {},
+      "after": {
+        "id": 33,
+        "conversation": 1,
+        "sender": "user",
+        "text": "When is my next class?"
+      },
+      "request_id": "",
+      "request_path": "",
+      "request_method": "",
+      "request_status": null,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "f30154e57b7a8346532a0f78a8c3f45d3840a2ce2e77e22bc35fd83baaa7991e",
+      "integrity_hash": "2d887435dea797e4b46b0cf2fec76449780b34a6e420bee1d3120dbe7da3514f",
+      "created_at": "2026-03-19T09:16:12.302Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1771,
+    "fields": {
+      "event_id": "da768de9-6ac8-4e44-9f86-ce9a57d0f3c6",
+      "actor_user": null,
+      "action": "created",
+      "target_table": "chatbot.Turn",
+      "target_id": "34",
+      "before": {},
+      "after": {
+        "id": 34,
+        "conversation": 1,
+        "sender": "bot",
+        "text": "Your next class is DTM101 at Mon 23 Mar 09:00 AM in Room 101 with Peter Lecturer."
+      },
+      "request_id": "",
+      "request_path": "",
+      "request_method": "",
+      "request_status": null,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "2d887435dea797e4b46b0cf2fec76449780b34a6e420bee1d3120dbe7da3514f",
+      "integrity_hash": "b3368fb926ade66a7f3ff57d94de4b5f9e1dde3f8af4802e030936dc24261fc0",
+      "created_at": "2026-03-19T09:16:12.317Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1772,
+    "fields": {
+      "event_id": "4f246272-5e5a-4c91-ae03-ec1eb21f6e11",
+      "actor_user": null,
+      "action": "updated",
+      "target_table": "chatbot.Conversation",
+      "target_id": "1",
+      "before": {},
+      "after": {
+        "id": 1,
+        "user": 5,
+        "title": "Student assistant",
+        "state": {
+          "last_intent": "class_timing",
+          "last_query": "When is my next class?",
+          "last_visual_cue": "schedule",
+          "last_updated_at": "2026-03-19T09:16:12.325369+00:00"
+        }
+      },
+      "request_id": "",
+      "request_path": "",
+      "request_method": "",
+      "request_status": null,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "b3368fb926ade66a7f3ff57d94de4b5f9e1dde3f8af4802e030936dc24261fc0",
+      "integrity_hash": "0cbf60eb84b30d737be56bbf76bd99fb12fe59a6f70f48f69335360aa010b34d",
+      "created_at": "2026-03-19T09:16:12.330Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1773,
+    "fields": {
+      "event_id": "77b2570d-74cd-4c30-82ce-d056ba791f81",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/chatbot/ask/",
+      "before": {},
+      "after": {
+        "method": "POST",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T09:16:12.339598+00:00"
+      },
+      "request_id": "a7798be0-fd59-4703-9a66-2e9563662b14",
+      "request_path": "/api/chatbot/ask/",
+      "request_method": "POST",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "0cbf60eb84b30d737be56bbf76bd99fb12fe59a6f70f48f69335360aa010b34d",
+      "integrity_hash": "78a7cd310d5a8b9d1fdd56c04f85e93d98570ac1c8685de6faa19eb0036f4bf8",
+      "created_at": "2026-03-19T09:16:12.339Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1774,
+    "fields": {
+      "event_id": "44fa48bf-e868-484b-80ca-96169a15d9d3",
+      "actor_user": null,
+      "action": "created",
+      "target_table": "chatbot.Turn",
+      "target_id": "35",
+      "before": {},
+      "after": {
+        "id": 35,
+        "conversation": 1,
+        "sender": "user",
+        "text": "Do I have an upcoming class call?"
+      },
+      "request_id": "",
+      "request_path": "",
+      "request_method": "",
+      "request_status": null,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "78a7cd310d5a8b9d1fdd56c04f85e93d98570ac1c8685de6faa19eb0036f4bf8",
+      "integrity_hash": "247580e1caf2f47cf6f980f1c50dab81d0d023f3010f5725f3c9c89ebf4dba39",
+      "created_at": "2026-03-19T09:16:14.323Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1775,
+    "fields": {
+      "event_id": "5c055a68-f9c1-4d7f-8f03-58b3a8cb5aa1",
+      "actor_user": null,
+      "action": "created",
+      "target_table": "chatbot.Turn",
+      "target_id": "36",
+      "before": {},
+      "after": {
+        "id": 36,
+        "conversation": 1,
+        "sender": "bot",
+        "text": "You do not have an upcoming class call right now. You can also ask: When is my next class?, Show class communities, Any school notices?."
+      },
+      "request_id": "",
+      "request_path": "",
+      "request_method": "",
+      "request_status": null,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "247580e1caf2f47cf6f980f1c50dab81d0d023f3010f5725f3c9c89ebf4dba39",
+      "integrity_hash": "2c8a6f9d45330036b31a3a318c69cedecb4799f2da7c37c902d290c1b3115730",
+      "created_at": "2026-03-19T09:16:14.343Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1776,
+    "fields": {
+      "event_id": "1746224e-0141-41bc-a9e7-cdb153e3d56e",
+      "actor_user": null,
+      "action": "updated",
+      "target_table": "chatbot.Conversation",
+      "target_id": "1",
+      "before": {},
+      "after": {
+        "id": 1,
+        "user": 5,
+        "title": "Student assistant",
+        "state": {
+          "last_intent": "scheduled_calls",
+          "last_query": "Do I have an upcoming class call?",
+          "last_visual_cue": "call",
+          "last_updated_at": "2026-03-19T09:16:14.351893+00:00"
+        }
+      },
+      "request_id": "",
+      "request_path": "",
+      "request_method": "",
+      "request_status": null,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "2c8a6f9d45330036b31a3a318c69cedecb4799f2da7c37c902d290c1b3115730",
+      "integrity_hash": "03f7535a8d27a1704a6c2215e21d2ff9917d9650348588c40a80cbca633e7ef1",
+      "created_at": "2026-03-19T09:16:14.357Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1777,
+    "fields": {
+      "event_id": "8dc69abb-88e0-47dc-9b52-347dae85708c",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/chatbot/ask/",
+      "before": {},
+      "after": {
+        "method": "POST",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T09:16:14.364410+00:00"
+      },
+      "request_id": "612a9446-f9aa-425a-8368-1f39ff51cf12",
+      "request_path": "/api/chatbot/ask/",
+      "request_method": "POST",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "03f7535a8d27a1704a6c2215e21d2ff9917d9650348588c40a80cbca633e7ef1",
+      "integrity_hash": "0a657f99a4a2b7342301097accbc0258f9e1049656e2b5648494cc24a7e7f64e",
+      "created_at": "2026-03-19T09:16:14.364Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1778,
+    "fields": {
+      "event_id": "ad1d7787-1525-401b-80ea-734b4d8a454a",
+      "actor_user": null,
+      "action": "created",
+      "target_table": "chatbot.Turn",
+      "target_id": "37",
+      "before": {},
+      "after": {
+        "id": 37,
+        "conversation": 1,
+        "sender": "user",
+        "text": "What is a fruit"
+      },
+      "request_id": "",
+      "request_path": "",
+      "request_method": "",
+      "request_status": null,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "0a657f99a4a2b7342301097accbc0258f9e1049656e2b5648494cc24a7e7f64e",
+      "integrity_hash": "9760336e113c14707c64e1e13926d9bf5ed5a4599232ad84d890e76741518d41",
+      "created_at": "2026-03-19T09:16:31.651Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1779,
+    "fields": {
+      "event_id": "66c02d80-17df-428c-8038-9e2ca48d28b5",
+      "actor_user": null,
+      "action": "created",
+      "target_table": "chatbot.Turn",
+      "target_id": "38",
+      "before": {},
+      "after": {
+        "id": 38,
+        "conversation": 1,
+        "sender": "bot",
+        "text": "That question is not relevant to school work. I can only help with classes, lecturers, assignments, calls, school activities, and course revision."
+      },
+      "request_id": "",
+      "request_path": "",
+      "request_method": "",
+      "request_status": null,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "9760336e113c14707c64e1e13926d9bf5ed5a4599232ad84d890e76741518d41",
+      "integrity_hash": "2d88cccf16ade16391b29876cf5eae03d1b1b4cb8fc9ea9e99d18cbc77fb2480",
+      "created_at": "2026-03-19T09:16:31.691Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1780,
+    "fields": {
+      "event_id": "8ed5578e-6f58-4f20-83f3-6c0ed1b99956",
+      "actor_user": null,
+      "action": "updated",
+      "target_table": "chatbot.Conversation",
+      "target_id": "1",
+      "before": {},
+      "after": {
+        "id": 1,
+        "user": 5,
+        "title": "Student assistant",
+        "state": {
+          "last_intent": "scope_guard",
+          "last_query": "What is a fruit",
+          "last_visual_cue": "scope_guard",
+          "last_updated_at": "2026-03-19T09:16:31.707038+00:00"
+        }
+      },
+      "request_id": "",
+      "request_path": "",
+      "request_method": "",
+      "request_status": null,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "2d88cccf16ade16391b29876cf5eae03d1b1b4cb8fc9ea9e99d18cbc77fb2480",
+      "integrity_hash": "90593d32d658f32c9f749e834472eee679360a726dcfb678c376037588ef883b",
+      "created_at": "2026-03-19T09:16:31.719Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1781,
+    "fields": {
+      "event_id": "d280ca0f-d430-4ed0-825b-a7d0f8af074b",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/chatbot/ask/",
+      "before": {},
+      "after": {
+        "method": "POST",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T09:16:31.734438+00:00"
+      },
+      "request_id": "eaba1a4d-7c6c-4346-acc1-4905a5b3baff",
+      "request_path": "/api/chatbot/ask/",
+      "request_method": "POST",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "90593d32d658f32c9f749e834472eee679360a726dcfb678c376037588ef883b",
+      "integrity_hash": "e25cc14d64081316bfb4cea75ea9402f78379855b69fa4315c9386d468e9aa2d",
+      "created_at": "2026-03-19T09:16:31.734Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1782,
+    "fields": {
+      "event_id": "1998c5ae-570b-4278-abe8-27053a98bb73",
+      "actor_user": null,
+      "action": "updated",
+      "target_table": "users.User",
+      "target_id": "39",
+      "before": {},
+      "after": {
+        "id": 39,
+        "password": "pbkdf2_sha256$1000000$TeCrY2UZVzRNdra2uPrIvd$7AzuywV2U4D2u7ct2ccr6H/WdxFfDUVSSqH67wgneic=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "Salma",
+        "first_name": "",
+        "last_name": "",
+        "email": "demo_ttm101_y1_1@example.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-03-12T09:31:01.960Z",
+        "role": "student",
+        "display_name": "Salma",
+        "phone": "",
+        "date_of_birth": null,
+        "address": "",
+        "must_change_password": false,
+        "prefers_simple_language": true,
+        "prefers_high_contrast": false,
+        "speech_rate": 0.9,
+        "totp_secret": "",
+        "totp_enabled": false,
+        "totp_activated_at": null,
+        "groups": [],
+        "user_permissions": []
+      },
+      "request_id": "",
+      "request_path": "",
+      "request_method": "",
+      "request_status": null,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "e25cc14d64081316bfb4cea75ea9402f78379855b69fa4315c9386d468e9aa2d",
+      "integrity_hash": "4408273725e0c95b585f52dab2cec0b86c08e9ddcfe52606a82559eb3af8755a",
+      "created_at": "2026-03-19T09:21:20.747Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1783,
+    "fields": {
+      "event_id": "55f7c6a4-4701-4436-bffc-30763dd76b7f",
+      "actor_user": null,
+      "action": "updated",
+      "target_table": "users.User",
+      "target_id": "41",
+      "before": {},
+      "after": {
+        "id": 41,
+        "password": "pbkdf2_sha256$1000000$tQFFsDUcoEvbqWv1CyLW18$Wo584P/GC9PMoS/bdUvjaFehIEN3xKHub9b46F+OPt8=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "Farhan",
+        "first_name": "",
+        "last_name": "",
+        "email": "demo_ttm101_y1_2@example.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-03-12T09:31:02.904Z",
+        "role": "student",
+        "display_name": "Farhan",
+        "phone": "",
+        "date_of_birth": null,
+        "address": "",
+        "must_change_password": false,
+        "prefers_simple_language": true,
+        "prefers_high_contrast": false,
+        "speech_rate": 0.9,
+        "totp_secret": "",
+        "totp_enabled": false,
+        "totp_activated_at": null,
+        "groups": [],
+        "user_permissions": []
+      },
+      "request_id": "",
+      "request_path": "",
+      "request_method": "",
+      "request_status": null,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "4408273725e0c95b585f52dab2cec0b86c08e9ddcfe52606a82559eb3af8755a",
+      "integrity_hash": "5c57dc7709ad6b6879c1826e2ffd1905fa0999c443c05caa511ddf39e39b47e3",
+      "created_at": "2026-03-19T09:21:20.763Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1784,
+    "fields": {
+      "event_id": "1cee37ac-27a0-4032-93ee-0de211869fb8",
+      "actor_user": null,
+      "action": "updated",
+      "target_table": "users.User",
+      "target_id": "43",
+      "before": {},
+      "after": {
+        "id": 43,
+        "password": "pbkdf2_sha256$1000000$DgGmhq64sZSz0CeYXB8iu5$G7TmgZylNhMj9gqrRLoXFe0Yc5Xiv3nH3VC7Bo3cLZM=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "Omar",
+        "first_name": "",
+        "last_name": "",
+        "email": "demo_ttm101_y1_3@example.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-03-12T09:31:03.847Z",
+        "role": "student",
+        "display_name": "Omar",
+        "phone": "",
+        "date_of_birth": null,
+        "address": "",
+        "must_change_password": false,
+        "prefers_simple_language": true,
+        "prefers_high_contrast": false,
+        "speech_rate": 0.9,
+        "totp_secret": "",
+        "totp_enabled": false,
+        "totp_activated_at": null,
+        "groups": [],
+        "user_permissions": []
+      },
+      "request_id": "",
+      "request_path": "",
+      "request_method": "",
+      "request_status": null,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "5c57dc7709ad6b6879c1826e2ffd1905fa0999c443c05caa511ddf39e39b47e3",
+      "integrity_hash": "1ccd89763974d142f03809cca1ecf3d4b8120c5b3c1e933adad9c71502b45fbf",
+      "created_at": "2026-03-19T09:21:20.777Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1785,
+    "fields": {
+      "event_id": "a119aa29-1938-431a-80af-a74e9a7c24fd",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/finance/status/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "127.0.0.1",
+        "user_agent": null,
+        "timestamp": "2026-03-19T09:21:43.742485+00:00"
+      },
+      "request_id": "ab857504-90eb-4f39-a31f-5de0cea6154c",
+      "request_path": "/api/finance/status/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "127.0.0.1",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "1ccd89763974d142f03809cca1ecf3d4b8120c5b3c1e933adad9c71502b45fbf",
+      "integrity_hash": "bcda7f4b1574136c5f10764dcfbbb0ed08eaca527fc14256022dcd6f296ac708",
+      "created_at": "2026-03-19T09:21:43.742Z"
+    }
+  }
+]

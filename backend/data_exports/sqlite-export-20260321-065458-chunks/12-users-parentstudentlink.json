@@ -1,0 +1,189 @@
+[
+  {
+    "model": "users.parentstudentlink",
+    "pk": 1,
+    "fields": {
+      "created_at": "2026-01-19T11:32:04.194Z",
+      "updated_at": "2026-01-19T11:32:04.194Z",
+      "parent": 14,
+      "student": 13,
+      "relationship": "Mother"
+    }
+  },
+  {
+    "model": "users.parentstudentlink",
+    "pk": 2,
+    "fields": {
+      "created_at": "2026-03-12T09:30:51.348Z",
+      "updated_at": "2026-03-12T09:30:51.348Z",
+      "parent": 16,
+      "student": 15,
+      "relationship": "Guardian"
+    }
+  },
+  {
+    "model": "users.parentstudentlink",
+    "pk": 3,
+    "fields": {
+      "created_at": "2026-03-12T09:30:52.417Z",
+      "updated_at": "2026-03-12T09:30:52.417Z",
+      "parent": 18,
+      "student": 17,
+      "relationship": "Guardian"
+    }
+  },
+  {
+    "model": "users.parentstudentlink",
+    "pk": 4,
+    "fields": {
+      "created_at": "2026-03-12T09:30:53.364Z",
+      "updated_at": "2026-03-12T09:30:53.364Z",
+      "parent": 20,
+      "student": 19,
+      "relationship": "Guardian"
+    }
+  },
+  {
+    "model": "users.parentstudentlink",
+    "pk": 5,
+    "fields": {
+      "created_at": "2026-03-12T09:30:54.330Z",
+      "updated_at": "2026-03-12T09:30:54.330Z",
+      "parent": 22,
+      "student": 21,
+      "relationship": "Guardian"
+    }
+  },
+  {
+    "model": "users.parentstudentlink",
+    "pk": 6,
+    "fields": {
+      "created_at": "2026-03-12T09:30:55.298Z",
+      "updated_at": "2026-03-12T09:30:55.298Z",
+      "parent": 24,
+      "student": 23,
+      "relationship": "Guardian"
+    }
+  },
+  {
+    "model": "users.parentstudentlink",
+    "pk": 7,
+    "fields": {
+      "created_at": "2026-03-12T09:30:56.260Z",
+      "updated_at": "2026-03-12T09:30:56.260Z",
+      "parent": 26,
+      "student": 25,
+      "relationship": "Guardian"
+    }
+  },
+  {
+    "model": "users.parentstudentlink",
+    "pk": 8,
+    "fields": {
+      "created_at": "2026-03-12T09:30:57.200Z",
+      "updated_at": "2026-03-12T09:30:57.200Z",
+      "parent": 28,
+      "student": 27,
+      "relationship": "Guardian"
+    }
+  },
+  {
+    "model": "users.parentstudentlink",
+    "pk": 9,
+    "fields": {
+      "created_at": "2026-03-12T09:30:58.140Z",
+      "updated_at": "2026-03-12T09:30:58.140Z",
+      "parent": 30,
+      "student": 29,
+      "relationship": "Guardian"
+    }
+  },
+  {
+    "model": "users.parentstudentlink",
+    "pk": 10,
+    "fields": {
+      "created_at": "2026-03-12T09:30:59.095Z",
+      "updated_at": "2026-03-12T09:30:59.095Z",
+      "parent": 32,
+      "student": 31,
+      "relationship": "Guardian"
+    }
+  },
+  {
+    "model": "users.parentstudentlink",
+    "pk": 11,
+    "fields": {
+      "created_at": "2026-03-12T09:31:00.050Z",
+      "updated_at": "2026-03-12T09:31:00.050Z",
+      "parent": 34,
+      "student": 33,
+      "relationship": "Guardian"
+    }
+  },
+  {
+    "model": "users.parentstudentlink",
+    "pk": 12,
+    "fields": {
+      "created_at": "2026-03-12T09:31:01.004Z",
+      "updated_at": "2026-03-12T09:31:01.004Z",
+      "parent": 36,
+      "student": 35,
+      "relationship": "Guardian"
+    }
+  },
+  {
+    "model": "users.parentstudentlink",
+    "pk": 13,
+    "fields": {
+      "created_at": "2026-03-12T09:31:01.958Z",
+      "updated_at": "2026-03-12T09:31:01.958Z",
+      "parent": 38,
+      "student": 37,
+      "relationship": "Guardian"
+    }
+  },
+  {
+    "model": "users.parentstudentlink",
+    "pk": 14,
+    "fields": {
+      "created_at": "2026-03-12T09:31:02.901Z",
+      "updated_at": "2026-03-12T09:31:02.901Z",
+      "parent": 40,
+      "student": 39,
+      "relationship": "Guardian"
+    }
+  },
+  {
+    "model": "users.parentstudentlink",
+    "pk": 15,
+    "fields": {
+      "created_at": "2026-03-12T09:31:03.845Z",
+      "updated_at": "2026-03-12T09:31:03.845Z",
+      "parent": 42,
+      "student": 41,
+      "relationship": "Guardian"
+    }
+  },
+  {
+    "model": "users.parentstudentlink",
+    "pk": 16,
+    "fields": {
+      "created_at": "2026-03-12T09:31:04.795Z",
+      "updated_at": "2026-03-12T09:31:04.795Z",
+      "parent": 44,
+      "student": 43,
+      "relationship": "Guardian"
+    }
+  },
+  {
+    "model": "users.parentstudentlink",
+    "pk": 17,
+    "fields": {
+      "created_at": "2026-03-13T12:32:34.532Z",
+      "updated_at": "2026-03-13T12:32:34.532Z",
+      "parent": 6,
+      "student": 5,
+      "relationship": "Guardian"
+    }
+  }
+]

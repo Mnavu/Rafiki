@@ -24,6 +24,9 @@ def _unique_users(users):
 
 @receiver(post_save, sender=Assignment)
 def assignment_upsert(sender, instance: Assignment, created, **kwargs):
+    if kwargs.get("raw"):
+        return
+
     owners = []
     if instance.lecturer_id:
         owners.append(instance.lecturer)
@@ -64,6 +67,9 @@ def assignment_removed(sender, instance: Assignment, **kwargs):
 
 @receiver(post_save, sender=Registration)
 def registration_updated(sender, instance: Registration, created, **kwargs):
+    if kwargs.get("raw"):
+        return
+
     if instance.status != "approved":
         if not created:
             remove_calendar_events_for_source("registration", str(instance.id))

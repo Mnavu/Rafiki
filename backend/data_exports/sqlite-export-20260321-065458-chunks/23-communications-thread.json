@@ -1,0 +1,780 @@
+[
+  {
+    "model": "communications.thread",
+    "pk": 1,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.256Z",
+      "updated_at": "2026-03-19T07:17:03.256Z",
+      "subject": "DTM101 lecturer channel",
+      "student": [
+        "student1"
+      ],
+      "teacher": [
+        "lecturer1"
+      ],
+      "parent": null
+    }
+  },
+  {
+    "model": "communications.thread",
+    "pk": 2,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.261Z",
+      "updated_at": "2026-03-19T07:17:03.261Z",
+      "subject": "DTM101 guardian channel",
+      "student": [
+        "student1"
+      ],
+      "teacher": [
+        "lecturer1"
+      ],
+      "parent": [
+        "parent1"
+      ]
+    }
+  },
+  {
+    "model": "communications.thread",
+    "pk": 3,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.293Z",
+      "updated_at": "2026-03-19T07:17:03.293Z",
+      "subject": "DTM101 lecturer channel",
+      "student": [
+        "Zuena"
+      ],
+      "teacher": [
+        "lecturer1"
+      ],
+      "parent": null
+    }
+  },
+  {
+    "model": "communications.thread",
+    "pk": 4,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.295Z",
+      "updated_at": "2026-03-19T07:17:03.295Z",
+      "subject": "DTM101 guardian channel",
+      "student": [
+        "Zuena"
+      ],
+      "teacher": [
+        "lecturer1"
+      ],
+      "parent": [
+        "demo_guardian_dtm_y1_1"
+      ]
+    }
+  },
+  {
+    "model": "communications.thread",
+    "pk": 5,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.304Z",
+      "updated_at": "2026-03-19T07:17:03.304Z",
+      "subject": "DTM103 lecturer channel",
+      "student": [
+        "Zuena"
+      ],
+      "teacher": [
+        "lecturer2"
+      ],
+      "parent": null
+    }
+  },
+  {
+    "model": "communications.thread",
+    "pk": 6,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.306Z",
+      "updated_at": "2026-03-19T07:17:03.306Z",
+      "subject": "DTM103 guardian channel",
+      "student": [
+        "Zuena"
+      ],
+      "teacher": [
+        "lecturer2"
+      ],
+      "parent": [
+        "demo_guardian_dtm_y1_1"
+      ]
+    }
+  },
+  {
+    "model": "communications.thread",
+    "pk": 7,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.338Z",
+      "updated_at": "2026-03-19T07:17:03.338Z",
+      "subject": "DTM101 lecturer channel",
+      "student": [
+        "Lee"
+      ],
+      "teacher": [
+        "lecturer1"
+      ],
+      "parent": null
+    }
+  },
+  {
+    "model": "communications.thread",
+    "pk": 8,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.342Z",
+      "updated_at": "2026-03-19T07:17:03.342Z",
+      "subject": "DTM101 guardian channel",
+      "student": [
+        "Lee"
+      ],
+      "teacher": [
+        "lecturer1"
+      ],
+      "parent": [
+        "demo_guardian_dtm_y1_2"
+      ]
+    }
+  },
+  {
+    "model": "communications.thread",
+    "pk": 9,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.353Z",
+      "updated_at": "2026-03-19T07:17:03.353Z",
+      "subject": "DTM103 lecturer channel",
+      "student": [
+        "Lee"
+      ],
+      "teacher": [
+        "lecturer2"
+      ],
+      "parent": null
+    }
+  },
+  {
+    "model": "communications.thread",
+    "pk": 10,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.355Z",
+      "updated_at": "2026-03-19T07:17:03.355Z",
+      "subject": "DTM103 guardian channel",
+      "student": [
+        "Lee"
+      ],
+      "teacher": [
+        "lecturer2"
+      ],
+      "parent": [
+        "demo_guardian_dtm_y1_2"
+      ]
+    }
+  },
+  {
+    "model": "communications.thread",
+    "pk": 11,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.379Z",
+      "updated_at": "2026-03-19T07:17:03.379Z",
+      "subject": "DTM101 lecturer channel",
+      "student": [
+        "Michael"
+      ],
+      "teacher": [
+        "lecturer1"
+      ],
+      "parent": null
+    }
+  },
+  {
+    "model": "communications.thread",
+    "pk": 12,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.381Z",
+      "updated_at": "2026-03-19T07:17:03.381Z",
+      "subject": "DTM101 guardian channel",
+      "student": [
+        "Michael"
+      ],
+      "teacher": [
+        "lecturer1"
+      ],
+      "parent": [
+        "demo_guardian_dtm_y1_3"
+      ]
+    }
+  },
+  {
+    "model": "communications.thread",
+    "pk": 13,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.389Z",
+      "updated_at": "2026-03-19T07:17:03.389Z",
+      "subject": "DTM103 lecturer channel",
+      "student": [
+        "Michael"
+      ],
+      "teacher": [
+        "lecturer2"
+      ],
+      "parent": null
+    }
+  },
+  {
+    "model": "communications.thread",
+    "pk": 14,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.391Z",
+      "updated_at": "2026-03-19T07:17:03.391Z",
+      "subject": "DTM103 guardian channel",
+      "student": [
+        "Michael"
+      ],
+      "teacher": [
+        "lecturer2"
+      ],
+      "parent": [
+        "demo_guardian_dtm_y1_3"
+      ]
+    }
+  },
+  {
+    "model": "communications.thread",
+    "pk": 15,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.414Z",
+      "updated_at": "2026-03-19T07:17:03.414Z",
+      "subject": "DTM101 lecturer channel",
+      "student": [
+        "Daud"
+      ],
+      "teacher": [
+        "lecturer1"
+      ],
+      "parent": null
+    }
+  },
+  {
+    "model": "communications.thread",
+    "pk": 16,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.417Z",
+      "updated_at": "2026-03-19T07:17:03.417Z",
+      "subject": "DTM101 guardian channel",
+      "student": [
+        "Daud"
+      ],
+      "teacher": [
+        "lecturer1"
+      ],
+      "parent": [
+        "demo_guardian_dtm_y2_1"
+      ]
+    }
+  },
+  {
+    "model": "communications.thread",
+    "pk": 17,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.426Z",
+      "updated_at": "2026-03-19T07:17:03.426Z",
+      "subject": "DTM103 lecturer channel",
+      "student": [
+        "Daud"
+      ],
+      "teacher": [
+        "lecturer2"
+      ],
+      "parent": null
+    }
+  },
+  {
+    "model": "communications.thread",
+    "pk": 18,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.429Z",
+      "updated_at": "2026-03-19T07:17:03.429Z",
+      "subject": "DTM103 guardian channel",
+      "student": [
+        "Daud"
+      ],
+      "teacher": [
+        "lecturer2"
+      ],
+      "parent": [
+        "demo_guardian_dtm_y2_1"
+      ]
+    }
+  },
+  {
+    "model": "communications.thread",
+    "pk": 19,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.453Z",
+      "updated_at": "2026-03-19T07:17:03.453Z",
+      "subject": "DTM101 lecturer channel",
+      "student": [
+        "Jibril"
+      ],
+      "teacher": [
+        "lecturer1"
+      ],
+      "parent": null
+    }
+  },
+  {
+    "model": "communications.thread",
+    "pk": 20,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.455Z",
+      "updated_at": "2026-03-19T07:17:03.455Z",
+      "subject": "DTM101 guardian channel",
+      "student": [
+        "Jibril"
+      ],
+      "teacher": [
+        "lecturer1"
+      ],
+      "parent": [
+        "demo_guardian_dtm_y2_2"
+      ]
+    }
+  },
+  {
+    "model": "communications.thread",
+    "pk": 21,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.464Z",
+      "updated_at": "2026-03-19T07:17:03.464Z",
+      "subject": "DTM103 lecturer channel",
+      "student": [
+        "Jibril"
+      ],
+      "teacher": [
+        "lecturer2"
+      ],
+      "parent": null
+    }
+  },
+  {
+    "model": "communications.thread",
+    "pk": 22,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.467Z",
+      "updated_at": "2026-03-19T07:17:03.467Z",
+      "subject": "DTM103 guardian channel",
+      "student": [
+        "Jibril"
+      ],
+      "teacher": [
+        "lecturer2"
+      ],
+      "parent": [
+        "demo_guardian_dtm_y2_2"
+      ]
+    }
+  },
+  {
+    "model": "communications.thread",
+    "pk": 23,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.492Z",
+      "updated_at": "2026-03-19T07:17:03.492Z",
+      "subject": "DTM101 lecturer channel",
+      "student": [
+        "Rene"
+      ],
+      "teacher": [
+        "lecturer1"
+      ],
+      "parent": null
+    }
+  },
+  {
+    "model": "communications.thread",
+    "pk": 24,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.494Z",
+      "updated_at": "2026-03-19T07:17:03.494Z",
+      "subject": "DTM101 guardian channel",
+      "student": [
+        "Rene"
+      ],
+      "teacher": [
+        "lecturer1"
+      ],
+      "parent": [
+        "demo_guardian_dtm_y2_3"
+      ]
+    }
+  },
+  {
+    "model": "communications.thread",
+    "pk": 25,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.504Z",
+      "updated_at": "2026-03-19T07:17:03.504Z",
+      "subject": "DTM103 lecturer channel",
+      "student": [
+        "Rene"
+      ],
+      "teacher": [
+        "lecturer2"
+      ],
+      "parent": null
+    }
+  },
+  {
+    "model": "communications.thread",
+    "pk": 26,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.507Z",
+      "updated_at": "2026-03-19T07:17:03.507Z",
+      "subject": "DTM103 guardian channel",
+      "student": [
+        "Rene"
+      ],
+      "teacher": [
+        "lecturer2"
+      ],
+      "parent": [
+        "demo_guardian_dtm_y2_3"
+      ]
+    }
+  },
+  {
+    "model": "communications.thread",
+    "pk": 27,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.539Z",
+      "updated_at": "2026-03-19T07:17:03.539Z",
+      "subject": "TT-211 lecturer channel",
+      "student": [
+        "Suleiman"
+      ],
+      "teacher": [
+        "lecturer1"
+      ],
+      "parent": null
+    }
+  },
+  {
+    "model": "communications.thread",
+    "pk": 28,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.541Z",
+      "updated_at": "2026-03-19T07:17:03.541Z",
+      "subject": "TT-211 guardian channel",
+      "student": [
+        "Suleiman"
+      ],
+      "teacher": [
+        "lecturer1"
+      ],
+      "parent": [
+        "Khadija"
+      ]
+    }
+  },
+  {
+    "model": "communications.thread",
+    "pk": 29,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.588Z",
+      "updated_at": "2026-03-19T07:17:03.588Z",
+      "subject": "TT-211 lecturer channel",
+      "student": [
+        "Steven"
+      ],
+      "teacher": [
+        "lecturer1"
+      ],
+      "parent": null
+    }
+  },
+  {
+    "model": "communications.thread",
+    "pk": 30,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.591Z",
+      "updated_at": "2026-03-19T07:17:03.591Z",
+      "subject": "TT-211 guardian channel",
+      "student": [
+        "Steven"
+      ],
+      "teacher": [
+        "lecturer1"
+      ],
+      "parent": [
+        "demo_guardian_ctt01_y1_1"
+      ]
+    }
+  },
+  {
+    "model": "communications.thread",
+    "pk": 31,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.630Z",
+      "updated_at": "2026-03-19T07:17:03.630Z",
+      "subject": "TT-211 lecturer channel",
+      "student": [
+        "Dinah"
+      ],
+      "teacher": [
+        "lecturer1"
+      ],
+      "parent": null
+    }
+  },
+  {
+    "model": "communications.thread",
+    "pk": 32,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.632Z",
+      "updated_at": "2026-03-19T07:17:03.632Z",
+      "subject": "TT-211 guardian channel",
+      "student": [
+        "Dinah"
+      ],
+      "teacher": [
+        "lecturer1"
+      ],
+      "parent": [
+        "demo_guardian_ctt01_y1_2"
+      ]
+    }
+  },
+  {
+    "model": "communications.thread",
+    "pk": 33,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.665Z",
+      "updated_at": "2026-03-19T07:17:03.665Z",
+      "subject": "TT-211 lecturer channel",
+      "student": [
+        "Jason"
+      ],
+      "teacher": [
+        "lecturer1"
+      ],
+      "parent": null
+    }
+  },
+  {
+    "model": "communications.thread",
+    "pk": 34,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.668Z",
+      "updated_at": "2026-03-19T07:17:03.668Z",
+      "subject": "TT-211 guardian channel",
+      "student": [
+        "Jason"
+      ],
+      "teacher": [
+        "lecturer1"
+      ],
+      "parent": [
+        "demo_guardian_ctt01_y1_3"
+      ]
+    }
+  },
+  {
+    "model": "communications.thread",
+    "pk": 35,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.693Z",
+      "updated_at": "2026-03-19T07:17:03.693Z",
+      "subject": "TT-111 lecturer channel",
+      "student": [
+        "Sami"
+      ],
+      "teacher": [
+        "lecturer1"
+      ],
+      "parent": null
+    }
+  },
+  {
+    "model": "communications.thread",
+    "pk": 36,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.695Z",
+      "updated_at": "2026-03-19T07:17:03.695Z",
+      "subject": "TT-111 guardian channel",
+      "student": [
+        "Sami"
+      ],
+      "teacher": [
+        "lecturer1"
+      ],
+      "parent": [
+        "demo_guardian_ctt01_y2_1"
+      ]
+    }
+  },
+  {
+    "model": "communications.thread",
+    "pk": 37,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.736Z",
+      "updated_at": "2026-03-19T07:17:03.736Z",
+      "subject": "TT-111 lecturer channel",
+      "student": [
+        "Neema"
+      ],
+      "teacher": [
+        "lecturer1"
+      ],
+      "parent": null
+    }
+  },
+  {
+    "model": "communications.thread",
+    "pk": 38,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.740Z",
+      "updated_at": "2026-03-19T07:17:03.740Z",
+      "subject": "TT-111 guardian channel",
+      "student": [
+        "Neema"
+      ],
+      "teacher": [
+        "lecturer1"
+      ],
+      "parent": [
+        "demo_guardian_ctt01_y2_2"
+      ]
+    }
+  },
+  {
+    "model": "communications.thread",
+    "pk": 39,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.764Z",
+      "updated_at": "2026-03-19T07:17:03.764Z",
+      "subject": "TT-111 lecturer channel",
+      "student": [
+        "Noel"
+      ],
+      "teacher": [
+        "lecturer1"
+      ],
+      "parent": null
+    }
+  },
+  {
+    "model": "communications.thread",
+    "pk": 40,
+    "fields": {
+      "created_at": "2026-03-19T07:17:03.767Z",
+      "updated_at": "2026-03-19T07:17:03.767Z",
+      "subject": "TT-111 guardian channel",
+      "student": [
+        "Noel"
+      ],
+      "teacher": [
+        "lecturer1"
+      ],
+      "parent": [
+        "demo_guardian_ctt01_y2_3"
+      ]
+    }
+  },
+  {
+    "model": "communications.thread",
+    "pk": 41,
+    "fields": {
+      "created_at": "2026-03-19T07:34:51.746Z",
+      "updated_at": "2026-03-19T07:34:51.746Z",
+      "subject": "Peer chat between Aisha Student and Demo Student DTM Year 2 #2",
+      "student": [
+        "student1"
+      ],
+      "teacher": [
+        "Jibril"
+      ],
+      "parent": null
+    }
+  },
+  {
+    "model": "communications.thread",
+    "pk": 42,
+    "fields": {
+      "created_at": "2026-03-19T07:37:12.359Z",
+      "updated_at": "2026-03-19T07:37:12.359Z",
+      "subject": "Peer chat between Aisha Student and Demo Student DTM Year 1 #1",
+      "student": [
+        "student1"
+      ],
+      "teacher": [
+        "Zuena"
+      ],
+      "parent": null
+    }
+  },
+  {
+    "model": "communications.thread",
+    "pk": 43,
+    "fields": {
+      "created_at": "2026-03-19T07:56:25.044Z",
+      "updated_at": "2026-03-19T07:56:25.044Z",
+      "subject": "Peer chat between Aisha Student and Demo Student DTM Year 2 #3",
+      "student": [
+        "student1"
+      ],
+      "teacher": [
+        "Rene"
+      ],
+      "parent": null
+    }
+  },
+  {
+    "model": "communications.thread",
+    "pk": 44,
+    "fields": {
+      "created_at": "2026-03-19T08:27:24.145Z",
+      "updated_at": "2026-03-19T08:27:24.145Z",
+      "subject": "DTM103 lecturer channel",
+      "student": [
+        "student1"
+      ],
+      "teacher": [
+        "lecturer2"
+      ],
+      "parent": null
+    }
+  },
+  {
+    "model": "communications.thread",
+    "pk": 45,
+    "fields": {
+      "created_at": "2026-03-19T08:27:24.158Z",
+      "updated_at": "2026-03-19T08:27:24.158Z",
+      "subject": "DTM103 guardian channel",
+      "student": [
+        "student1"
+      ],
+      "teacher": [
+        "lecturer2"
+      ],
+      "parent": [
+        "parent1"
+      ]
+    }
+  },
+  {
+    "model": "communications.thread",
+    "pk": 46,
+    "fields": {
+      "created_at": "2026-03-19T08:35:56.003Z",
+      "updated_at": "2026-03-19T08:35:56.003Z",
+      "subject": "Peer chat between Aisha Student and Michael John",
+      "student": [
+        "student1"
+      ],
+      "teacher": [
+        "Michael"
+      ],
+      "parent": null
+    }
+  }
+]

@@ -1,0 +1,13 @@
+[
+  {
+    "model": "core.department",
+    "pk": 1,
+    "fields": {
+      "name": "Tourism and Travel",
+      "code": "TT",
+      "created_at": "2025-11-19T11:28:47.387Z",
+      "updated_at": "2025-11-19T11:28:48.081Z",
+      "head_of_department": null
+    }
+  }
+]

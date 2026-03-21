@@ -1,0 +1,1094 @@
+[
+  {
+    "model": "learning.timetable",
+    "pk": 1,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.914Z",
+      "updated_at": "2026-03-12T09:31:15.609Z",
+      "programme": 3,
+      "unit": 10,
+      "lecturer": 3,
+      "room": "Room 101",
+      "start_datetime": "2026-03-09T09:00:00Z",
+      "end_datetime": "2026-03-09T11:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 2,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.916Z",
+      "updated_at": "2026-03-12T09:31:15.611Z",
+      "programme": 3,
+      "unit": 11,
+      "lecturer": 4,
+      "room": "Room 102",
+      "start_datetime": "2026-03-10T10:00:00Z",
+      "end_datetime": "2026-03-10T12:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 3,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.918Z",
+      "updated_at": "2026-03-12T09:31:15.613Z",
+      "programme": 3,
+      "unit": 12,
+      "lecturer": 3,
+      "room": "Room 103",
+      "start_datetime": "2026-03-11T11:00:00Z",
+      "end_datetime": "2026-03-11T13:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 4,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.921Z",
+      "updated_at": "2026-03-12T09:31:15.615Z",
+      "programme": 3,
+      "unit": 13,
+      "lecturer": 4,
+      "room": "Room 104",
+      "start_datetime": "2026-03-12T12:00:00Z",
+      "end_datetime": "2026-03-12T14:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 5,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.923Z",
+      "updated_at": "2026-03-12T09:31:15.619Z",
+      "programme": 3,
+      "unit": 22,
+      "lecturer": 3,
+      "room": "Room 105",
+      "start_datetime": "2026-03-13T13:00:00Z",
+      "end_datetime": "2026-03-13T15:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 6,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.925Z",
+      "updated_at": "2026-03-12T09:31:15.622Z",
+      "programme": 3,
+      "unit": 23,
+      "lecturer": 4,
+      "room": "Room 106",
+      "start_datetime": "2026-03-14T14:00:00Z",
+      "end_datetime": "2026-03-14T16:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 7,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.927Z",
+      "updated_at": "2026-03-12T09:31:15.624Z",
+      "programme": 3,
+      "unit": 10,
+      "lecturer": 4,
+      "room": "Room 101",
+      "start_datetime": "2026-03-16T09:00:00Z",
+      "end_datetime": "2026-03-16T11:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 8,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.928Z",
+      "updated_at": "2026-03-12T09:31:15.626Z",
+      "programme": 3,
+      "unit": 11,
+      "lecturer": 3,
+      "room": "Room 102",
+      "start_datetime": "2026-03-17T10:00:00Z",
+      "end_datetime": "2026-03-17T12:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 9,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.930Z",
+      "updated_at": "2026-03-12T09:31:15.628Z",
+      "programme": 3,
+      "unit": 12,
+      "lecturer": 4,
+      "room": "Room 103",
+      "start_datetime": "2026-03-18T11:00:00Z",
+      "end_datetime": "2026-03-18T13:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 10,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.932Z",
+      "updated_at": "2026-03-12T09:31:15.630Z",
+      "programme": 3,
+      "unit": 13,
+      "lecturer": 3,
+      "room": "Room 104",
+      "start_datetime": "2026-03-19T12:00:00Z",
+      "end_datetime": "2026-03-19T14:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 11,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.934Z",
+      "updated_at": "2026-03-12T09:31:15.632Z",
+      "programme": 3,
+      "unit": 22,
+      "lecturer": 4,
+      "room": "Room 105",
+      "start_datetime": "2026-03-20T13:00:00Z",
+      "end_datetime": "2026-03-20T15:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 12,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.937Z",
+      "updated_at": "2026-03-12T09:31:15.634Z",
+      "programme": 3,
+      "unit": 23,
+      "lecturer": 3,
+      "room": "Room 106",
+      "start_datetime": "2026-03-21T14:00:00Z",
+      "end_datetime": "2026-03-21T16:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 13,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.939Z",
+      "updated_at": "2026-03-12T09:31:15.636Z",
+      "programme": 3,
+      "unit": 10,
+      "lecturer": 3,
+      "room": "Room 101",
+      "start_datetime": "2026-03-23T09:00:00Z",
+      "end_datetime": "2026-03-23T11:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 14,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.942Z",
+      "updated_at": "2026-03-12T09:31:15.638Z",
+      "programme": 3,
+      "unit": 11,
+      "lecturer": 4,
+      "room": "Room 102",
+      "start_datetime": "2026-03-24T10:00:00Z",
+      "end_datetime": "2026-03-24T12:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 15,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.944Z",
+      "updated_at": "2026-03-12T09:31:15.640Z",
+      "programme": 3,
+      "unit": 12,
+      "lecturer": 3,
+      "room": "Room 103",
+      "start_datetime": "2026-03-25T11:00:00Z",
+      "end_datetime": "2026-03-25T13:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 16,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.946Z",
+      "updated_at": "2026-03-12T09:31:15.642Z",
+      "programme": 3,
+      "unit": 13,
+      "lecturer": 4,
+      "room": "Room 104",
+      "start_datetime": "2026-03-26T12:00:00Z",
+      "end_datetime": "2026-03-26T14:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 17,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.948Z",
+      "updated_at": "2026-03-12T09:31:15.643Z",
+      "programme": 3,
+      "unit": 22,
+      "lecturer": 3,
+      "room": "Room 105",
+      "start_datetime": "2026-03-27T13:00:00Z",
+      "end_datetime": "2026-03-27T15:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 18,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.949Z",
+      "updated_at": "2026-03-12T09:31:15.645Z",
+      "programme": 3,
+      "unit": 23,
+      "lecturer": 4,
+      "room": "Room 106",
+      "start_datetime": "2026-03-28T14:00:00Z",
+      "end_datetime": "2026-03-28T16:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 19,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.951Z",
+      "updated_at": "2026-03-12T09:31:15.647Z",
+      "programme": 3,
+      "unit": 10,
+      "lecturer": 4,
+      "room": "Room 101",
+      "start_datetime": "2026-03-30T09:00:00Z",
+      "end_datetime": "2026-03-30T11:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 20,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.954Z",
+      "updated_at": "2026-03-12T09:31:15.649Z",
+      "programme": 3,
+      "unit": 11,
+      "lecturer": 3,
+      "room": "Room 102",
+      "start_datetime": "2026-03-31T10:00:00Z",
+      "end_datetime": "2026-03-31T12:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 21,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.957Z",
+      "updated_at": "2026-03-12T09:31:15.652Z",
+      "programme": 3,
+      "unit": 12,
+      "lecturer": 4,
+      "room": "Room 103",
+      "start_datetime": "2026-04-01T11:00:00Z",
+      "end_datetime": "2026-04-01T13:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 22,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.959Z",
+      "updated_at": "2026-03-12T09:31:15.655Z",
+      "programme": 3,
+      "unit": 13,
+      "lecturer": 3,
+      "room": "Room 104",
+      "start_datetime": "2026-04-02T12:00:00Z",
+      "end_datetime": "2026-04-02T14:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 23,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.960Z",
+      "updated_at": "2026-03-12T09:31:15.657Z",
+      "programme": 3,
+      "unit": 22,
+      "lecturer": 4,
+      "room": "Room 105",
+      "start_datetime": "2026-04-03T13:00:00Z",
+      "end_datetime": "2026-04-03T15:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 24,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.962Z",
+      "updated_at": "2026-03-12T09:31:15.659Z",
+      "programme": 3,
+      "unit": 23,
+      "lecturer": 3,
+      "room": "Room 106",
+      "start_datetime": "2026-04-04T14:00:00Z",
+      "end_datetime": "2026-04-04T16:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 25,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.964Z",
+      "updated_at": "2026-03-12T09:31:15.661Z",
+      "programme": 3,
+      "unit": 10,
+      "lecturer": 3,
+      "room": "Room 101",
+      "start_datetime": "2026-04-06T09:00:00Z",
+      "end_datetime": "2026-04-06T11:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 26,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.966Z",
+      "updated_at": "2026-03-12T09:31:15.662Z",
+      "programme": 3,
+      "unit": 11,
+      "lecturer": 4,
+      "room": "Room 102",
+      "start_datetime": "2026-04-07T10:00:00Z",
+      "end_datetime": "2026-04-07T12:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 27,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.967Z",
+      "updated_at": "2026-03-12T09:31:15.664Z",
+      "programme": 3,
+      "unit": 12,
+      "lecturer": 3,
+      "room": "Room 103",
+      "start_datetime": "2026-04-08T11:00:00Z",
+      "end_datetime": "2026-04-08T13:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 28,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.970Z",
+      "updated_at": "2026-03-12T09:31:15.666Z",
+      "programme": 3,
+      "unit": 13,
+      "lecturer": 4,
+      "room": "Room 104",
+      "start_datetime": "2026-04-09T12:00:00Z",
+      "end_datetime": "2026-04-09T14:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 29,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.973Z",
+      "updated_at": "2026-03-12T09:31:15.670Z",
+      "programme": 3,
+      "unit": 22,
+      "lecturer": 3,
+      "room": "Room 105",
+      "start_datetime": "2026-04-10T13:00:00Z",
+      "end_datetime": "2026-04-10T15:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 30,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.976Z",
+      "updated_at": "2026-03-12T09:31:15.672Z",
+      "programme": 3,
+      "unit": 23,
+      "lecturer": 4,
+      "room": "Room 106",
+      "start_datetime": "2026-04-11T14:00:00Z",
+      "end_datetime": "2026-04-11T16:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 31,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.978Z",
+      "updated_at": "2026-03-12T09:31:15.674Z",
+      "programme": 3,
+      "unit": 10,
+      "lecturer": 4,
+      "room": "Room 101",
+      "start_datetime": "2026-04-13T09:00:00Z",
+      "end_datetime": "2026-04-13T11:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 32,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.980Z",
+      "updated_at": "2026-03-12T09:31:15.676Z",
+      "programme": 3,
+      "unit": 11,
+      "lecturer": 3,
+      "room": "Room 102",
+      "start_datetime": "2026-04-14T10:00:00Z",
+      "end_datetime": "2026-04-14T12:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 33,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.981Z",
+      "updated_at": "2026-03-12T09:31:15.677Z",
+      "programme": 3,
+      "unit": 12,
+      "lecturer": 4,
+      "room": "Room 103",
+      "start_datetime": "2026-04-15T11:00:00Z",
+      "end_datetime": "2026-04-15T13:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 34,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.983Z",
+      "updated_at": "2026-03-12T09:31:15.679Z",
+      "programme": 3,
+      "unit": 13,
+      "lecturer": 3,
+      "room": "Room 104",
+      "start_datetime": "2026-04-16T12:00:00Z",
+      "end_datetime": "2026-04-16T14:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 35,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.985Z",
+      "updated_at": "2026-03-12T09:31:15.681Z",
+      "programme": 3,
+      "unit": 22,
+      "lecturer": 4,
+      "room": "Room 105",
+      "start_datetime": "2026-04-17T13:00:00Z",
+      "end_datetime": "2026-04-17T15:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 36,
+    "fields": {
+      "created_at": "2026-03-12T09:30:31.989Z",
+      "updated_at": "2026-03-12T09:31:15.682Z",
+      "programme": 3,
+      "unit": 23,
+      "lecturer": 3,
+      "room": "Room 106",
+      "start_datetime": "2026-04-18T14:00:00Z",
+      "end_datetime": "2026-04-18T16:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 37,
+    "fields": {
+      "created_at": "2026-03-12T09:30:32.042Z",
+      "updated_at": "2026-03-12T09:31:15.739Z",
+      "programme": 1,
+      "unit": 1,
+      "lecturer": 3,
+      "room": "Room 101",
+      "start_datetime": "2026-03-09T09:00:00Z",
+      "end_datetime": "2026-03-09T11:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 38,
+    "fields": {
+      "created_at": "2026-03-12T09:30:32.044Z",
+      "updated_at": "2026-03-12T09:31:15.741Z",
+      "programme": 1,
+      "unit": 2,
+      "lecturer": 4,
+      "room": "Room 102",
+      "start_datetime": "2026-03-10T10:00:00Z",
+      "end_datetime": "2026-03-10T12:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 39,
+    "fields": {
+      "created_at": "2026-03-12T09:30:32.046Z",
+      "updated_at": "2026-03-12T09:31:15.742Z",
+      "programme": 1,
+      "unit": 3,
+      "lecturer": 3,
+      "room": "Room 103",
+      "start_datetime": "2026-03-11T11:00:00Z",
+      "end_datetime": "2026-03-11T13:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 40,
+    "fields": {
+      "created_at": "2026-03-12T09:30:32.048Z",
+      "updated_at": "2026-03-12T09:31:15.744Z",
+      "programme": 1,
+      "unit": 4,
+      "lecturer": 4,
+      "room": "Room 104",
+      "start_datetime": "2026-03-12T12:00:00Z",
+      "end_datetime": "2026-03-12T14:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 41,
+    "fields": {
+      "created_at": "2026-03-12T09:30:32.049Z",
+      "updated_at": "2026-03-12T09:31:15.746Z",
+      "programme": 1,
+      "unit": 5,
+      "lecturer": 3,
+      "room": "Room 105",
+      "start_datetime": "2026-03-13T13:00:00Z",
+      "end_datetime": "2026-03-13T15:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 42,
+    "fields": {
+      "created_at": "2026-03-12T09:30:32.051Z",
+      "updated_at": "2026-03-12T09:31:15.748Z",
+      "programme": 1,
+      "unit": 6,
+      "lecturer": 4,
+      "room": "Room 106",
+      "start_datetime": "2026-03-14T14:00:00Z",
+      "end_datetime": "2026-03-14T16:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 43,
+    "fields": {
+      "created_at": "2026-03-12T09:30:32.054Z",
+      "updated_at": "2026-03-12T09:31:15.749Z",
+      "programme": 1,
+      "unit": 1,
+      "lecturer": 4,
+      "room": "Room 101",
+      "start_datetime": "2026-03-16T09:00:00Z",
+      "end_datetime": "2026-03-16T11:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 44,
+    "fields": {
+      "created_at": "2026-03-12T09:30:32.056Z",
+      "updated_at": "2026-03-12T09:31:15.753Z",
+      "programme": 1,
+      "unit": 2,
+      "lecturer": 3,
+      "room": "Room 102",
+      "start_datetime": "2026-03-17T10:00:00Z",
+      "end_datetime": "2026-03-17T12:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 45,
+    "fields": {
+      "created_at": "2026-03-12T09:30:32.058Z",
+      "updated_at": "2026-03-12T09:31:15.755Z",
+      "programme": 1,
+      "unit": 3,
+      "lecturer": 4,
+      "room": "Room 103",
+      "start_datetime": "2026-03-18T11:00:00Z",
+      "end_datetime": "2026-03-18T13:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 46,
+    "fields": {
+      "created_at": "2026-03-12T09:30:32.060Z",
+      "updated_at": "2026-03-12T09:31:15.757Z",
+      "programme": 1,
+      "unit": 4,
+      "lecturer": 3,
+      "room": "Room 104",
+      "start_datetime": "2026-03-19T12:00:00Z",
+      "end_datetime": "2026-03-19T14:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 47,
+    "fields": {
+      "created_at": "2026-03-12T09:30:32.062Z",
+      "updated_at": "2026-03-12T09:31:15.759Z",
+      "programme": 1,
+      "unit": 5,
+      "lecturer": 4,
+      "room": "Room 105",
+      "start_datetime": "2026-03-20T13:00:00Z",
+      "end_datetime": "2026-03-20T15:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 48,
+    "fields": {
+      "created_at": "2026-03-12T09:30:32.063Z",
+      "updated_at": "2026-03-12T09:31:15.761Z",
+      "programme": 1,
+      "unit": 6,
+      "lecturer": 3,
+      "room": "Room 106",
+      "start_datetime": "2026-03-21T14:00:00Z",
+      "end_datetime": "2026-03-21T16:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 49,
+    "fields": {
+      "created_at": "2026-03-12T09:30:32.065Z",
+      "updated_at": "2026-03-12T09:31:15.762Z",
+      "programme": 1,
+      "unit": 1,
+      "lecturer": 3,
+      "room": "Room 101",
+      "start_datetime": "2026-03-23T09:00:00Z",
+      "end_datetime": "2026-03-23T11:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 50,
+    "fields": {
+      "created_at": "2026-03-12T09:30:32.067Z",
+      "updated_at": "2026-03-12T09:31:15.764Z",
+      "programme": 1,
+      "unit": 2,
+      "lecturer": 4,
+      "room": "Room 102",
+      "start_datetime": "2026-03-24T10:00:00Z",
+      "end_datetime": "2026-03-24T12:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 51,
+    "fields": {
+      "created_at": "2026-03-12T09:30:32.070Z",
+      "updated_at": "2026-03-12T09:31:15.766Z",
+      "programme": 1,
+      "unit": 3,
+      "lecturer": 3,
+      "room": "Room 103",
+      "start_datetime": "2026-03-25T11:00:00Z",
+      "end_datetime": "2026-03-25T13:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 52,
+    "fields": {
+      "created_at": "2026-03-12T09:30:32.073Z",
+      "updated_at": "2026-03-12T09:31:15.769Z",
+      "programme": 1,
+      "unit": 4,
+      "lecturer": 4,
+      "room": "Room 104",
+      "start_datetime": "2026-03-26T12:00:00Z",
+      "end_datetime": "2026-03-26T14:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 53,
+    "fields": {
+      "created_at": "2026-03-12T09:30:32.075Z",
+      "updated_at": "2026-03-12T09:31:15.773Z",
+      "programme": 1,
+      "unit": 5,
+      "lecturer": 3,
+      "room": "Room 105",
+      "start_datetime": "2026-03-27T13:00:00Z",
+      "end_datetime": "2026-03-27T15:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 54,
+    "fields": {
+      "created_at": "2026-03-12T09:30:32.077Z",
+      "updated_at": "2026-03-12T09:31:15.775Z",
+      "programme": 1,
+      "unit": 6,
+      "lecturer": 4,
+      "room": "Room 106",
+      "start_datetime": "2026-03-28T14:00:00Z",
+      "end_datetime": "2026-03-28T16:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 55,
+    "fields": {
+      "created_at": "2026-03-12T09:30:32.079Z",
+      "updated_at": "2026-03-12T09:31:15.777Z",
+      "programme": 1,
+      "unit": 1,
+      "lecturer": 4,
+      "room": "Room 101",
+      "start_datetime": "2026-03-30T09:00:00Z",
+      "end_datetime": "2026-03-30T11:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 56,
+    "fields": {
+      "created_at": "2026-03-12T09:30:32.080Z",
+      "updated_at": "2026-03-12T09:31:15.779Z",
+      "programme": 1,
+      "unit": 2,
+      "lecturer": 3,
+      "room": "Room 102",
+      "start_datetime": "2026-03-31T10:00:00Z",
+      "end_datetime": "2026-03-31T12:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 57,
+    "fields": {
+      "created_at": "2026-03-12T09:30:32.082Z",
+      "updated_at": "2026-03-12T09:31:15.781Z",
+      "programme": 1,
+      "unit": 3,
+      "lecturer": 4,
+      "room": "Room 103",
+      "start_datetime": "2026-04-01T11:00:00Z",
+      "end_datetime": "2026-04-01T13:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 58,
+    "fields": {
+      "created_at": "2026-03-12T09:30:32.084Z",
+      "updated_at": "2026-03-12T09:31:15.783Z",
+      "programme": 1,
+      "unit": 4,
+      "lecturer": 3,
+      "room": "Room 104",
+      "start_datetime": "2026-04-02T12:00:00Z",
+      "end_datetime": "2026-04-02T14:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 59,
+    "fields": {
+      "created_at": "2026-03-12T09:30:32.087Z",
+      "updated_at": "2026-03-12T09:31:15.787Z",
+      "programme": 1,
+      "unit": 5,
+      "lecturer": 4,
+      "room": "Room 105",
+      "start_datetime": "2026-04-03T13:00:00Z",
+      "end_datetime": "2026-04-03T15:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 60,
+    "fields": {
+      "created_at": "2026-03-12T09:30:32.090Z",
+      "updated_at": "2026-03-12T09:31:15.789Z",
+      "programme": 1,
+      "unit": 6,
+      "lecturer": 3,
+      "room": "Room 106",
+      "start_datetime": "2026-04-04T14:00:00Z",
+      "end_datetime": "2026-04-04T16:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 61,
+    "fields": {
+      "created_at": "2026-03-12T09:30:32.092Z",
+      "updated_at": "2026-03-12T09:31:15.791Z",
+      "programme": 1,
+      "unit": 1,
+      "lecturer": 3,
+      "room": "Room 101",
+      "start_datetime": "2026-04-06T09:00:00Z",
+      "end_datetime": "2026-04-06T11:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 62,
+    "fields": {
+      "created_at": "2026-03-12T09:30:32.093Z",
+      "updated_at": "2026-03-12T09:31:15.792Z",
+      "programme": 1,
+      "unit": 2,
+      "lecturer": 4,
+      "room": "Room 102",
+      "start_datetime": "2026-04-07T10:00:00Z",
+      "end_datetime": "2026-04-07T12:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 63,
+    "fields": {
+      "created_at": "2026-03-12T09:30:32.095Z",
+      "updated_at": "2026-03-12T09:31:15.794Z",
+      "programme": 1,
+      "unit": 3,
+      "lecturer": 3,
+      "room": "Room 103",
+      "start_datetime": "2026-04-08T11:00:00Z",
+      "end_datetime": "2026-04-08T13:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 64,
+    "fields": {
+      "created_at": "2026-03-12T09:30:32.097Z",
+      "updated_at": "2026-03-12T09:31:15.796Z",
+      "programme": 1,
+      "unit": 4,
+      "lecturer": 4,
+      "room": "Room 104",
+      "start_datetime": "2026-04-09T12:00:00Z",
+      "end_datetime": "2026-04-09T14:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 65,
+    "fields": {
+      "created_at": "2026-03-12T09:30:32.099Z",
+      "updated_at": "2026-03-12T09:31:15.798Z",
+      "programme": 1,
+      "unit": 5,
+      "lecturer": 3,
+      "room": "Room 105",
+      "start_datetime": "2026-04-10T13:00:00Z",
+      "end_datetime": "2026-04-10T15:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 66,
+    "fields": {
+      "created_at": "2026-03-12T09:30:32.100Z",
+      "updated_at": "2026-03-12T09:31:15.799Z",
+      "programme": 1,
+      "unit": 6,
+      "lecturer": 4,
+      "room": "Room 106",
+      "start_datetime": "2026-04-11T14:00:00Z",
+      "end_datetime": "2026-04-11T16:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 67,
+    "fields": {
+      "created_at": "2026-03-12T09:30:32.103Z",
+      "updated_at": "2026-03-12T09:31:15.803Z",
+      "programme": 1,
+      "unit": 1,
+      "lecturer": 4,
+      "room": "Room 101",
+      "start_datetime": "2026-04-13T09:00:00Z",
+      "end_datetime": "2026-04-13T11:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 68,
+    "fields": {
+      "created_at": "2026-03-12T09:30:32.106Z",
+      "updated_at": "2026-03-12T09:31:15.807Z",
+      "programme": 1,
+      "unit": 2,
+      "lecturer": 3,
+      "room": "Room 102",
+      "start_datetime": "2026-04-14T10:00:00Z",
+      "end_datetime": "2026-04-14T12:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 69,
+    "fields": {
+      "created_at": "2026-03-12T09:30:32.108Z",
+      "updated_at": "2026-03-12T09:31:15.809Z",
+      "programme": 1,
+      "unit": 3,
+      "lecturer": 4,
+      "room": "Room 103",
+      "start_datetime": "2026-04-15T11:00:00Z",
+      "end_datetime": "2026-04-15T13:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 70,
+    "fields": {
+      "created_at": "2026-03-12T09:30:32.110Z",
+      "updated_at": "2026-03-12T09:31:15.811Z",
+      "programme": 1,
+      "unit": 4,
+      "lecturer": 3,
+      "room": "Room 104",
+      "start_datetime": "2026-04-16T12:00:00Z",
+      "end_datetime": "2026-04-16T14:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 71,
+    "fields": {
+      "created_at": "2026-03-12T09:30:32.112Z",
+      "updated_at": "2026-03-12T09:31:15.812Z",
+      "programme": 1,
+      "unit": 5,
+      "lecturer": 4,
+      "room": "Room 105",
+      "start_datetime": "2026-04-17T13:00:00Z",
+      "end_datetime": "2026-04-17T15:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 72,
+    "fields": {
+      "created_at": "2026-03-12T09:30:32.114Z",
+      "updated_at": "2026-03-12T09:31:15.814Z",
+      "programme": 1,
+      "unit": 6,
+      "lecturer": 3,
+      "room": "Room 106",
+      "start_datetime": "2026-04-18T14:00:00Z",
+      "end_datetime": "2026-04-18T16:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 73,
+    "fields": {
+      "created_at": "2026-03-12T09:30:32.123Z",
+      "updated_at": "2026-03-12T09:31:15.825Z",
+      "programme": 2,
+      "unit": 9,
+      "lecturer": 3,
+      "room": "Room 101",
+      "start_datetime": "2026-03-09T09:00:00Z",
+      "end_datetime": "2026-03-09T11:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 74,
+    "fields": {
+      "created_at": "2026-03-12T09:30:32.125Z",
+      "updated_at": "2026-03-12T09:31:15.827Z",
+      "programme": 2,
+      "unit": 9,
+      "lecturer": 4,
+      "room": "Room 101",
+      "start_datetime": "2026-03-16T09:00:00Z",
+      "end_datetime": "2026-03-16T11:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 75,
+    "fields": {
+      "created_at": "2026-03-12T09:30:32.127Z",
+      "updated_at": "2026-03-12T09:31:15.828Z",
+      "programme": 2,
+      "unit": 9,
+      "lecturer": 3,
+      "room": "Room 101",
+      "start_datetime": "2026-03-23T09:00:00Z",
+      "end_datetime": "2026-03-23T11:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 76,
+    "fields": {
+      "created_at": "2026-03-12T09:30:32.129Z",
+      "updated_at": "2026-03-12T09:31:15.830Z",
+      "programme": 2,
+      "unit": 9,
+      "lecturer": 4,
+      "room": "Room 101",
+      "start_datetime": "2026-03-30T09:00:00Z",
+      "end_datetime": "2026-03-30T11:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 77,
+    "fields": {
+      "created_at": "2026-03-12T09:30:32.130Z",
+      "updated_at": "2026-03-12T09:31:15.832Z",
+      "programme": 2,
+      "unit": 9,
+      "lecturer": 3,
+      "room": "Room 101",
+      "start_datetime": "2026-04-06T09:00:00Z",
+      "end_datetime": "2026-04-06T11:00:00Z"
+    }
+  },
+  {
+    "model": "learning.timetable",
+    "pk": 78,
+    "fields": {
+      "created_at": "2026-03-12T09:30:32.132Z",
+      "updated_at": "2026-03-12T09:31:15.834Z",
+      "programme": 2,
+      "unit": 9,
+      "lecturer": 4,
+      "room": "Room 101",
+      "start_datetime": "2026-04-13T09:00:00Z",
+      "end_datetime": "2026-04-13T11:00:00Z"
+    }
+  }
+]

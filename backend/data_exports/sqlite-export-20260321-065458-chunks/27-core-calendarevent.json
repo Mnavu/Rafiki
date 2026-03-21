@@ -1,0 +1,54 @@
+[
+  {
+    "model": "core.calendarevent",
+    "pk": 1,
+    "fields": {
+      "created_at": "2026-03-11T19:18:05.004Z",
+      "updated_at": "2026-03-11T19:18:05.004Z",
+      "owner_user": [
+        "lecturer1"
+      ],
+      "title": "Online class session",
+      "description": "Scheduled lecturer-led online class.",
+      "start_at": "2026-03-12T22:17:00Z",
+      "end_at": "2026-03-12T23:17:00Z",
+      "timezone_hint": "Africa/Nairobi",
+      "source_type": "class_call",
+      "source_id": "25c6f356-78de-4e16-a714-28dcb086b900",
+      "metadata": {
+        "unit_id": 2,
+        "unit_code": "DTM102",
+        "unit_title": "Travel Geography",
+        "meeting_url": "https://meet.jit.si/eduassist-dtm102-1773256685",
+        "scheduled_by_user_id": 3
+      },
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.calendarevent",
+    "pk": 2,
+    "fields": {
+      "created_at": "2026-03-11T19:18:05.047Z",
+      "updated_at": "2026-03-11T19:18:05.047Z",
+      "owner_user": [
+        "student1"
+      ],
+      "title": "Online class session",
+      "description": "Scheduled lecturer-led online class.",
+      "start_at": "2026-03-12T22:17:00Z",
+      "end_at": "2026-03-12T23:17:00Z",
+      "timezone_hint": "Africa/Nairobi",
+      "source_type": "class_call",
+      "source_id": "25c6f356-78de-4e16-a714-28dcb086b900",
+      "metadata": {
+        "unit_id": 2,
+        "unit_code": "DTM102",
+        "unit_title": "Travel Geography",
+        "meeting_url": "https://meet.jit.si/eduassist-dtm102-1773256685",
+        "scheduled_by_user_id": 3
+      },
+      "is_active": true
+    }
+  }
+]

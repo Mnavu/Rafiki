@@ -1,0 +1,2922 @@
+[
+  {
+    "model": "core.auditlog",
+    "pk": 1201,
+    "fields": {
+      "event_id": "bdd139c5-fb07-4a55-bf09-6749aa274a35",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/5/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:32:06.896070+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/5/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "57814b7464f967b63f1eb37a651b7fe340da3fc88bafe91cc1b51f45926902d5",
+      "integrity_hash": "79d81d41253913c7d22e5e7a02c1888301b0fb3f488738e352a6956c7afe1b5f",
+      "created_at": "2026-03-19T07:32:06.896Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1202,
+    "fields": {
+      "event_id": "a5e7c374-cbee-44fb-a21f-a88714c9c24b",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/learning/assignments/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:32:42.643091+00:00"
+      },
+      "request_id": "b696a668-a291-406c-9211-2a7684e7b51b",
+      "request_path": "/api/learning/assignments/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "79d81d41253913c7d22e5e7a02c1888301b0fb3f488738e352a6956c7afe1b5f",
+      "integrity_hash": "6f2e790fef50b0e613ad1fe07346dcfb8ca8ca07c23f5c755e60b91076c04fb0",
+      "created_at": "2026-03-19T07:32:42.643Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1203,
+    "fields": {
+      "event_id": "380cd26e-a796-40db-8394-2ff5316a8c34",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/learning/assignments/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:33:52.488650+00:00"
+      },
+      "request_id": "45e52c6a-faf9-4bb5-8960-572755afd14f",
+      "request_path": "/api/learning/assignments/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "6f2e790fef50b0e613ad1fe07346dcfb8ca8ca07c23f5c755e60b91076c04fb0",
+      "integrity_hash": "77e2279b726c7c759aac27f929db1e174b76181bb30225d2f56eab08afa68ba5",
+      "created_at": "2026-03-19T07:33:52.488Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1204,
+    "fields": {
+      "event_id": "99b6fa86-ce2c-4496-accd-6486ed80d490",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/communications/threads/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:33:59.832244+00:00"
+      },
+      "request_id": "bb5abab4-9e73-41ef-9393-cc69026d8408",
+      "request_path": "/api/communications/threads/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "77e2279b726c7c759aac27f929db1e174b76181bb30225d2f56eab08afa68ba5",
+      "integrity_hash": "aa622a33f7417338dc2d4564b2805722ae52de1db7f863ba70d70738294a1a2f",
+      "created_at": "2026-03-19T07:33:59.832Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1205,
+    "fields": {
+      "event_id": "85fa24e4-b57b-448b-b1b8-aea58948d068",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/learning/assignments/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:33:59.921751+00:00"
+      },
+      "request_id": "a48e001b-0e2d-47dc-9c1d-9ca05724446c",
+      "request_path": "/api/learning/assignments/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "aa622a33f7417338dc2d4564b2805722ae52de1db7f863ba70d70738294a1a2f",
+      "integrity_hash": "b906bf9cd2360ae763f0cd8a011930a6aa60a7f1b7ddc2c4c2d858edf41056d2",
+      "created_at": "2026-03-19T07:33:59.922Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1206,
+    "fields": {
+      "event_id": "a99966fc-faa3-4b18-80d2-b2f9df722c2b",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/23/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:00.399993+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/23/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "b906bf9cd2360ae763f0cd8a011930a6aa60a7f1b7ddc2c4c2d858edf41056d2",
+      "integrity_hash": "856860a50b667ad77e76333d6464d1691f86e1b2ab58ec0536e44fc477da93ce",
+      "created_at": "2026-03-19T07:34:00.400Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1207,
+    "fields": {
+      "event_id": "84773a01-3b67-4fe4-b137-635b3b919297",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/19/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:00.407615+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/19/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "856860a50b667ad77e76333d6464d1691f86e1b2ab58ec0536e44fc477da93ce",
+      "integrity_hash": "08eb71a83c6c371f4a425c99de91407db7aa7998c25011433cecea5827093d0c",
+      "created_at": "2026-03-19T07:34:00.407Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1208,
+    "fields": {
+      "event_id": "095f2553-fe8b-4199-9105-b9d71f5f9710",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/25/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:00.416455+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/25/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "856860a50b667ad77e76333d6464d1691f86e1b2ab58ec0536e44fc477da93ce",
+      "integrity_hash": "e0269d223fff9e3bc570a85641864729e1fe52a1c4bce48196ca0b623ae099e8",
+      "created_at": "2026-03-19T07:34:00.416Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1209,
+    "fields": {
+      "event_id": "3cb2f07d-dec3-4e9d-b615-c4c2994d5239",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/21/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:00.437238+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/21/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "08eb71a83c6c371f4a425c99de91407db7aa7998c25011433cecea5827093d0c",
+      "integrity_hash": "91ac13914722f71429cb446b17b29cb5b93d7538df98083b698a4e04d46b9624",
+      "created_at": "2026-03-19T07:34:00.437Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1210,
+    "fields": {
+      "event_id": "05ccb9a7-80e1-4a5f-92e6-5129a18b322c",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/17/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:00.431725+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/17/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "08eb71a83c6c371f4a425c99de91407db7aa7998c25011433cecea5827093d0c",
+      "integrity_hash": "44892dda022d9c7ceed97acdd2e7a7aa0f398bc60542f7dc8824b17120aaf01a",
+      "created_at": "2026-03-19T07:34:00.432Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1211,
+    "fields": {
+      "event_id": "f7cb2376-e623-4fc1-9c54-6127c30f0f8b",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/15/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:00.566208+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/15/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "91ac13914722f71429cb446b17b29cb5b93d7538df98083b698a4e04d46b9624",
+      "integrity_hash": "5f27db702283f3737bd1e6d5334210faf9ce5339d0a84bb8b06d09457da799ab",
+      "created_at": "2026-03-19T07:34:00.566Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1212,
+    "fields": {
+      "event_id": "df8daf22-ef11-4565-8ca0-0dce184206e5",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/13/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:00.741639+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/13/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "5f27db702283f3737bd1e6d5334210faf9ce5339d0a84bb8b06d09457da799ab",
+      "integrity_hash": "0330a0060b13918e21c994627eea30ec87dba4dfdd9e114f9a4a1ba55cdfe238",
+      "created_at": "2026-03-19T07:34:00.741Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1213,
+    "fields": {
+      "event_id": "afb9e2e7-541e-443a-ad58-84c0beae8cc1",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/37/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:00.848005+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/37/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "0330a0060b13918e21c994627eea30ec87dba4dfdd9e114f9a4a1ba55cdfe238",
+      "integrity_hash": "72e4b9c1c2a358681cb078d80b1ec46cef97aac5a7e49cc8ed6e09b8e26a4b9e",
+      "created_at": "2026-03-19T07:34:00.848Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1214,
+    "fields": {
+      "event_id": "aa69cb9a-26a8-4ca1-8124-72059e1c1901",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/31/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:00.997294+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/31/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "72e4b9c1c2a358681cb078d80b1ec46cef97aac5a7e49cc8ed6e09b8e26a4b9e",
+      "integrity_hash": "ff3a43817f5c731c46e5887275e6b09e4688c2c7f92a8146fd45b013520a1808",
+      "created_at": "2026-03-19T07:34:00.997Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1215,
+    "fields": {
+      "event_id": "6f785f84-49c6-4023-ac51-2a4dcd464fe2",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/35/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:01.063120+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/35/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "72e4b9c1c2a358681cb078d80b1ec46cef97aac5a7e49cc8ed6e09b8e26a4b9e",
+      "integrity_hash": "45a4b00b917389edaa204814e736a90561195de0ce526d23e709b36218245ded",
+      "created_at": "2026-03-19T07:34:01.063Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1216,
+    "fields": {
+      "event_id": "aa6fe715-3148-40b4-ac0b-e613630f7754",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/33/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:01.087901+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/33/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "ff3a43817f5c731c46e5887275e6b09e4688c2c7f92a8146fd45b013520a1808",
+      "integrity_hash": "8919ef15d2f9654a2e56aea7ef3b3891ecbcfd4f7b9b92218642c892cbec8276",
+      "created_at": "2026-03-19T07:34:01.088Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1217,
+    "fields": {
+      "event_id": "638c2315-4396-444b-a144-a6e2ff72474d",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/29/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:01.386879+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/29/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "8919ef15d2f9654a2e56aea7ef3b3891ecbcfd4f7b9b92218642c892cbec8276",
+      "integrity_hash": "8d04911e026e8cd7b0dbb40ab920a022eb4bd41a0a532c7da2a91aacd00b4af3",
+      "created_at": "2026-03-19T07:34:01.387Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1218,
+    "fields": {
+      "event_id": "c1b92a9a-ee43-4e18-b0c4-20c4d5bb8e4a",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/27/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:01.404640+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/27/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "8d04911e026e8cd7b0dbb40ab920a022eb4bd41a0a532c7da2a91aacd00b4af3",
+      "integrity_hash": "a9bd64fb5a6bc058abf2f7a7fd5676b09d8f5cf3c0b26230c9e7cb878991632b",
+      "created_at": "2026-03-19T07:34:01.405Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1219,
+    "fields": {
+      "event_id": "9b60e77c-bf06-482e-85eb-dd50e13df472",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/5/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:01.485455+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/5/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "a9bd64fb5a6bc058abf2f7a7fd5676b09d8f5cf3c0b26230c9e7cb878991632b",
+      "integrity_hash": "d1f46082baaa4d1d14c36068f96a19b104800e051d873efc8fb397bd48a8762c",
+      "created_at": "2026-03-19T07:34:01.485Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1220,
+    "fields": {
+      "event_id": "c2b7f90a-5da2-4322-b3f4-4fa3c976eefd",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/communications/threads/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:34:10.955377+00:00"
+      },
+      "request_id": "42661099-89ac-4b38-9b27-25a05a299757",
+      "request_path": "/api/communications/threads/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "d1f46082baaa4d1d14c36068f96a19b104800e051d873efc8fb397bd48a8762c",
+      "integrity_hash": "f00572df66ebfc93629209fff075ccca897367831b38e0b66460393cf9533c32",
+      "created_at": "2026-03-19T07:34:10.955Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1221,
+    "fields": {
+      "event_id": "82e621e5-cc45-4973-a473-32ecdadfcec2",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/learning/assignments/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:34:11.047329+00:00"
+      },
+      "request_id": "ef5f938a-c6b6-4f7d-9041-ccda8e67d131",
+      "request_path": "/api/learning/assignments/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "f00572df66ebfc93629209fff075ccca897367831b38e0b66460393cf9533c32",
+      "integrity_hash": "a8b9ed0deee697b5ea0c5f34a651b508c3d3cc9a6e59e79085ba06eccff52cc5",
+      "created_at": "2026-03-19T07:34:11.047Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1222,
+    "fields": {
+      "event_id": "65533149-dec7-49dc-8723-aafaab805e4f",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/19/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:11.396401+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/19/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "a8b9ed0deee697b5ea0c5f34a651b508c3d3cc9a6e59e79085ba06eccff52cc5",
+      "integrity_hash": "2ee885a2f54b12e7c29eda76c8b374a7cd50a61284b95637da3bf2903b599bdd",
+      "created_at": "2026-03-19T07:34:11.396Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1223,
+    "fields": {
+      "event_id": "3ccac77b-b26e-432f-8473-b904bba49a9a",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/17/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:11.497559+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/17/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "2ee885a2f54b12e7c29eda76c8b374a7cd50a61284b95637da3bf2903b599bdd",
+      "integrity_hash": "c4318ec6fa13f975d126f2b8bc0bb7ad4b6dfa7202d0e3544a4a1f0a86a84705",
+      "created_at": "2026-03-19T07:34:11.497Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1224,
+    "fields": {
+      "event_id": "e440fa5e-b030-403c-ac28-a80c2ca31dac",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/23/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:11.490418+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/23/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "2ee885a2f54b12e7c29eda76c8b374a7cd50a61284b95637da3bf2903b599bdd",
+      "integrity_hash": "3096762d1a1b46f5f2fa0f9f1b61380de9db982ed877e5627eb75c6377b4eb6c",
+      "created_at": "2026-03-19T07:34:11.490Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1225,
+    "fields": {
+      "event_id": "6767683e-22c3-41ba-ae81-737c1fe0e402",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/25/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:11.510338+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/25/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "c4318ec6fa13f975d126f2b8bc0bb7ad4b6dfa7202d0e3544a4a1f0a86a84705",
+      "integrity_hash": "442ec8812a754a9c438aaeefa22ef15a07f219dc0edbd5182cf78cacad1b7f7c",
+      "created_at": "2026-03-19T07:34:11.510Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1226,
+    "fields": {
+      "event_id": "9adb2410-7907-40e4-ac6a-97700d48f5a3",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/21/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:11.526162+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/21/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "c4318ec6fa13f975d126f2b8bc0bb7ad4b6dfa7202d0e3544a4a1f0a86a84705",
+      "integrity_hash": "d5b623cba88edccd40390da1d21d45fe7e002924f11adba6ecc9cb940de71d73",
+      "created_at": "2026-03-19T07:34:11.526Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1227,
+    "fields": {
+      "event_id": "9c966fb4-1227-49aa-96cf-b0472aa0fdc6",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/15/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:11.625274+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/15/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "d5b623cba88edccd40390da1d21d45fe7e002924f11adba6ecc9cb940de71d73",
+      "integrity_hash": "2359c4b226045dbd0b5b0bccd23dbe37de42a938d1c687e23dcdd86067d4634e",
+      "created_at": "2026-03-19T07:34:11.625Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1228,
+    "fields": {
+      "event_id": "5b4a5f5c-dab1-4646-9d88-7cb4128e8182",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/37/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:11.862193+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/37/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "2359c4b226045dbd0b5b0bccd23dbe37de42a938d1c687e23dcdd86067d4634e",
+      "integrity_hash": "d870dc40d3a280842dad134d787c947832a3e9df8e59c64f4b5b12d5ae69823d",
+      "created_at": "2026-03-19T07:34:11.862Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1229,
+    "fields": {
+      "event_id": "856edb0f-fd2b-4d95-99eb-4da318d88ee2",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/31/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:11.956821+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/31/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "d870dc40d3a280842dad134d787c947832a3e9df8e59c64f4b5b12d5ae69823d",
+      "integrity_hash": "fd512597323bce7348ad7166884e750ce1243c24c6842b0daae47bc6929c7784",
+      "created_at": "2026-03-19T07:34:11.956Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1230,
+    "fields": {
+      "event_id": "be76f9b3-3f79-4d56-a924-333e81e5c6a8",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/33/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:12.000596+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/33/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "fd512597323bce7348ad7166884e750ce1243c24c6842b0daae47bc6929c7784",
+      "integrity_hash": "a60089bf2ecba82c45afc983c4f70ef086ab913d84a3dd590ef5c8723588018f",
+      "created_at": "2026-03-19T07:34:12.000Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1231,
+    "fields": {
+      "event_id": "8e8921c1-b89d-4408-8879-da1b2c049e25",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/35/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:11.990744+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/35/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "fd512597323bce7348ad7166884e750ce1243c24c6842b0daae47bc6929c7784",
+      "integrity_hash": "78d1fceaa1bc037eca793e71259204e4af84fc978da0ab8743a843affb792101",
+      "created_at": "2026-03-19T07:34:11.991Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1232,
+    "fields": {
+      "event_id": "409b6f50-e6fe-4e10-9800-667922a3c4ce",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/13/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:12.016993+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/13/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "a60089bf2ecba82c45afc983c4f70ef086ab913d84a3dd590ef5c8723588018f",
+      "integrity_hash": "b1a3fa4b3ef61d0dcc479665b4aaa015ebee4a8d2e5565889958767544bef0f3",
+      "created_at": "2026-03-19T07:34:12.017Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1233,
+    "fields": {
+      "event_id": "926bd9e9-1243-42f7-8f53-f6bc7be6fb05",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/27/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:12.357108+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/27/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "b1a3fa4b3ef61d0dcc479665b4aaa015ebee4a8d2e5565889958767544bef0f3",
+      "integrity_hash": "be622fb1c0ced7505ef5bf98e5b35faca971436d1622eb8ad252a69b5ecf0b90",
+      "created_at": "2026-03-19T07:34:12.357Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1234,
+    "fields": {
+      "event_id": "014c0040-098f-49a6-adb4-c9b40b31f8ef",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/communications/threads/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:34:12.428048+00:00"
+      },
+      "request_id": "c7448b4a-cb6a-41b6-9b1d-d16bff6480c5",
+      "request_path": "/api/communications/threads/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "be622fb1c0ced7505ef5bf98e5b35faca971436d1622eb8ad252a69b5ecf0b90",
+      "integrity_hash": "f3a5c7a1c8dee96beddd08f599aa62f1fb18a8011778202b2f39553586ccaed3",
+      "created_at": "2026-03-19T07:34:12.428Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1235,
+    "fields": {
+      "event_id": "51b8f3ad-21ca-484b-9b81-e473bf48a840",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/29/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:12.437906+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/29/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "be622fb1c0ced7505ef5bf98e5b35faca971436d1622eb8ad252a69b5ecf0b90",
+      "integrity_hash": "2e2c10e42117f321902936fa9d469bf60222dee6fe02d47cb1e25a003dcf5c9a",
+      "created_at": "2026-03-19T07:34:12.438Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1236,
+    "fields": {
+      "event_id": "77a628ba-2d95-4c1f-ae07-1fa49a0a2f35",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/5/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:12.491787+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/5/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "f3a5c7a1c8dee96beddd08f599aa62f1fb18a8011778202b2f39553586ccaed3",
+      "integrity_hash": "928a7baa7f8da043e409efda0838ab0b98ecebc675ebe6054506298b7ce4cefd",
+      "created_at": "2026-03-19T07:34:12.492Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1237,
+    "fields": {
+      "event_id": "791141f1-1e8e-41c0-8441-85f4732b6eff",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/communications/threads/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:34:12.588359+00:00"
+      },
+      "request_id": "0b515244-50bb-4b34-b5d9-661516288bc8",
+      "request_path": "/api/communications/threads/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "928a7baa7f8da043e409efda0838ab0b98ecebc675ebe6054506298b7ce4cefd",
+      "integrity_hash": "920560e11ab7cc4c884fe58a3be4c649a3f316cd7c7f875f8d903ee6bd6c4c60",
+      "created_at": "2026-03-19T07:34:12.588Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1238,
+    "fields": {
+      "event_id": "a6d03b4a-4c2b-4c38-aac3-37b7408028ca",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/learning/assignments/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:34:12.651968+00:00"
+      },
+      "request_id": "049c342e-734c-4c64-ad04-5b9b27d9b913",
+      "request_path": "/api/learning/assignments/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "920560e11ab7cc4c884fe58a3be4c649a3f316cd7c7f875f8d903ee6bd6c4c60",
+      "integrity_hash": "04b201a7f5c4ff40ed95719ef8c94fd451ff83c4610abb25514d47f4abf4cfd5",
+      "created_at": "2026-03-19T07:34:12.652Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1239,
+    "fields": {
+      "event_id": "97bc2a30-f936-49b5-bbe5-616271572703",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/communications/threads/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:34:12.669977+00:00"
+      },
+      "request_id": "994efc15-6b3c-4461-bea1-440d25b5a607",
+      "request_path": "/api/communications/threads/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "920560e11ab7cc4c884fe58a3be4c649a3f316cd7c7f875f8d903ee6bd6c4c60",
+      "integrity_hash": "6318434ffb7eebe01d1f92fbd44f595cdd674dbc2d4c8ff09e9d07c90f9d2e06",
+      "created_at": "2026-03-19T07:34:12.670Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1240,
+    "fields": {
+      "event_id": "91c6299a-6652-41fb-a4da-2a73fde7cce5",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/learning/assignments/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:34:12.860396+00:00"
+      },
+      "request_id": "b3604487-0bdf-4d0a-a55f-833d29297ad8",
+      "request_path": "/api/learning/assignments/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "6318434ffb7eebe01d1f92fbd44f595cdd674dbc2d4c8ff09e9d07c90f9d2e06",
+      "integrity_hash": "223d9838a4216b2250ce2a1e5e4d2062b5018a63704c66e6280b2ba8bcf59c27",
+      "created_at": "2026-03-19T07:34:12.860Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1241,
+    "fields": {
+      "event_id": "57c04c57-9c05-4b6d-9769-3d93924e83f9",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/learning/assignments/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:34:12.880435+00:00"
+      },
+      "request_id": "802a65af-6c84-43a8-ad3e-e62039e39311",
+      "request_path": "/api/learning/assignments/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "6318434ffb7eebe01d1f92fbd44f595cdd674dbc2d4c8ff09e9d07c90f9d2e06",
+      "integrity_hash": "5614d1759ae8748cbba22aa832533182e31e2dc67382ced032f5d2faa59baf44",
+      "created_at": "2026-03-19T07:34:12.880Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1242,
+    "fields": {
+      "event_id": "7c85cd39-71ef-4dad-83f2-99e413b99944",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/communications/threads/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:34:12.925090+00:00"
+      },
+      "request_id": "061e6e3b-8f93-45b0-a217-f0015432ee20",
+      "request_path": "/api/communications/threads/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "223d9838a4216b2250ce2a1e5e4d2062b5018a63704c66e6280b2ba8bcf59c27",
+      "integrity_hash": "1891f228ccff3ba3faefe2a5663232ef73999e802f2f8df6a123b965c6774bdb",
+      "created_at": "2026-03-19T07:34:12.925Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1243,
+    "fields": {
+      "event_id": "2a42eb62-55ba-4054-b938-642ca5367f88",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/25/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:12.987973+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/25/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "1891f228ccff3ba3faefe2a5663232ef73999e802f2f8df6a123b965c6774bdb",
+      "integrity_hash": "0d78ff66b03a706e3b40bbbf5601d2e570184268ba0b7e9a87b3724969d77609",
+      "created_at": "2026-03-19T07:34:12.988Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1244,
+    "fields": {
+      "event_id": "76da0687-3b34-4933-a7a3-a707a5d44a6f",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/21/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:13.282291+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/21/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "0d78ff66b03a706e3b40bbbf5601d2e570184268ba0b7e9a87b3724969d77609",
+      "integrity_hash": "4e8ed98fc6389a4a866742d8d4c4e3d480f5f5b0ce69574cefb4791d1a3ff67b",
+      "created_at": "2026-03-19T07:34:13.282Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1245,
+    "fields": {
+      "event_id": "51e4d3db-1825-4e78-8902-e2295912e7cd",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/23/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:13.331600+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/23/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "0d78ff66b03a706e3b40bbbf5601d2e570184268ba0b7e9a87b3724969d77609",
+      "integrity_hash": "f1e8919b0b56f8740e8783144dadb510f292075b6467164e23ac05567857b592",
+      "created_at": "2026-03-19T07:34:13.331Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1246,
+    "fields": {
+      "event_id": "b05829a1-b8b1-41c5-b95b-a96433ca2a66",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/19/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:13.422866+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/19/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "f1e8919b0b56f8740e8783144dadb510f292075b6467164e23ac05567857b592",
+      "integrity_hash": "055ceb818a762a1ff1ab8d0d20dd31222775d6a54b015cb3cff716c9454ce038",
+      "created_at": "2026-03-19T07:34:13.423Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1247,
+    "fields": {
+      "event_id": "dc003a66-8af7-47b8-9833-4c99f277790d",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/17/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:13.486479+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/17/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "055ceb818a762a1ff1ab8d0d20dd31222775d6a54b015cb3cff716c9454ce038",
+      "integrity_hash": "e7399def86fdefeff9950e8824fb4fc1b7cc6042b75e692182cecb993d2ffd99",
+      "created_at": "2026-03-19T07:34:13.486Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1248,
+    "fields": {
+      "event_id": "3ec6469d-6aa2-4422-ba81-db58b9bdbf91",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/learning/assignments/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 200,
+        "remote_addr": "10.128.52.32",
+        "user_agent": "okhttp/4.12.0",
+        "timestamp": "2026-03-19T07:34:13.529347+00:00"
+      },
+      "request_id": "f66b451f-57c9-4759-8d53-cfa857a3fc40",
+      "request_path": "/api/learning/assignments/",
+      "request_method": "GET",
+      "request_status": 200,
+      "ip_address": "10.128.52.32",
+      "user_agent": "okhttp/4.12.0",
+      "metadata": {},
+      "previous_hash": "e7399def86fdefeff9950e8824fb4fc1b7cc6042b75e692182cecb993d2ffd99",
+      "integrity_hash": "ed40ffa7addc9f51159dac90bf1acac673d9aa8d2ca71f47fa4042208f8524be",
+      "created_at": "2026-03-19T07:34:13.529Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1249,
+    "fields": {
+      "event_id": "c3061ac6-0e82-4a48-89dd-da84b0864717",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/15/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:13.880713+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/15/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "ed40ffa7addc9f51159dac90bf1acac673d9aa8d2ca71f47fa4042208f8524be",
+      "integrity_hash": "7af97969ddf90f771dc51f624bf7185679420156d121d211bd4d6d4f97ddd4e6",
+      "created_at": "2026-03-19T07:34:13.880Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1250,
+    "fields": {
+      "event_id": "724924aa-86dd-42ce-bb52-258497b53683",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/13/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:13.941940+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/13/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "7af97969ddf90f771dc51f624bf7185679420156d121d211bd4d6d4f97ddd4e6",
+      "integrity_hash": "3a6800fa81d3007037030cf2165e7307c7482b8c159bdd356fc576fb533c49cb",
+      "created_at": "2026-03-19T07:34:13.942Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1251,
+    "fields": {
+      "event_id": "19bbe0e2-efcf-4f57-9864-4cd8e2a689e7",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/37/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:13.976941+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/37/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "3a6800fa81d3007037030cf2165e7307c7482b8c159bdd356fc576fb533c49cb",
+      "integrity_hash": "2cf7ebeb6ca36877077e97e9cf5cfc52436d1d65b2cd49a6b222a43eb4581017",
+      "created_at": "2026-03-19T07:34:13.977Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1252,
+    "fields": {
+      "event_id": "5d67898b-6aa4-46bc-b0ac-6af21e164123",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/33/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:13.983036+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/33/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "3a6800fa81d3007037030cf2165e7307c7482b8c159bdd356fc576fb533c49cb",
+      "integrity_hash": "1f5a785c9828fcc48970a5300220ea1b83f99114441ff51e12bc1454a6396f39",
+      "created_at": "2026-03-19T07:34:13.983Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1253,
+    "fields": {
+      "event_id": "5b336320-e00b-4c7e-9a8c-8d8d7883bdc5",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/35/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:13.996339+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/35/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "2cf7ebeb6ca36877077e97e9cf5cfc52436d1d65b2cd49a6b222a43eb4581017",
+      "integrity_hash": "cc37635e6e8904a028afe21d3a1154a09fca56c55ead3c60101486cc2a1662af",
+      "created_at": "2026-03-19T07:34:13.996Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1254,
+    "fields": {
+      "event_id": "22c47a56-fb4a-4147-a987-f506f51f0f1a",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/31/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:14.241622+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/31/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "cc37635e6e8904a028afe21d3a1154a09fca56c55ead3c60101486cc2a1662af",
+      "integrity_hash": "2a80fe37ec865ba06f753b2ca2abe984a7a792d664895dc88af6dcc673a9586b",
+      "created_at": "2026-03-19T07:34:14.241Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1255,
+    "fields": {
+      "event_id": "34713510-ec87-4c97-943f-240a19de51b7",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/29/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:14.262093+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/29/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "2a80fe37ec865ba06f753b2ca2abe984a7a792d664895dc88af6dcc673a9586b",
+      "integrity_hash": "a130c14250490c4caf92a7907018c48bf2fbdbec6d80d7321d0b9baa1e73a4bd",
+      "created_at": "2026-03-19T07:34:14.262Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1256,
+    "fields": {
+      "event_id": "d9bf4d79-da1b-430c-a495-20b01a4976ec",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/27/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:14.415777+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/27/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "a130c14250490c4caf92a7907018c48bf2fbdbec6d80d7321d0b9baa1e73a4bd",
+      "integrity_hash": "0f7cb52ad2b766451a2e19e4cb444539ed0c122a32df22d7bb077bd5c7869c16",
+      "created_at": "2026-03-19T07:34:14.415Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1257,
+    "fields": {
+      "event_id": "6fbe7a64-d51c-47f5-93c6-eda71cb74157",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/5/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:14.480276+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/5/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "0f7cb52ad2b766451a2e19e4cb444539ed0c122a32df22d7bb077bd5c7869c16",
+      "integrity_hash": "fb5fafa01215bd6787f3cbcb993e2c473b7e316c0d5a36bcb876a5a5b4702da6",
+      "created_at": "2026-03-19T07:34:14.480Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1258,
+    "fields": {
+      "event_id": "89b5bcea-a7ca-4bdd-b8d9-13a5eb2bf073",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/21/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:14.562258+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/21/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "fb5fafa01215bd6787f3cbcb993e2c473b7e316c0d5a36bcb876a5a5b4702da6",
+      "integrity_hash": "d25e8b0dcb5ff07e27475053b74c82bd0a34f9135bc541460f66d63203c70ba7",
+      "created_at": "2026-03-19T07:34:14.562Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1259,
+    "fields": {
+      "event_id": "950b745a-ff4b-4c61-bb0a-d76a1e5e946d",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/25/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:14.595921+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/25/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "d25e8b0dcb5ff07e27475053b74c82bd0a34f9135bc541460f66d63203c70ba7",
+      "integrity_hash": "f866e548e8275d61d4bece9b381b1e0763f8016e73586260b1f37e3e7e58e36c",
+      "created_at": "2026-03-19T07:34:14.596Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1260,
+    "fields": {
+      "event_id": "d30446c1-96f7-4b49-a757-00a68ab6fd94",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/23/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:14.715899+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/23/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "f866e548e8275d61d4bece9b381b1e0763f8016e73586260b1f37e3e7e58e36c",
+      "integrity_hash": "db161f6c66dc08f0ec3e74e5c8aa539c69a5a5cc162d5d21f8ae85d02217341d",
+      "created_at": "2026-03-19T07:34:14.716Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1261,
+    "fields": {
+      "event_id": "7bbed754-a868-4b78-8935-0315874577e7",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/17/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:14.873320+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/17/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "db161f6c66dc08f0ec3e74e5c8aa539c69a5a5cc162d5d21f8ae85d02217341d",
+      "integrity_hash": "b89a99caab18b8a908292dafd9fe5e4d58107074aed2dcf0abac5388beca9a0d",
+      "created_at": "2026-03-19T07:34:14.873Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1262,
+    "fields": {
+      "event_id": "ff5719fc-4364-47b3-a4e3-9c2753e2ad82",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/19/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:14.914134+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/19/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "b89a99caab18b8a908292dafd9fe5e4d58107074aed2dcf0abac5388beca9a0d",
+      "integrity_hash": "7df20b41dc563efd6e1ed12e23dc9f517e781ebf903554305c1ebf61ec0721f2",
+      "created_at": "2026-03-19T07:34:14.914Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1263,
+    "fields": {
+      "event_id": "e8d02341-6a72-4720-9d7d-985669a4a0d5",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/13/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:15.078897+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/13/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "7df20b41dc563efd6e1ed12e23dc9f517e781ebf903554305c1ebf61ec0721f2",
+      "integrity_hash": "83ad8fa8d3631f42fdc7c8cef02b7804ace522d6816e0f155983f03cdab130e5",
+      "created_at": "2026-03-19T07:34:15.079Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1264,
+    "fields": {
+      "event_id": "5a149f20-dc90-4cee-8d8e-146abef73c34",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/37/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:15.108360+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/37/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "83ad8fa8d3631f42fdc7c8cef02b7804ace522d6816e0f155983f03cdab130e5",
+      "integrity_hash": "da883bc784c6ea5438987ff49a11dd856c170076facf4fc8bae17180b9e6f30a",
+      "created_at": "2026-03-19T07:34:15.108Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1265,
+    "fields": {
+      "event_id": "ee769e8a-1944-483a-9187-ecdb84850f13",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/15/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:15.118265+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/15/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "83ad8fa8d3631f42fdc7c8cef02b7804ace522d6816e0f155983f03cdab130e5",
+      "integrity_hash": "2d9ce60cc01239bb48f097bb85646e5ad126cf9dd13e03f599ee3c1dc8dcbfce",
+      "created_at": "2026-03-19T07:34:15.118Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1266,
+    "fields": {
+      "event_id": "c9de8cc9-978c-446a-9a94-3d55c22c753f",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/35/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:15.244484+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/35/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "2d9ce60cc01239bb48f097bb85646e5ad126cf9dd13e03f599ee3c1dc8dcbfce",
+      "integrity_hash": "5d512de38a37466b6f6e3546b878df7998cee40086f1475ebd1aef5220f4cf49",
+      "created_at": "2026-03-19T07:34:15.244Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1267,
+    "fields": {
+      "event_id": "ab8172c5-2da5-4e1b-ab7c-c5d6afee6173",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/33/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:15.272059+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/33/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "5d512de38a37466b6f6e3546b878df7998cee40086f1475ebd1aef5220f4cf49",
+      "integrity_hash": "62a90c144790d3b138ff39bd0193c391712c4570cf26ac3c6b01fe4f3a6c152e",
+      "created_at": "2026-03-19T07:34:15.272Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1268,
+    "fields": {
+      "event_id": "e3d2a13b-b106-480f-9a21-15cce827a2d1",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/31/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:15.431115+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/31/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "62a90c144790d3b138ff39bd0193c391712c4570cf26ac3c6b01fe4f3a6c152e",
+      "integrity_hash": "cec8fda7f7cde28625ea1969b4c4caba49a12fd8a8c1841303d064c2a877fdef",
+      "created_at": "2026-03-19T07:34:15.431Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1269,
+    "fields": {
+      "event_id": "43a25649-3d76-4424-b4f2-dafd6e4d8cb1",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/29/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:15.450800+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/29/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "62a90c144790d3b138ff39bd0193c391712c4570cf26ac3c6b01fe4f3a6c152e",
+      "integrity_hash": "4122b809a3fa9e6ee78cd97306153db91ec3263b3519b8568a2ea8d809465755",
+      "created_at": "2026-03-19T07:34:15.451Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1270,
+    "fields": {
+      "event_id": "48121e52-8d2c-4dcf-96f0-ea9b6a4f3b6f",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/5/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:15.596247+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/5/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "4122b809a3fa9e6ee78cd97306153db91ec3263b3519b8568a2ea8d809465755",
+      "integrity_hash": "1751f95311ea5dcfb4d77d70e64a0e788765b2e42317398c8eec36131661bb5d",
+      "created_at": "2026-03-19T07:34:15.596Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1271,
+    "fields": {
+      "event_id": "56fbec86-4808-4a96-9971-cf0291969e16",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/27/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:15.607438+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/27/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "1751f95311ea5dcfb4d77d70e64a0e788765b2e42317398c8eec36131661bb5d",
+      "integrity_hash": "134e897cb7ae4ecb9d8232a3005b7bb1aa6e2a8edffac8baf841017a133a43a6",
+      "created_at": "2026-03-19T07:34:15.607Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1272,
+    "fields": {
+      "event_id": "055dd3a5-7e59-45ff-aa2e-bbc79a378887",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/25/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:15.653918+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/25/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "134e897cb7ae4ecb9d8232a3005b7bb1aa6e2a8edffac8baf841017a133a43a6",
+      "integrity_hash": "16beeb7fd475390d27b928da64bddfdf148e6fdfb5267562b35ec2cbc6e3163b",
+      "created_at": "2026-03-19T07:34:15.654Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1273,
+    "fields": {
+      "event_id": "bd5b45f4-654d-4cb9-b02e-290e39f08869",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/21/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:15.713297+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/21/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "16beeb7fd475390d27b928da64bddfdf148e6fdfb5267562b35ec2cbc6e3163b",
+      "integrity_hash": "b0075f0ca9326accd779570c1b8811f34f1167d46a4303a6e18a11df3315189d",
+      "created_at": "2026-03-19T07:34:15.713Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1274,
+    "fields": {
+      "event_id": "236bf43c-6a4a-4440-80ae-a5b3e630d483",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/23/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:15.766113+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/23/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "b0075f0ca9326accd779570c1b8811f34f1167d46a4303a6e18a11df3315189d",
+      "integrity_hash": "4c21a50913640ca1aac2bb02a1b296f61b47a73cad9b732da9fc787a2e7eb89f",
+      "created_at": "2026-03-19T07:34:15.766Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1275,
+    "fields": {
+      "event_id": "2ce1f0f6-c628-42d8-8fa9-22dec6125e38",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/19/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:15.846943+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/19/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "4c21a50913640ca1aac2bb02a1b296f61b47a73cad9b732da9fc787a2e7eb89f",
+      "integrity_hash": "9a9e9e772e977251b95db450cff06d479ba8c5dcc1dc55aafa8d739901f66c19",
+      "created_at": "2026-03-19T07:34:15.847Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1276,
+    "fields": {
+      "event_id": "5c57e6b3-f1c2-46f5-8178-451f7ffb8ea4",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/17/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:15.894962+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/17/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "9a9e9e772e977251b95db450cff06d479ba8c5dcc1dc55aafa8d739901f66c19",
+      "integrity_hash": "6a790141f7698dfa9e0b55398a4a149aa87b46ef572bd3ee52543f40efe52e16",
+      "created_at": "2026-03-19T07:34:15.895Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1277,
+    "fields": {
+      "event_id": "7eec2cd9-7069-40fd-a0cb-6baf9299c6f0",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/15/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:15.993377+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/15/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "6a790141f7698dfa9e0b55398a4a149aa87b46ef572bd3ee52543f40efe52e16",
+      "integrity_hash": "e9133d0f4676091f7f23984653b037e659c04500ff2993aade763e40a52b7cfa",
+      "created_at": "2026-03-19T07:34:15.993Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1278,
+    "fields": {
+      "event_id": "e125e484-8c21-4470-a23b-0ed9b3fc1a0a",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/13/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:16.015078+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/13/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "e9133d0f4676091f7f23984653b037e659c04500ff2993aade763e40a52b7cfa",
+      "integrity_hash": "a665c3e4c5b69cdb1f1ccde7dd117991711ad71b53368d609c852f8f2e511922",
+      "created_at": "2026-03-19T07:34:16.015Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1279,
+    "fields": {
+      "event_id": "5cff6064-0d38-400a-908c-4ae7704d4455",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/37/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:16.065154+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/37/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "a665c3e4c5b69cdb1f1ccde7dd117991711ad71b53368d609c852f8f2e511922",
+      "integrity_hash": "7ef39dd9d79f751440ea92d1ab7fda7994d0e0d97a557c99a3dc3eb543136853",
+      "created_at": "2026-03-19T07:34:16.065Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1280,
+    "fields": {
+      "event_id": "02e21215-de41-422c-8b2c-eb1d7a4597bb",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/33/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:16.132347+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/33/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "7ef39dd9d79f751440ea92d1ab7fda7994d0e0d97a557c99a3dc3eb543136853",
+      "integrity_hash": "71521472376fe676f25bd2ef551737b11c6e6312a220a8d8b19ff038670f5678",
+      "created_at": "2026-03-19T07:34:16.132Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1281,
+    "fields": {
+      "event_id": "53fc29d3-736d-4ec4-9ec3-0abfe32bc34e",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/35/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:16.165020+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/35/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "71521472376fe676f25bd2ef551737b11c6e6312a220a8d8b19ff038670f5678",
+      "integrity_hash": "9566202a2371cd08a31f3d86a87e0b91858170ccd126a0a978a1827c4a58e7d1",
+      "created_at": "2026-03-19T07:34:16.165Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1282,
+    "fields": {
+      "event_id": "26b75b08-826f-43d1-8382-957e577417b5",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/29/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:16.291319+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/29/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "9566202a2371cd08a31f3d86a87e0b91858170ccd126a0a978a1827c4a58e7d1",
+      "integrity_hash": "2561b7df071f8d754631b5c08c16f53d94e04acfb0e7a08226e26eb15bf85b6c",
+      "created_at": "2026-03-19T07:34:16.291Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1283,
+    "fields": {
+      "event_id": "b8dda02c-2e2f-4da5-b7ed-468f8e8d7bb5",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/31/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:16.313465+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/31/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "2561b7df071f8d754631b5c08c16f53d94e04acfb0e7a08226e26eb15bf85b6c",
+      "integrity_hash": "a410aea2d0871392bf8c1058b52dbcd6f7782f133f08a47502d2ceca2a409eb9",
+      "created_at": "2026-03-19T07:34:16.313Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1284,
+    "fields": {
+      "event_id": "8f59c496-428d-40b0-ae17-ea49de7ccdec",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/27/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:16.366332+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/27/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "a410aea2d0871392bf8c1058b52dbcd6f7782f133f08a47502d2ceca2a409eb9",
+      "integrity_hash": "5778ffed92683a9746c59095abb8b4acc8ef754a31df43b793f64e625ba9fa3c",
+      "created_at": "2026-03-19T07:34:16.366Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1285,
+    "fields": {
+      "event_id": "7948b537-56d0-4dcf-8259-410f956fc26d",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/5/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:16.475585+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/5/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "5778ffed92683a9746c59095abb8b4acc8ef754a31df43b793f64e625ba9fa3c",
+      "integrity_hash": "da57bfcbe662ea63129b25d4fccfe552e1b6d6cf34174a2c4ca721904521f874",
+      "created_at": "2026-03-19T07:34:16.475Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1286,
+    "fields": {
+      "event_id": "fa5a5b89-ae68-46ef-a006-79602fd11521",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/25/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:16.508626+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/25/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "da57bfcbe662ea63129b25d4fccfe552e1b6d6cf34174a2c4ca721904521f874",
+      "integrity_hash": "84c48125b2cda3555d5b6472028944846d493a28cf37f6f8170a3eb492491f7e",
+      "created_at": "2026-03-19T07:34:16.508Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1287,
+    "fields": {
+      "event_id": "e51cf4a3-dadc-41fb-8320-ca40fc671ecc",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/23/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:16.633867+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/23/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "84c48125b2cda3555d5b6472028944846d493a28cf37f6f8170a3eb492491f7e",
+      "integrity_hash": "0621c4571e83aa4b7c118786bb7315102f6a73efd4ed8fece70e8fca68f0da86",
+      "created_at": "2026-03-19T07:34:16.634Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1288,
+    "fields": {
+      "event_id": "95b66c0d-4f7d-4489-9717-c07e6ccb3458",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/21/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:16.678433+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/21/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "0621c4571e83aa4b7c118786bb7315102f6a73efd4ed8fece70e8fca68f0da86",
+      "integrity_hash": "ff854499898c4428167d90f138876790e630706e07d2ccd6b5760d098ffa7d1c",
+      "created_at": "2026-03-19T07:34:16.678Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1289,
+    "fields": {
+      "event_id": "7ed9c012-ea7c-4d04-bba2-c9f9a901eff2",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/19/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:16.661257+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/19/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "0621c4571e83aa4b7c118786bb7315102f6a73efd4ed8fece70e8fca68f0da86",
+      "integrity_hash": "dacdc0af61c15916a9a2318046299de22c42ec1fd0d3d03c404f0b185e422a7f",
+      "created_at": "2026-03-19T07:34:16.661Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1290,
+    "fields": {
+      "event_id": "9858532d-9c98-450d-815c-642331172b29",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/15/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:16.774725+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/15/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "ff854499898c4428167d90f138876790e630706e07d2ccd6b5760d098ffa7d1c",
+      "integrity_hash": "354ad75740f30093752fc2cf5334593a7c13319cab9f7efaaa62126331d77657",
+      "created_at": "2026-03-19T07:34:16.774Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1291,
+    "fields": {
+      "event_id": "10c973e8-2ae0-4a78-84e7-95aa01a9e021",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/17/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:16.791482+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/17/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "ff854499898c4428167d90f138876790e630706e07d2ccd6b5760d098ffa7d1c",
+      "integrity_hash": "9a39ba89f01417997cc6c6e730c97ecf9a6637b2158f3b5148e4b7bce8fa8d9f",
+      "created_at": "2026-03-19T07:34:16.791Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1292,
+    "fields": {
+      "event_id": "c583bfea-0759-4662-b6ee-153a0dd5e98a",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/37/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:16.885734+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/37/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "9a39ba89f01417997cc6c6e730c97ecf9a6637b2158f3b5148e4b7bce8fa8d9f",
+      "integrity_hash": "fff9c923353c7a4d4093b52f839f46ef5c6c99234223c957ad8ab9ddd9a11f21",
+      "created_at": "2026-03-19T07:34:16.885Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1293,
+    "fields": {
+      "event_id": "79237bf1-d574-48bf-b098-519d0d58338c",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/13/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:16.937839+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/13/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "fff9c923353c7a4d4093b52f839f46ef5c6c99234223c957ad8ab9ddd9a11f21",
+      "integrity_hash": "5a522bb72bddeee73527f174f99acffa29bc1ff96288db6de8b9946e0663342c",
+      "created_at": "2026-03-19T07:34:16.937Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1294,
+    "fields": {
+      "event_id": "4a363993-57f2-4490-9c63-2239eaee93a6",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/35/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:17.030385+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/35/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "5a522bb72bddeee73527f174f99acffa29bc1ff96288db6de8b9946e0663342c",
+      "integrity_hash": "0dbe60608a6d37616bde4f0214059cf9598449d5575b06bdf2e22512f83e1fc4",
+      "created_at": "2026-03-19T07:34:17.030Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1295,
+    "fields": {
+      "event_id": "57f937a0-448d-4bb6-a0e4-b6c15ec0c26c",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/33/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:17.065756+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/33/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "5a522bb72bddeee73527f174f99acffa29bc1ff96288db6de8b9946e0663342c",
+      "integrity_hash": "19d908290a1a968aca919c505bfce1af42d2c18f2ef5846494bdecb2db5d18f0",
+      "created_at": "2026-03-19T07:34:17.065Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1296,
+    "fields": {
+      "event_id": "0c7d9a1e-ae1c-4abe-aeae-087da7e4ec99",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/31/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:17.122954+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/31/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "19d908290a1a968aca919c505bfce1af42d2c18f2ef5846494bdecb2db5d18f0",
+      "integrity_hash": "6fb7d364a9195f261b0d1ac4f9a6cf98e56fb8f0a84a0d6a17758873973f7d30",
+      "created_at": "2026-03-19T07:34:17.123Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1297,
+    "fields": {
+      "event_id": "bbbb3b54-5fd0-49ae-98da-6a09ee9eb88e",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/29/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:17.176449+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/29/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "6fb7d364a9195f261b0d1ac4f9a6cf98e56fb8f0a84a0d6a17758873973f7d30",
+      "integrity_hash": "3eb5f48dce194156d692e99c536f5037561213c45fc174dd7e4785f1de958951",
+      "created_at": "2026-03-19T07:34:17.176Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1298,
+    "fields": {
+      "event_id": "0b5cb112-a6c2-4f30-9156-b7fe25dfe08d",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/27/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:17.209257+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/27/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "3eb5f48dce194156d692e99c536f5037561213c45fc174dd7e4785f1de958951",
+      "integrity_hash": "8d9ed5d758f4122dad696d78471fd429b8d27bc9a5a27f7892106be609d4ef9d",
+      "created_at": "2026-03-19T07:34:17.209Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1299,
+    "fields": {
+      "event_id": "ec89e82c-5d92-4712-8276-2a17426419f4",
+      "actor_user": null,
+      "action": "api_request",
+      "target_table": "http",
+      "target_id": "/api/users/students/5/",
+      "before": {},
+      "after": {
+        "method": "GET",
+        "status": 500,
+        "remote_addr": null,
+        "user_agent": null,
+        "timestamp": "2026-03-19T07:34:17.247505+00:00"
+      },
+      "request_id": "",
+      "request_path": "/api/users/students/5/",
+      "request_method": "GET",
+      "request_status": 500,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "8d9ed5d758f4122dad696d78471fd429b8d27bc9a5a27f7892106be609d4ef9d",
+      "integrity_hash": "12ffbb156c91dea4b38d3a36394f956e2ec360d4d778c5cd8f470963f5e3d133",
+      "created_at": "2026-03-19T07:34:17.247Z"
+    }
+  },
+  {
+    "model": "core.auditlog",
+    "pk": 1300,
+    "fields": {
+      "event_id": "220e6333-a383-4174-94a3-3b72cf94845d",
+      "actor_user": null,
+      "action": "updated",
+      "target_table": "users.User",
+      "target_id": "5",
+      "before": {},
+      "after": {
+        "id": 5,
+        "password": "pbkdf2_sha256$1000000$L0K5fCEyCTFT4Pd8awN2eK$s/m66DzMKfQ6zSoF/ZdbHbdAx80KY4AEDLKu4fFzb08=",
+        "last_login": "2026-03-19T07:34:37.249Z",
+        "is_superuser": false,
+        "username": "student1",
+        "first_name": "",
+        "last_name": "",
+        "email": "student1@example.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2025-11-19T11:28:49.438Z",
+        "role": "student",
+        "display_name": "Aisha Student",
+        "phone": "",
+        "date_of_birth": null,
+        "address": "",
+        "must_change_password": false,
+        "prefers_simple_language": true,
+        "prefers_high_contrast": false,
+        "speech_rate": 0.9,
+        "totp_secret": "",
+        "totp_enabled": false,
+        "totp_activated_at": null,
+        "groups": [],
+        "user_permissions": []
+      },
+      "request_id": "",
+      "request_path": "",
+      "request_method": "",
+      "request_status": null,
+      "ip_address": "",
+      "user_agent": "",
+      "metadata": {},
+      "previous_hash": "12ffbb156c91dea4b38d3a36394f956e2ec360d4d778c5cd8f470963f5e3d133",
+      "integrity_hash": "ff5472b5a08639e42503185c6a59f9d19bb21752de34e7fa1c386ee4ea5036c5",
+      "created_at": "2026-03-19T07:34:37.259Z"
+    }
+  }
+]

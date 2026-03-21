@@ -3,7 +3,7 @@ from django.core.management.base import BaseCommand
 
 from learning.models import Programme, CurriculumUnit, TermOffering
 from repository.models import LibraryAsset
-from users.models import Student, Guardian, Lecturer, HOD, Admin, RecordsOfficer, FinanceOfficer
+from users.models import Student, Guardian, Lecturer, HOD, Admin, RecordsOfficer, FinanceOfficer, ParentStudentLink
 from core.models import Department
 
 DEMO_USERS = [
@@ -109,7 +109,14 @@ class Command(BaseCommand):
 
             # Create role-specific profiles
             if role == 'student':
-                Student.objects.get_or_create(user=user, defaults={'student_id': username, 'year': 1, 'trimester': 1, 'trimester_label': 'T1'})
+                Student.objects.get_or_create(
+                    user=user,
+                    defaults={
+                        'year': 1,
+                        'trimester': 1,
+                        'trimester_label': 'Year 1, Trimester 1',
+                    },
+                )
             elif role == 'parent':
                 Guardian.objects.get_or_create(user=user)
             elif role == 'lecturer':
@@ -170,6 +177,45 @@ class Command(BaseCommand):
                 "department": tourism_dept,
             },
         )
+
+        lecturer_profile = Lecturer.objects.filter(user=user_lookup.get("lecturer1")).first()
+        if lecturer_profile and lecturer_profile.department_id != tourism_dept.id:
+            lecturer_profile.department = tourism_dept
+            lecturer_profile.save(update_fields=["department"])
+
+        hod_profile = HOD.objects.filter(user=user_lookup.get("hod1")).first()
+        if hod_profile and hod_profile.department_id != tourism_dept.id:
+            hod_profile.department = tourism_dept
+            hod_profile.save(update_fields=["department"])
+        if hod_profile and tourism_dept.head_of_department_id != hod_profile.user_id:
+            tourism_dept.head_of_department = hod_profile
+            tourism_dept.save(update_fields=["head_of_department"])
+
+        student_profile = Student.objects.filter(user=user_lookup.get("student1")).first()
+        if student_profile:
+            updated_fields = []
+            if student_profile.programme_id != tourism_programme.id:
+                student_profile.programme = tourism_programme
+                updated_fields.append("programme")
+            if student_profile.year != 1:
+                student_profile.year = 1
+                updated_fields.append("year")
+            if student_profile.trimester != 1:
+                student_profile.trimester = 1
+                updated_fields.append("trimester")
+            if student_profile.trimester_label != "Year 1, Trimester 1":
+                student_profile.trimester_label = "Year 1, Trimester 1"
+                updated_fields.append("trimester_label")
+            if updated_fields:
+                student_profile.save(update_fields=updated_fields)
+
+        parent_profile = Guardian.objects.filter(user=user_lookup.get("parent1")).first()
+        if student_profile and parent_profile:
+            ParentStudentLink.objects.get_or_create(
+                parent=parent_profile,
+                student=student_profile,
+                defaults={"relationship": "Guardian"},
+            )
 
         tourism_units = {
             1: {
