@@ -36,7 +36,7 @@ export const RoleSelectionScreen: React.FC = () => {
   const djangoAdminUrl = useMemo(() => {
     const base = (process.env.EXPO_PUBLIC_API_URL ?? '').trim().replace(/\/+$/, '');
     if (!base) {
-      return 'http://127.0.0.1:8000/admin/';
+      return 'https://rafiki-ygwg.onrender.com/admin/';
     }
     return `${base}/admin/`;
   }, []);

@@ -27,6 +27,12 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
+    "updates": {
+      "enabled": false,
+      "checkAutomatically": "NEVER",
+      "useEmbeddedUpdate": true,
+      "fallbackToCacheTimeout": 0
+    },
     "plugins": [
       "expo-font"
     ],

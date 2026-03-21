@@ -1,6 +1,6 @@
 import type { Role } from '@app-types/roles';
 
-const API_BASE = process.env.EXPO_PUBLIC_API_URL ?? 'http://127.0.0.1:8000';
+const API_BASE = process.env.EXPO_PUBLIC_API_URL ?? 'https://rafiki-ygwg.onrender.com';
 const NETWORK_ERROR_HINT = `Network request failed. Verify EXPO_PUBLIC_API_URL (${API_BASE}) and backend reachability.`;
 const ROLE_ALIASES: Record<string, Role> = {
   student: 'student',
