@@ -1,6 +1,7 @@
 # from core.views import index
 from core.views.devices import DeviceRegistrationView
 from django.contrib import admin
+from django.contrib.admin.views.decorators import staff_member_required
 from django.urls import path, include
 from django.conf import settings
 from django.views.generic import RedirectView
@@ -34,13 +35,13 @@ urlpatterns = [
     path("api/token/verify/", TokenVerifyView.as_view(), name="token_verify"),
     path("api/token/blacklist/", TokenBlacklistView.as_view(), name="token_blacklist"),
     # API schema and docs
-    path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
+    path("api/schema/", staff_member_required(SpectacularAPIView.as_view()), name="schema"),
     path(
         "api/docs/",
-        SpectacularSwaggerView.as_view(url_name="schema"),
+        staff_member_required(SpectacularSwaggerView.as_view(url_name="schema")),
         name="swagger-ui",
     ),
-    path("", RedirectView.as_view(url="/api/docs/", permanent=False)),
+    path("", RedirectView.as_view(url="/admin/", permanent=False)),
     #path("", index),
 ]
 
