@@ -77,6 +77,35 @@ INTENT_KEYWORDS = {
         "learn",
         "notes",
     ),
+    "study_materials": (
+        "study material",
+        "study materials",
+        "course material",
+        "course materials",
+        "material",
+        "materials",
+        "resources",
+        "revision material",
+        "notes",
+        "lecture notes",
+        "where do i find notes",
+        "where do i find materials",
+        "where are my notes",
+    ),
+    "app_navigation": (
+        "how do i use this app",
+        "how do i use the app",
+        "navigate",
+        "navigation",
+        "how do i find",
+        "where do i go",
+        "where is",
+        "how do i open",
+        "open",
+        "app help",
+        "help me find",
+        "how do i use",
+    ),
 }
 
 QUERY_PHRASE_REPLACEMENTS = {
@@ -111,7 +140,17 @@ QUERY_VOCABULARY = {
     "revision",
     "study",
     "notes",
+    "material",
+    "materials",
+    "resource",
+    "resources",
     "chatbot",
+    "app",
+    "navigate",
+    "navigation",
+    "find",
+    "open",
+    "help",
     "community",
     "group",
     "fees",
@@ -415,7 +454,7 @@ def _smalltalk_response(query: str):
     if _contains_phrase(normalized, greeting_tokens):
         return {
             "text": (
-                "Hello. I can help with class times, scheduled calls, assignments, CAT reminders, and school notices."
+                "Hello. I can help with class times, study materials, app navigation, scheduled calls, assignments, CAT reminders, and school notices."
             ),
             "visual_cue": "smalltalk",
         }
@@ -429,11 +468,12 @@ def _smalltalk_response(query: str):
     if _contains_phrase(normalized, capability_tokens):
         return {
             "text": _with_followups(
-                "I can answer course and schedule questions, check upcoming calls, and explain what to do next.",
+                "I can answer course and schedule questions, help you find study materials, explain where to tap in the app, and check upcoming calls.",
                 [
                     "When is my next class?",
+                    "Where do I find study materials?",
+                    "How do I use this app?",
                     "Do I have any upcoming class calls?",
-                    "What assignments are due soon?",
                 ],
             ),
             "visual_cue": "smalltalk",
@@ -579,6 +619,87 @@ def _format_school_activity_notices(user):
         else:
             lines.append(title_text)
     return "Recent notices: " + "; ".join(lines)
+
+
+def _format_study_materials_help(user):
+    student_profile = _get_student_profile(user)
+    base = (
+        "Open Class communities to find weekly notes, shared class materials, and updates from your lecturer. "
+        "Open Assignments to see tasks, instructions, and what needs to be submitted. "
+        "If you cannot find a file, open Message center and ask your lecturer to share it there."
+    )
+    if not student_profile:
+        return base
+
+    registered_units = list(
+        Registration.objects.filter(
+            student=student_profile,
+            status=Registration.Status.APPROVED,
+        )
+        .select_related("unit")
+        .order_by("unit__code")[:3]
+    )
+    if not registered_units:
+        return f"{base} Your units will appear after registration is approved."
+
+    unit_preview = ", ".join(
+        filter(None, [getattr(item.unit, "code", None) or getattr(item.unit, "title", None) for item in registered_units])
+    )
+    return f"{base} Your current approved units include {unit_preview}."
+
+
+def _format_student_navigation_help(query: str):
+    normalized = _normalize_query(query)
+    sections: list[str] = []
+
+    if _contains_any(normalized, ("material", "materials", "notes", "resource", "resources")):
+        sections.append(
+            "Open Class communities for shared notes and class files. Open Assignments for task instructions. Use Message center if you need your lecturer to resend materials."
+        )
+
+    if _contains_any(normalized, ("fee", "fees", "finance", "payment", "balance")):
+        sections.append(
+            "Open Finance and rewards to see your fee balance, payment history, and finance clearance status."
+        )
+
+    if _contains_any(normalized, ("register", "registration", "unit", "units", "course", "courses")):
+        sections.append(
+            "Open Unit registration to choose up to 4 units after finance clears your account. After that, records and HOD can review your choices."
+        )
+
+    if _contains_any(normalized, ("group", "groups", "community", "communities", "forum")):
+        sections.append(
+            "Open Class communities, or tap Class groups in Picture quick actions, to enter your class group chats."
+        )
+
+    if _contains_any(normalized, ("message", "messages", "lecturer", "contact", "chat", "talk", "communication")):
+        sections.append(
+            "Open Message center to talk to lecturers and keep your conversation history. Use Peer chats for private conversations with classmates."
+        )
+
+    if _contains_any(normalized, ("call", "calls", "video", "meeting", "online class")):
+        sections.append(
+            "Open Class calls to see scheduled online lessons. Tap a call card there to join the class."
+        )
+
+    if _contains_any(normalized, ("class", "classes", "timetable", "schedule", "calendar")):
+        sections.append(
+            "Open Upcoming classes to see your timetable entries, the next class time, and the room."
+        )
+
+    if _contains_any(normalized, ("chatbot", "help", "assistant", "robot")):
+        sections.append(
+            "Tap Help chatbot in Picture quick actions, or tap the robot bubble at the bottom right, to ask for help anytime."
+        )
+
+    if sections:
+        return " ".join(sections[:3])
+
+    return (
+        "Use Picture quick actions near the top for the fastest navigation. "
+        "Tap Upcoming classes for timetable, Unit registration for course choices, Class calls for online lessons, "
+        "Class groups for group chat, Message center for lecturers, and Help chatbot for support."
+    )
 
 
 def _tourism_knowledge_response():
@@ -841,6 +962,40 @@ class AskView(APIView):
                     intent=intent,
                 )
 
+            if intent == "study_materials":
+                text = _with_followups(
+                    _format_study_materials_help(user),
+                    [
+                        "Open my class groups",
+                        "What assignments are due this week?",
+                        "How do I message my lecturer?",
+                    ],
+                )
+                return self._finalize_response(
+                    conversation=conversation,
+                    query=query,
+                    text=text,
+                    visual_cue="materials",
+                    intent=intent,
+                )
+
+            if intent == "app_navigation":
+                text = _with_followups(
+                    _format_student_navigation_help(query),
+                    [
+                        "Where do I find study materials?",
+                        "Where are my fees?",
+                        "How do I open class groups?",
+                    ],
+                )
+                return self._finalize_response(
+                    conversation=conversation,
+                    query=query,
+                    text=text,
+                    visual_cue="navigation",
+                    intent=intent,
+                )
+
             if _contains_any(
                 normalized,
                 ("assignment", "assignments", "cat", "cats", "due", "deadline", "grade", "exam"),
@@ -879,7 +1034,7 @@ class AskView(APIView):
                 )
 
             guidance = (
-                "I can guide you step by step on your course topics, timetable, class calls, assignments, and CAT planning."
+                "I can guide you step by step on your course topics, timetable, study materials, app navigation, class calls, assignments, and CAT planning."
             )
             if _contains_any(normalized, ("revise", "revision", "study", "topic", "notes", "explain")):
                 guidance += " Tell me one specific unit or topic and I will simplify it."
@@ -887,8 +1042,9 @@ class AskView(APIView):
                 guidance,
                 [
                     "When is my next class?",
+                    "Where do I find study materials?",
+                    "How do I use this app?",
                     "What assignments are due this week?",
-                    "Help me revise one topic",
                 ],
             )
             return self._finalize_response(

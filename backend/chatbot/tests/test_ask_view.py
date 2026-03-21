@@ -97,3 +97,24 @@ class ChatbotAskViewTests(TestCase):
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertIn("not relevant to school work", response.data["text"])
+
+    def test_study_materials_question_points_student_to_right_sections(self):
+        response = self.client.post(
+            "/api/chatbot/ask/",
+            {"query": "Where do I find study materials for my classes?"},
+            format="json",
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertIn("Class communities", response.data["text"])
+        self.assertIn("Assignments", response.data["text"])
+        self.assertIn("Message center", response.data["text"])
+
+    def test_app_navigation_question_uses_student_screen_labels(self):
+        response = self.client.post(
+            "/api/chatbot/ask/",
+            {"query": "How do I use this app to find my fees and groups?"},
+            format="json",
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertIn("Finance and rewards", response.data["text"])
+        self.assertIn("Class communities", response.data["text"])

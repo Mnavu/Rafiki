@@ -42,6 +42,8 @@ type ChatTurn = {
 const QUICK_PROMPTS = [
   'When is my next class?',
   'Do I have an upcoming class call?',
+  'Where do I find study materials?',
+  'How do I use this app?',
   'What school activities are coming up?',
   'Help me revise my course topic.',
 ];
@@ -321,18 +323,21 @@ export const StudentChatbotScreen: React.FC = () => {
     }
     try {
       setError(null);
-        await speakWithFallback({
-          text,
-          speechRate: state.user?.speech_rate,
-          preferredVoice,
-          onStatusChange: setSpeechStatus,
-          onError: (message) => {
-            setError(message);
-          },
-        });
+      await speakWithFallback({
+        text,
+        speechRate: state.user?.speech_rate,
+        preferredVoice,
+        onStatusChange: setSpeechStatus,
+        onError: (message) => {
+          setError(message);
+        },
+      });
     } catch {
       setSpeechStatus('Voice failed. Check device TTS settings.');
-      setError('Voice playback failed on this device. Check media volume and device text-to-speech settings.');
+      setError(
+        preferredVoice.diagnosticMessage ||
+          'Voice playback failed on this device. Check media volume and device text-to-speech settings.',
+      );
     }
   };
 
@@ -348,6 +353,9 @@ export const StudentChatbotScreen: React.FC = () => {
         return;
       }
       setPreferredVoice(voice);
+      if (voice.hasUsableVoice === false && voice.diagnosticMessage) {
+        setSpeechStatus(voice.diagnosticMessage);
+      }
     };
     prepareTtsVoice();
     return () => {
@@ -534,6 +542,13 @@ export const StudentChatbotScreen: React.FC = () => {
               await stopSpeechPlayback();
               await cancelVoiceQuestion();
             },
+          },
+          {
+            label: 'Test voice',
+            onPress: () =>
+              speakAnswer(
+                'Voice test successful. If you do not hear this, turn on Android text to speech and raise media volume.',
+              ),
           },
           { label: 'Log out', onPress: logout },
         ]}

@@ -234,14 +234,16 @@ export const StudentHomeScreen: React.FC = () => {
           preferredVoice,
           onStatusChange: setSpeechStatus,
           onError: (message) => {
+            setSpeechStatus(preferredVoice.diagnosticMessage || message);
             Alert.alert('Voice error', message);
           },
         });
       } catch {
-        setSpeechStatus('Voice failed. Check device TTS settings.');
+        setSpeechStatus(preferredVoice.diagnosticMessage || 'Voice failed. Check device TTS settings.');
         Alert.alert(
           'Voice error',
-          'Could not play speech on this device right now. Check device media volume and TTS settings.',
+          preferredVoice.diagnosticMessage ||
+            'Could not play speech on this device right now. Check device media volume and TTS settings.',
         );
       }
     },
@@ -402,6 +404,9 @@ export const StudentHomeScreen: React.FC = () => {
         return;
       }
       setPreferredVoice(voice);
+      if (voice.hasUsableVoice === false && voice.diagnosticMessage) {
+        setSpeechStatus(voice.diagnosticMessage);
+      }
     };
     prepareTts();
     return () => {
@@ -1360,7 +1365,9 @@ export const StudentHomeScreen: React.FC = () => {
           {
             label: 'Test voice',
             onPress: () =>
-              speakText('Voice test successful. Student assistant is ready to read sections aloud.'),
+              speakText(
+                'Voice test successful. If you do not hear this, turn on Android text to speech and raise media volume.',
+              ),
           },
           { label: 'Stop voice', onPress: () => stopSpeechPlayback() },
         ]}

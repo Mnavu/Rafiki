@@ -34,6 +34,8 @@ KEMU_TOURISM_KNOWLEDGE = {
         "assignment and CAT reminders",
         "scheduled call reminders",
         "school activity notices",
+        "study material navigation",
+        "student app navigation",
     ],
 }
 
@@ -44,6 +46,8 @@ ALLOWED_STUDENT_INTENTS = {
     "class_timing",
     "scheduled_calls",
     "school_activities",
+    "study_materials",
+    "app_navigation",
 }
 
 
@@ -55,4 +59,3 @@ RESTRICTED_PATTERNS = [
     "crypto price",
     "politics gossip",
 ]
-

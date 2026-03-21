@@ -4,7 +4,15 @@ import * as Speech from 'expo-speech';
 export type PreferredSpeechVoice = {
   id?: string;
   language?: string;
+  hasUsableVoice?: boolean;
+  diagnosticMessage?: string;
+  voiceCount?: number;
 };
+
+const pause = (milliseconds: number) =>
+  new Promise<void>((resolve) => {
+    setTimeout(resolve, milliseconds);
+  });
 
 const PLAYBACK_AUDIO_MODE = {
   allowsRecordingIOS: false,
@@ -31,6 +39,7 @@ export const prepareSpeechPlayback = async () => {
 
   try {
     await Audio.setAudioModeAsync(PLAYBACK_AUDIO_MODE);
+    await pause(140);
   } catch {
     // Keep speech usable even when audio mode cannot be configured on some devices.
   }
@@ -40,7 +49,12 @@ export const loadPreferredSpeechVoice = async (): Promise<PreferredSpeechVoice> 
   try {
     const voices = await Speech.getAvailableVoicesAsync();
     if (!voices?.length) {
-      return {};
+      return {
+        hasUsableVoice: false,
+        voiceCount: 0,
+        diagnosticMessage:
+          'No device speech voice was found. Turn on Android text-to-speech and install an English voice to hear read-aloud.',
+      };
     }
     const englishVoice =
       voices.find((voice) => voice.language?.toLowerCase().startsWith('en-ke')) ??
@@ -49,9 +63,14 @@ export const loadPreferredSpeechVoice = async (): Promise<PreferredSpeechVoice> 
     return {
       id: englishVoice?.identifier,
       language: englishVoice?.language ?? 'en-US',
+      hasUsableVoice: true,
+      voiceCount: voices.length,
     };
   } catch {
-    return {};
+    return {
+      diagnosticMessage:
+        'Could not inspect speech voices on this device. The app will try the default system voice.',
+    };
   }
 };
 
@@ -76,16 +95,35 @@ export const speakWithFallback = async ({
 
   await prepareSpeechPlayback();
   await stopSpeechPlayback();
-  onStatusChange?.('Speaking...');
+  await pause(100);
+
+  const failureMessage =
+    preferredVoice?.hasUsableVoice === false
+      ? 'No usable device speech voice was found. Turn on Android text-to-speech, download an English voice, and raise media volume.'
+      : 'Voice playback failed on this device. Check media volume and Android text-to-speech settings.';
 
   const attempts: Array<{
     label: string;
     options: { language?: string; voice?: string };
   }> = [];
 
+  attempts.push({
+    label: 'Speaking aloud...',
+    options: {},
+  });
+
+  if (preferredVoice?.language) {
+    attempts.push({
+      label: 'Retrying with device language...',
+      options: {
+        language: preferredVoice.language,
+      },
+    });
+  }
+
   if (preferredVoice?.id || preferredVoice?.language) {
     attempts.push({
-      label: 'Speaking...',
+      label: 'Retrying with selected voice...',
       options: {
         ...(preferredVoice?.language ? { language: preferredVoice.language } : {}),
         ...(preferredVoice?.id ? { voice: preferredVoice.id } : {}),
@@ -93,37 +131,28 @@ export const speakWithFallback = async ({
     });
   }
 
-  if (preferredVoice?.language) {
-    attempts.push({
-      label: 'Retrying with device language...',
-      options: { language: preferredVoice.language },
-    });
-  }
-
-  attempts.push({
-    label: 'Retrying with device voice...',
-    options: {},
-  });
-
   const startSpeech = (attemptIndex: number) => {
     const attempt = attempts[attemptIndex];
     if (!attempt) {
-      onStatusChange?.('Voice failed. Check media volume and device speech settings.');
-      onError?.(
-        'Voice playback failed on this device. Check media volume and Android text-to-speech settings.',
-      );
+      onStatusChange?.('Voice failed. Check device speech settings.');
+      onError?.(failureMessage);
       return;
     }
 
     onStatusChange?.(attempt.label);
     Speech.speak(text, {
       pitch: 1,
-      rate: speechRate && speechRate > 0 ? speechRate : 0.9,
+      rate: speechRate && speechRate > 0 ? speechRate : 0.82,
+      volume: 1,
       ...attempt.options,
       onDone: () => onStatusChange?.(null),
       onStopped: () => onStatusChange?.(null),
       onError: () => {
-        startSpeech(attemptIndex + 1);
+        void (async () => {
+          await stopSpeechPlayback();
+          await pause(80);
+          startSpeech(attemptIndex + 1);
+        })();
       },
     });
   };
