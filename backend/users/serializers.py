@@ -183,7 +183,14 @@ class GuardianSerializer(serializers.ModelSerializer):
 
 
 class StudentSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(source="user_id", read_only=True)
     user = UserSerializer(read_only=True)
+    cohort_year = serializers.SerializerMethodField()
+
+    def get_cohort_year(self, obj):
+        if getattr(obj, "admission_date", None):
+            return obj.admission_date.year
+        return None
 
     class Meta:
         model = Student
