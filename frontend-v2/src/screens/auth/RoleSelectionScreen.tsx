@@ -1,8 +1,8 @@
 import React, { useMemo } from 'react';
-import { View, StyleSheet, FlatList, Platform } from 'react-native';
+import { View, StyleSheet, FlatList, Platform, Linking, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { DashboardTile, GreetingHeader, RoleBadge } from '@components/index';
+import { DashboardTile, GreetingHeader, RoleBadge, VoiceButton } from '@components/index';
 import { palette, spacing } from '@theme/index';
 import type { Role } from '@app-types/roles';
 import { roleLabels } from '@app-types/roles';
@@ -33,11 +33,18 @@ export const RoleSelectionScreen: React.FC = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const isAdminWebPortal =
     Platform.OS === 'web' && (process.env.EXPO_PUBLIC_WEB_PORTAL ?? '').trim().toLowerCase() === 'admin';
+  const djangoAdminUrl = useMemo(() => {
+    const base = (process.env.EXPO_PUBLIC_API_URL ?? '').trim().replace(/\/+$/, '');
+    if (!base) {
+      return 'http://127.0.0.1:8000/admin/';
+    }
+    return `${base}/admin/`;
+  }, []);
   const visibleRoles = useMemo(
     () =>
       roleOptions.filter((item) => {
         if (isAdminWebPortal) {
-          return item.key === 'admin' || item.key === 'superadmin';
+          return false;
         }
         if (Platform.OS !== 'web' && (item.key === 'admin' || item.key === 'superadmin')) {
           return false;
@@ -55,12 +62,26 @@ export const RoleSelectionScreen: React.FC = () => {
       />
       {isAdminWebPortal ? (
         <View style={styles.noticeCard}>
-          <DashboardTile
-            title="Web admin workspace"
-            subtitle="This deployed web site is reserved for admin and super admin accounts. Students, lecturers, Guardians, finance, records, and HOD users should use the mobile app."
-            onPress={() => navigation.navigate('Login', { role: 'admin' })}
-            icon={<RoleBadge role="admin" />}
-          />
+          <View style={styles.portalCard}>
+            <Text style={styles.portalTitle}>Django admin is the primary web workspace.</Text>
+            <Text style={styles.portalBody}>
+              Admin and superadmin users should use Django admin for approvals, finance, reports,
+              audit logs, and password resets. The custom web workspace is now legacy.
+            </Text>
+            <VoiceButton
+              label="Open Django admin"
+              onPress={() => {
+                void Linking.openURL(djangoAdminUrl);
+              }}
+              isActive
+            />
+            <VoiceButton
+              label="Open legacy workspace"
+              onPress={() => navigation.navigate('Login', { role: 'admin' })}
+              size="compact"
+            />
+            <Text style={styles.portalLink}>{djangoAdminUrl}</Text>
+          </View>
         </View>
       ) : null}
       <FlatList
@@ -95,5 +116,31 @@ const styles = StyleSheet.create({
   },
   noticeCard: {
     marginBottom: spacing.md,
+  },
+  portalCard: {
+    backgroundColor: palette.surface,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: palette.disabled,
+    padding: spacing.lg,
+    gap: spacing.md,
+  },
+  portalTitle: {
+    fontSize: 20,
+    lineHeight: 28,
+    fontWeight: '700',
+    color: palette.textPrimary,
+  },
+  portalBody: {
+    fontSize: 16,
+    lineHeight: 22,
+    fontWeight: '500',
+    color: palette.textSecondary,
+  },
+  portalLink: {
+    fontSize: 14,
+    lineHeight: 18,
+    fontWeight: '500',
+    color: palette.textSecondary,
   },
 });

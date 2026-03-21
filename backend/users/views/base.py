@@ -3,7 +3,6 @@ from django.contrib.auth.tokens import default_token_generator
 from django.db import transaction
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
-from django.utils.crypto import get_random_string
 from rest_framework import permissions, viewsets, status
 from rest_framework.decorators import api_view, permission_classes, action
 from rest_framework.exceptions import PermissionDenied, ValidationError
@@ -14,9 +13,14 @@ from core.models import AuditLog, ApprovalRequest
 # from finance.models import FeeItem
 # from learning.models import Course, Enrollment
 
-from finance.models import FinanceStatus, Payment
+from finance.models import Payment
 from learning.models import Registration, CurriculumUnit
-from ..models import User, ParentStudentLink, UserProvisionRequest, FamilyEnrollmentIntent, Student, Guardian, Lecturer, HOD, Admin, RecordsOfficer, FinanceOfficer
+from ..models import User, ParentStudentLink, UserProvisionRequest
+from ..provisioning import (
+    admin_reset_password as apply_admin_password_reset,
+    approve_provision_request,
+    reject_provision_request,
+)
 from ..role_assignment import apply_user_role, SENSITIVE_ROLES
 from ..serializers import (
     UserSerializer,
@@ -27,7 +31,6 @@ from ..serializers import (
     UserProvisionRequestSerializer,
     FamilyEnrollmentSerializer,
 )
-from ..notifications import notify_provision_request_approval
 
 
 class UserViewSet(viewsets.ReadOnlyModelViewSet):
@@ -108,87 +111,10 @@ class UserProvisionRequestViewSet(viewsets.ModelViewSet):
         acting = request.user
         if acting.role not in {User.Roles.ADMIN, User.Roles.HOD} and not acting.is_staff:
             raise PermissionDenied("Only admin or HOD users may approve requests.")
-        if provision_request.status != UserProvisionRequest.Status.PENDING:
-            raise ValidationError({"detail": "Request has already been processed."})
-        if User.objects.filter(username=provision_request.username).exists():
-            raise ValidationError({"detail": "A user with this username already exists."})
-
-        intent = FamilyEnrollmentIntent.objects.filter(
-            student_request=provision_request
-        ).first()
-        intent_role = "student" if intent else None
-        if not intent:
-            intent = FamilyEnrollmentIntent.objects.filter(
-                parent_request=provision_request
-            ).first()
-            intent_role = "parent" if intent else None
-
-        desired_password = None
-        if intent:
-            if intent_role == "student":
-                desired_password = intent.student_password or None
-            else:
-                desired_password = intent.parent_password or None
-
-        temp_password = desired_password or get_random_string(length=12)
-        payload = {
-            "username": provision_request.username,
-            "password": temp_password,
-            "email": provision_request.email,
-            "display_name": provision_request.display_name,
-            "role": provision_request.role,
-        }
-        serializer = UserProvisionSerializer(data=payload)
-        serializer.is_valid(raise_exception=True)
-        user = serializer.save()
-
-        # Create the role-specific profile
-        if provision_request.role == User.Roles.STUDENT and intent:
-            Student.objects.create(
-                user=user,
-                programme=intent.programme,
-                year=intent.year,
-                trimester=intent.trimester,
-                trimester_label=intent.trimester_label,
-                cohort_year=intent.cohort_year,
-                current_status=Student.Status.ADMITTED,
-            )
-        elif provision_request.role == User.Roles.PARENT:
-            Guardian.objects.create(user=user)
-        elif provision_request.role == User.Roles.LECTURER:
-            # Note: department is not yet handled in the intent
-            Lecturer.objects.create(user=user)
-        elif provision_request.role == User.Roles.HOD:
-            # Note: department is not yet handled in the intent
-            HOD.objects.create(user=user)
-        elif provision_request.role == User.Roles.ADMIN:
-            Admin.objects.create(user=user)
-        elif provision_request.role == User.Roles.RECORDS:
-            RecordsOfficer.objects.create(user=user)
-        elif provision_request.role == User.Roles.FINANCE:
-            FinanceOfficer.objects.create(user=user)
-
-        if desired_password:
-            user.set_password(desired_password)
-            user.must_change_password = False
-            user.save(update_fields=["password", "must_change_password"])
-            temp_password = desired_password
-        provision_request.status = UserProvisionRequest.Status.APPROVED
-        provision_request.reviewed_by = acting
-        provision_request.reviewed_at = timezone.now()
-        provision_request.created_user = user
-        provision_request.rejection_reason = ""
-        provision_request.temporary_password = temp_password
-        provision_request.save(update_fields=["status", "reviewed_by", "reviewed_at", "created_user", "rejection_reason", "temporary_password"])
-        AuditLog.objects.create(
-            actor_user=acting,
-            action="user_provision_approved",
-            target_table=UserProvisionRequest._meta.label,
-            target_id=str(provision_request.pk),
-            after={"username": provision_request.username, "role": provision_request.role},
-        )
-        notify_provision_request_approval(provision_request, temp_password)
-        self._finalize_family_enrollment(provision_request)
+        try:
+            user, temp_password = approve_provision_request(provision_request, acting=acting)
+        except ValueError as exc:
+            raise ValidationError({"detail": str(exc)})
         return Response(
             {
                 "user": UserSerializer(user).data,
@@ -196,103 +122,17 @@ class UserProvisionRequestViewSet(viewsets.ModelViewSet):
             }
         )
 
-    def _finalize_family_enrollment(self, provision_request: UserProvisionRequest) -> None:
-        intent = FamilyEnrollmentIntent.objects.select_related(
-            "student_request",
-            "parent_request",
-            "student_request__created_user",
-            "parent_request__created_user",
-        ).filter(student_request=provision_request).first()
-        if intent is None:
-            intent = FamilyEnrollmentIntent.objects.select_related(
-                "student_request",
-                "parent_request",
-                "student_request__created_user",
-                "parent_request__created_user",
-            ).filter(parent_request=provision_request).first()
-        if intent is None:
-            return
-
-        student_user = intent.student_request.created_user
-        parent_user = intent.parent_request.created_user if intent.parent_request else None
-
-        if not student_user:
-            return
-        if intent.parent_request and not parent_user:
-            return
-
-        student_updates = []
-        if intent.student_first_name or intent.student_last_name:
-            student_user.first_name = intent.student_first_name
-            student_user.last_name = intent.student_last_name
-            student_updates.extend(["first_name", "last_name"])
-        display_name = student_user.display_name or f"{intent.student_first_name} {intent.student_last_name}".strip()
-        if display_name and student_user.display_name != display_name:
-            student_user.display_name = display_name
-            student_updates.append("display_name")
-        if student_updates:
-            student_user.save(update_fields=list(set(student_updates)))
-
-        if parent_user:
-            parent_updates = []
-            if intent.parent_first_name or intent.parent_last_name:
-                parent_user.first_name = intent.parent_first_name
-                parent_user.last_name = intent.parent_last_name
-                parent_updates.extend(["first_name", "last_name"])
-            parent_display = parent_user.display_name or f"{intent.parent_first_name} {intent.parent_last_name}".strip()
-            if parent_display and parent_user.display_name != parent_display:
-                parent_user.display_name = parent_display
-                parent_updates.append("display_name")
-            if parent_updates:
-                parent_user.save(update_fields=list(set(parent_updates)))
-            
-            try:
-                student_profile = student_user.student_profile
-                parent_profile = parent_user.guardian_profile
-                link, created = ParentStudentLink.objects.get_or_create(
-                    parent=parent_profile,
-                    student=student_profile,
-                    defaults={"relationship": intent.relationship},
-                )
-                if not created and intent.relationship and link.relationship != intent.relationship:
-                    link.relationship = intent.relationship
-                    link.save(update_fields=["relationship"])
-            except (Student.DoesNotExist, Guardian.DoesNotExist):
-                # This should not happen if the profiles were created correctly in the approve method
-                pass
-
-        # Create finance records for the student
-        if intent.fee_amount:
-            FinanceStatus.objects.create(
-                student=student_user.student_profile,
-                academic_year=intent.year,
-                trimester=intent.trimester,
-                total_due=intent.fee_amount,
-            )
-
-        intent.delete()
-
     @action(detail=True, methods=["post"], permission_classes=[permissions.IsAuthenticated])
     def reject(self, request, pk=None):
         provision_request = self.get_object()
         acting = request.user
         if acting.role not in {User.Roles.ADMIN, User.Roles.HOD} and not acting.is_staff:
             raise PermissionDenied("Only admin or HOD users may reject requests.")
-        if provision_request.status != UserProvisionRequest.Status.PENDING:
-            raise ValidationError({"detail": "Request has already been processed."})
         reason = request.data.get("reason", "").strip()
-        provision_request.status = UserProvisionRequest.Status.REJECTED
-        provision_request.reviewed_by = acting
-        provision_request.reviewed_at = timezone.now()
-        provision_request.rejection_reason = reason
-        provision_request.save(update_fields=["status", "reviewed_by", "reviewed_at", "rejection_reason"])
-        AuditLog.objects.create(
-            actor_user=acting,
-            action="user_provision_rejected",
-            target_table=UserProvisionRequest._meta.label,
-            target_id=str(provision_request.pk),
-            after={"reason": reason},
-        )
+        try:
+            reject_provision_request(provision_request, acting=acting, reason=reason)
+        except ValueError as exc:
+            raise ValidationError({"detail": str(exc)})
         return Response(UserProvisionRequestSerializer(provision_request).data)
 
     @action(detail=True, methods=["post"], permission_classes=[permissions.IsAuthenticated])
@@ -643,29 +483,16 @@ def admin_reset_password(request):
     else:
         raise ValidationError({"detail": "user_id or username is required."})
 
-    if acting.role == User.Roles.ADMIN and target.role == User.Roles.SUPERADMIN and not acting.is_superuser:
-        raise PermissionDenied("Admins cannot reset super admin passwords.")
-
-    temporary_password = str(request.data.get("new_password", "")).strip() or get_random_string(length=12)
-    if len(temporary_password) < 6:
-        raise ValidationError({"detail": "Temporary password must be at least 6 characters."})
-
-    target.set_password(temporary_password)
-    target.must_change_password = True
-    target._password_changed_by = acting
-    target.save(update_fields=["password", "must_change_password"])
-
-    AuditLog.objects.create(
-        actor_user=acting,
-        action="admin_password_reset",
-        target_table=User._meta.label,
-        target_id=str(target.pk),
-        after={
-            "username": target.username,
-            "role": target.role,
-            "must_change_password": True,
-        },
-    )
+    try:
+        temporary_password = apply_admin_password_reset(
+            target=target,
+            acting=acting,
+            new_password=request.data.get("new_password"),
+        )
+    except PermissionError as exc:
+        raise PermissionDenied(str(exc))
+    except ValueError as exc:
+        raise ValidationError({"detail": str(exc)})
     return Response(
         {
             "detail": "Password reset successfully.",

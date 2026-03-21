@@ -22,6 +22,7 @@ import { VideoRoomScreen } from '@screens/lecturer/VideoRoomScreen';
 import { RecordsControlCenterScreen } from '@screens/records/RecordsControlCenterScreen';
 import { AdminControlCenterScreen } from '@screens/admin/AdminControlCenterScreen';
 import { AdminPortalOnlyNoticeScreen } from '@screens/admin/AdminPortalOnlyNoticeScreen';
+import { DjangoAdminGatewayScreen } from '@screens/admin/DjangoAdminGatewayScreen';
 import { WebOnlyAdminNoticeScreen } from '@screens/admin/WebOnlyAdminNoticeScreen';
 import { ProfileSettingsScreen } from '@screens/settings/ProfileSettingsScreen';
 import { useAuth } from '@context/AuthContext';
@@ -44,6 +45,7 @@ export type RootStackParamList = {
   VideoRoom: { meetingUrl: string; title?: string };
   RecordsControlCenter: undefined;
   AdminControlCenter: undefined;
+  DjangoAdminGateway: undefined;
   AdminPortalOnlyNotice: undefined;
   WebOnlyAdminNotice: undefined;
   ProfileSettings: undefined;
@@ -88,7 +90,7 @@ export const AppNavigator = () => {
                   <Stack.Screen name="FinanceControlCenter" component={FinanceControlCenterScreen} />
                 ) : null}
                 {isWebAdminUser ? (
-                  <Stack.Screen name="AdminControlCenter" component={AdminControlCenterScreen} />
+                  <Stack.Screen name="DjangoAdminGateway" component={DjangoAdminGatewayScreen} />
                 ) : null}
                 {isNativeAdminUser ? (
                   <Stack.Screen name="WebOnlyAdminNotice" component={WebOnlyAdminNoticeScreen} />
@@ -115,6 +117,7 @@ export const AppNavigator = () => {
                 <Stack.Screen name="LecturerPlanner" component={LecturerPlannerScreen} />
                 <Stack.Screen name="VideoRoom" component={VideoRoomScreen} />
                 <Stack.Screen name="RecordsControlCenter" component={RecordsControlCenterScreen} />
+                <Stack.Screen name="AdminControlCenter" component={AdminControlCenterScreen} />
                 <Stack.Screen name="ProfileSettings" component={ProfileSettingsScreen} />
                 <Stack.Screen name="StudentChatbot" component={StudentChatbotScreen} />
               </>

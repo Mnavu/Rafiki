@@ -3,7 +3,8 @@
 This repo is now prepared for:
 
 - Django backend deploy on Render
-- Expo web admin deploy on Netlify
+- Django admin as the primary web admin surface
+- Optional Expo web admin deploy on Netlify
 - Android APK rebuild against a public API URL
 
 ## 1. Deploy the backend
@@ -28,7 +29,24 @@ Use the blueprint file at [`render.yaml`](../render.yaml).
    - `/admin/`
    - `/api/schema/`
 
-## 2. Deploy the admin web app
+## 2. Primary admin URL
+
+Use Django admin as the main administrative interface:
+
+```text
+https://your-render-backend-url/admin/
+```
+
+This is now the recommended admin and superadmin surface for:
+
+- user and role management
+- family enrollment queue
+- finance clearance
+- HOD registration approvals
+- password resets
+- reports and audit exports
+
+## 3. Optional web control center deploy
 
 Use the Netlify config at [`netlify.toml`](../netlify.toml).
 
@@ -44,7 +62,7 @@ Use the Netlify config at [`netlify.toml`](../netlify.toml).
    - `EXPO_PUBLIC_WEB_PORTAL=admin`
 5. Deploy and verify the admin login page loads.
 
-## 3. Point the local app to the public backend
+## 4. Point the local app to the public backend
 
 Update [`frontend-v2/.env`](../frontend-v2/.env):
 
@@ -59,7 +77,7 @@ cd frontend-v2
 npx expo start -c
 ```
 
-## 4. Build the final APK
+## 5. Build the final APK
 
 The APK already built against a LAN IP should not be shared broadly.
 
@@ -77,16 +95,17 @@ cd frontend-v2
 npx eas build -p android --profile production
 ```
 
-## 5. Share the launch artifacts
+## 6. Share the launch artifacts
 
-- Admin web link: Netlify URL or your custom domain
+- Admin link: Render Django admin URL
+- Optional custom web admin link: Netlify URL
 - APK install link: EAS build artifact
 
-## 6. Minimum release verification
+## 7. Minimum release verification
 
 Check these before sharing:
 
-1. Admin web login works from a device outside your Wi-Fi.
+1. Django admin login works from a device outside your Wi-Fi.
 2. Student login works from the APK on mobile data or a different network.
 3. Finance, HOD approvals, unit registration, and class communities load from the public API.
 4. File uploads and report downloads work from the deployed backend.

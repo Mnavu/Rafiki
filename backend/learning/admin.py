@@ -1,9 +1,16 @@
 from django.contrib import admin
+from django.contrib import messages
+from django.utils import timezone
+
+from core.models import AuditLog
+from users.models import Student, User
+
 from .models import (
     Programme, CurriculumUnit, TermOffering, Registration, 
     LecturerAssignment, Timetable, Assignment, Submission
 )
 from .quiz_models import Quiz, Question, Choice, StudentAnswer
+from .workflows import ensure_registration_channels
 
 @admin.register(Programme)
 class ProgrammeAdmin(admin.ModelAdmin):
@@ -49,10 +56,90 @@ class TermOfferingAdmin(admin.ModelAdmin):
 
 @admin.register(Registration)
 class RegistrationAdmin(admin.ModelAdmin):
-    list_display = ('student', 'unit', 'academic_year', 'trimester', 'status')
-    list_filter = ('status', 'academic_year', 'trimester')
+    actions = ("approve_selected_registrations", "reject_selected_registrations")
+    list_display = ('student', 'unit', 'academic_year', 'trimester', 'status', 'approved_by', 'approved_at')
+    list_filter = ('status', 'academic_year', 'trimester', 'unit__programme__department')
     search_fields = ('student__user__username', 'unit__code')
     autocomplete_fields = ('student', 'unit', 'approved_by')
+
+    @admin.action(description="Approve selected pending HOD registrations")
+    def approve_selected_registrations(self, request, queryset):
+        if not request.user.is_staff:
+            self.message_user(request, "Only staff can approve registrations.", level=messages.ERROR)
+            return
+
+        approved_count = 0
+        for registration in queryset.select_related("student__user", "unit__programme"):
+            if registration.status != Registration.Status.PENDING_HOD:
+                continue
+            registration.status = Registration.Status.APPROVED
+            registration.approved_by = request.user
+            registration.approved_at = timezone.now()
+            registration.save(update_fields=["status", "approved_by", "approved_at", "updated_at"])
+            ensure_registration_channels(registration)
+            if registration.student and registration.student.current_status != Student.Status.ACTIVE:
+                registration.student.current_status = Student.Status.ACTIVE
+                registration.student.save(update_fields=["current_status"])
+            AuditLog.objects.create(
+                actor_user=request.user,
+                action="registration_approved_via_admin",
+                target_table=Registration._meta.label,
+                target_id=str(registration.id),
+                after={
+                    "student_username": registration.student.user.username if registration.student_id else "",
+                    "unit_code": registration.unit.code if registration.unit_id else "",
+                    "status": registration.status,
+                },
+            )
+            approved_count += 1
+
+        if approved_count:
+            self.message_user(request, f"Approved {approved_count} registration(s).", level=messages.SUCCESS)
+        else:
+            self.message_user(
+                request,
+                "No pending HOD registrations were selected.",
+                level=messages.WARNING,
+            )
+
+    @admin.action(description="Reject selected pending HOD registrations")
+    def reject_selected_registrations(self, request, queryset):
+        if not request.user.is_staff:
+            self.message_user(request, "Only staff can reject registrations.", level=messages.ERROR)
+            return
+
+        rejected_count = 0
+        for registration in queryset.select_related("student__user", "unit__programme"):
+            if registration.status != Registration.Status.PENDING_HOD:
+                continue
+            registration.status = Registration.Status.REJECTED
+            registration.approved_by = None
+            registration.approved_at = None
+            registration.save(update_fields=["status", "approved_by", "approved_at", "updated_at"])
+            if registration.student and registration.student.current_status == Student.Status.PENDING_HOD:
+                registration.student.current_status = Student.Status.FINANCE_OK
+                registration.student.save(update_fields=["current_status"])
+            AuditLog.objects.create(
+                actor_user=request.user,
+                action="registration_rejected_via_admin",
+                target_table=Registration._meta.label,
+                target_id=str(registration.id),
+                after={
+                    "student_username": registration.student.user.username if registration.student_id else "",
+                    "unit_code": registration.unit.code if registration.unit_id else "",
+                    "status": registration.status,
+                },
+            )
+            rejected_count += 1
+
+        if rejected_count:
+            self.message_user(request, f"Rejected {rejected_count} registration(s).", level=messages.SUCCESS)
+        else:
+            self.message_user(
+                request,
+                "No pending HOD registrations were selected.",
+                level=messages.WARNING,
+            )
 
 @admin.register(LecturerAssignment)
 class LecturerAssignmentAdmin(admin.ModelAdmin):
