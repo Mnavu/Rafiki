@@ -8,6 +8,9 @@ import { RoleDashboardScreen } from '@screens/dashboard/RoleDashboardScreen';
 import { RoleFeatureScreen } from '@screens/feature/RoleFeatureScreen';
 import { StudentHomeScreen } from '@screens/student/StudentHomeScreen';
 import { StudentChatbotScreen } from '@screens/student/StudentChatbotScreen';
+import { StudentAssignmentsScreen } from '@screens/student/StudentAssignmentsScreen';
+import { StudentClassCallsScreen } from '@screens/student/StudentClassCallsScreen';
+import { StudentScheduleScreen } from '@screens/student/StudentScheduleScreen';
 import { ParentHomeScreen } from '@screens/parent/ParentHomeScreen';
 import { FinanceControlCenterScreen } from '@screens/finance/FinanceControlCenterScreen';
 import { MessageThreadListScreen } from '@screens/messages/MessageThreadListScreen';
@@ -64,6 +67,9 @@ export type RootStackParamList = {
       }
     | undefined;
   StudentChatbot: undefined;
+  StudentAssignments: undefined;
+  StudentClassCalls: undefined;
+  StudentSchedule: undefined;
   ParentHome: undefined;
   FinanceControlCenter: undefined;
 };
@@ -133,6 +139,9 @@ export const AppNavigator = () => {
                 <Stack.Screen name="AdminControlCenter" component={AdminControlCenterScreen} />
                 <Stack.Screen name="ProfileSettings" component={ProfileSettingsScreen} />
                 <Stack.Screen name="StudentChatbot" component={StudentChatbotScreen} />
+                <Stack.Screen name="StudentAssignments" component={StudentAssignmentsScreen} />
+                <Stack.Screen name="StudentClassCalls" component={StudentClassCallsScreen} />
+                <Stack.Screen name="StudentSchedule" component={StudentScheduleScreen} />
               </>
             )}
           </>

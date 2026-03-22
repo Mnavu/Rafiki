@@ -9,6 +9,7 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useRoute } from '@react-navigation/native';
 import type { RouteProp } from '@react-navigation/native';
 import { GreetingHeader, VoiceButton, RoleBadge } from '@components/index';
@@ -23,6 +24,7 @@ export const LoginScreen: React.FC = () => {
   const { login, loading, getSavedCredentials, getRecentCredentials } = useAuth();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [credentialsLoaded, setCredentialsLoaded] = useState(false);
   const [recent, setRecent] = useState<Array<{ username: string; password: string }>>([]);
@@ -89,13 +91,27 @@ export const LoginScreen: React.FC = () => {
             placeholder="e.g. student1"
           />
           <Text style={styles.label}>Password</Text>
-          <TextInput
-            style={styles.input}
-            value={password}
-            onChangeText={setPassword}
-            secureTextEntry
-            placeholder="********"
-          />
+          <View style={styles.passwordRow}>
+            <TextInput
+              style={styles.passwordInput}
+              value={password}
+              onChangeText={setPassword}
+              secureTextEntry={!showPassword}
+              placeholder="********"
+            />
+            <TouchableOpacity
+              accessibilityRole="button"
+              accessibilityLabel={showPassword ? 'Hide password' : 'Show password'}
+              style={styles.passwordToggle}
+              onPress={() => setShowPassword((current) => !current)}
+            >
+              <MaterialCommunityIcons
+                name={showPassword ? 'eye-off-outline' : 'eye-outline'}
+                size={22}
+                color={palette.textSecondary}
+              />
+            </TouchableOpacity>
+          </View>
           <Text style={styles.hint}>
             {credentialsLoaded
               ? 'Saved credentials are filled automatically for this role after successful login.'
@@ -155,6 +171,25 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: palette.disabled,
     color: palette.textPrimary,
+  },
+  passwordRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: palette.surface,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: palette.disabled,
+  },
+  passwordInput: {
+    flex: 1,
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.md,
+    color: palette.textPrimary,
+  },
+  passwordToggle: {
+    width: 52,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   hint: {
     ...typography.helper,

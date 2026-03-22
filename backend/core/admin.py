@@ -14,6 +14,7 @@ from users.role_assignment import apply_user_role
 from .models import (
     ApprovalRequest,
     AuditLog,
+    DataBundleImport,
     DataGovernancePolicy,
     Department,
     ReportRecord,
@@ -112,6 +113,16 @@ class DepartmentAdmin(admin.ModelAdmin):
     list_display = ("name", "code", "head_of_department")
     search_fields = ("name", "code", "head_of_department__user__username")
     autocomplete_fields = ("head_of_department",)
+
+
+@admin.register(DataBundleImport)
+class DataBundleImportAdmin(admin.ModelAdmin):
+    list_display = ("bundle_name", "bundle_sha256", "record_count", "loaded_at", "updated_at")
+    readonly_fields = ("bundle_name", "bundle_sha256", "source_path", "record_count", "loaded_at", "created_at", "updated_at")
+    search_fields = ("bundle_name", "bundle_sha256", "source_path")
+
+    def has_add_permission(self, request):
+        return False
 
 
 @admin.register(ReportRecord)

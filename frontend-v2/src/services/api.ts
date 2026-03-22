@@ -64,6 +64,7 @@ export type AssignmentSummary = {
   id: number;
   unit: number | null;
   unit_title: string;
+  unit_code?: string;
   lecturer: number | null;
   lecturer_name: string;
   title: string;
@@ -97,6 +98,8 @@ export type TimetableEntry = {
   id: number;
   programme: number | null;
   unit: number | null;
+  unit_title?: string;
+  unit_code?: string;
   lecturer: number | null;
   room: string;
   start_datetime: string;
@@ -510,6 +513,71 @@ export const deleteLecturerAssignment = (
   assignmentId: number,
 ): Promise<void> => deleteJson(`/api/learning/assignments/${assignmentId}/`, accessToken);
 
+export const fetchStudentSubmissions = async (
+  accessToken: string,
+  assignmentId?: number | null,
+): Promise<SubmissionSummary[]> => {
+  const payload = await getJson<ListPayload<SubmissionSummary>>(
+    withQuery('/api/learning/submissions/', { assignment: assignmentId ?? undefined }),
+    {
+      headers: withAuthHeaders(accessToken),
+    },
+  );
+  return normalizeList(payload);
+};
+
+export type StudentSubmissionPayload = {
+  assignmentId: number;
+  contentUrl?: string;
+  textResponse?: string;
+  audioTranscript?: string;
+  audioUri?: string;
+  audioMimeType?: string;
+};
+
+export const submitStudentSubmission = async (
+  accessToken: string,
+  payload: StudentSubmissionPayload,
+): Promise<SubmissionSummary> => {
+  const form = new FormData();
+  form.append('assignment', String(payload.assignmentId));
+  if (payload.contentUrl && payload.contentUrl.trim()) {
+    form.append('content_url', payload.contentUrl.trim());
+  }
+  if (payload.textResponse && payload.textResponse.trim()) {
+    form.append('text_response', payload.textResponse.trim());
+  }
+  if (payload.audioTranscript && payload.audioTranscript.trim()) {
+    form.append('audio_transcript', payload.audioTranscript.trim());
+  }
+  if (payload.audioUri) {
+    form.append(
+      'audio',
+      {
+        uri: payload.audioUri,
+        name: `assignment-audio-${Date.now()}.m4a`,
+        type: payload.audioMimeType ?? 'audio/m4a',
+      } as any,
+    );
+  }
+
+  try {
+    const response = await fetch(`${API_BASE}/api/learning/submissions/`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+      body: form,
+    });
+    return handleResponse<SubmissionSummary>(response);
+  } catch (error) {
+    if (error instanceof TypeError) {
+      throw new Error(NETWORK_ERROR_HINT);
+    }
+    throw error;
+  }
+};
+
 export const fetchStudentRegistrations = async (accessToken: string): Promise<RegistrationSummary[]> => {
   const payload = await getJson<ListPayload<RegistrationSummary>>('/api/learning/registrations/', {
     headers: withAuthHeaders(accessToken),
@@ -725,9 +793,17 @@ export const transcribeAudio = async (
 export type SubmissionSummary = {
   id: number;
   assignment: number | null;
+  assignment_title?: string;
+  assignment_due_at?: string | null;
+  unit_title?: string;
+  unit_code?: string;
   student: number | null;
   submitted_at: string;
   content_url: string;
+  text_response?: string;
+  audio?: string | null;
+  audio_url?: string;
+  audio_transcript?: string;
   grade: string | number | null;
   feedback_text: string | null;
   feedback_media_url: string | null;

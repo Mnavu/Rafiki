@@ -11,7 +11,6 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { AppMenu, DashboardTile, GreetingHeader, RoleBadge, VoiceButton } from '@components/index';
 import { useAuth } from '@context/AuthContext';
 import { askChatbot, submitChatbotFeedback, transcribeAudio } from '@services/api';
-import { featureCatalog } from '@data/featureCatalog';
 import { palette, radius, spacing, typography } from '@theme/index';
 import { roleLabels } from '@app-types/roles';
 import { normalizeSpeechText } from '../../utils/speechNormalization';
@@ -54,11 +53,6 @@ const QUICK_PROMPTS = [
   'What school activities are coming up?',
   'Help me revise my course topic.',
 ];
-
-const STUDENT_TIMETABLE_FEATURE =
-  featureCatalog.student.find((feature) => feature.key === 'timetable') ?? featureCatalog.student[0];
-const STUDENT_ASSIGNMENTS_FEATURE =
-  featureCatalog.student.find((feature) => feature.key === 'assignments') ?? featureCatalog.student[1];
 
 const VOICE_QUESTION_SPEECH_THRESHOLD_DB = -45;
 const VOICE_QUESTION_SILENCE_MS = 1200;
@@ -116,10 +110,10 @@ export const StudentChatbotScreen: React.FC = () => {
     (target: string | null | undefined) => {
       switch (target) {
         case 'timetable':
-          navigation.navigate('Feature', { role: 'student', feature: STUDENT_TIMETABLE_FEATURE });
+          navigation.navigate('StudentSchedule');
           return;
         case 'assignments':
-          navigation.navigate('Feature', { role: 'student', feature: STUDENT_ASSIGNMENTS_FEATURE });
+          navigation.navigate('StudentAssignments');
           return;
         case 'message_center':
           navigation.navigate('MessageThreads', { role: 'student' });
@@ -128,7 +122,7 @@ export const StudentChatbotScreen: React.FC = () => {
           navigation.navigate('StudentPeerDirectory');
           return;
         case 'class_calls':
-          navigation.navigate('StudentHome', { targetSection: 'class_calls' });
+          navigation.navigate('StudentClassCalls');
           return;
         case 'class_communities':
           navigation.navigate('StudentHome', { targetSection: 'class_communities' });

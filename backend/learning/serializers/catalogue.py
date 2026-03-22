@@ -28,6 +28,9 @@ class LecturerAssignmentSerializer(serializers.ModelSerializer):
 
 
 class TimetableSerializer(serializers.ModelSerializer):
+    unit_title = serializers.CharField(source="unit.title", read_only=True)
+    unit_code = serializers.CharField(source="unit.code", read_only=True)
+
     class Meta:
         model = Timetable
         fields = "__all__"

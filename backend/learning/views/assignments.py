@@ -2,6 +2,7 @@ from django.utils import timezone
 from rest_framework import permissions, viewsets, status
 from rest_framework.decorators import action
 from rest_framework.exceptions import PermissionDenied, ValidationError
+from rest_framework.parsers import FormParser, JSONParser, MultiPartParser
 
 from core.mixins import ScopedListMixin
 from core.permissions import IsSelfOrElevated
@@ -72,13 +73,69 @@ class SubmissionViewSet(ScopedListMixin, viewsets.ModelViewSet):
     queryset = Submission.objects.select_related("assignment", "student")
     serializer_class = SubmissionSerializer
     permission_classes = [permissions.IsAuthenticated, IsSelfOrElevated]
+    parser_classes = [MultiPartParser, FormParser, JSONParser]
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        assignment_id = self.request.query_params.get("assignment")
+        if assignment_id:
+            qs = qs.filter(assignment_id=assignment_id)
+        return qs
+
+    def _validate_student_assignment_access(self, user, assignment):
+        if not assignment:
+            raise ValidationError({"assignment": "Assignment is required."})
+        if getattr(user, "role", None) != User.Roles.STUDENT:
+            raise PermissionDenied("Only students can submit assignment work.")
+        if not hasattr(user, "student_profile"):
+            raise PermissionDenied("Student profile is missing.")
+        allowed = Registration.objects.filter(
+            student=user.student_profile,
+            unit=assignment.unit,
+            status__in={
+                Registration.Status.APPROVED,
+                Registration.Status.SUBMITTED,
+                Registration.Status.PENDING_HOD,
+            },
+        ).exists()
+        if not allowed:
+            raise PermissionDenied("You can only submit work for your own registered classes.")
+        return user.student_profile
 
     def perform_create(self, serializer):
         user = self.request.user
         if getattr(user, "role", None) == User.Roles.STUDENT:
-            serializer.save(student=user.student_profile)
+            assignment = serializer.validated_data.get("assignment")
+            student_profile = self._validate_student_assignment_access(user, assignment)
+            existing = (
+                Submission.objects.filter(
+                    assignment=assignment,
+                    student=student_profile,
+                )
+                .order_by("-submitted_at", "-created_at")
+                .first()
+            )
+            if existing:
+                for field, value in serializer.validated_data.items():
+                    setattr(existing, field, value)
+                existing.student = student_profile
+                existing.save()
+                serializer.instance = existing
+            else:
+                serializer.save(student=student_profile)
         else:
             raise PermissionDenied("Only students can create submissions.")
+
+    def perform_update(self, serializer):
+        user = self.request.user
+        submission = self.get_object()
+        if getattr(user, "role", None) != User.Roles.STUDENT:
+            raise PermissionDenied("Only students can update submissions from this workflow.")
+        if submission.student_id != user.id:
+            raise PermissionDenied("You can only update your own submission.")
+        assignment = serializer.validated_data.get("assignment", submission.assignment)
+        self._validate_student_assignment_access(user, assignment)
+        serializer.save(student=user.student_profile)
 
     @action(detail=True, methods=['post'])
     def feedback(self, request, pk=None):

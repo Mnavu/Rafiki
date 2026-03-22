@@ -19,7 +19,6 @@ import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { AppMenu, ChatbotBubble, DashboardTile, GreetingHeader, RoleBadge, VoiceButton } from '@components/index';
 import { useAuth } from '@context/AuthContext';
 import type { RootStackParamList } from '@navigation/AppNavigator';
-import { featureCatalog } from '@data/featureCatalog';
 import {
   fetchClassCalls,
   fetchClassCommunities,
@@ -240,6 +239,18 @@ const parseMillis = (value: string | null | undefined): number => {
   return date;
 };
 
+const dedupeByKey = <T,>(items: T[], getKey: (item: T) => string): T[] => {
+  const seen = new Set<string>();
+  return items.filter((item) => {
+    const key = getKey(item);
+    if (seen.has(key)) {
+      return false;
+    }
+    seen.add(key);
+    return true;
+  });
+};
+
 const formatDateTime = (value: string | null | undefined): string => {
   if (!value) {
     return 'No schedule';
@@ -267,11 +278,6 @@ const formatMoney = (value: string): string => {
     maximumFractionDigits: 2,
   }).format(numeric);
 };
-
-const STUDENT_TIMETABLE_FEATURE =
-  featureCatalog.student.find((feature) => feature.key === 'timetable') ?? featureCatalog.student[0];
-const STUDENT_ASSIGNMENTS_FEATURE =
-  featureCatalog.student.find((feature) => feature.key === 'assignments') ?? featureCatalog.student[1];
 
 export const StudentHomeScreen: React.FC = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
@@ -407,19 +413,41 @@ export const StudentHomeScreen: React.FC = () => {
           .slice(0, 5);
 
         const now = Date.now();
-        const upcomingClasses = [...timetable]
+        const activeUnitIds = new Set(
+          registrations
+            .filter((registration) =>
+              ['submitted', 'pending_hod', 'approved'].includes(registration.status),
+            )
+            .map((registration) => registration.unit)
+            .filter((unitId): unitId is number => typeof unitId === 'number'),
+        );
+        const upcomingClasses = dedupeByKey(
+          [...timetable]
           .filter((item) => parseMillis(item.end_datetime) >= now - 60 * 60 * 1000)
+            .filter(
+              (item) =>
+                activeUnitIds.size === 0 ||
+                (typeof item.unit === 'number' && activeUnitIds.has(item.unit)),
+            )
           .sort((a, b) => parseMillis(a.start_datetime) - parseMillis(b.start_datetime))
-          .slice(0, 4);
+            .slice(0, 8),
+          (item) => `${item.unit ?? 'unit'}-${item.start_datetime}-${item.room}`,
+        ).slice(0, 4);
 
-        const upcomingAssignments = [...assignments]
+        const upcomingAssignments = dedupeByKey(
+          [...assignments]
           .filter((item) => !!item.due_at)
           .sort((a, b) => parseMillis(a.due_at) - parseMillis(b.due_at))
-          .slice(0, 4);
+            .slice(0, 8),
+          (item) => String(item.id),
+        ).slice(0, 4);
 
-        const upcomingClassCalls = [...classCalls]
+        const upcomingClassCalls = dedupeByKey(
+          [...classCalls]
           .sort((a, b) => parseMillis(a.start_at) - parseMillis(b.start_at))
-          .slice(0, 4);
+            .slice(0, 8),
+          (item) => item.source_id || `${item.unit_id}-${item.start_at}`,
+        ).slice(0, 4);
 
         const curriculumById = new Map<number, ProgrammeCurriculumUnit>(
           curriculum.map((item) => [item.id, item]),
@@ -454,7 +482,7 @@ export const StudentHomeScreen: React.FC = () => {
           payments: recentPayments,
           rewards,
           classCalls: upcomingClassCalls,
-          classCommunities: classCommunities.slice(0, 8),
+          classCommunities: dedupeByKey(classCommunities, (item) => String(item.chatroom_id)).slice(0, 8),
           offeredUnits,
           offeredUnitMeta,
         });
@@ -622,7 +650,7 @@ export const StudentHomeScreen: React.FC = () => {
         label: 'Classes',
         cue: 'See today',
         accentColor: '#3B82F6',
-        onPress: () => scrollToSection('timetable'),
+        onPress: () => navigation.navigate('StudentSchedule'),
       },
       {
         id: 'work',
@@ -630,7 +658,7 @@ export const StudentHomeScreen: React.FC = () => {
         label: 'Work',
         cue: 'Homework',
         accentColor: '#14B8A6',
-        onPress: () => scrollToSection('assignments'),
+        onPress: () => navigation.navigate('StudentAssignments'),
       },
       {
         id: 'groups',
@@ -675,14 +703,14 @@ export const StudentHomeScreen: React.FC = () => {
         title: 'Upcoming classes',
         subtitle: 'View timetable entries and upcoming class times.',
         keywords: ['timetable', 'schedule', 'upcoming classes', 'entries', 'calendar', 'class times'],
-        onPress: () => navigation.navigate('Feature', { role: 'student', feature: STUDENT_TIMETABLE_FEATURE }),
+        onPress: () => navigation.navigate('StudentSchedule'),
       },
       {
         id: 'assignments',
         title: 'Assignments',
         subtitle: 'Review assignment deadlines and course work.',
         keywords: ['assignment', 'assignments', 'cat', 'deadline', 'course work', 'homework'],
-        onPress: () => navigation.navigate('Feature', { role: 'student', feature: STUDENT_ASSIGNMENTS_FEATURE }),
+        onPress: () => navigation.navigate('StudentAssignments'),
       },
       {
         id: 'finance-and-rewards',
@@ -1206,17 +1234,7 @@ export const StudentHomeScreen: React.FC = () => {
                 label="Calls"
                 hint="Join class"
                 accentColor={palette.primary}
-                onPress={() => {
-                  if (overview.classCalls.length > 0) {
-                    const first = overview.classCalls[0];
-                    navigation.navigate('VideoRoom', {
-                      meetingUrl: first.meeting_url,
-                      title: `${first.unit_code} call`,
-                    });
-                    return;
-                  }
-                  speakText('No upcoming class calls at the moment.');
-                }}
+                onPress={() => navigation.navigate('StudentClassCalls')}
               />
               <PictureActionCard
                 image={studentVisualAssets.groups}
@@ -1373,9 +1391,9 @@ export const StudentHomeScreen: React.FC = () => {
               <DashboardTile
                 key={`timetable-${entry.id}-${index}`}
                 icon={<MaterialCommunityIcons name="book-open-variant" size={26} color={palette.primary} />}
-                title={`Unit #${entry.unit ?? 'N/A'}`}
+                title={`${entry.unit_code ?? `Unit ${entry.unit ?? 'N/A'}`}`}
                 subtitle={`${formatDateTime(entry.start_datetime)}  |  Room ${entry.room}`}
-                onPress={() => navigation.navigate('Feature', { role: 'student', feature: STUDENT_TIMETABLE_FEATURE })}
+                onPress={() => navigation.navigate('StudentSchedule')}
               />
             ))
           ) : (
@@ -1383,7 +1401,7 @@ export const StudentHomeScreen: React.FC = () => {
               icon={<MaterialCommunityIcons name="calendar-remove" size={26} color={palette.textSecondary} />}
               title="No upcoming timetable entries"
               subtitle="Timetable will appear here once your programme schedule is published."
-              onPress={() => navigation.navigate('Feature', { role: 'student', feature: STUDENT_TIMETABLE_FEATURE })}
+              onPress={() => navigation.navigate('StudentSchedule')}
             />
           )}
         </View>
@@ -1396,8 +1414,8 @@ export const StudentHomeScreen: React.FC = () => {
                 key={`assignment-${assignment.id}-${index}`}
                 icon={<MaterialCommunityIcons name="clipboard-check" size={26} color={palette.secondary} />}
                 title={assignment.title}
-                subtitle={`${assignment.unit_title}  |  Due ${formatDateTime(assignment.due_at)}`}
-                onPress={() => navigation.navigate('Feature', { role: 'student', feature: STUDENT_ASSIGNMENTS_FEATURE })}
+                subtitle={`${assignment.unit_code ?? ''} ${assignment.unit_title}  |  Due ${formatDateTime(assignment.due_at)}`}
+                onPress={() => navigation.navigate('StudentAssignments')}
               />
             ))
           ) : (
@@ -1405,7 +1423,7 @@ export const StudentHomeScreen: React.FC = () => {
               icon={<MaterialCommunityIcons name="clipboard-remove" size={26} color={palette.textSecondary} />}
               title="No assignments due"
               subtitle="Your upcoming assignments will show here."
-              onPress={() => navigation.navigate('Feature', { role: 'student', feature: STUDENT_ASSIGNMENTS_FEATURE })}
+              onPress={() => navigation.navigate('StudentAssignments')}
             />
           )}
         </View>
@@ -1419,12 +1437,7 @@ export const StudentHomeScreen: React.FC = () => {
                 icon={<MaterialCommunityIcons name="video" size={26} color={palette.primary} />}
                 title={`${call.unit_code} live class`}
                 subtitle={`${formatDateTime(call.start_at)} | Tap to join`}
-                onPress={() =>
-                  navigation.navigate('VideoRoom', {
-                    meetingUrl: call.meeting_url,
-                    title: `${call.unit_code} call`,
-                  })
-                }
+                onPress={() => navigation.navigate('StudentClassCalls')}
               />
             ))
           ) : (
@@ -1432,7 +1445,7 @@ export const StudentHomeScreen: React.FC = () => {
               icon={<MaterialCommunityIcons name="video-off" size={26} color={palette.textSecondary} />}
               title="No upcoming class calls"
               subtitle="When your lecturer schedules a call, it will appear here."
-              disabled
+              onPress={() => navigation.navigate('StudentClassCalls')}
             />
           )}
         </View>

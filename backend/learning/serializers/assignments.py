@@ -7,6 +7,7 @@ from users.display import resolve_user_display_name
 class AssignmentSerializer(serializers.ModelSerializer):
     lecturer_name = serializers.SerializerMethodField()
     unit_title = serializers.CharField(source="unit.title", read_only=True)
+    unit_code = serializers.CharField(source="unit.code", read_only=True)
 
     def get_lecturer_name(self, obj):
         lecturer_user = getattr(getattr(obj, "lecturer", None), "user", None)
@@ -18,6 +19,7 @@ class AssignmentSerializer(serializers.ModelSerializer):
             "id",
             "unit",
             "unit_title",
+            "unit_code",
             "lecturer",
             "lecturer_name",
             "title",
@@ -30,9 +32,57 @@ class AssignmentSerializer(serializers.ModelSerializer):
 
 
 class SubmissionSerializer(serializers.ModelSerializer):
+    assignment_title = serializers.CharField(source="assignment.title", read_only=True)
+    assignment_due_at = serializers.DateTimeField(source="assignment.due_at", read_only=True)
+    unit_title = serializers.CharField(source="assignment.unit.title", read_only=True)
+    unit_code = serializers.CharField(source="assignment.unit.code", read_only=True)
+    audio_url = serializers.SerializerMethodField()
+
+    def get_audio_url(self, obj):
+        audio = getattr(obj, "audio", None)
+        if not audio:
+            return ""
+        request = self.context.get("request")
+        if request:
+            return request.build_absolute_uri(audio.url)
+        return audio.url
+
+    def validate(self, attrs):
+        instance = getattr(self, "instance", None)
+        content_url = attrs.get("content_url", getattr(instance, "content_url", ""))
+        text_response = attrs.get("text_response", getattr(instance, "text_response", ""))
+        audio = attrs.get("audio", getattr(instance, "audio", None))
+        audio_transcript = attrs.get("audio_transcript", getattr(instance, "audio_transcript", ""))
+
+        if not str(content_url or "").strip() and not str(text_response or "").strip() and not audio and not str(audio_transcript or "").strip():
+            raise serializers.ValidationError(
+                "Provide a document link, written answer, or voice submission."
+            )
+        return attrs
+
     class Meta:
         model = Submission
-        fields = "__all__"
+        fields = [
+            "id",
+            "assignment",
+            "assignment_title",
+            "assignment_due_at",
+            "unit_title",
+            "unit_code",
+            "student",
+            "submitted_at",
+            "content_url",
+            "text_response",
+            "audio",
+            "audio_url",
+            "audio_transcript",
+            "grade",
+            "feedback_text",
+            "feedback_media_url",
+            "created_at",
+            "updated_at",
+        ]
+        read_only_fields = ["student", "submitted_at", "created_at", "updated_at"]
 
 
 class RegistrationSerializer(serializers.ModelSerializer):

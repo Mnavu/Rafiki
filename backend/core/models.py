@@ -179,6 +179,20 @@ class DeviceRegistration(TimeStampedModel):
         return f"{self.user_id} - {self.platform}"
 
 
+class DataBundleImport(TimeStampedModel):
+    bundle_name = models.CharField(max_length=128, unique=True)
+    bundle_sha256 = models.CharField(max_length=64)
+    source_path = models.CharField(max_length=255, blank=True, default="")
+    record_count = models.PositiveIntegerField(default=0)
+    loaded_at = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        ordering = ["-loaded_at", "-updated_at"]
+
+    def __str__(self):
+        return f"{self.bundle_name} ({self.bundle_sha256[:12]})"
+
+
 class ReportSchedule(TimeStampedModel):
     name = models.CharField(max_length=255)
     report_type = models.CharField(max_length=64, choices=REPORT_TYPE_CHOICES)
