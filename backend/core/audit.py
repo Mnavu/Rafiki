@@ -1,5 +1,6 @@
 import json
 import sys
+from typing import Any
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 from django.forms.models import model_to_dict
@@ -22,6 +23,36 @@ def _to_jsonable(data):
         return json.loads(json.dumps(data, cls=DjangoJSONEncoder))
     except Exception:
         return {}
+
+
+def create_audit_event(
+    *,
+    action: str,
+    target_table: str,
+    target_id: str = "",
+    actor=None,
+    before: Any | None = None,
+    after: Any | None = None,
+    metadata: Any | None = None,
+    request_status: int | None = None,
+):
+    info = state.get_request_info() or {}
+    active_user = actor if getattr(actor, "pk", None) else state.get_user()
+    return AuditLog.objects.create(
+        actor_user=active_user if getattr(active_user, "pk", None) else None,
+        action=action,
+        target_table=target_table,
+        target_id=target_id,
+        before=_to_jsonable(before) if before is not None else {},
+        after=_to_jsonable(after) if after is not None else {},
+        metadata=_to_jsonable(metadata) if metadata is not None else {},
+        request_id=info.get("request_id", ""),
+        request_path=info.get("path", ""),
+        request_method=info.get("method", ""),
+        request_status=request_status,
+        ip_address=info.get("remote_addr") or "",
+        user_agent=info.get("user_agent") or "",
+    )
 
 
 def _log_change(instance, action: str):

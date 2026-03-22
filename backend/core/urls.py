@@ -10,6 +10,7 @@ from .views import (
     HODViewSet, 
     AdminPipelineView,
     AdminAnalyticsView,
+    ActivityEventView,
     GovernanceTabulationsView,
     GovernanceActivityTimelineView,
     DataGovernancePolicyView,
@@ -42,5 +43,6 @@ urlpatterns = [
     path("api/admin/governance/tabulations/", GovernanceTabulationsView.as_view(), name="governance-tabulations"),
     path("api/admin/governance/activity/", GovernanceActivityTimelineView.as_view(), name="governance-activity"),
     path("api/admin/governance/policy/", DataGovernancePolicyView.as_view(), name="governance-policy"),
+    path("api/activity-events/", ActivityEventView.as_view(), name="activity-event"),
     path("api/", include(router.urls)),
 ]

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import csv
 import io
+import textwrap
 from datetime import timedelta
 from typing import Any
 
@@ -20,6 +21,7 @@ from learning.models import Assignment, Registration, Submission
 from users.models import User
 from users.role_assignment import apply_user_role
 
+from core.audit import create_audit_event
 from core.models import (
     ApprovalRequest,
     AuditLog,
@@ -45,6 +47,10 @@ from core.serializers import (
 MANAGER_ROLES = {User.Roles.ADMIN, User.Roles.SUPERADMIN, User.Roles.RECORDS}
 REPORT_TYPES = {choice[0] for choice in REPORT_TYPE_CHOICES}
 REPORT_FORMATS = {choice[0] for choice in REPORT_FORMAT_CHOICES}
+CLIENT_ACTIVITY_ACTIONS = {
+    "page_open": "ui_page_open",
+    "click": "ui_click",
+}
 
 
 def _is_manager(user: User) -> bool:
@@ -250,6 +256,131 @@ def _build_csv_response(report_name: str, payload: Any) -> HttpResponse:
     return response
 
 
+def _pdf_safe_text(value: Any) -> str:
+    text = "" if value is None else str(value)
+    text = " ".join(text.replace("\r", " ").replace("\n", " ").replace("\t", " ").split())
+    return text.encode("latin-1", "replace").decode("latin-1")
+
+
+def _escape_pdf_text(value: str) -> str:
+    return value.replace("\\", "\\\\").replace("(", "\\(").replace(")", "\\)")
+
+
+def _build_pdf_response(report_name: str, title: str, lines: list[str]) -> HttpResponse:
+    page_width = 595
+    page_height = 842
+    margin_left = 48
+    margin_top = 800
+    title_gap = 20
+    line_gap = 14
+    max_chars = 92
+    max_lines_per_page = 46
+
+    wrapped_lines: list[str] = []
+    for line in lines:
+        normalized = _pdf_safe_text(line)
+        parts = textwrap.wrap(normalized, width=max_chars) or [normalized or " "]
+        wrapped_lines.extend(parts)
+
+    pages: list[list[str]] = [
+        wrapped_lines[index : index + max_lines_per_page]
+        for index in range(0, len(wrapped_lines), max_lines_per_page)
+    ] or [[]]
+
+    font_object_id = 3 + (len(pages) * 2)
+    objects: list[bytes] = []
+
+    objects.append(b"<< /Type /Catalog /Pages 2 0 R >>")
+
+    page_ids = [3 + (index * 2) for index in range(len(pages))]
+    kids = " ".join(f"{page_id} 0 R" for page_id in page_ids)
+    objects.append(f"<< /Type /Pages /Kids [{kids}] /Count {len(page_ids)} >>".encode("latin-1"))
+
+    for index, page_lines in enumerate(pages, start=1):
+        page_object_id = 3 + ((index - 1) * 2)
+        content_object_id = page_object_id + 1
+        page_title = _escape_pdf_text(_pdf_safe_text(f"{title} (Page {index} of {len(pages)})"))
+        stream_lines = [
+            "BT",
+            f"/F1 12 Tf {margin_left} {margin_top} Td ({page_title}) Tj",
+            f"0 -{title_gap} Td",
+            "/F1 9 Tf",
+        ]
+        for line in page_lines:
+            stream_lines.append(f"({_escape_pdf_text(_pdf_safe_text(line))}) Tj")
+            stream_lines.append(f"0 -{line_gap} Td")
+        stream_lines.append("ET")
+        stream = "\n".join(stream_lines).encode("latin-1")
+
+        objects.append(
+            (
+                f"<< /Type /Page /Parent 2 0 R /MediaBox [0 0 {page_width} {page_height}] "
+                f"/Resources << /Font << /F1 {font_object_id} 0 R >> >> "
+                f"/Contents {content_object_id} 0 R >>"
+            ).encode("latin-1")
+        )
+        objects.append(
+            b"<< /Length "
+            + str(len(stream)).encode("latin-1")
+            + b" >>\nstream\n"
+            + stream
+            + b"\nendstream"
+        )
+
+    objects.append(b"<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>")
+
+    header = b"%PDF-1.4\n%\xe2\xe3\xcf\xd3\n"
+    body = bytearray(header)
+    offsets = [0]
+    for index, obj in enumerate(objects, start=1):
+        offsets.append(len(body))
+        body.extend(f"{index} 0 obj\n".encode("latin-1"))
+        body.extend(obj)
+        body.extend(b"\nendobj\n")
+
+    xref_start = len(body)
+    body.extend(f"xref\n0 {len(objects) + 1}\n".encode("latin-1"))
+    body.extend(b"0000000000 65535 f \n")
+    for offset in offsets[1:]:
+        body.extend(f"{offset:010d} 00000 n \n".encode("latin-1"))
+    body.extend(
+        (
+            f"trailer << /Size {len(objects) + 1} /Root 1 0 R >>\n"
+            f"startxref\n{xref_start}\n%%EOF"
+        ).encode("latin-1")
+    )
+
+    response = HttpResponse(bytes(body), content_type="application/pdf")
+    response["Content-Disposition"] = f'attachment; filename="{report_name}.pdf"'
+    return response
+
+
+def _serialize_audit_logs(queryset) -> list[dict[str, Any]]:
+    return [
+        {
+            "created_at": row.created_at.isoformat(),
+            "actor_username": row.actor_user.username if row.actor_user_id else "",
+            "actor_display_name": (
+                row.actor_user.display_name if row.actor_user_id else ""
+            ) or (row.actor_user.username if row.actor_user_id else ""),
+            "actor_role": row.actor_user.role if row.actor_user_id else "",
+            "action": row.action,
+            "target_table": row.target_table,
+            "target_id": row.target_id,
+            "request_method": row.request_method,
+            "request_path": row.request_path,
+            "request_status": row.request_status,
+            "request_id": row.request_id,
+            "ip_address": row.ip_address,
+            "user_agent": row.user_agent,
+            "screen": (row.metadata or {}).get("screen", ""),
+            "label": (row.metadata or {}).get("label", ""),
+            "component": (row.metadata or {}).get("component", ""),
+        }
+        for row in queryset
+    ]
+
+
 def _refresh_risk_flags(actor: User | None = None) -> list[RiskFlag]:
     now = timezone.now()
     flags: list[RiskFlag] = []
@@ -357,6 +488,57 @@ class ManagerPermission(permissions.BasePermission):
         return _is_manager(request.user)
 
 
+class ActivityEventView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request):
+        request._skip_api_audit = True
+
+        event_type = str(request.data.get("event_type") or "").strip().lower()
+        action = CLIENT_ACTIVITY_ACTIONS.get(event_type)
+        if not action:
+            raise ValidationError({"event_type": "Unsupported activity event type."})
+
+        label = str(request.data.get("label") or "").strip()
+        screen = str(request.data.get("screen") or "").strip()
+        component = str(request.data.get("component") or "").strip()
+        target = str(request.data.get("target") or label or screen or event_type).strip()[:64]
+        raw_metadata = request.data.get("metadata") or {}
+        if raw_metadata and not isinstance(raw_metadata, dict):
+            raise ValidationError({"metadata": "Metadata must be an object."})
+
+        metadata = {
+            "event_type": event_type,
+            "label": label[:255],
+            "screen": screen[:128],
+            "component": component[:64],
+            **raw_metadata,
+        }
+
+        row = create_audit_event(
+            actor=request.user,
+            action=action,
+            target_table="frontend.ui",
+            target_id=target,
+            metadata=metadata,
+            after={
+                "event_type": event_type,
+                "label": label[:255],
+                "screen": screen[:128],
+                "component": component[:64],
+            },
+            request_status=status.HTTP_201_CREATED,
+        )
+        return Response(
+            {
+                "id": row.id,
+                "event_id": str(row.event_id),
+                "action": row.action,
+            },
+            status=status.HTTP_201_CREATED,
+        )
+
+
 class GovernanceTabulationsView(APIView):
     permission_classes = [permissions.IsAuthenticated, ManagerPermission]
 
@@ -403,13 +585,26 @@ class GovernanceActivityTimelineView(APIView):
         timeline: list[dict[str, Any]] = []
 
         for row in AuditLog.objects.select_related("actor_user").order_by("-created_at")[:limit]:
+            description = f"{row.target_table}#{row.target_id}"
+            if row.action in {"ui_page_open", "ui_click"}:
+                label = (row.metadata or {}).get("label")
+                screen = (row.metadata or {}).get("screen")
+                component = (row.metadata or {}).get("component")
+                description = " | ".join(
+                    part for part in [str(screen or "").strip(), str(component or "").strip(), str(label or row.target_id).strip()] if part
+                )
+            elif row.action == "chatbot_question_asked":
+                description = str((row.metadata or {}).get("query") or row.target_id)
+            elif row.action == "chatbot_feedback_submitted":
+                rating = str((row.metadata or {}).get("rating") or "").strip()
+                description = " | ".join(part for part in [row.target_id, rating] if part)
             timeline.append(
                 {
                     "id": f"audit-{row.id}",
                     "kind": "audit",
                     "timestamp": row.created_at.isoformat(),
                     "title": row.action,
-                    "description": f"{row.target_table}#{row.target_id}",
+                    "description": description,
                     "actor": _build_user_brief(row.actor_user),
                     "metadata": {
                         "target_table": row.target_table,
@@ -760,27 +955,31 @@ class GovernanceAuditLogViewSet(viewsets.ReadOnlyModelViewSet):
     def download_csv(self, request):
         _require_manager(request.user)
         queryset = self.filter_queryset(self.get_queryset())
-        payload = [
-            {
-                "created_at": row.created_at.isoformat(),
-                "actor_username": row.actor_user.username if row.actor_user_id else "",
-                "actor_display_name": (
-                    row.actor_user.display_name if row.actor_user_id else ""
-                ) or (row.actor_user.username if row.actor_user_id else ""),
-                "actor_role": row.actor_user.role if row.actor_user_id else "",
-                "action": row.action,
-                "target_table": row.target_table,
-                "target_id": row.target_id,
-                "request_method": row.request_method,
-                "request_path": row.request_path,
-                "request_status": row.request_status,
-                "request_id": row.request_id,
-                "ip_address": row.ip_address,
-                "user_agent": row.user_agent,
-            }
-            for row in queryset
-        ]
+        payload = _serialize_audit_logs(queryset)
         return _build_csv_response("audit-logs", payload)
+
+    @action(detail=False, methods=["get"], url_path="download-pdf")
+    def download_pdf(self, request):
+        _require_manager(request.user)
+        queryset = self.filter_queryset(self.get_queryset())
+        lines = [
+            "Audit log export",
+            "",
+        ]
+        for row in _serialize_audit_logs(queryset):
+            lines.append(
+                " | ".join(
+                    [
+                        row["created_at"],
+                        row["actor_display_name"] or row["actor_username"] or "System",
+                        row["action"],
+                        row["label"] or row["target_id"] or "n/a",
+                        row["screen"] or row["request_path"] or "n/a",
+                        str(row["request_status"] or ""),
+                    ]
+                )
+            )
+        return _build_pdf_response("audit-logs", "Audit Logs", lines)
 
 
 class RiskFlagViewSet(viewsets.ReadOnlyModelViewSet):

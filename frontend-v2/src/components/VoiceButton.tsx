@@ -1,5 +1,8 @@
 import React from 'react';
 import { TouchableOpacity, StyleSheet, Text, type StyleProp, type ViewStyle } from 'react-native';
+import { useRoute } from '@react-navigation/native';
+import { useAuth } from '@context/AuthContext';
+import { logClientActivitySafe } from '@services/api';
 import { palette, radius, spacing, typography } from '@theme/index';
 
 interface VoiceButtonProps {
@@ -23,10 +26,24 @@ export const VoiceButton: React.FC<VoiceButtonProps> = ({
   iconOnly = false,
   style,
 }) => {
+  const route = useRoute<any>();
+  const { state } = useAuth();
   const showText = !iconOnly || !icon;
+
+  const handlePress = () => {
+    void logClientActivitySafe(state.accessToken, {
+      eventType: 'click',
+      label,
+      screen: route.name,
+      component: 'VoiceButton',
+      target: label,
+    });
+    onPress?.();
+  };
+
   return (
     <TouchableOpacity
-      onPress={onPress}
+      onPress={handlePress}
       accessibilityRole="button"
       accessibilityLabel={label}
       accessibilityHint={accessibilityHint}

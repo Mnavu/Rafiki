@@ -28,7 +28,7 @@ class RequestAuditMiddleware(MiddlewareMixin):
 
     def process_response(self, request, response):
         try:
-            if request.path.startswith("/api/"):
+            if request.path.startswith("/api/") and not getattr(request, "_skip_api_audit", False):
                 log_api_request(request, response)
             request_id = getattr(request, "audit_request_id", None)
             if request_id:

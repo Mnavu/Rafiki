@@ -32,6 +32,7 @@ import {
   fetchGovernanceAlertPolicies,
   fetchGovernanceApprovalRequests,
   fetchGovernanceAuditCsv,
+  fetchGovernanceAuditPdf,
   fetchGovernanceAuditLogs,
   fetchParentStudentLinks,
   fetchGovernancePolicy,
@@ -93,6 +94,59 @@ const downloadCsvOnWeb = (filename: string, content: string) => {
   link.download = filename;
   link.click();
   URL.revokeObjectURL(url);
+};
+
+const downloadBlobOnWeb = (filename: string, blob: Blob) => {
+  if (Platform.OS !== 'web' || typeof document === 'undefined') {
+    throw new Error('File download is currently available in the web admin view.');
+  }
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = filename;
+  link.click();
+  URL.revokeObjectURL(url);
+};
+
+const describeAuditTitle = (item: GovernanceAuditLog): string => {
+  const actor = item.actor_user_detail?.display_name || item.actor_user_detail?.username || 'System';
+  const label = typeof item.metadata?.label === 'string' ? item.metadata.label : '';
+  if (item.action === 'ui_page_open') {
+    return `${actor} | opened ${label || item.target_id || 'screen'}`;
+  }
+  if (item.action === 'ui_click') {
+    return `${actor} | clicked ${label || item.target_id || 'action'}`;
+  }
+  if (item.action === 'chatbot_question_asked') {
+    return `${actor} | used chatbot`;
+  }
+  if (item.action === 'chatbot_feedback_submitted') {
+    return `${actor} | rated chatbot answer`;
+  }
+  return `${actor} | ${item.action}`;
+};
+
+const describeAuditSubtitle = (item: GovernanceAuditLog): string => {
+  const screen = typeof item.metadata?.screen === 'string' ? item.metadata.screen : '';
+  const component = typeof item.metadata?.component === 'string' ? item.metadata.component : '';
+  const query = typeof item.metadata?.query === 'string' ? item.metadata.query : '';
+  if (item.action === 'chatbot_question_asked') {
+    return `${formatDateTime(item.created_at)} | ${query || 'Question recorded'}${
+      screen ? ` | ${screen}` : ''
+    }`;
+  }
+  if (item.action === 'chatbot_feedback_submitted') {
+    const rating = typeof item.metadata?.rating === 'string' ? item.metadata.rating : '';
+    return `${formatDateTime(item.created_at)} | ${rating || 'feedback'} | ${item.target_table}#${item.target_id}`;
+  }
+  if (item.action === 'ui_page_open' || item.action === 'ui_click') {
+    return `${formatDateTime(item.created_at)} | ${screen || 'Unknown screen'}${
+      component ? ` | ${component}` : ''
+    }`;
+  }
+  return `${formatDateTime(item.created_at)} | ${item.target_table}#${item.target_id || 'n/a'} | ${
+    item.request_method || 'N/A'
+  } ${item.request_path || ''}`.trim();
 };
 
 type AdminSummaryCardProps = {
@@ -518,6 +572,17 @@ export const AdminControlCenterScreen: React.FC = () => {
     });
   };
 
+  const downloadAuditPdfAction = async () => {
+    if (!state.accessToken) {
+      return;
+    }
+    await runUtilityAction('download-audit-pdf', async () => {
+      const pdf = await fetchGovernanceAuditPdf(state.accessToken!);
+      downloadBlobOnWeb('audit-logs.pdf', pdf);
+      setSuccess('Downloaded audit log PDF.');
+    });
+  };
+
   const pendingApprovals = useMemo(
     () => approvals.filter((item) => item.status === 'pending').slice(0, 8),
     [approvals],
@@ -909,20 +974,24 @@ export const AdminControlCenterScreen: React.FC = () => {
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Audit trail</Text>
         <Text style={styles.sectionDescription}>
-          Immutable user and system activity with actor, target, request method, and download support.
+          Immutable user, chatbot, page-open, and click activity with actor, target, and download support.
         </Text>
         <View style={styles.buttonRow}>
           <VoiceButton
             label={actionKey === 'download-audit-csv' ? 'Downloading audit CSV...' : 'Download audit logs CSV'}
             onPress={downloadAuditCsvAction}
           />
+          <VoiceButton
+            label={actionKey === 'download-audit-pdf' ? 'Downloading audit PDF...' : 'Download audit logs PDF'}
+            onPress={downloadAuditPdfAction}
+          />
         </View>
         {recentAudit.length ? (
           recentAudit.map((item) => (
             <DashboardTile
               key={`audit-${item.id}`}
-              title={`${item.actor_user_detail?.display_name || item.actor_user_detail?.username || 'System'} | ${item.action}`}
-              subtitle={`${formatDateTime(item.created_at)} | ${item.target_table}#${item.target_id || 'n/a'} | ${item.request_method || 'N/A'} ${item.request_path || ''}`.trim()}
+              title={describeAuditTitle(item)}
+              subtitle={describeAuditSubtitle(item)}
               disabled
             />
           ))
@@ -936,9 +1005,9 @@ export const AdminControlCenterScreen: React.FC = () => {
       </View>
 
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Unified activity timeline</Text>
+        <Text style={styles.sectionTitle}>Recent actions</Text>
         <Text style={styles.sectionDescription}>
-          Combined view of reports, approvals, risks, and audit activity in one sequence.
+          Combined view of reports, approvals, risks, page opens, clicks, logins, and chatbot activity.
         </Text>
         {recentActivity.length ? (
           recentActivity.map((item) => (

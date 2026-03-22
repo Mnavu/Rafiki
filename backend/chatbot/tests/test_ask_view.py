@@ -7,6 +7,7 @@ from rest_framework import status
 from rest_framework.test import APIClient
 
 from chatbot.models import ChatbotAnswerFeedback, CourseRevisionKnowledge
+from core.models import AuditLog
 from learning.models import LecturerAssignment, Programme, CurriculumUnit, Registration, Timetable
 from users.models import Lecturer, Student
 
@@ -176,3 +177,37 @@ class ChatbotAskViewTests(TestCase):
         feedback = ChatbotAnswerFeedback.objects.get(turn_id=ask_response.data["turn_id"])
         self.assertEqual(feedback.rating, ChatbotAnswerFeedback.Rating.NOT_HELPFUL)
         self.assertTrue(feedback.needs_review)
+
+    def test_chatbot_question_is_logged_in_audit_trail(self):
+        response = self.client.post(
+            "/api/chatbot/ask/",
+            {"query": "Where do I find study materials for my classes?"},
+            format="json",
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        row = AuditLog.objects.filter(actor_user=self.student_user, action="chatbot_question_asked").first()
+        self.assertIsNotNone(row)
+        self.assertEqual(row.target_table, "chatbot.Conversation")
+        self.assertIn("study materials", row.metadata.get("query", "").lower())
+
+    def test_chatbot_feedback_is_logged_in_audit_trail(self):
+        ask_response = self.client.post(
+            "/api/chatbot/ask/",
+            {"query": "When is my exact next class and who is teaching it?"},
+            format="json",
+        )
+        self.assertEqual(ask_response.status_code, status.HTTP_200_OK)
+
+        feedback_response = self.client.post(
+            "/api/chatbot/feedback/",
+            {
+                "turn_id": ask_response.data["turn_id"],
+                "rating": "helpful",
+            },
+            format="json",
+        )
+        self.assertEqual(feedback_response.status_code, status.HTTP_200_OK)
+        row = AuditLog.objects.filter(actor_user=self.student_user, action="chatbot_feedback_submitted").first()
+        self.assertIsNotNone(row)
+        self.assertEqual(row.metadata.get("rating"), "helpful")

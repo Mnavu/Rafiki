@@ -165,6 +165,16 @@ export const StudentChatbotScreen: React.FC = () => {
     }
   }, []);
 
+  const getFeedbackStatusLabel = useCallback((rating?: 'helpful' | 'not_helpful' | null) => {
+    if (rating === 'helpful') {
+      return 'Saved as useful';
+    }
+    if (rating === 'not_helpful') {
+      return 'Saved for admin review';
+    }
+    return 'Was this answer useful?';
+  }, []);
+
   const submitFeedback = useCallback(
     async (turnId: number, rating: 'helpful' | 'not_helpful') => {
       if (!state.accessToken || submittingFeedbackTurnId) {
@@ -600,43 +610,70 @@ export const StudentChatbotScreen: React.FC = () => {
                     <Text style={styles.cue}>Cue: {turn.visualCue}</Text>
                   ) : null}
                   {turn.role === 'bot' ? (
-                    <View style={styles.chatActions}>
-                      <VoiceButton
-                        label="Speak answer"
-                        icon={<MaterialCommunityIcons name="volume-high" size={20} color={palette.surface} />}
-                        iconOnly
-                        size="compact"
-                        style={styles.iconButton}
-                        onPress={() => speakAnswer(turn.text)}
-                      />
-                      {turn.navigationTarget ? (
+                    <>
+                      <View style={styles.chatActions}>
                         <VoiceButton
-                          label={getNavigationLabel(turn.navigationTarget)}
-                          icon={<MaterialCommunityIcons name="arrow-top-right" size={20} color={palette.surface} />}
+                          label="Speak answer"
+                          icon={<MaterialCommunityIcons name="volume-high" size={20} color={palette.surface} />}
                           iconOnly
                           size="compact"
                           style={styles.iconButton}
-                          onPress={() => openChatbotTarget(turn.navigationTarget)}
-                          accessibilityHint="Open the screen or section mentioned in this chatbot answer."
+                          onPress={() => speakAnswer(turn.text)}
                         />
-                      ) : null}
+                        {turn.navigationTarget ? (
+                          <VoiceButton
+                            label={getNavigationLabel(turn.navigationTarget)}
+                            icon={<MaterialCommunityIcons name="arrow-top-right" size={20} color={palette.surface} />}
+                            iconOnly
+                            size="compact"
+                            style={styles.iconButton}
+                            onPress={() => openChatbotTarget(turn.navigationTarget)}
+                            accessibilityHint="Open the screen or section mentioned in this chatbot answer."
+                          />
+                        ) : null}
+                      </View>
                       {turn.turnId ? (
-                        <>
-                          <VoiceButton
-                            label={turn.feedbackRating === 'helpful' ? 'Helpful saved' : 'Helpful'}
-                            size="compact"
-                            isActive={turn.feedbackRating === 'helpful'}
-                            onPress={() => submitFeedback(turn.turnId as number, 'helpful')}
-                          />
-                          <VoiceButton
-                            label={turn.feedbackRating === 'not_helpful' ? 'Review queued' : 'Not helpful'}
-                            size="compact"
-                            isActive={turn.feedbackRating === 'not_helpful'}
-                            onPress={() => submitFeedback(turn.turnId as number, 'not_helpful')}
-                          />
-                        </>
+                        <View style={styles.feedbackBlock}>
+                          <Text style={styles.feedbackPrompt}>
+                            {getFeedbackStatusLabel(turn.feedbackRating)}
+                          </Text>
+                          <View style={styles.feedbackActions}>
+                            <VoiceButton
+                              label={turn.feedbackRating === 'helpful' ? 'Useful saved' : 'Mark useful'}
+                              icon={
+                                <MaterialCommunityIcons
+                                  name={turn.feedbackRating === 'helpful' ? 'thumb-up' : 'thumb-up-outline'}
+                                  size={20}
+                                  color={palette.surface}
+                                />
+                              }
+                              iconOnly
+                              size="compact"
+                              isActive={turn.feedbackRating === 'helpful'}
+                              style={styles.iconButton}
+                              onPress={() => submitFeedback(turn.turnId as number, 'helpful')}
+                              accessibilityHint="Mark this chatbot answer as useful."
+                            />
+                            <VoiceButton
+                              label={turn.feedbackRating === 'not_helpful' ? 'Review queued' : 'Mark not useful'}
+                              icon={
+                                <MaterialCommunityIcons
+                                  name={turn.feedbackRating === 'not_helpful' ? 'thumb-down' : 'thumb-down-outline'}
+                                  size={20}
+                                  color={palette.surface}
+                                />
+                              }
+                              iconOnly
+                              size="compact"
+                              isActive={turn.feedbackRating === 'not_helpful'}
+                              style={styles.iconButton}
+                              onPress={() => submitFeedback(turn.turnId as number, 'not_helpful')}
+                              accessibilityHint="Mark this chatbot answer as not useful and send it for admin review."
+                            />
+                          </View>
+                        </View>
                       ) : null}
-                    </View>
+                    </>
                   ) : null}
                 </View>
               ))
@@ -815,6 +852,22 @@ const styles = StyleSheet.create({
     color: palette.textPrimary,
   },
   chatActions: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.sm,
+  },
+  feedbackBlock: {
+    gap: spacing.sm,
+    marginTop: spacing.xs,
+    paddingTop: spacing.sm,
+    borderTopWidth: 1,
+    borderTopColor: '#E5E7EB',
+  },
+  feedbackPrompt: {
+    ...typography.helper,
+    color: palette.textSecondary,
+  },
+  feedbackActions: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: spacing.sm,

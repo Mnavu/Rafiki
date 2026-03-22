@@ -1,5 +1,8 @@
 import React from 'react';
 import { TouchableOpacity, View, Text, StyleSheet, ViewStyle } from 'react-native';
+import { useRoute } from '@react-navigation/native';
+import { useAuth } from '@context/AuthContext';
+import { logClientActivitySafe } from '@services/api';
 import { palette, spacing, radius, typography } from '@theme/index';
 
 interface DashboardTileProps {
@@ -21,11 +24,25 @@ export const DashboardTile: React.FC<DashboardTileProps> = ({
   statusColor,
   style,
 }) => {
+  const route = useRoute<any>();
+  const { state } = useAuth();
+
+  const handlePress = () => {
+    void logClientActivitySafe(state.accessToken, {
+      eventType: 'click',
+      label: title,
+      screen: route.name,
+      component: 'DashboardTile',
+      target: title,
+    });
+    onPress?.();
+  };
+
   return (
     <TouchableOpacity
       accessibilityRole="button"
       accessibilityLabel={title}
-      onPress={onPress}
+      onPress={handlePress}
       activeOpacity={0.8}
       disabled={disabled}
       style={[

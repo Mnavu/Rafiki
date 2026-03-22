@@ -227,6 +227,15 @@ export type ChatbotFeedbackResponse = {
   needs_review: boolean;
 };
 
+export type ClientActivityPayload = {
+  eventType: 'page_open' | 'click';
+  label?: string;
+  screen?: string;
+  component?: string;
+  target?: string;
+  metadata?: Record<string, unknown>;
+};
+
 const withQuery = (path: string, query?: Record<string, QueryValue>) => {
   if (!query) {
     return path;
@@ -671,6 +680,37 @@ export const submitChatbotFeedback = (
     ...(payload.visualCue ? { visual_cue: payload.visualCue } : {}),
     ...(payload.navigationTarget ? { navigation_target: payload.navigationTarget } : {}),
   });
+
+export const logClientActivity = (
+  accessToken: string,
+  payload: ClientActivityPayload,
+): Promise<{ id: number; event_id: string; action: string }> =>
+  postJson<{ id: number; event_id: string; action: string }>(
+    '/api/core/api/activity-events/',
+    accessToken,
+    {
+      event_type: payload.eventType,
+      ...(payload.label ? { label: payload.label } : {}),
+      ...(payload.screen ? { screen: payload.screen } : {}),
+      ...(payload.component ? { component: payload.component } : {}),
+      ...(payload.target ? { target: payload.target } : {}),
+      ...(payload.metadata ? { metadata: payload.metadata } : {}),
+    },
+  );
+
+export const logClientActivitySafe = async (
+  accessToken: string | null | undefined,
+  payload: ClientActivityPayload,
+): Promise<void> => {
+  if (!accessToken) {
+    return;
+  }
+  try {
+    await logClientActivity(accessToken, payload);
+  } catch (error) {
+    console.warn('Activity logging failed', error);
+  }
+};
 
 export const fetchStudentPeers = async (accessToken: string): Promise<StudentPeerSummary[]> => {
   const payload = await getJson<ListPayload<StudentPeerSummary>>('/api/learning/students/me/peers/', {
@@ -1775,6 +1815,33 @@ export const fetchGovernanceAuditCsv = async (
       await handleResponse<unknown>(response);
     }
     return response.text();
+  } catch (error) {
+    if (error instanceof TypeError) {
+      throw new Error(NETWORK_ERROR_HINT);
+    }
+    throw error;
+  }
+};
+
+export const fetchGovernanceAuditPdf = async (
+  accessToken: string,
+  params?: { action?: string; target_table?: string; q?: string },
+): Promise<Blob> => {
+  try {
+    const response = await fetch(
+      `${API_BASE}${withQuery('/api/core/api/admin/governance/audit-logs/download-pdf/', {
+        action: params?.action,
+        target_table: params?.target_table,
+        q: params?.q,
+      })}`,
+      {
+        headers: withAuthHeaders(accessToken),
+      },
+    );
+    if (!response.ok) {
+      await handleResponse<unknown>(response);
+    }
+    return response.blob();
   } catch (error) {
     if (error instanceof TypeError) {
       throw new Error(NETWORK_ERROR_HINT);

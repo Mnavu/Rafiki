@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import { Platform } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, createNavigationContainerRef } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { RoleSelectionScreen } from '@screens/auth/RoleSelectionScreen';
 import { LoginScreen } from '@screens/auth/LoginScreen';
@@ -31,6 +31,7 @@ import { ProfileSettingsScreen } from '@screens/settings/ProfileSettingsScreen';
 import { useAuth } from '@context/AuthContext';
 import type { Role } from '@app-types/roles';
 import type { FeatureDescriptor } from '@data/featureCatalog';
+import { logClientActivitySafe } from '@services/api';
 
 export type RootStackParamList = {
   RoleSelection: undefined;
@@ -78,6 +79,8 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export const AppNavigator = () => {
   const { isAuthenticated, state } = useAuth();
+  const navigationRef = useRef(createNavigationContainerRef<RootStackParamList>()).current;
+  const lastTrackedRouteKey = useRef<string | null>(null);
   const isAdminWebPortal =
     Platform.OS === 'web' && (process.env.EXPO_PUBLIC_WEB_PORTAL ?? '').trim().toLowerCase() === 'admin';
   const isWebAdminUser =
@@ -90,8 +93,34 @@ export const AppNavigator = () => {
     state.user.role !== 'admin' &&
     state.user.role !== 'superadmin';
 
+  const trackCurrentRoute = useCallback(() => {
+    if (!state.accessToken || !state.user || !navigationRef.isReady()) {
+      return;
+    }
+    const currentRoute = navigationRef.getCurrentRoute();
+    if (!currentRoute || lastTrackedRouteKey.current === currentRoute.key) {
+      return;
+    }
+    lastTrackedRouteKey.current = currentRoute.key;
+    const routeParams = (currentRoute.params as { targetSection?: string } | undefined) ?? undefined;
+    void logClientActivitySafe(state.accessToken, {
+      eventType: 'page_open',
+      label: currentRoute.name,
+      screen: currentRoute.name,
+      component: 'NavigationContainer',
+      target: currentRoute.name,
+      metadata: routeParams?.targetSection ? { targetSection: routeParams.targetSection } : undefined,
+    });
+  }, [navigationRef, state.accessToken, state.user]);
+
+  useEffect(() => {
+    if (!state.accessToken) {
+      lastTrackedRouteKey.current = null;
+    }
+  }, [state.accessToken]);
+
   return (
-    <NavigationContainer>
+    <NavigationContainer ref={navigationRef} onReady={trackCurrentRoute} onStateChange={trackCurrentRoute}>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         {isAuthenticated && state.user ? (
           <>

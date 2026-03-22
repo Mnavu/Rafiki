@@ -8,6 +8,7 @@ from rest_framework import permissions
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from core.audit import create_audit_event
 from core.models import CalendarEvent
 from learning.models import Assignment, Registration, Timetable
 from notifications.models import Notification
@@ -1023,6 +1024,7 @@ class AskView(APIView):
     def _finalize_response(
         self,
         conversation: Conversation,
+        user,
         query: str,
         text: str,
         visual_cue: str | None,
@@ -1034,6 +1036,25 @@ class AskView(APIView):
         resolved_target = navigation_target
         if resolved_target is None and intent not in {"restricted", "smalltalk", "memory", "empty", "info", "scope_guard"}:
             resolved_target = _resolve_navigation_target(query, intent)
+        create_audit_event(
+            actor=user,
+            action="chatbot_question_asked",
+            target_table="chatbot.Conversation",
+            target_id=str(conversation.id),
+            metadata={
+                "intent": intent,
+                "query": query[:240],
+                "visual_cue": visual_cue or "",
+                "navigation_target": resolved_target or "",
+            },
+            after={
+                "query": query[:240],
+                "response": text[:500],
+                "turn_id": bot_turn.id,
+                "conversation_id": conversation.id,
+            },
+            request_status=200,
+        )
         return Response(
             {
                 "text": text,
@@ -1045,6 +1066,7 @@ class AskView(APIView):
         )
 
     def post(self, request):
+        request._skip_api_audit = True
         query = (request.data.get("query") or "").strip()
         user = request.user
         requested_id = request.data.get("conversation_id")
@@ -1062,6 +1084,7 @@ class AskView(APIView):
             )
             return self._finalize_response(
                 conversation=conversation,
+                user=user,
                 query="",
                 text=text,
                 visual_cue=None,
@@ -1074,6 +1097,7 @@ class AskView(APIView):
         if memory_reply:
             return self._finalize_response(
                 conversation=conversation,
+                user=user,
                 query=query,
                 text=memory_reply["text"],
                 visual_cue=memory_reply["visual_cue"],
@@ -1086,6 +1110,7 @@ class AskView(APIView):
             )
             return self._finalize_response(
                 conversation=conversation,
+                user=user,
                 query=query,
                 text=text,
                 visual_cue="restricted",
@@ -1096,6 +1121,7 @@ class AskView(APIView):
         if smalltalk:
             return self._finalize_response(
                 conversation=conversation,
+                user=user,
                 query=query,
                 text=smalltalk["text"],
                 visual_cue=smalltalk["visual_cue"],
@@ -1113,6 +1139,7 @@ class AskView(APIView):
                 )
                 return self._finalize_response(
                     conversation=conversation,
+                    user=user,
                     query=query,
                     text=text,
                     visual_cue="scope_guard",
@@ -1130,6 +1157,7 @@ class AskView(APIView):
                 )
                 return self._finalize_response(
                     conversation=conversation,
+                    user=user,
                     query=query,
                     text=text,
                     visual_cue="scope_guard",
@@ -1160,6 +1188,7 @@ class AskView(APIView):
                     )
                 return self._finalize_response(
                     conversation=conversation,
+                    user=user,
                     query=query,
                     text=text,
                     visual_cue="schedule",
@@ -1177,6 +1206,7 @@ class AskView(APIView):
                 )
                 return self._finalize_response(
                     conversation=conversation,
+                    user=user,
                     query=query,
                     text=text,
                     visual_cue="call",
@@ -1194,6 +1224,7 @@ class AskView(APIView):
                 )
                 return self._finalize_response(
                     conversation=conversation,
+                    user=user,
                     query=query,
                     text=text,
                     visual_cue="activity",
@@ -1211,6 +1242,7 @@ class AskView(APIView):
                 )
                 return self._finalize_response(
                     conversation=conversation,
+                    user=user,
                     query=query,
                     text=text,
                     visual_cue="materials",
@@ -1228,6 +1260,7 @@ class AskView(APIView):
                 )
                 return self._finalize_response(
                     conversation=conversation,
+                    user=user,
                     query=query,
                     text=text,
                     visual_cue="navigation",
@@ -1248,6 +1281,7 @@ class AskView(APIView):
                 )
                 return self._finalize_response(
                     conversation=conversation,
+                    user=user,
                     query=query,
                     text=text,
                     visual_cue="academic",
@@ -1268,6 +1302,7 @@ class AskView(APIView):
                 )
                 return self._finalize_response(
                     conversation=conversation,
+                    user=user,
                     query=query,
                     text=text,
                     visual_cue="revision",
@@ -1285,6 +1320,7 @@ class AskView(APIView):
                 )
                 return self._finalize_response(
                     conversation=conversation,
+                    user=user,
                     query=query,
                     text=text,
                     visual_cue="course",
@@ -1307,6 +1343,7 @@ class AskView(APIView):
             )
             return self._finalize_response(
                 conversation=conversation,
+                user=user,
                 query=query,
                 text=text,
                 visual_cue="academic",
@@ -1321,6 +1358,7 @@ class AskView(APIView):
             )
             return self._finalize_response(
                 conversation=conversation,
+                user=user,
                 query=query,
                 text=text,
                 visual_cue="call",
@@ -1333,6 +1371,7 @@ class AskView(APIView):
             )
             return self._finalize_response(
                 conversation=conversation,
+                user=user,
                 query=query,
                 text=text,
                 visual_cue="activity",
@@ -1347,6 +1386,7 @@ class AskView(APIView):
         )
         return self._finalize_response(
             conversation=conversation,
+            user=user,
             query=query,
             text=text,
             visual_cue="info",
@@ -1358,6 +1398,7 @@ class FeedbackView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request):
+        request._skip_api_audit = True
         turn_id = _to_int(request.data.get("turn_id"))
         rating = (request.data.get("rating") or "").strip().lower()
 
@@ -1396,6 +1437,24 @@ class FeedbackView(APIView):
                 "reviewed_by": None,
                 "admin_notes": "",
             },
+        )
+        create_audit_event(
+            actor=request.user,
+            action="chatbot_feedback_submitted",
+            target_table="chatbot.ChatbotAnswerFeedback",
+            target_id=str(feedback.id),
+            metadata={
+                "rating": feedback.rating,
+                "needs_review": feedback.needs_review,
+                "turn_id": turn.id,
+                "conversation_id": turn.conversation_id,
+            },
+            after={
+                "rating": feedback.rating,
+                "needs_review": feedback.needs_review,
+                "query_text": feedback.query_text[:240],
+            },
+            request_status=200,
         )
         return Response(
             {
