@@ -2,6 +2,8 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import {
   ActivityIndicator,
   Alert,
+  Image,
+  type ImageSourcePropType,
   RefreshControl,
   ScrollView,
   StyleSheet,
@@ -82,9 +84,19 @@ type SectionHeaderProps = {
 };
 
 type PictureActionCardProps = {
-  icon: keyof typeof MaterialCommunityIcons.glyphMap;
+  image: ImageSourcePropType;
   label: string;
   hint: string;
+  accentColor: string;
+  onPress: () => void;
+};
+
+type VisualNavigatorCardProps = {
+  id?: string;
+  image: ImageSourcePropType;
+  label: string;
+  cue: string;
+  accentColor: string;
   onPress: () => void;
 };
 
@@ -162,7 +174,13 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({ title, icon, onSpeak }) =
   </View>
 );
 
-const PictureActionCard: React.FC<PictureActionCardProps> = ({ icon, label, hint, onPress }) => (
+const PictureActionCard: React.FC<PictureActionCardProps> = ({
+  image,
+  label,
+  hint,
+  accentColor,
+  onPress,
+}) => (
   <TouchableOpacity
     accessibilityRole="button"
     accessibilityLabel={label}
@@ -171,10 +189,45 @@ const PictureActionCard: React.FC<PictureActionCardProps> = ({ icon, label, hint
     style={styles.pictureCard}
     onPress={onPress}
   >
-    <MaterialCommunityIcons name={icon} size={34} color={palette.primary} />
+    <View style={[styles.pictureCardImage, { backgroundColor: accentColor }]}>
+      <Image source={image} style={styles.pictureCardAsset} resizeMode="contain" />
+    </View>
     <Text style={styles.pictureCardLabel}>{label}</Text>
+    <Text style={styles.pictureCardHint}>{hint}</Text>
   </TouchableOpacity>
 );
+
+const VisualNavigatorCard: React.FC<VisualNavigatorCardProps> = ({
+  image,
+  label,
+  cue,
+  accentColor,
+  onPress,
+}) => (
+  <TouchableOpacity
+    accessibilityRole="button"
+    accessibilityLabel={label}
+    accessibilityHint={cue}
+    activeOpacity={0.85}
+    style={styles.visualNavigatorCard}
+    onPress={onPress}
+  >
+    <View style={[styles.visualNavigatorImage, { backgroundColor: accentColor }]}>
+      <Image source={image} style={styles.visualNavigatorAsset} resizeMode="contain" />
+    </View>
+    <Text style={styles.visualNavigatorLabel}>{label}</Text>
+    <Text style={styles.visualNavigatorCue}>{cue}</Text>
+  </TouchableOpacity>
+);
+
+const studentVisualAssets = {
+  classes: require('../../../assets/student-visuals/classes.png'),
+  assignments: require('../../../assets/student-visuals/assignments.png'),
+  fees: require('../../../assets/student-visuals/fees.png'),
+  groups: require('../../../assets/student-visuals/groups.png'),
+  messages: require('../../../assets/student-visuals/messages.png'),
+  chatbot: require('../../../assets/student-visuals/chatbot.png'),
+} as const;
 
 const parseMillis = (value: string | null | undefined): number => {
   if (!value) {
@@ -560,6 +613,60 @@ export const StudentHomeScreen: React.FC = () => {
       .join(', ');
     return `You can register up to ${MAX_UNIT_SELECTION} units this term. You currently have ${selectedUnitIds.length} selected. Available examples: ${names}.`;
   }, [overview, selectedUnitIds.length]);
+
+  const visualNavigationCards = useMemo<VisualNavigatorCardProps[]>(
+    () => [
+      {
+        id: 'classes',
+        image: studentVisualAssets.classes,
+        label: 'Classes',
+        cue: 'See today',
+        accentColor: '#3B82F6',
+        onPress: () => scrollToSection('timetable'),
+      },
+      {
+        id: 'work',
+        image: studentVisualAssets.assignments,
+        label: 'Work',
+        cue: 'Homework',
+        accentColor: '#14B8A6',
+        onPress: () => scrollToSection('assignments'),
+      },
+      {
+        id: 'groups',
+        image: studentVisualAssets.groups,
+        label: 'Groups',
+        cue: 'Class chat',
+        accentColor: '#8B5CF6',
+        onPress: () => scrollToSection('class_communities'),
+      },
+      {
+        id: 'money',
+        image: studentVisualAssets.fees,
+        label: 'Money',
+        cue: 'Fees',
+        accentColor: palette.success,
+        onPress: () => scrollToSection('finance'),
+      },
+      {
+        id: 'talk',
+        image: studentVisualAssets.messages,
+        label: 'Talk',
+        cue: 'Messages',
+        accentColor: '#F97316',
+        onPress: () => scrollToSection('communication'),
+      },
+      {
+        id: 'help',
+        image: studentVisualAssets.chatbot,
+        label: 'Help',
+        cue: 'Chatbot',
+        accentColor: '#EC4899',
+        onPress: () => navigation.navigate('StudentChatbot'),
+      },
+    ],
+    [navigation, scrollToSection],
+  );
 
   const searchTargets = useMemo<SearchTarget[]>(() => {
     const targets: SearchTarget[] = [
@@ -966,6 +1073,32 @@ export const StudentHomeScreen: React.FC = () => {
           </View>
         ) : null}
 
+        <View style={styles.section}>
+          <View style={styles.visualGuideCard}>
+            <View style={styles.visualGuideIcon}>
+              <MaterialCommunityIcons name="map-marker-path" size={34} color={palette.surface} />
+            </View>
+            <View style={styles.visualGuideTextWrap}>
+              <Text style={styles.visualGuideTitle}>Tap a picture to move</Text>
+              <Text style={styles.visualGuideBody}>
+                Use the picture buttons below to find classes, work, fees, groups, messages, and help.
+              </Text>
+            </View>
+          </View>
+          <View style={styles.visualNavigatorGrid}>
+            {visualNavigationCards.map((card) => (
+              <VisualNavigatorCard
+                key={card.id}
+                image={card.image}
+                label={card.label}
+                cue={card.cue}
+                accentColor={card.accentColor}
+                onPress={card.onPress}
+              />
+            ))}
+          </View>
+        </View>
+
         <View style={styles.section} onLayout={(event) => markSectionOffset('search', event.nativeEvent.layout.y)}>
           <SectionHeader
             title="Search"
@@ -1069,9 +1202,10 @@ export const StudentHomeScreen: React.FC = () => {
             />
             <View style={styles.pictureGrid}>
               <PictureActionCard
-                icon="video-wireless"
-                label="Class calls"
-                hint="Opens your upcoming class calls."
+                image={studentVisualAssets.classes}
+                label="Calls"
+                hint="Join class"
+                accentColor={palette.primary}
                 onPress={() => {
                   if (overview.classCalls.length > 0) {
                     const first = overview.classCalls[0];
@@ -1085,9 +1219,10 @@ export const StudentHomeScreen: React.FC = () => {
                 }}
               />
               <PictureActionCard
-                icon="account-group"
-                label="Class groups"
-                hint="Opens your first available class community."
+                image={studentVisualAssets.groups}
+                label="Groups"
+                hint="Open class chat"
+                accentColor="#8B5CF6"
                 onPress={() => {
                   if (overview.classCommunities.length > 0) {
                     const first = overview.classCommunities[0];
@@ -1102,21 +1237,24 @@ export const StudentHomeScreen: React.FC = () => {
                 }}
               />
               <PictureActionCard
-                icon="chat-processing"
-                label="Message center"
-                hint="Opens your main lecturer and guardian message threads."
+                image={studentVisualAssets.messages}
+                label="Talk"
+                hint="Open messages"
+                accentColor="#F97316"
                 onPress={() => navigation.navigate('MessageThreads', { role: 'student' })}
               />
               <PictureActionCard
-                icon="robot-outline"
-                label="Help chatbot"
-                hint="Opens the student help chatbot for course and schedule questions."
+                image={studentVisualAssets.chatbot}
+                label="Help"
+                hint="Ask chatbot"
+                accentColor="#EC4899"
                 onPress={() => navigation.navigate('StudentChatbot')}
               />
               <PictureActionCard
-                icon="account-multiple"
-                label="Peer chats"
-                hint="Opens private chat directory for classmates."
+                image={studentVisualAssets.groups}
+                label="Friends"
+                hint="Private chats"
+                accentColor="#14B8A6"
                 onPress={() => navigation.navigate('StudentPeerDirectory')}
               />
             </View>
@@ -1483,6 +1621,75 @@ const styles = StyleSheet.create({
   section: {
     gap: spacing.md,
   },
+  visualGuideCard: {
+    backgroundColor: '#0F2557',
+    borderRadius: radius.lg,
+    padding: spacing.md,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.md,
+  },
+  visualGuideIcon: {
+    width: 64,
+    height: 64,
+    borderRadius: radius.md,
+    backgroundColor: palette.primary,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  visualGuideTextWrap: {
+    flex: 1,
+    gap: spacing.xs,
+  },
+  visualGuideTitle: {
+    ...typography.headingM,
+    color: palette.surface,
+  },
+  visualGuideBody: {
+    ...typography.helper,
+    color: '#D7E3FF',
+  },
+  visualNavigatorGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: spacing.md,
+  },
+  visualNavigatorCard: {
+    flexBasis: '48%',
+    flexGrow: 1,
+    backgroundColor: palette.surface,
+    borderRadius: radius.lg,
+    borderWidth: 1,
+    borderColor: '#E6ECF8',
+    paddingVertical: spacing.md,
+    paddingHorizontal: spacing.sm,
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: spacing.xs,
+    minHeight: 140,
+  },
+  visualNavigatorImage: {
+    width: 72,
+    height: 72,
+    borderRadius: radius.lg,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: spacing.xs,
+  },
+  visualNavigatorAsset: {
+    width: 62,
+    height: 62,
+  },
+  visualNavigatorLabel: {
+    ...typography.headingM,
+    color: palette.textPrimary,
+    textAlign: 'center',
+  },
+  visualNavigatorCue: {
+    ...typography.helper,
+    color: palette.textSecondary,
+    textAlign: 'center',
+  },
   sectionHeader: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -1551,11 +1758,27 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     gap: spacing.sm,
-    minHeight: 108,
+    minHeight: 132,
+  },
+  pictureCardImage: {
+    width: 68,
+    height: 68,
+    borderRadius: radius.md,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  pictureCardAsset: {
+    width: 58,
+    height: 58,
   },
   pictureCardLabel: {
-    ...typography.body,
+    ...typography.headingM,
     color: palette.textPrimary,
+    textAlign: 'center',
+  },
+  pictureCardHint: {
+    ...typography.helper,
+    color: palette.textSecondary,
     textAlign: 'center',
   },
   speechStatusCard: {
