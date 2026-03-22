@@ -10,7 +10,8 @@ import { Audio } from 'expo-av';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { AppMenu, DashboardTile, GreetingHeader, RoleBadge, VoiceButton } from '@components/index';
 import { useAuth } from '@context/AuthContext';
-import { askChatbot, transcribeAudio } from '@services/api';
+import { askChatbot, submitChatbotFeedback, transcribeAudio } from '@services/api';
+import { featureCatalog } from '@data/featureCatalog';
 import { palette, radius, spacing, typography } from '@theme/index';
 import { roleLabels } from '@app-types/roles';
 import { normalizeSpeechText } from '../../utils/speechNormalization';
@@ -30,6 +31,9 @@ type ChatHistoryItem = {
   question: string;
   answer: string;
   visualCue: string | null;
+  turnId?: number | null;
+  navigationTarget?: string | null;
+  feedbackRating?: 'helpful' | 'not_helpful' | null;
 };
 
 type ChatTurn = {
@@ -37,6 +41,9 @@ type ChatTurn = {
   role: 'user' | 'bot';
   text: string;
   visualCue?: string | null;
+  turnId?: number | null;
+  navigationTarget?: string | null;
+  feedbackRating?: 'helpful' | 'not_helpful' | null;
 };
 
 const QUICK_PROMPTS = [
@@ -47,6 +54,11 @@ const QUICK_PROMPTS = [
   'What school activities are coming up?',
   'Help me revise my course topic.',
 ];
+
+const STUDENT_TIMETABLE_FEATURE =
+  featureCatalog.student.find((feature) => feature.key === 'timetable') ?? featureCatalog.student[0];
+const STUDENT_ASSIGNMENTS_FEATURE =
+  featureCatalog.student.find((feature) => feature.key === 'assignments') ?? featureCatalog.student[1];
 
 const VOICE_QUESTION_SPEECH_THRESHOLD_DB = -45;
 const VOICE_QUESTION_SILENCE_MS = 1200;
@@ -68,6 +80,7 @@ export const StudentChatbotScreen: React.FC = () => {
   const [preferredVoice, setPreferredVoice] = useState<PreferredSpeechVoice>({});
   const [speechStatus, setSpeechStatus] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [submittingFeedbackTurnId, setSubmittingFeedbackTurnId] = useState<number | null>(null);
   const voiceRecordingRef = useRef<Audio.Recording | null>(null);
   const voiceSpeechDetectedRef = useRef(false);
   const voiceLastSpeechMsRef = useRef<number | null>(null);
@@ -91,10 +104,121 @@ export const StudentChatbotScreen: React.FC = () => {
         role: 'bot',
         text: item.answer,
         visualCue: item.visualCue,
+        turnId: item.turnId,
+        navigationTarget: item.navigationTarget,
+        feedbackRating: item.feedbackRating,
       });
     });
     return turns;
   }, [history]);
+
+  const openChatbotTarget = useCallback(
+    (target: string | null | undefined) => {
+      switch (target) {
+        case 'timetable':
+          navigation.navigate('Feature', { role: 'student', feature: STUDENT_TIMETABLE_FEATURE });
+          return;
+        case 'assignments':
+          navigation.navigate('Feature', { role: 'student', feature: STUDENT_ASSIGNMENTS_FEATURE });
+          return;
+        case 'message_center':
+          navigation.navigate('MessageThreads', { role: 'student' });
+          return;
+        case 'peer_chats':
+          navigation.navigate('StudentPeerDirectory');
+          return;
+        case 'class_calls':
+          navigation.navigate('StudentHome', { targetSection: 'class_calls' });
+          return;
+        case 'class_communities':
+          navigation.navigate('StudentHome', { targetSection: 'class_communities' });
+          return;
+        case 'finance':
+          navigation.navigate('StudentHome', { targetSection: 'finance' });
+          return;
+        case 'unit_registration':
+          navigation.navigate('StudentHome', { targetSection: 'unit_registration' });
+          return;
+        case 'chatbot':
+          return;
+        default:
+          navigation.navigate('StudentHome', { targetSection: 'search' });
+      }
+    },
+    [navigation],
+  );
+
+  const getNavigationLabel = useCallback((target: string | null | undefined) => {
+    switch (target) {
+      case 'timetable':
+        return 'Open timetable';
+      case 'assignments':
+        return 'Open assignments';
+      case 'message_center':
+        return 'Open messages';
+      case 'peer_chats':
+        return 'Open peer chats';
+      case 'class_calls':
+        return 'Open class calls';
+      case 'class_communities':
+        return 'Open class groups';
+      case 'finance':
+        return 'Open fees';
+      case 'unit_registration':
+        return 'Open unit registration';
+      default:
+        return 'Open here';
+    }
+  }, []);
+
+  const submitFeedback = useCallback(
+    async (turnId: number, rating: 'helpful' | 'not_helpful') => {
+      if (!state.accessToken || submittingFeedbackTurnId) {
+        return;
+      }
+      const item = history.find((entry) => entry.turnId === turnId);
+      if (!item) {
+        return;
+      }
+
+      setSubmittingFeedbackTurnId(turnId);
+      setError(null);
+      try {
+        await submitChatbotFeedback(state.accessToken, {
+          turnId,
+          rating,
+          queryText: item.question,
+          answerText: item.answer,
+          visualCue: item.visualCue,
+          navigationTarget: item.navigationTarget,
+        });
+        setHistory((current) =>
+          current.map((entry) =>
+            entry.turnId === turnId
+              ? {
+                  ...entry,
+                  feedbackRating: rating,
+                }
+              : entry,
+          ),
+        );
+        setSpeechStatus(
+          rating === 'not_helpful'
+            ? 'Marked not helpful. This answer is now queued for admin review.'
+            : 'Marked helpful. Thanks for the feedback.',
+        );
+      } catch (feedbackError) {
+        if (feedbackError instanceof Error) {
+          setError(feedbackError.message);
+        } else {
+          setError('Unable to save chatbot feedback right now.');
+        }
+      } finally {
+        setSubmittingFeedbackTurnId(null);
+      }
+    },
+    [history, state.accessToken, submittingFeedbackTurnId],
+  );
 
   const pushQuestionToChatbot = useCallback(
     async (prompt: string) => {
@@ -118,6 +242,9 @@ export const StudentChatbotScreen: React.FC = () => {
         question: prompt,
         answer: response.text,
         visualCue: response.visual_cue ?? null,
+        turnId: response.turn_id ?? null,
+        navigationTarget: response.navigation_target ?? null,
+        feedbackRating: null,
       };
       setHistory((current) => [item, ...current].slice(0, 12));
     },
@@ -488,6 +615,33 @@ export const StudentChatbotScreen: React.FC = () => {
                         style={styles.iconButton}
                         onPress={() => speakAnswer(turn.text)}
                       />
+                      {turn.navigationTarget ? (
+                        <VoiceButton
+                          label={getNavigationLabel(turn.navigationTarget)}
+                          icon={<MaterialCommunityIcons name="arrow-top-right" size={20} color={palette.surface} />}
+                          iconOnly
+                          size="compact"
+                          style={styles.iconButton}
+                          onPress={() => openChatbotTarget(turn.navigationTarget)}
+                          accessibilityHint="Open the screen or section mentioned in this chatbot answer."
+                        />
+                      ) : null}
+                      {turn.turnId ? (
+                        <>
+                          <VoiceButton
+                            label={turn.feedbackRating === 'helpful' ? 'Helpful saved' : 'Helpful'}
+                            size="compact"
+                            isActive={turn.feedbackRating === 'helpful'}
+                            onPress={() => submitFeedback(turn.turnId as number, 'helpful')}
+                          />
+                          <VoiceButton
+                            label={turn.feedbackRating === 'not_helpful' ? 'Review queued' : 'Not helpful'}
+                            size="compact"
+                            isActive={turn.feedbackRating === 'not_helpful'}
+                            onPress={() => submitFeedback(turn.turnId as number, 'not_helpful')}
+                          />
+                        </>
+                      ) : null}
                     </View>
                   ) : null}
                 </View>

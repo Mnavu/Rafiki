@@ -49,7 +49,20 @@ export type RootStackParamList = {
   AdminPortalOnlyNotice: undefined;
   WebOnlyAdminNotice: undefined;
   ProfileSettings: undefined;
-  StudentHome: undefined;
+  StudentHome:
+    | {
+        targetSection?:
+          | 'search'
+          | 'overview'
+          | 'unit_registration'
+          | 'timetable'
+          | 'assignments'
+          | 'class_calls'
+          | 'class_communities'
+          | 'finance'
+          | 'communication';
+      }
+    | undefined;
   StudentChatbot: undefined;
   ParentHome: undefined;
   FinanceControlCenter: undefined;

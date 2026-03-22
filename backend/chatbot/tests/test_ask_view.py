@@ -6,6 +6,7 @@ from django.utils import timezone
 from rest_framework import status
 from rest_framework.test import APIClient
 
+from chatbot.models import ChatbotAnswerFeedback, CourseRevisionKnowledge
 from learning.models import LecturerAssignment, Programme, CurriculumUnit, Registration, Timetable
 from users.models import Lecturer, Student
 
@@ -108,6 +109,7 @@ class ChatbotAskViewTests(TestCase):
         self.assertIn("Class communities", response.data["text"])
         self.assertIn("Assignments", response.data["text"])
         self.assertIn("Message center", response.data["text"])
+        self.assertEqual(response.data["navigation_target"], "class_communities")
 
     def test_app_navigation_question_uses_student_screen_labels(self):
         response = self.client.post(
@@ -118,3 +120,59 @@ class ChatbotAskViewTests(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertIn("Finance and rewards", response.data["text"])
         self.assertIn("Class communities", response.data["text"])
+        self.assertEqual(response.data["navigation_target"], "finance")
+
+    def test_generic_revision_prompt_lists_current_units(self):
+        response = self.client.post(
+            "/api/chatbot/ask/",
+            {"query": "Help me revise my course topic."},
+            format="json",
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertIn("one unit or topic at a time", response.data["text"])
+        self.assertIn("DTM101", response.data["text"])
+
+    def test_specific_revision_prompt_uses_matched_unit_guidance(self):
+        CourseRevisionKnowledge.objects.create(
+            programme=self.programme,
+            unit=self.unit,
+            topic_title="Communication basics",
+            trigger_phrases="communication skills, dtm101, revise communication",
+            explanation="Focus on listening, speaking, reading, and writing in academic settings.",
+            revision_tips="Define each communication skill and give one classroom example.",
+            practice_prompt="Explain why clear communication matters in tourism service.",
+            priority=1,
+        )
+        response = self.client.post(
+            "/api/chatbot/ask/",
+            {"query": "Help me revise DTM101 communication skills."},
+            format="json",
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertIn("Communication basics", response.data["text"])
+        self.assertIn("listening, speaking, reading, and writing", response.data["text"])
+
+    def test_not_helpful_feedback_is_stored_for_admin_review(self):
+        ask_response = self.client.post(
+            "/api/chatbot/ask/",
+            {"query": "When is my exact next class and who is teaching it?"},
+            format="json",
+        )
+        self.assertEqual(ask_response.status_code, status.HTTP_200_OK)
+
+        feedback_response = self.client.post(
+            "/api/chatbot/feedback/",
+            {
+                "turn_id": ask_response.data["turn_id"],
+                "rating": "not_helpful",
+                "query_text": "When is my exact next class and who is teaching it?",
+                "answer_text": ask_response.data["text"],
+                "visual_cue": ask_response.data["visual_cue"],
+                "navigation_target": ask_response.data["navigation_target"],
+            },
+            format="json",
+        )
+        self.assertEqual(feedback_response.status_code, status.HTTP_200_OK)
+        feedback = ChatbotAnswerFeedback.objects.get(turn_id=ask_response.data["turn_id"])
+        self.assertEqual(feedback.rating, ChatbotAnswerFeedback.Rating.NOT_HELPFUL)
+        self.assertTrue(feedback.needs_review)

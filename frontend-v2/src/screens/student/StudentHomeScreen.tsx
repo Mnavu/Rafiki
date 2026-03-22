@@ -12,11 +12,12 @@ import {
 } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Audio } from 'expo-av';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute, type RouteProp } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { AppMenu, ChatbotBubble, DashboardTile, GreetingHeader, RoleBadge, VoiceButton } from '@components/index';
 import { useAuth } from '@context/AuthContext';
 import type { RootStackParamList } from '@navigation/AppNavigator';
+import { featureCatalog } from '@data/featureCatalog';
 import {
   fetchClassCalls,
   fetchClassCommunities,
@@ -95,6 +96,18 @@ type SearchTarget = {
   onPress?: () => void;
   disabled?: boolean;
 };
+
+type StudentHomeRoute = RouteProp<RootStackParamList, 'StudentHome'>;
+type StudentSectionKey =
+  | 'search'
+  | 'overview'
+  | 'unit_registration'
+  | 'timetable'
+  | 'assignments'
+  | 'class_calls'
+  | 'class_communities'
+  | 'finance'
+  | 'communication';
 
 const VOICE_SEARCH_SPEECH_THRESHOLD_DB = -45;
 const VOICE_SEARCH_SILENCE_MS = 1200;
@@ -202,8 +215,14 @@ const formatMoney = (value: string): string => {
   }).format(numeric);
 };
 
+const STUDENT_TIMETABLE_FEATURE =
+  featureCatalog.student.find((feature) => feature.key === 'timetable') ?? featureCatalog.student[0];
+const STUDENT_ASSIGNMENTS_FEATURE =
+  featureCatalog.student.find((feature) => feature.key === 'assignments') ?? featureCatalog.student[1];
+
 export const StudentHomeScreen: React.FC = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const route = useRoute<StudentHomeRoute>();
   const { state, logout, updatePreferences } = useAuth();
   const [overview, setOverview] = useState<StudentOverview | null>(null);
   const [loading, setLoading] = useState(true);
@@ -217,10 +236,33 @@ export const StudentHomeScreen: React.FC = () => {
   const [searchError, setSearchError] = useState<string | null>(null);
   const [selectedUnitIds, setSelectedUnitIds] = useState<number[]>([]);
   const [unitSelectionSubmitting, setUnitSelectionSubmitting] = useState(false);
+  const scrollViewRef = useRef<ScrollView | null>(null);
+  const sectionOffsetsRef = useRef<Partial<Record<StudentSectionKey, number>>>({});
   const searchRecordingRef = useRef<Audio.Recording | null>(null);
   const searchSpeechDetectedRef = useRef(false);
   const searchLastSpeechMsRef = useRef<number | null>(null);
   const searchAutoStoppingRef = useRef(false);
+
+  const markSectionOffset = useCallback(
+    (section: StudentSectionKey, y: number) => {
+      sectionOffsetsRef.current[section] = y;
+    },
+    [],
+  );
+
+  const scrollToSection = useCallback(
+    (section: StudentSectionKey) => {
+      const offset = sectionOffsetsRef.current[section];
+      if (typeof offset !== 'number') {
+        return;
+      }
+      scrollViewRef.current?.scrollTo({
+        y: Math.max(offset - 16, 0),
+        animated: true,
+      });
+    },
+    [],
+  );
 
   const speakText = useCallback(
     async (text: string) => {
@@ -427,6 +469,17 @@ export const StudentHomeScreen: React.FC = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const targetSection = route.params?.targetSection;
+    if (!targetSection) {
+      return;
+    }
+    const timer = setTimeout(() => {
+      scrollToSection(targetSection);
+    }, 180);
+    return () => clearTimeout(timer);
+  }, [overview, route.params?.targetSection, scrollToSection]);
+
   const userName = useMemo(() => {
     return state.user?.display_name?.trim() || state.user?.username || roleLabels.student;
   }, [state.user]);
@@ -515,21 +568,28 @@ export const StudentHomeScreen: React.FC = () => {
         title: 'Upcoming classes',
         subtitle: 'View timetable entries and upcoming class times.',
         keywords: ['timetable', 'schedule', 'upcoming classes', 'entries', 'calendar', 'class times'],
-        disabled: true,
+        onPress: () => navigation.navigate('Feature', { role: 'student', feature: STUDENT_TIMETABLE_FEATURE }),
+      },
+      {
+        id: 'assignments',
+        title: 'Assignments',
+        subtitle: 'Review assignment deadlines and course work.',
+        keywords: ['assignment', 'assignments', 'cat', 'deadline', 'course work', 'homework'],
+        onPress: () => navigation.navigate('Feature', { role: 'student', feature: STUDENT_ASSIGNMENTS_FEATURE }),
       },
       {
         id: 'finance-and-rewards',
         title: 'Finance and rewards',
         subtitle: 'Review fee status, payment history, and rewards information.',
         keywords: ['fees', 'fee', 'finance', 'payment', 'balance', 'wallet', 'rewards'],
-        onPress: () => speakText(financeSpeech),
+        onPress: () => scrollToSection('finance'),
       },
       {
         id: 'unit-registration',
         title: 'Unit registration',
         subtitle: 'Register for offered units after finance clears your account.',
         keywords: ['courses', 'units', 'register', 'registration', 'course selection', 'unit selection'],
-        onPress: () => speakText(unitSelectionSpeech),
+        onPress: () => scrollToSection('unit_registration'),
       },
       {
         id: 'class-communities',
@@ -546,7 +606,7 @@ export const StudentHomeScreen: React.FC = () => {
             });
             return;
           }
-          speakText('No class communities are available right now.');
+          scrollToSection('class_communities');
         },
       },
       {
@@ -644,7 +704,7 @@ export const StudentHomeScreen: React.FC = () => {
     }
 
     return targets;
-  }, [financeSpeech, navigation, overview, speakText, unitSelectionSpeech]);
+  }, [navigation, overview, scrollToSection]);
 
   const searchResults = useMemo(() => {
     const q = searchQuery.trim().toLowerCase();
@@ -888,6 +948,7 @@ export const StudentHomeScreen: React.FC = () => {
   return (
     <View style={styles.container}>
       <ScrollView
+        ref={scrollViewRef}
         contentContainerStyle={styles.scroll}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={() => loadOverview(true)} />
@@ -905,7 +966,7 @@ export const StudentHomeScreen: React.FC = () => {
           </View>
         ) : null}
 
-        <View style={styles.section}>
+        <View style={styles.section} onLayout={(event) => markSectionOffset('search', event.nativeEvent.layout.y)}>
           <SectionHeader
             title="Search"
             icon="magnify"
@@ -996,7 +1057,7 @@ export const StudentHomeScreen: React.FC = () => {
         ) : null}
 
         {overview ? (
-          <View style={styles.section}>
+          <View style={styles.section} onLayout={(event) => markSectionOffset('overview', event.nativeEvent.layout.y)}>
             <SectionHeader
               title="Picture quick actions"
               icon="image-filter-center-focus"
@@ -1063,7 +1124,10 @@ export const StudentHomeScreen: React.FC = () => {
         ) : null}
 
         {overview ? (
-          <View style={styles.section}>
+          <View
+            style={styles.section}
+            onLayout={(event) => markSectionOffset('unit_registration', event.nativeEvent.layout.y)}
+          >
             <SectionHeader title="Overview" icon="account-school" onSpeak={() => speakText(overviewSpeech)} />
             <View style={styles.metricsCard}>
               <View style={styles.metricRow}>
@@ -1164,7 +1228,7 @@ export const StudentHomeScreen: React.FC = () => {
           </View>
         ) : null}
 
-        <View style={styles.section}>
+        <View style={styles.section} onLayout={(event) => markSectionOffset('timetable', event.nativeEvent.layout.y)}>
           <SectionHeader title="Upcoming classes" icon="calendar-clock" onSpeak={() => speakText(classesSpeech)} />
           {overview?.timetable.length ? (
             overview.timetable.map((entry, index) => (
@@ -1173,7 +1237,7 @@ export const StudentHomeScreen: React.FC = () => {
                 icon={<MaterialCommunityIcons name="book-open-variant" size={26} color={palette.primary} />}
                 title={`Unit #${entry.unit ?? 'N/A'}`}
                 subtitle={`${formatDateTime(entry.start_datetime)}  |  Room ${entry.room}`}
-                disabled
+                onPress={() => navigation.navigate('Feature', { role: 'student', feature: STUDENT_TIMETABLE_FEATURE })}
               />
             ))
           ) : (
@@ -1181,12 +1245,12 @@ export const StudentHomeScreen: React.FC = () => {
               icon={<MaterialCommunityIcons name="calendar-remove" size={26} color={palette.textSecondary} />}
               title="No upcoming timetable entries"
               subtitle="Timetable will appear here once your programme schedule is published."
-              disabled
+              onPress={() => navigation.navigate('Feature', { role: 'student', feature: STUDENT_TIMETABLE_FEATURE })}
             />
           )}
         </View>
 
-        <View style={styles.section}>
+        <View style={styles.section} onLayout={(event) => markSectionOffset('assignments', event.nativeEvent.layout.y)}>
           <SectionHeader title="Assignments" icon="clipboard-text-clock" onSpeak={() => speakText(assignmentsSpeech)} />
           {overview?.assignments.length ? (
             overview.assignments.map((assignment, index) => (
@@ -1195,7 +1259,7 @@ export const StudentHomeScreen: React.FC = () => {
                 icon={<MaterialCommunityIcons name="clipboard-check" size={26} color={palette.secondary} />}
                 title={assignment.title}
                 subtitle={`${assignment.unit_title}  |  Due ${formatDateTime(assignment.due_at)}`}
-                disabled
+                onPress={() => navigation.navigate('Feature', { role: 'student', feature: STUDENT_ASSIGNMENTS_FEATURE })}
               />
             ))
           ) : (
@@ -1203,12 +1267,12 @@ export const StudentHomeScreen: React.FC = () => {
               icon={<MaterialCommunityIcons name="clipboard-remove" size={26} color={palette.textSecondary} />}
               title="No assignments due"
               subtitle="Your upcoming assignments will show here."
-              disabled
+              onPress={() => navigation.navigate('Feature', { role: 'student', feature: STUDENT_ASSIGNMENTS_FEATURE })}
             />
           )}
         </View>
 
-        <View style={styles.section}>
+        <View style={styles.section} onLayout={(event) => markSectionOffset('class_calls', event.nativeEvent.layout.y)}>
           <SectionHeader title="Class calls" icon="video-wireless" onSpeak={() => speakText(callsSpeech)} />
           {overview?.classCalls.length ? (
             overview.classCalls.map((call, index) => (
@@ -1235,7 +1299,10 @@ export const StudentHomeScreen: React.FC = () => {
           )}
         </View>
 
-        <View style={styles.section}>
+        <View
+          style={styles.section}
+          onLayout={(event) => markSectionOffset('class_communities', event.nativeEvent.layout.y)}
+        >
           <SectionHeader title="Class communities" icon="account-group" onSpeak={() => speakText(communitySpeech)} />
           {overview?.classCommunities.length ? (
             overview.classCommunities.map((community, index) => (
@@ -1263,7 +1330,7 @@ export const StudentHomeScreen: React.FC = () => {
           )}
         </View>
 
-        <View style={styles.section}>
+        <View style={styles.section} onLayout={(event) => markSectionOffset('finance', event.nativeEvent.layout.y)}>
           <SectionHeader title="Finance and rewards" icon="wallet" onSpeak={() => speakText(financeSpeech)} />
           <DashboardTile
             icon={<MaterialCommunityIcons name="cash-check" size={26} color={palette.success} />}
@@ -1305,7 +1372,10 @@ export const StudentHomeScreen: React.FC = () => {
           />
         </View>
 
-        <View style={styles.section}>
+        <View
+          style={styles.section}
+          onLayout={(event) => markSectionOffset('communication', event.nativeEvent.layout.y)}
+        >
           <SectionHeader
             title="Communication"
             icon="message-processing"

@@ -214,6 +214,14 @@ export type ChatbotAskResponse = {
   text: string;
   visual_cue: string | null;
   conversation_id?: number | null;
+  turn_id?: number | null;
+  navigation_target?: string | null;
+};
+
+export type ChatbotFeedbackResponse = {
+  id: number;
+  rating: 'helpful' | 'not_helpful';
+  needs_review: boolean;
 };
 
 const withQuery = (path: string, query?: Record<string, QueryValue>) => {
@@ -574,6 +582,26 @@ export const askChatbot = (
     query,
     ...(conversationId ? { conversation_id: conversationId } : {}),
     ...(newConversation ? { new_conversation: true } : {}),
+  });
+
+export const submitChatbotFeedback = (
+  accessToken: string,
+  payload: {
+    turnId: number;
+    rating: 'helpful' | 'not_helpful';
+    queryText?: string;
+    answerText?: string;
+    visualCue?: string | null;
+    navigationTarget?: string | null;
+  },
+): Promise<ChatbotFeedbackResponse> =>
+  postJson<ChatbotFeedbackResponse>('/api/chatbot/feedback/', accessToken, {
+    turn_id: payload.turnId,
+    rating: payload.rating,
+    ...(payload.queryText ? { query_text: payload.queryText } : {}),
+    ...(payload.answerText ? { answer_text: payload.answerText } : {}),
+    ...(payload.visualCue ? { visual_cue: payload.visualCue } : {}),
+    ...(payload.navigationTarget ? { navigation_target: payload.navigationTarget } : {}),
   });
 
 export const fetchStudentPeers = async (accessToken: string): Promise<StudentPeerSummary[]> => {

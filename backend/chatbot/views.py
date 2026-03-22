@@ -2,6 +2,7 @@ import re
 import difflib
 from typing import Iterable
 
+from django.db.models import Q
 from django.utils import timezone
 from rest_framework import permissions
 from rest_framework.response import Response
@@ -11,7 +12,7 @@ from core.models import CalendarEvent
 from learning.models import Assignment, Registration, Timetable
 from notifications.models import Notification
 from users.display import resolve_user_display_name
-from .models import Conversation, Turn
+from .models import ChatbotAnswerFeedback, Conversation, CourseRevisionKnowledge, Turn
 from .knowledge import (
     ALLOWED_STUDENT_INTENTS,
     KEMU_TOURISM_KNOWLEDGE,
@@ -297,7 +298,7 @@ def _resolve_conversation(user, requested_id=None, force_new=False):
 
 
 def _append_turn(conversation: Conversation, sender: str, text: str):
-    Turn.objects.create(conversation=conversation, sender=sender, text=text)
+    turn = Turn.objects.create(conversation=conversation, sender=sender, text=text)
     extra_turn_ids = list(
         Turn.objects.filter(conversation=conversation)
         .order_by("-created_at")
@@ -305,6 +306,7 @@ def _append_turn(conversation: Conversation, sender: str, text: str):
     )
     if extra_turn_ids:
         Turn.objects.filter(id__in=extra_turn_ids).delete()
+    return turn
 
 
 def _recent_turns(conversation: Conversation, limit: int = MEMORY_CONTEXT_TURNS):
@@ -434,7 +436,7 @@ def _smalltalk_response(query: str):
         "are you okay",
     )
     thanks_tokens = ("thanks", "thank you", "asante", "thankyou")
-    capability_tokens = ("what can you do", "help me", "how can you help", "who are you")
+    capability_tokens = ("what can you do", "how can you help", "who are you", "help menu")
 
     if stripped in {"ok", "okay", "cool", "nice", "great"}:
         return {
@@ -520,6 +522,20 @@ def _get_registered_unit_ids(student_profile):
     )
 
 
+def _get_registered_units(student_profile, limit: int | None = None):
+    qs = (
+        Registration.objects.filter(
+            student=student_profile,
+            status=Registration.Status.APPROVED,
+        )
+        .select_related("unit")
+        .order_by("unit__code")
+    )
+    if limit:
+        qs = qs[:limit]
+    return [registration.unit for registration in qs if registration.unit_id]
+
+
 def _get_student_timetable_rows(user, limit: int = 3):
     student_profile = _get_student_profile(user)
     if not student_profile:
@@ -602,6 +618,189 @@ def _format_upcoming_assignments(user):
         when = item.due_at.strftime("%a %d %b %I:%M %p")
         lines.append(f"{unit_code} - {item.title} due {when}")
     return "Upcoming deadlines: " + "; ".join(lines)
+
+
+def _match_registered_unit(student_profile, query: str):
+    normalized = _normalize_query(query)
+    units = _get_registered_units(student_profile)
+    for unit in units:
+        code = (getattr(unit, "code", "") or "").lower()
+        title = (getattr(unit, "title", "") or "").lower()
+        title_tokens = [token for token in re.findall(r"[a-z0-9]+", title) if len(token) > 3]
+        if code and re.search(rf"\b{re.escape(code)}\b", normalized):
+            return unit
+        if title and all(token in normalized for token in title_tokens[:2]):
+            return unit
+        if any(token in normalized for token in title_tokens[:3]):
+            return unit
+    return None
+
+
+def _parse_trigger_phrases(raw: str) -> list[str]:
+    return [
+        phrase.strip().lower()
+        for phrase in (raw or "").replace("\n", ",").split(",")
+        if phrase.strip()
+    ]
+
+
+def _find_revision_knowledge(student_profile, query: str, matched_unit=None):
+    normalized = _normalize_query(query)
+    qs = (
+        CourseRevisionKnowledge.objects.filter(is_active=True)
+        .select_related("programme", "unit")
+        .order_by("priority", "topic_title")
+    )
+
+    if matched_unit:
+        qs = qs.filter(
+            Q(unit=matched_unit)
+            | Q(programme=matched_unit.programme)
+            | Q(unit__programme=matched_unit.programme)
+        )
+    elif student_profile.programme_id:
+        qs = qs.filter(
+            Q(programme=student_profile.programme)
+            | Q(unit__programme=student_profile.programme)
+        )
+
+    best_card = None
+    best_score = -1
+    for card in qs[:24]:
+        score = 0
+        if matched_unit and card.unit_id == matched_unit.id:
+            score += 8
+        if student_profile.programme_id and (
+            card.programme_id == student_profile.programme_id
+            or getattr(card.unit, "programme_id", None) == student_profile.programme_id
+        ):
+            score += 2
+
+        title_tokens = [
+            token for token in re.findall(r"[a-z0-9]+", (card.topic_title or "").lower()) if len(token) > 3
+        ]
+        score += sum(2 for token in title_tokens[:4] if token in normalized)
+
+        for phrase in _parse_trigger_phrases(card.trigger_phrases):
+            if phrase in normalized:
+                score += 4
+
+        if score > best_score:
+            best_card = card
+            best_score = score
+
+    if best_card and best_score > 0:
+        return best_card
+    return None
+
+
+def _format_revision_knowledge_entry(card: CourseRevisionKnowledge):
+    unit_label = ""
+    if card.unit_id:
+        unit_label = f" for {card.unit.code} {card.unit.title}"
+    elif card.programme_id:
+        unit_label = f" for {card.programme.name}"
+
+    response = f"Revision topic: {card.topic_title}{unit_label}. {card.explanation}"
+    if card.revision_tips:
+        response += f" Focus on these points: {card.revision_tips}"
+    if card.practice_prompt:
+        response += f" Practice question: {card.practice_prompt}"
+    return response
+
+
+def _format_revision_help(user, query: str):
+    student_profile = _get_student_profile(user)
+    if not student_profile:
+        return (
+            "I can help you revise, but this account does not have student course data yet. "
+            "Ask about one specific unit or topic after your student profile is connected."
+        )
+
+    matched_unit = _match_registered_unit(student_profile, query)
+    matched_card = _find_revision_knowledge(student_profile, query, matched_unit=matched_unit)
+    current_units = _get_registered_units(student_profile, limit=4)
+
+    if matched_card:
+        return _format_revision_knowledge_entry(matched_card)
+
+    if matched_unit:
+        unit_code = getattr(matched_unit, "code", None) or "this unit"
+        unit_title = getattr(matched_unit, "title", None) or "your course topic"
+
+        next_class = (
+            Timetable.objects.filter(
+                unit=matched_unit,
+                end_datetime__gte=timezone.now(),
+            )
+            .order_by("start_datetime")
+            .first()
+        )
+        next_class_line = ""
+        if next_class:
+            next_class_line = (
+                f" Your next {unit_code} class is {next_class.start_datetime.strftime('%a %d %b %I:%M %p')} in "
+                f"{next_class.room or 'the listed room'}."
+            )
+
+        next_assignment = (
+            Assignment.objects.filter(
+                unit=matched_unit,
+                due_at__isnull=False,
+                due_at__gte=timezone.now(),
+            )
+            .order_by("due_at")
+            .first()
+        )
+        assignment_line = ""
+        if next_assignment:
+            assignment_line = (
+                f" The next assessment is {next_assignment.title}, due "
+                f"{next_assignment.due_at.strftime('%a %d %b %I:%M %p')}."
+            )
+
+        return (
+            f"Start revising {unit_code} {unit_title} in small steps. "
+            f"First open Class communities for lecturer notes and shared files. "
+            f"Then open Assignments to review recent tasks and examinable areas.{next_class_line}{assignment_line} "
+            f"If you want, ask me to explain one subtopic from {unit_code} simply."
+        )
+
+    if current_units:
+        knowledge_preview = []
+        knowledge_cards = (
+            CourseRevisionKnowledge.objects.filter(
+                is_active=True,
+            )
+            .filter(
+                Q(programme=student_profile.programme)
+                | Q(unit__programme=student_profile.programme)
+            )
+            .select_related("unit")
+            .order_by("priority", "topic_title")[:3]
+        )
+        if knowledge_cards:
+            knowledge_preview = [
+                f"{card.topic_title}{f' ({card.unit.code})' if card.unit_id else ''}"
+                for card in knowledge_cards
+            ]
+        unit_list = ", ".join(
+            f"{getattr(unit, 'code', 'UNIT')} {getattr(unit, 'title', '')}".strip()
+            for unit in current_units
+        )
+        knowledge_line = ""
+        if knowledge_preview:
+            knowledge_line = f" Good revision topics from the knowledge bank include {', '.join(knowledge_preview)}."
+        return (
+            f"I can help you revise, but I need one unit or topic at a time to stay accurate. "
+            f"Your current units include {unit_list}.{knowledge_line} "
+            f"Ask me something like: Help me revise {getattr(current_units[0], 'code', 'my first unit')}."
+        )
+
+    return (
+        "I can help you revise, but I cannot see approved units on this account yet. "
+        "Once your units are approved, ask me about one unit or topic at a time."
+    )
 
 
 def _format_school_activity_notices(user):
@@ -702,6 +901,39 @@ def _format_student_navigation_help(query: str):
     )
 
 
+def _resolve_navigation_target(query: str, intent: str) -> str | None:
+    normalized = _normalize_query(query)
+
+    if _contains_any(normalized, ("fee", "fees", "finance", "payment", "balance")):
+        return "finance"
+    if _contains_any(normalized, ("group", "groups", "community", "communities", "forum")):
+        return "class_communities"
+    if _contains_any(normalized, ("message", "messages", "lecturer", "contact", "chat", "talk", "communication")):
+        return "message_center"
+    if _contains_any(normalized, ("peer", "classmate", "friend")):
+        return "peer_chats"
+    if _contains_any(normalized, ("register", "registration", "unit", "units", "course", "courses")):
+        return "unit_registration"
+    if _contains_any(normalized, ("call", "calls", "video", "meeting", "online class")):
+        return "class_calls"
+    if _contains_any(normalized, ("material", "materials", "notes", "resource", "resources")):
+        return "class_communities"
+    if _contains_any(normalized, ("assignment", "assignments", "cat", "cats", "deadline", "due", "grade", "exam")):
+        return "assignments"
+    if _contains_any(normalized, ("class", "classes", "timetable", "schedule", "calendar")):
+        return "timetable"
+    if _contains_any(normalized, ("chatbot", "assistant", "help")):
+        return "chatbot"
+
+    intent_defaults = {
+        "class_timing": "timetable",
+        "scheduled_calls": "class_calls",
+        "study_materials": "class_communities",
+        "app_navigation": "timetable",
+    }
+    return intent_defaults.get(intent)
+
+
 def _tourism_knowledge_response():
     units = ", ".join(KEMU_TOURISM_KNOWLEDGE["sample_units"][:6])
     return (
@@ -795,14 +1027,20 @@ class AskView(APIView):
         text: str,
         visual_cue: str | None,
         intent: str,
+        navigation_target: str | None = None,
     ):
-        _append_turn(conversation, "bot", text)
+        bot_turn = _append_turn(conversation, "bot", text)
         _save_conversation_state(conversation, query=query, intent=intent, visual_cue=visual_cue)
+        resolved_target = navigation_target
+        if resolved_target is None and intent not in {"restricted", "smalltalk", "memory", "empty", "info", "scope_guard"}:
+            resolved_target = _resolve_navigation_target(query, intent)
         return Response(
             {
                 "text": text,
                 "visual_cue": visual_cue,
                 "conversation_id": conversation.id,
+                "turn_id": bot_turn.id,
+                "navigation_target": resolved_target,
             }
         )
 
@@ -996,7 +1234,7 @@ class AskView(APIView):
                     intent=intent,
                 )
 
-            if _contains_any(
+            if _contains_phrase(
                 normalized,
                 ("assignment", "assignments", "cat", "cats", "due", "deadline", "grade", "exam"),
             ):
@@ -1013,6 +1251,26 @@ class AskView(APIView):
                     query=query,
                     text=text,
                     visual_cue="academic",
+                    intent="course_content",
+                )
+
+            if _contains_any(
+                normalized,
+                ("revise", "revision", "study", "topic", "learn", "notes", "explain"),
+            ):
+                text = _with_followups(
+                    _format_revision_help(user, query),
+                    [
+                        "Help me revise DTM101",
+                        "Where do I find study materials?",
+                        "What assignments are due this week?",
+                    ],
+                )
+                return self._finalize_response(
+                    conversation=conversation,
+                    query=query,
+                    text=text,
+                    visual_cue="revision",
                     intent="course_content",
                 )
 
@@ -1093,4 +1351,56 @@ class AskView(APIView):
             text=text,
             visual_cue="info",
             intent="info",
+        )
+
+
+class FeedbackView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request):
+        turn_id = _to_int(request.data.get("turn_id"))
+        rating = (request.data.get("rating") or "").strip().lower()
+
+        if not turn_id:
+            return Response({"detail": "turn_id is required."}, status=400)
+        if rating not in {
+            ChatbotAnswerFeedback.Rating.HELPFUL,
+            ChatbotAnswerFeedback.Rating.NOT_HELPFUL,
+        }:
+            return Response({"detail": "rating must be helpful or not_helpful."}, status=400)
+
+        turn = (
+            Turn.objects.filter(
+                id=turn_id,
+                sender="bot",
+                conversation__user=request.user,
+            )
+            .select_related("conversation")
+            .first()
+        )
+        if not turn:
+            return Response({"detail": "Chatbot answer not found for this user."}, status=404)
+
+        feedback, _ = ChatbotAnswerFeedback.objects.update_or_create(
+            user=request.user,
+            turn=turn,
+            defaults={
+                "conversation": turn.conversation,
+                "rating": rating,
+                "query_text": (request.data.get("query_text") or "").strip(),
+                "answer_text": (request.data.get("answer_text") or turn.text).strip(),
+                "visual_cue": (request.data.get("visual_cue") or "").strip(),
+                "navigation_target": (request.data.get("navigation_target") or "").strip(),
+                "needs_review": rating == ChatbotAnswerFeedback.Rating.NOT_HELPFUL,
+                "reviewed_at": None if rating == ChatbotAnswerFeedback.Rating.NOT_HELPFUL else timezone.now(),
+                "reviewed_by": None,
+                "admin_notes": "",
+            },
+        )
+        return Response(
+            {
+                "id": feedback.id,
+                "rating": feedback.rating,
+                "needs_review": feedback.needs_review,
+            }
         )
