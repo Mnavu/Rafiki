@@ -16,10 +16,25 @@ from users.models import ParentStudentLink
 from communications.models import Thread
 from core.models import CalendarEvent
 from notifications.models import Notification
+from notifications.delivery import notify_submission_graded
 from ..models import Submission, LecturerAssignment, Registration
 from ..models import Assignment
 from ..progress_models import CompletionRecord
 from ..serializers.assignments import SubmissionSerializer
+
+
+def _lecturer_assigned_unit_ids(lecturer_profile):
+    return list(
+        LecturerAssignment.objects.filter(lecturer=lecturer_profile).values_list("unit_id", flat=True)
+    )
+
+
+def _lecturer_can_grade_submission(lecturer_profile, submission):
+    if not submission.assignment_id or not getattr(submission.assignment, "unit_id", None):
+        return False
+    if submission.assignment.lecturer_id == lecturer_profile.pk:
+        return True
+    return submission.assignment.unit_id in _lecturer_assigned_unit_ids(lecturer_profile)
 
 
 class LecturerGradingViewSet(viewsets.ModelViewSet):
@@ -33,7 +48,21 @@ class LecturerGradingViewSet(viewsets.ModelViewSet):
         
         try:
             lecturer_profile = user.lecturer_profile
-            return Submission.objects.filter(assignment__lecturer=lecturer_profile)
+            assigned_unit_ids = _lecturer_assigned_unit_ids(lecturer_profile)
+            filters = Q(assignment__lecturer=lecturer_profile)
+            if assigned_unit_ids:
+                filters |= Q(assignment__unit_id__in=assigned_unit_ids)
+            return (
+                Submission.objects.select_related(
+                    "assignment",
+                    "assignment__unit",
+                    "assignment__unit__programme",
+                    "student",
+                    "student__user",
+                )
+                .filter(filters)
+                .distinct()
+            )
         except User.lecturer_profile.RelatedObjectDoesNotExist:
             return Submission.objects.none()
 
@@ -43,7 +72,7 @@ class LecturerGradingViewSet(viewsets.ModelViewSet):
 
         try:
             lecturer_profile = user.lecturer_profile
-            if submission.assignment.lecturer != lecturer_profile:
+            if not _lecturer_can_grade_submission(lecturer_profile, submission):
                 raise PermissionDenied("You can only grade submissions for your own assignments.")
         except User.lecturer_profile.RelatedObjectDoesNotExist:
             raise PermissionDenied("You must be a lecturer to grade submissions.")
@@ -53,7 +82,14 @@ class LecturerGradingViewSet(viewsets.ModelViewSet):
             raise ValidationError("Grade is required.")
 
         submission.grade = grade
+        feedback_text = request.data.get("feedback_text")
+        feedback_media_url = request.data.get("feedback_media_url")
+        if feedback_text is not None:
+            submission.feedback_text = str(feedback_text).strip()
+        if feedback_media_url is not None:
+            submission.feedback_media_url = str(feedback_media_url).strip()
         submission.save()
+        notify_submission_graded(submission=submission, graded_by_user=user)
 
         # Create or update completion record
         completion_record, created = CompletionRecord.objects.update_or_create(
@@ -124,7 +160,7 @@ class LecturerClassesDashboardView(APIView):
             student_user_ids = [row.student.user_id for row in registered_students if row.student_id]
             guardians_count = ParentStudentLink.objects.filter(student_id__in=student_user_ids).count()
 
-            course_assignments = Assignment.objects.filter(unit=unit, lecturer=lecturer_profile)
+            course_assignments = Assignment.objects.filter(unit=unit)
             issued_this_week = course_assignments.filter(created_at__gte=week_start).count()
             pending_to_issue = max(0, 3 - issued_this_week)  # 2 assignments + 1 CAT per week
             pending_to_mark = Submission.objects.filter(
@@ -217,10 +253,7 @@ class LecturerClassDetailView(APIView):
                 }
             )
 
-        class_assignments = Assignment.objects.filter(
-            unit=unit,
-            lecturer=lecturer_profile,
-        ).order_by("-due_at", "-created_at")
+        class_assignments = Assignment.objects.filter(unit=unit).order_by("-due_at", "-created_at")
         assignment_ids = list(class_assignments.values_list("id", flat=True))
         submissions = Submission.objects.filter(
             assignment_id__in=assignment_ids,

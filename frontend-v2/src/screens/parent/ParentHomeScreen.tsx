@@ -9,20 +9,32 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { AppMenu, DashboardTile, GreetingHeader, RoleBadge, VoiceButton } from '@components/index';
+import {
+  AppMenu,
+  DashboardTile,
+  GreetingHeader,
+  RoleBadge,
+  VoiceButton,
+} from '@components/index';
 import { useAuth } from '@context/AuthContext';
 import type { RootStackParamList } from '@navigation/AppNavigator';
 import {
   fetchCommunicationThreads,
   fetchFinancePayments,
+  fetchNotifications,
   fetchParentStudentLinks,
+  markAllNotificationsRead,
+  markNotificationRead,
+  fetchStudentSubmissions,
   fetchStudentFinanceStatuses,
   fetchStudentProgressSummary,
   fetchStudentRewards,
   type CommunicationThread,
   type FinanceStatusSummary,
+  type NotificationSummary,
   type ParentStudentLink,
   type PaymentSummary,
+  type SubmissionSummary,
   type StudentProgressSummary,
   type StudentRewardsSummary,
 } from '@services/api';
@@ -76,6 +88,30 @@ const formatMoney = (value: string): string => {
   }).format(numeric);
 };
 
+const formatNotificationTitle = (notification: NotificationSummary): string => {
+  const payloadTitle = typeof notification.payload?.title === 'string' ? notification.payload.title : '';
+  if (payloadTitle.trim()) {
+    return payloadTitle;
+  }
+  if (notification.type === 'thread_message_received') {
+    const senderName =
+      typeof notification.payload?.sender_name === 'string' ? notification.payload.sender_name : 'your contact';
+    return `New message from ${senderName}`;
+  }
+  return notification.type.replace(/_/g, ' ');
+};
+
+const formatNotificationBody = (notification: NotificationSummary): string => {
+  const payloadBody = typeof notification.payload?.body === 'string' ? notification.payload.body : '';
+  if (payloadBody.trim()) {
+    return payloadBody;
+  }
+  if (notification.type === 'thread_message_received') {
+    return 'Open message center to read the new message.';
+  }
+  return `Received ${formatDateTime(notification.created_at)}.`;
+};
+
 const buildChildSubtitle = (snapshot: ChildSnapshot): string => {
   const parts: string[] = [];
   if (snapshot.link.relationship) {
@@ -105,6 +141,8 @@ export const ParentHomeScreen: React.FC = () => {
   const { state, logout, updatePreferences } = useAuth();
   const [children, setChildren] = useState<ChildSnapshot[]>([]);
   const [threads, setThreads] = useState<CommunicationThread[]>([]);
+  const [recentGrades, setRecentGrades] = useState<SubmissionSummary[]>([]);
+  const [notifications, setNotifications] = useState<NotificationSummary[]>([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -124,10 +162,12 @@ export const ParentHomeScreen: React.FC = () => {
       try {
         const accessToken = state.accessToken;
         const links = await fetchParentStudentLinks(accessToken);
-        const [threadList, financeStatuses, payments, childSnapshots] = await Promise.all([
+        const [threadList, financeStatuses, payments, submissions, alerts, childSnapshots] = await Promise.all([
           fetchCommunicationThreads(accessToken).catch(() => []),
           fetchStudentFinanceStatuses(accessToken).catch(() => []),
           fetchFinancePayments(accessToken).catch(() => []),
+          fetchStudentSubmissions(accessToken).catch(() => []),
+          fetchNotifications(accessToken).catch(() => []),
           Promise.all(
             links.map(async (link) => {
               const [progress, rewards] = await Promise.all([
@@ -179,6 +219,18 @@ export const ParentHomeScreen: React.FC = () => {
         }, {});
 
         setThreads(threadList);
+        setNotifications(
+          alerts
+            .filter((item) => item.channel === 'in_app')
+            .sort((left, right) => parseMillis(right.created_at) - parseMillis(left.created_at))
+            .slice(0, 5),
+        );
+        setRecentGrades(
+          submissions
+            .filter((item) => item.grade !== null && item.grade !== undefined && item.grade !== '')
+            .sort((left, right) => parseMillis(right.updated_at) - parseMillis(left.updated_at))
+            .slice(0, 8),
+        );
         setChildren(
           childSnapshots.map((snapshot) => ({
             ...snapshot,
@@ -221,6 +273,40 @@ export const ParentHomeScreen: React.FC = () => {
     };
   }, [threads]);
 
+  const unreadNotifications = useMemo(
+    () => notifications.filter((item) => item.status !== 'read'),
+    [notifications],
+  );
+
+  const markAlertRead = useCallback(
+    async (notificationId: number) => {
+      if (!state.accessToken) {
+        return;
+      }
+      try {
+        const updated = await markNotificationRead(state.accessToken, notificationId);
+        setNotifications((current) =>
+          current.map((item) => (item.id === notificationId ? updated : item)),
+        );
+      } catch (markError) {
+        setError(markError instanceof Error ? markError.message : 'Unable to mark the alert as read.');
+      }
+    },
+    [state.accessToken],
+  );
+
+  const markAllAlertsRead = useCallback(async () => {
+    if (!state.accessToken || !notifications.length) {
+      return;
+    }
+    try {
+      await markAllNotificationsRead(state.accessToken);
+      setNotifications((current) => current.map((item) => ({ ...item, status: 'read' })));
+    } catch (markError) {
+      setError(markError instanceof Error ? markError.message : 'Unable to mark all alerts as read.');
+    }
+  }, [notifications.length, state.accessToken]);
+
   if (loading && !children.length) {
     return (
       <View style={styles.loader}>
@@ -242,6 +328,7 @@ export const ParentHomeScreen: React.FC = () => {
           name={parentName}
           greeting="Guardian workspace"
           rightAccessory={<RoleBadge role="parent" />}
+          notificationCount={unreadNotifications.length}
         />
 
         {error ? (
@@ -309,6 +396,57 @@ export const ParentHomeScreen: React.FC = () => {
             <DashboardTile
               title="No linked students yet"
               subtitle="Link at least one student account to mirror fee progress."
+              disabled
+            />
+          )}
+        </View>
+
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>
+            {`Alerts${unreadNotifications.length ? ` (${unreadNotifications.length} unread)` : ''}`}
+          </Text>
+          {unreadNotifications.length ? (
+            <VoiceButton label="Mark all alerts read" onPress={markAllAlertsRead} />
+          ) : null}
+          {notifications.length ? (
+            notifications.map((notification, index) => (
+              <DashboardTile
+                key={`parent-notification-${notification.id}-${index}`}
+                title={formatNotificationTitle(notification)}
+                subtitle={`${notification.status === 'read' ? 'Read' : 'Unread'} | ${formatNotificationBody(notification)} | ${formatDateTime(notification.created_at)}`}
+                onPress={
+                  notification.status !== 'read'
+                    ? () => markAlertRead(notification.id)
+                    : undefined
+                }
+                disabled={notification.status === 'read'}
+                statusColor={notification.status === 'read' ? palette.textSecondary : palette.warning}
+              />
+            ))
+          ) : (
+            <DashboardTile
+              title="No recent alerts"
+              subtitle="Student grades and important class updates will appear here."
+              disabled
+            />
+          )}
+        </View>
+
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Assignment grades</Text>
+          {recentGrades.length ? (
+            recentGrades.map((submission, index) => (
+              <DashboardTile
+                key={`grade-${submission.id}-${index}`}
+                title={`${submission.student_name || submission.student_username || 'Student'} | ${submission.assignment_title || 'Assignment'}`}
+                subtitle={`Grade ${submission.grade} | ${submission.unit_code || ''} ${submission.unit_title || ''} | ${submission.feedback_text?.trim() || 'No written feedback yet.'}`}
+                disabled
+              />
+            ))
+          ) : (
+            <DashboardTile
+              title="No graded assignments yet"
+              subtitle="Once lecturers mark submitted work, grades will appear here for linked students."
               disabled
             />
           )}

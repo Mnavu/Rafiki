@@ -3,6 +3,8 @@ import { StyleSheet, View } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { palette, spacing } from '@theme/index';
 import { VoiceButton } from './VoiceButton';
+import { NotificationBellBadge } from './NotificationBellBadge';
+import { useUnreadNotificationCount } from '../hooks/useUnreadNotificationCount';
 
 export type AppMenuAction = {
   label: string;
@@ -17,6 +19,7 @@ type AppMenuProps = {
   onToggleSimpleMode?: () => void;
   onToggleHighContrast?: () => void;
   compact?: boolean;
+  menuBadgeCount?: number;
 };
 
 export const AppMenu: React.FC<AppMenuProps> = ({
@@ -26,20 +29,26 @@ export const AppMenu: React.FC<AppMenuProps> = ({
   onToggleSimpleMode,
   onToggleHighContrast,
   compact = false,
+  menuBadgeCount,
 }) => {
   const navigation = useNavigation<any>();
   const route = useRoute();
   const [open, setOpen] = useState(false);
+  const { unreadCount, hasAuthenticatedUser } = useUnreadNotificationCount();
   const visibleActions = useMemo(() => actions.filter((item) => !item.hidden), [actions]);
+  const effectiveMenuBadgeCount = menuBadgeCount ?? unreadCount;
 
   return (
     <View style={[styles.container, compact && styles.compactContainer]}>
-      <VoiceButton
-        label={open ? 'Close menu' : 'Open menu'}
-        size="compact"
-        style={styles.menuToggle}
-        onPress={() => setOpen((current) => !current)}
-      />
+      <View style={styles.headerRow}>
+        <VoiceButton
+          label={open ? 'Close menu' : 'Open menu'}
+          size="compact"
+          style={styles.menuToggle}
+          onPress={() => setOpen((current) => !current)}
+        />
+        {hasAuthenticatedUser ? <NotificationBellBadge count={effectiveMenuBadgeCount} compact /> : null}
+      </View>
       {open ? (
         <View style={styles.content}>
           {onToggleSimpleMode ? (
@@ -92,8 +101,13 @@ const styles = StyleSheet.create({
   compactContainer: {
     padding: spacing.md,
   },
+  headerRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.sm,
+  },
   menuToggle: {
-    width: '100%',
+    flex: 1,
   },
   content: {
     flexDirection: 'row',

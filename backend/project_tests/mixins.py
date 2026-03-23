@@ -26,7 +26,12 @@ class ParentStudentFixtureMixin:
             role=User.Roles.STUDENT,
             email="student@example.com",
         )
-        cls.student = Student.objects.create(user=cls.student_user, year=1, trimester=1, trimester_label="T1", cohort_year=2024)
+        cls.student = Student.objects.create(
+            user=cls.student_user,
+            year=1,
+            trimester=1,
+            trimester_label="T1",
+        )
         
         cls.teacher_user = User.objects.create_user(
             username="teacher_test",
@@ -50,7 +55,12 @@ class ParentStudentFixtureMixin:
             role=User.Roles.STUDENT,
             email="student_unlinked@example.com",
         )
-        cls.unlinked_student = Student.objects.create(user=cls.unlinked_student_user, year=1, trimester=1, trimester_label="T1", cohort_year=2024)
+        cls.unlinked_student = Student.objects.create(
+            user=cls.unlinked_student_user,
+            year=1,
+            trimester=1,
+            trimester_label="T1",
+        )
 
 
         ParentStudentLink.objects.create(

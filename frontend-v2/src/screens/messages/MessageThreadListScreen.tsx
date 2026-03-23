@@ -9,7 +9,13 @@ import {
 } from 'react-native';
 import { useNavigation, useRoute, type RouteProp } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { AppMenu, DashboardTile, GreetingHeader, RoleBadge, VoiceButton } from '@components/index';
+import {
+  AppMenu,
+  DashboardTile,
+  GreetingHeader,
+  RoleBadge,
+  VoiceButton,
+} from '@components/index';
 import { useAuth } from '@context/AuthContext';
 import type { RootStackParamList } from '@navigation/AppNavigator';
 import type { Role } from '@app-types/roles';

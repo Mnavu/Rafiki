@@ -56,16 +56,21 @@ class AssignmentViewSet(ScopedListMixin, viewsets.ModelViewSet):
         user = self.request.user
         assignment = self.get_object()
         if getattr(user, "role", None) == User.Roles.LECTURER:
-            if assignment.lecturer_id != user.id:
+            lecturer_profile = self._get_lecturer_profile(user)
+            if assignment.lecturer_id and assignment.lecturer_id != lecturer_profile.pk:
                 raise PermissionDenied("Lecturers can only update their own assignments.")
             target_unit = serializer.validated_data.get("unit", assignment.unit)
             self._validate_lecturer_unit_access(user, target_unit)
+            serializer.save(lecturer=assignment.lecturer or lecturer_profile)
+            return
         serializer.save(lecturer=assignment.lecturer)
 
     def perform_destroy(self, instance):
         user = self.request.user
-        if getattr(user, "role", None) == User.Roles.LECTURER and instance.lecturer_id != user.id:
-            raise PermissionDenied("Lecturers can only delete their own assignments.")
+        if getattr(user, "role", None) == User.Roles.LECTURER:
+            lecturer_profile = self._get_lecturer_profile(user)
+            if instance.lecturer_id and instance.lecturer_id != lecturer_profile.pk:
+                raise PermissionDenied("Lecturers can only delete their own assignments.")
         instance.delete()
 
 
@@ -131,7 +136,7 @@ class SubmissionViewSet(ScopedListMixin, viewsets.ModelViewSet):
         submission = self.get_object()
         if getattr(user, "role", None) != User.Roles.STUDENT:
             raise PermissionDenied("Only students can update submissions from this workflow.")
-        if submission.student_id != user.id:
+        if submission.student_id != getattr(getattr(user, "student_profile", None), "pk", None):
             raise PermissionDenied("You can only update your own submission.")
         assignment = serializer.validated_data.get("assignment", submission.assignment)
         self._validate_student_assignment_access(user, assignment)

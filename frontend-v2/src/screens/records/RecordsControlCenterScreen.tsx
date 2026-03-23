@@ -29,6 +29,7 @@ import {
   fetchProgrammes,
   fetchProvisionRequests,
   fetchStudentRegistrations,
+  fetchStudentSubmissions,
   removeDepartmentLecturer,
   rejectHodRegistrations,
   rejectProvisionRequest,
@@ -39,6 +40,7 @@ import {
   type HodCourseMatrix,
   type ProgrammeSummary,
   type RegistrationSummary,
+  type SubmissionSummary,
   type UserProvisionRequestSummary,
 } from '@services/api';
 import { palette, radius, spacing, typography } from '@theme/index';
@@ -56,6 +58,7 @@ export const RecordsControlCenterScreen: React.FC = () => {
   const [programmes, setProgrammes] = useState<ProgrammeSummary[]>([]);
   const [provisionRequests, setProvisionRequests] = useState<UserProvisionRequestSummary[]>([]);
   const [registrations, setRegistrations] = useState<RegistrationSummary[]>([]);
+  const [submissions, setSubmissions] = useState<SubmissionSummary[]>([]);
   const [pendingApprovals, setPendingApprovals] = useState<RegistrationSummary[]>([]);
   const [academicYear, setAcademicYear] = useState(String(new Date().getFullYear()));
   const [trimester, setTrimester] = useState('1');
@@ -102,17 +105,19 @@ export const RecordsControlCenterScreen: React.FC = () => {
       }
       setError(null);
       try {
-        const [rows, programmeRows, requestRows, registrationRows, approvalRows] = await Promise.all([
+        const [rows, programmeRows, requestRows, registrationRows, submissionRows, approvalRows] = await Promise.all([
           fetchDepartments(state.accessToken),
           fetchProgrammes(state.accessToken),
           fetchProvisionRequests(state.accessToken),
           fetchStudentRegistrations(state.accessToken),
+          fetchStudentSubmissions(state.accessToken),
           badgeRole === 'hod' ? fetchHodPendingApprovals(state.accessToken) : Promise.resolve([]),
         ]);
         setDepartments(rows);
         setProgrammes(programmeRows);
         setProvisionRequests(requestRows);
         setRegistrations(registrationRows);
+        setSubmissions(submissionRows);
         setPendingApprovals(approvalRows);
         if (!selectedDepartmentId && rows.length) {
           setSelectedDepartmentId(rows[0].id);
@@ -145,7 +150,7 @@ export const RecordsControlCenterScreen: React.FC = () => {
       try {
         const yearValue = Number.parseInt(academicYear, 10) || new Date().getFullYear();
         const trimesterValue = Number.parseInt(trimester, 10) || undefined;
-        const [structurePayload, poolPayload, matrixPayload, registrationPayload, approvalPayload] = await Promise.all([
+        const [structurePayload, poolPayload, matrixPayload, registrationPayload, submissionPayload, approvalPayload] = await Promise.all([
           fetchDepartmentStructure(state.accessToken, departmentId),
           fetchDepartmentStaffPool(state.accessToken, departmentId),
           fetchHodCourseMatrix(state.accessToken, departmentId, {
@@ -153,12 +158,14 @@ export const RecordsControlCenterScreen: React.FC = () => {
             trimester: trimesterValue,
           }),
           fetchStudentRegistrations(state.accessToken),
+          fetchStudentSubmissions(state.accessToken),
           badgeRole === 'hod' ? fetchHodPendingApprovals(state.accessToken) : Promise.resolve([]),
         ]);
         setStructure(structurePayload);
         setStaffPool(poolPayload);
         setMatrix(matrixPayload);
         setRegistrations(registrationPayload);
+        setSubmissions(submissionPayload);
         setPendingApprovals(approvalPayload);
       } catch (loadError) {
         if (loadError instanceof Error) {
@@ -484,6 +491,27 @@ export const RecordsControlCenterScreen: React.FC = () => {
   const rejectedRegistrations = useMemo(
     () => filteredRegistrations.filter((item) => item.status === 'rejected'),
     [filteredRegistrations],
+  );
+
+  const filteredSubmissions = useMemo(() => {
+    return submissions
+      .filter((item) => {
+        if (selectedDepartmentId && item.department_id && item.department_id !== selectedDepartmentId) {
+          return false;
+        }
+        return true;
+      })
+      .sort((left, right) => new Date(right.updated_at).getTime() - new Date(left.updated_at).getTime());
+  }, [selectedDepartmentId, submissions]);
+
+  const ungradedSubmissions = useMemo(
+    () => filteredSubmissions.filter((item) => item.grade === null || item.grade === undefined || item.grade === ''),
+    [filteredSubmissions],
+  );
+
+  const gradedSubmissions = useMemo(
+    () => filteredSubmissions.filter((item) => item.grade !== null && item.grade !== undefined && item.grade !== ''),
+    [filteredSubmissions],
   );
 
   if (loading) {
@@ -822,6 +850,36 @@ export const RecordsControlCenterScreen: React.FC = () => {
             <DashboardTile
               title="No registrations for the selected term"
               subtitle="Student unit submissions will appear here for records tracking."
+              disabled
+            />
+          )}
+        </View>
+
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Assignment submissions and grades</Text>
+          <DashboardTile
+            title={`${filteredSubmissions.length} submissions in view`}
+            subtitle={`${ungradedSubmissions.length} awaiting lecturer grading, ${gradedSubmissions.length} already graded`}
+            disabled
+          />
+          {filteredSubmissions.length ? (
+            filteredSubmissions.slice(0, 20).map((submission) => (
+              <DashboardTile
+                key={`submission-audit-${submission.id}`}
+                title={`${submission.student_name || submission.student_username || 'Student'} | ${submission.assignment_title || 'Assignment'}`}
+                subtitle={`${submission.unit_code || 'Unit'} | ${submission.grade ?? 'Not graded yet'} | ${submission.feedback_text?.trim() || 'No lecturer feedback yet.'}`}
+                statusColor={
+                  submission.grade !== null && submission.grade !== undefined && submission.grade !== ''
+                    ? palette.success
+                    : palette.warning
+                }
+                disabled
+              />
+            ))
+          ) : (
+            <DashboardTile
+              title="No submission records available"
+              subtitle="Student assignment submissions and lecturer grades will appear here."
               disabled
             />
           )}

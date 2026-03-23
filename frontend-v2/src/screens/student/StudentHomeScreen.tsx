@@ -16,13 +16,23 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Audio } from 'expo-av';
 import { useNavigation, useRoute, type RouteProp } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { AppMenu, ChatbotBubble, DashboardTile, GreetingHeader, RoleBadge, VoiceButton } from '@components/index';
+import {
+  AppMenu,
+  ChatbotBubble,
+  DashboardTile,
+  GreetingHeader,
+  RoleBadge,
+  VoiceButton,
+} from '@components/index';
 import { useAuth } from '@context/AuthContext';
 import type { RootStackParamList } from '@navigation/AppNavigator';
 import {
   fetchClassCalls,
   fetchClassCommunities,
   fetchFinancePayments,
+  fetchNotifications,
+  markAllNotificationsRead,
+  markNotificationRead,
   fetchProgrammeCurriculum,
   fetchStudentAssignments,
   fetchStudentFinanceStatuses,
@@ -37,6 +47,7 @@ import {
   type ClassCallSummary,
   type ClassCommunitySummary,
   type FinanceStatusSummary,
+  type NotificationSummary,
   type PaymentSummary,
   type ProgrammeCurriculumUnit,
   type RegistrationSummary,
@@ -66,6 +77,7 @@ type StudentOverview = {
   rewards: StudentRewardsSummary | null;
   classCalls: ClassCallSummary[];
   classCommunities: ClassCommunitySummary[];
+  notifications: NotificationSummary[];
   offeredUnits: ProgrammeCurriculumUnit[];
   offeredUnitMeta: Record<
     number,
@@ -279,6 +291,44 @@ const formatMoney = (value: string): string => {
   }).format(numeric);
 };
 
+const formatNotificationTitle = (notification: NotificationSummary): string => {
+  const payloadTitle = typeof notification.payload?.title === 'string' ? notification.payload.title : '';
+  if (payloadTitle.trim()) {
+    return payloadTitle;
+  }
+  if (notification.type === 'thread_message_received') {
+    const senderName =
+      typeof notification.payload?.sender_name === 'string' ? notification.payload.sender_name : 'your contact';
+    return `New message from ${senderName}`;
+  }
+  if (notification.type === 'submission_graded') {
+    return 'New grade available';
+  }
+  if (notification.type === 'class_call_scheduled') {
+    return 'Class call scheduled';
+  }
+  return notification.type.replace(/_/g, ' ');
+};
+
+const formatNotificationBody = (notification: NotificationSummary): string => {
+  const payloadBody = typeof notification.payload?.body === 'string' ? notification.payload.body : '';
+  if (payloadBody.trim()) {
+    return payloadBody;
+  }
+  if (notification.type === 'thread_message_received') {
+    return 'Open message center to read the new message.';
+  }
+  if (notification.type === 'submission_graded') {
+    const grade = typeof notification.payload?.grade === 'string' ? notification.payload.grade : '';
+    const assignmentTitle =
+      typeof notification.payload?.assignment_title === 'string'
+        ? notification.payload.assignment_title
+        : 'your assignment';
+    return grade ? `${assignmentTitle} was graded: ${grade}` : `${assignmentTitle} has been graded.`;
+  }
+  return `Received ${formatDateTime(notification.created_at)}.`;
+};
+
 export const StudentHomeScreen: React.FC = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const route = useRoute<StudentHomeRoute>();
@@ -375,6 +425,7 @@ export const StudentHomeScreen: React.FC = () => {
           rewards,
           classCalls,
           classCommunities,
+          notifications,
           offerings,
           curriculum,
         ] = await Promise.all([
@@ -386,6 +437,7 @@ export const StudentHomeScreen: React.FC = () => {
           fetchStudentRewards(state.accessToken, profile.id).catch(() => null),
           fetchClassCalls(state.accessToken, 'upcoming').catch(() => []),
           fetchClassCommunities(state.accessToken).catch(() => []),
+          fetchNotifications(state.accessToken).catch(() => []),
           profile.programme
             ? fetchTermOfferings(state.accessToken, {
                 programme: profile.programme,
@@ -483,6 +535,10 @@ export const StudentHomeScreen: React.FC = () => {
           rewards,
           classCalls: upcomingClassCalls,
           classCommunities: dedupeByKey(classCommunities, (item) => String(item.chatroom_id)).slice(0, 8),
+          notifications: [...notifications]
+            .filter((item) => item.channel === 'in_app')
+            .sort((a, b) => parseMillis(b.created_at) - parseMillis(a.created_at))
+            .slice(0, 4),
           offeredUnits,
           offeredUnitMeta,
         });
@@ -518,6 +574,54 @@ export const StudentHomeScreen: React.FC = () => {
   useEffect(() => {
     prepareSpeechPlayback();
   }, []);
+
+  const unreadNotifications = useMemo(
+    () => overview?.notifications.filter((item) => item.status !== 'read') ?? [],
+    [overview?.notifications],
+  );
+
+  const markAlertRead = useCallback(
+    async (notificationId: number) => {
+      if (!state.accessToken) {
+        return;
+      }
+      try {
+        const updated = await markNotificationRead(state.accessToken, notificationId);
+        setOverview((current) =>
+          current
+            ? {
+                ...current,
+                notifications: current.notifications.map((item) =>
+                  item.id === notificationId ? updated : item,
+                ),
+              }
+            : current,
+        );
+      } catch (markError) {
+        setError(markError instanceof Error ? markError.message : 'Unable to mark the alert as read.');
+      }
+    },
+    [state.accessToken],
+  );
+
+  const markAllAlertsRead = useCallback(async () => {
+    if (!state.accessToken || !overview?.notifications.length) {
+      return;
+    }
+    try {
+      await markAllNotificationsRead(state.accessToken);
+      setOverview((current) =>
+        current
+          ? {
+              ...current,
+              notifications: current.notifications.map((item) => ({ ...item, status: 'read' })),
+            }
+          : current,
+      );
+    } catch (markError) {
+      setError(markError instanceof Error ? markError.message : 'Unable to mark all alerts as read.');
+    }
+  }, [overview?.notifications.length, state.accessToken]);
 
   useEffect(() => {
     let active = true;
@@ -1093,6 +1197,7 @@ export const StudentHomeScreen: React.FC = () => {
           name={userName}
           greeting="Student workspace"
           rightAccessory={<RoleBadge role="student" />}
+          notificationCount={unreadNotifications.length}
         />
 
         {speechStatus ? (
@@ -1301,6 +1406,51 @@ export const StudentHomeScreen: React.FC = () => {
                 <Text style={styles.metricValue}>{overview.registrations.length}</Text>
               </View>
             </View>
+          </View>
+        ) : null}
+
+        {overview ? (
+          <View style={styles.section}>
+            <SectionHeader
+              title={`New alerts${unreadNotifications.length ? ` (${unreadNotifications.length} unread)` : ''}`}
+              icon="bell-ring"
+              onSpeak={() =>
+                speakText(
+                  overview.notifications.length
+                    ? `You have ${unreadNotifications.length} unread alerts out of ${overview.notifications.length} recent alerts. ${overview.notifications
+                        .map((item) => formatNotificationTitle(item))
+                        .join('. ')}.`
+                    : 'No new alerts right now.',
+                )
+              }
+            />
+            {unreadNotifications.length ? (
+              <VoiceButton label="Mark all alerts read" onPress={markAllAlertsRead} />
+            ) : null}
+            {overview.notifications.length ? (
+              overview.notifications.map((notification, index) => (
+                <DashboardTile
+                  key={`student-notification-${notification.id}-${index}`}
+                  icon={<MaterialCommunityIcons name="bell-badge" size={26} color={palette.warning} />}
+                  title={formatNotificationTitle(notification)}
+                  subtitle={`${notification.status === 'read' ? 'Read' : 'Unread'} | ${formatNotificationBody(notification)} | ${formatDateTime(notification.created_at)}`}
+                  onPress={
+                    notification.status !== 'read'
+                      ? () => markAlertRead(notification.id)
+                      : undefined
+                  }
+                  disabled={notification.status === 'read'}
+                  statusColor={notification.status === 'read' ? palette.textSecondary : palette.warning}
+                />
+              ))
+            ) : (
+              <DashboardTile
+                icon={<MaterialCommunityIcons name="bell-off-outline" size={26} color={palette.textSecondary} />}
+                title="No new alerts"
+                subtitle="Grades, class calls, and important updates will appear here."
+                disabled
+              />
+            )}
           </View>
         ) : null}
 

@@ -19,6 +19,10 @@ def user_has_scope(user, obj) -> bool:
     if owner_user_id and owner_user_id == user.id:
         return True
 
+    direct_user_id = getattr(obj, "user_id", None)
+    if direct_user_id and direct_user_id == user.id:
+        return True
+
     student_id = getattr(obj, "student_id", None)
     if not student_id:
         student = getattr(obj, "student", None)

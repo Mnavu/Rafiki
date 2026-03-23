@@ -34,9 +34,23 @@ class AssignmentSerializer(serializers.ModelSerializer):
 class SubmissionSerializer(serializers.ModelSerializer):
     assignment_title = serializers.CharField(source="assignment.title", read_only=True)
     assignment_due_at = serializers.DateTimeField(source="assignment.due_at", read_only=True)
+    unit_id = serializers.IntegerField(source="assignment.unit_id", read_only=True)
+    department_id = serializers.IntegerField(source="assignment.unit.programme.department_id", read_only=True)
     unit_title = serializers.CharField(source="assignment.unit.title", read_only=True)
     unit_code = serializers.CharField(source="assignment.unit.code", read_only=True)
+    student_name = serializers.SerializerMethodField()
+    student_username = serializers.SerializerMethodField()
     audio_url = serializers.SerializerMethodField()
+
+    def get_student_name(self, obj):
+        student_user = getattr(getattr(obj, "student", None), "user", None)
+        return resolve_user_display_name(student_user)
+
+    def get_student_username(self, obj):
+        student_user = getattr(getattr(obj, "student", None), "user", None)
+        if not student_user:
+            return ""
+        return student_user.username
 
     def get_audio_url(self, obj):
         audio = getattr(obj, "audio", None)
@@ -67,9 +81,13 @@ class SubmissionSerializer(serializers.ModelSerializer):
             "assignment",
             "assignment_title",
             "assignment_due_at",
+            "unit_id",
+            "department_id",
             "unit_title",
             "unit_code",
             "student",
+            "student_name",
+            "student_username",
             "submitted_at",
             "content_url",
             "text_response",

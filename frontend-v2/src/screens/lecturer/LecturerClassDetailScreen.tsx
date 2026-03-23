@@ -1,6 +1,7 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   ActivityIndicator,
+  Linking,
   RefreshControl,
   ScrollView,
   StyleSheet,
@@ -8,6 +9,7 @@ import {
   TextInput,
   View,
 } from 'react-native';
+import { Audio, type AVPlaybackStatus } from 'expo-av';
 import { useNavigation, useRoute, type RouteProp } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { AppMenu, DashboardTile, GreetingHeader, RoleBadge, VoiceButton } from '@components/index';
@@ -17,16 +19,22 @@ import {
   fetchClassCalls,
   fetchClassCommunities,
   fetchLecturerClassDetail,
+  fetchLecturerGradingQueue,
+  gradeLecturerSubmission,
   scheduleClassCall,
   type ClassCallSummary,
   type ClassCommunitySummary,
   type LecturerClassDetail,
+  type SubmissionSummary,
 } from '@services/api';
 import { palette, radius, spacing, typography } from '@theme/index';
 
 type LecturerClassDetailRoute = RouteProp<RootStackParamList, 'LecturerClassDetail'>;
 
-const formatDateTime = (value: string): string => {
+const formatDateTime = (value: string | null | undefined): string => {
+  if (!value) {
+    return 'No timestamp';
+  }
   const date = new Date(value);
   if (Number.isNaN(date.getTime())) {
     return value;
@@ -54,6 +62,9 @@ export const LecturerClassDetailScreen: React.FC = () => {
   const [detail, setDetail] = useState<LecturerClassDetail | null>(null);
   const [calls, setCalls] = useState<ClassCallSummary[]>([]);
   const [community, setCommunity] = useState<ClassCommunitySummary | null>(null);
+  const [gradingQueue, setGradingQueue] = useState<SubmissionSummary[]>([]);
+  const [gradeDrafts, setGradeDrafts] = useState<Record<number, string>>({});
+  const [feedbackDrafts, setFeedbackDrafts] = useState<Record<number, string>>({});
   const [title, setTitle] = useState('Online class session');
   const [description, setDescription] = useState('Scheduled lecturer-led online class.');
   const [startAt, setStartAt] = useState(toIsoInput(24));
@@ -61,8 +72,23 @@ export const LecturerClassDetailScreen: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const [scheduling, setScheduling] = useState(false);
+  const [savingSubmissionId, setSavingSubmissionId] = useState<number | null>(null);
+  const [playingSubmissionId, setPlayingSubmissionId] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+  const soundRef = useRef<Audio.Sound | null>(null);
+
+  const cleanupPlayback = useCallback(async () => {
+    if (soundRef.current) {
+      try {
+        await soundRef.current.unloadAsync();
+      } catch {
+        // Ignore cleanup failure.
+      }
+      soundRef.current = null;
+    }
+    setPlayingSubmissionId(null);
+  }, []);
 
   const loadDetail = useCallback(
     async (isRefresh = false) => {
@@ -76,14 +102,36 @@ export const LecturerClassDetailScreen: React.FC = () => {
       }
       setError(null);
       try {
-        const [classDetail, classCalls, communities] = await Promise.all([
+        const [classDetail, classCalls, communities, lecturerSubmissions] = await Promise.all([
           fetchLecturerClassDetail(state.accessToken, unitId),
           fetchClassCalls(state.accessToken, 'upcoming').catch(() => []),
           fetchClassCommunities(state.accessToken).catch(() => []),
+          fetchLecturerGradingQueue(state.accessToken).catch(() => []),
         ]);
+        const scopedSubmissions = lecturerSubmissions
+          .filter((item) => item.unit_id === unitId)
+          .sort(
+            (left, right) =>
+              new Date(right.submitted_at || right.updated_at).getTime() -
+              new Date(left.submitted_at || left.updated_at).getTime(),
+          );
         setDetail(classDetail);
         setCalls(classCalls.filter((call) => call.unit_id === unitId));
         setCommunity(communities.find((item) => item.unit_id === unitId) ?? null);
+        setGradingQueue(scopedSubmissions);
+        setGradeDrafts((current) =>
+          scopedSubmissions.reduce<Record<number, string>>((acc, item) => {
+            acc[item.id] =
+              current[item.id] ?? (item.grade !== null && item.grade !== undefined ? String(item.grade) : '');
+            return acc;
+          }, {}),
+        );
+        setFeedbackDrafts((current) =>
+          scopedSubmissions.reduce<Record<number, string>>((acc, item) => {
+            acc[item.id] = current[item.id] ?? item.feedback_text ?? '';
+            return acc;
+          }, {}),
+        );
       } catch (loadError) {
         if (loadError instanceof Error) {
           setError(loadError.message);
@@ -102,6 +150,12 @@ export const LecturerClassDetailScreen: React.FC = () => {
     loadDetail(false);
   }, [loadDetail]);
 
+  useEffect(() => {
+    return () => {
+      void cleanupPlayback();
+    };
+  }, [cleanupPlayback]);
+
   const classTitle = useMemo(() => {
     if (detail) {
       return `${detail.class.unit_code} - ${detail.class.unit_title}`;
@@ -110,6 +164,14 @@ export const LecturerClassDetailScreen: React.FC = () => {
   }, [detail, route.params.unitTitle, unitId]);
 
   const latestCall = useMemo(() => calls[0] ?? null, [calls]);
+  const submissionsToMark = useMemo(
+    () => gradingQueue.filter((item) => item.grade === null || item.grade === undefined || item.grade === ''),
+    [gradingQueue],
+  );
+  const gradedSubmissions = useMemo(
+    () => gradingQueue.filter((item) => item.grade !== null && item.grade !== undefined && item.grade !== ''),
+    [gradingQueue],
+  );
 
   const scheduleCall = async () => {
     if (!state.accessToken) {
@@ -141,6 +203,92 @@ export const LecturerClassDetailScreen: React.FC = () => {
       setScheduling(false);
     }
   };
+
+  const playSubmissionAudio = useCallback(
+    async (submission: SubmissionSummary) => {
+      const source = submission.audio_url || submission.audio;
+      if (!source) {
+        return;
+      }
+      try {
+        await cleanupPlayback();
+        await Audio.setAudioModeAsync({
+          allowsRecordingIOS: false,
+          playsInSilentModeIOS: true,
+          shouldDuckAndroid: true,
+          playThroughEarpieceAndroid: false,
+        });
+        const { sound } = await Audio.Sound.createAsync(
+          { uri: source },
+          { shouldPlay: true, progressUpdateIntervalMillis: 500 },
+        );
+        soundRef.current = sound;
+        setPlayingSubmissionId(submission.id);
+        sound.setOnPlaybackStatusUpdate((status: AVPlaybackStatus) => {
+          if (!status.isLoaded) {
+            return;
+          }
+          if (status.didJustFinish) {
+            void cleanupPlayback();
+          }
+        });
+      } catch (playbackError) {
+        if (playbackError instanceof Error) {
+          setError(playbackError.message);
+        } else {
+          setError('Unable to play the submitted voice note.');
+        }
+      }
+    },
+    [cleanupPlayback],
+  );
+
+  const openSubmissionLink = useCallback(async (url: string) => {
+    try {
+      await Linking.openURL(url);
+    } catch (linkError) {
+      if (linkError instanceof Error) {
+        setError(linkError.message);
+      } else {
+        setError('Unable to open the submitted document link.');
+      }
+    }
+  }, []);
+
+  const saveGrade = useCallback(
+    async (submission: SubmissionSummary) => {
+      if (!state.accessToken || savingSubmissionId) {
+        return;
+      }
+      const grade = (gradeDrafts[submission.id] || '').trim();
+      if (!grade) {
+        setError(`Enter a grade for ${submission.student_name || submission.student_username || 'this student'}.`);
+        return;
+      }
+      setSavingSubmissionId(submission.id);
+      setError(null);
+      setSuccess(null);
+      try {
+        await gradeLecturerSubmission(state.accessToken, submission.id, {
+          grade,
+          feedbackText: feedbackDrafts[submission.id]?.trim() || undefined,
+        });
+        setSuccess(
+          `Saved grade for ${submission.student_name || submission.student_username || 'student'} in ${submission.assignment_title || 'the selected assignment'}.`,
+        );
+        await loadDetail(true);
+      } catch (saveError) {
+        if (saveError instanceof Error) {
+          setError(saveError.message);
+        } else {
+          setError('Unable to save the grade.');
+        }
+      } finally {
+        setSavingSubmissionId(null);
+      }
+    },
+    [feedbackDrafts, gradeDrafts, loadDetail, savingSubmissionId, state.accessToken],
+  );
 
   if (loading && !detail) {
     return (
@@ -235,6 +383,101 @@ export const LecturerClassDetailScreen: React.FC = () => {
             <DashboardTile
               title="No assessment records yet"
               subtitle="Assessment status appears as submissions and grading happen."
+              disabled
+            />
+          )}
+        </View>
+
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Submissions waiting for grading</Text>
+          {submissionsToMark.length ? (
+            submissionsToMark.map((submission) => (
+              <View key={`submission-pending-${submission.id}`} style={styles.submissionCard}>
+                <Text style={styles.submissionTitle}>
+                  {submission.student_name || submission.student_username || 'Student'} |{' '}
+                  {submission.assignment_title || 'Assignment'}
+                </Text>
+                <Text style={styles.submissionMeta}>
+                  {submission.unit_code || detail?.class.unit_code || ''}{' '}
+                  {submission.unit_title || detail?.class.unit_title || ''} | Submitted{' '}
+                  {formatDateTime(submission.submitted_at)}
+                </Text>
+                {submission.text_response ? (
+                  <Text style={styles.submissionBody}>{submission.text_response}</Text>
+                ) : null}
+                {submission.audio_transcript ? (
+                  <Text style={styles.submissionTranscript}>
+                    Voice transcript: {submission.audio_transcript}
+                  </Text>
+                ) : null}
+                {submission.content_url ? (
+                  <VoiceButton
+                    label="Open submitted document"
+                    onPress={() => openSubmissionLink(submission.content_url)}
+                  />
+                ) : null}
+                {submission.audio_url || submission.audio ? (
+                  <VoiceButton
+                    label={
+                      playingSubmissionId === submission.id
+                        ? 'Playing submitted voice note...'
+                        : 'Play submitted voice note'
+                    }
+                    onPress={() => playSubmissionAudio(submission)}
+                  />
+                ) : null}
+                <TextInput
+                  value={gradeDrafts[submission.id] ?? ''}
+                  onChangeText={(value) =>
+                    setGradeDrafts((current) => ({ ...current, [submission.id]: value }))
+                  }
+                  style={styles.input}
+                  placeholder="Enter grade e.g. 78"
+                  placeholderTextColor={palette.textSecondary}
+                  keyboardType="numeric"
+                />
+                <TextInput
+                  value={feedbackDrafts[submission.id] ?? ''}
+                  onChangeText={(value) =>
+                    setFeedbackDrafts((current) => ({ ...current, [submission.id]: value }))
+                  }
+                  style={styles.multilineInput}
+                  placeholder="Add lecturer feedback that the student and Guardian can read."
+                  placeholderTextColor={palette.textSecondary}
+                  multiline
+                />
+                <VoiceButton
+                  label={
+                    savingSubmissionId === submission.id ? 'Saving grade...' : 'Save grade and feedback'
+                  }
+                  onPress={() => saveGrade(submission)}
+                />
+              </View>
+            ))
+          ) : (
+            <DashboardTile
+              title="No ungraded submissions"
+              subtitle="New student work for this class will appear here for marking."
+              disabled
+            />
+          )}
+        </View>
+
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Recently graded submissions</Text>
+          {gradedSubmissions.length ? (
+            gradedSubmissions.slice(0, 8).map((submission) => (
+              <DashboardTile
+                key={`submission-graded-${submission.id}`}
+                title={`${submission.student_name || submission.student_username || 'Student'} | ${submission.assignment_title || 'Assignment'}`}
+                subtitle={`Grade ${submission.grade} | ${submission.unit_code || detail?.class.unit_code || ''} | ${submission.feedback_text?.trim() || 'No written feedback yet.'}`}
+                disabled
+              />
+            ))
+          ) : (
+            <DashboardTile
+              title="No graded submissions yet"
+              subtitle="Saved grades for this class will appear here and on the student side."
               disabled
             />
           )}
@@ -426,6 +669,29 @@ const styles = StyleSheet.create({
     padding: spacing.lg,
     gap: spacing.md,
   },
+  submissionCard: {
+    backgroundColor: palette.surface,
+    borderRadius: radius.lg,
+    padding: spacing.lg,
+    gap: spacing.md,
+  },
+  submissionTitle: {
+    ...typography.headingM,
+    color: palette.textPrimary,
+  },
+  submissionMeta: {
+    ...typography.helper,
+    color: palette.textSecondary,
+  },
+  submissionBody: {
+    ...typography.body,
+    color: palette.textPrimary,
+    lineHeight: 22,
+  },
+  submissionTranscript: {
+    ...typography.helper,
+    color: palette.textSecondary,
+  },
   input: {
     ...typography.body,
     borderWidth: 1,
@@ -434,6 +700,17 @@ const styles = StyleSheet.create({
     padding: spacing.md,
     color: palette.textPrimary,
     backgroundColor: palette.background,
+  },
+  multilineInput: {
+    ...typography.body,
+    borderWidth: 1,
+    borderColor: '#D1D5DB',
+    borderRadius: radius.md,
+    padding: spacing.md,
+    color: palette.textPrimary,
+    backgroundColor: palette.background,
+    minHeight: 96,
+    textAlignVertical: 'top',
   },
   errorCard: {
     backgroundColor: '#FEE4E2',

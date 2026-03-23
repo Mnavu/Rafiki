@@ -620,6 +620,25 @@ export const submitStudentSubmission = async (
   }
 };
 
+export const gradeLecturerSubmission = (
+  accessToken: string,
+  submissionId: number,
+  payload: {
+    grade: string | number;
+    feedbackText?: string;
+    feedbackMediaUrl?: string;
+  },
+): Promise<SubmissionSummary> =>
+  patchJson<SubmissionSummary>(
+    `/api/learning/lecturer-grading/${submissionId}/`,
+    accessToken,
+    {
+      grade: payload.grade,
+      feedback_text: payload.feedbackText,
+      feedback_media_url: payload.feedbackMediaUrl,
+    },
+  );
+
 export const fetchStudentRegistrations = async (accessToken: string): Promise<RegistrationSummary[]> => {
   const payload = await getJson<ListPayload<RegistrationSummary>>('/api/learning/registrations/', {
     headers: withAuthHeaders(accessToken),
@@ -862,9 +881,13 @@ export type SubmissionSummary = {
   assignment: number | null;
   assignment_title?: string;
   assignment_due_at?: string | null;
+  unit_id?: number | null;
+  department_id?: number | null;
   unit_title?: string;
   unit_code?: string;
   student: number | null;
+  student_name?: string;
+  student_username?: string;
   submitted_at: string;
   content_url: string;
   text_response?: string;
@@ -1514,6 +1537,35 @@ export const fetchNotifications = async (
   );
   return normalizeList(payload);
 };
+
+export const markNotificationRead = (
+  accessToken: string,
+  notificationId: number,
+): Promise<NotificationSummary> =>
+  postJson<NotificationSummary>(
+    `/api/notifications/${notificationId}/mark_read/`,
+    accessToken,
+    {},
+  );
+
+export const markAllNotificationsRead = (
+  accessToken: string,
+): Promise<{ detail: string; updated: number }> =>
+  postJson<{ detail: string; updated: number }>('/api/notifications/mark_all_read/', accessToken, {});
+
+export const registerDevicePushToken = (
+  accessToken: string,
+  payload: {
+    pushToken: string;
+    platform?: 'expo' | 'ios' | 'android';
+    appId?: string;
+  },
+): Promise<{ detail: string }> =>
+  postJson<{ detail: string }>('/api/devices/register/', accessToken, {
+    platform: payload.platform ?? 'expo',
+    push_token: payload.pushToken,
+    app_id: payload.appId,
+  });
 
 export const fetchLibraryAssets = async (accessToken: string): Promise<LibraryAssetSummary[]> => {
   const payload = await getJson<ListPayload<LibraryAssetSummary>>('/api/repository/assets/', {

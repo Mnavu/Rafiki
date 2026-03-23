@@ -1,7 +1,8 @@
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import type { Role } from '@app-types/roles';
-import { fetchProfile, loginRequest, type ApiUser } from '@services/api';
+import { fetchProfile, loginRequest, registerDevicePushToken, type ApiUser } from '@services/api';
+import { registerForPushNotificationsAsync } from '../utils/pushNotifications';
 
 type AuthState = {
   user: ApiUser | null;
@@ -40,6 +41,7 @@ type AuthContextValue = {
 const STORAGE_KEY = 'eduassistv2.auth';
 const CREDENTIALS_KEY_PREFIX = 'eduassistv2.credentials';
 const CREDENTIALS_RECENT_KEY = 'eduassistv2.credentials.recent';
+const PUSH_TOKEN_CACHE_PREFIX = 'eduassistv2.pushToken';
 
 const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 
@@ -76,6 +78,36 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       console.warn('Failed to persist auth state', error),
     );
   }, [state, loading]);
+
+  useEffect(() => {
+    if (!state.accessToken || !state.user) {
+      return;
+    }
+
+    const syncPushToken = async () => {
+      try {
+        const expoPushToken = await registerForPushNotificationsAsync();
+        if (!expoPushToken) {
+          return;
+        }
+        const cacheKey = `${PUSH_TOKEN_CACHE_PREFIX}.${state.user?.id}`;
+        const cachedToken = await AsyncStorage.getItem(cacheKey);
+        if (cachedToken === expoPushToken) {
+          return;
+        }
+        await registerDevicePushToken(state.accessToken!, {
+          pushToken: expoPushToken,
+          platform: 'expo',
+          appId: 'eduassist-v2',
+        });
+        await AsyncStorage.setItem(cacheKey, expoPushToken);
+      } catch (error) {
+        console.warn('Failed to register push token', error);
+      }
+    };
+
+    void syncPushToken();
+  }, [state.accessToken, state.user]);
 
   const getRecentCredentials = async (role?: Role): Promise<SavedCredentials[]> => {
     try {

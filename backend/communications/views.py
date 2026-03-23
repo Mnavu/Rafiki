@@ -12,6 +12,7 @@ from users.models import ParentStudentLink
 from learning.models import Registration, LecturerAssignment, CurriculumUnit
 from core.models import CalendarEvent
 from notifications.models import Notification
+from notifications.delivery import notify_thread_message_received
 from .models import Thread, Message, CourseChatroom, ChatMessage
 from .serializers import ThreadSerializer, MessageSerializer, CourseChatroomSerializer, ChatMessageSerializer
 from .serializers import SupportChatSessionSerializer, SupportChatMessageSerializer
@@ -264,7 +265,8 @@ class MessageViewSet(viewsets.ModelViewSet):
             User.Roles.LECTURER: Message.SenderRoles.TEACHER,
         }
         sender_role = role_map.get(user.role, Message.SenderRoles.TEACHER)
-        serializer.save(author=user, sender_role=sender_role)
+        message = serializer.save(author=user, sender_role=sender_role)
+        notify_thread_message_received(message=message)
 
 class CreateDirectMessageView(APIView):
     permission_classes = [permissions.IsAuthenticated]

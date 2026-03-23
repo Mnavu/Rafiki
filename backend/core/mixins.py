@@ -1,5 +1,25 @@
 from django.core.exceptions import FieldError
-from learning.models import Registration
+
+from learning.models import LecturerAssignment, Registration
+from users.models import ParentStudentLink
+
+
+def _linked_student_profile_ids(user):
+    return list(
+        ParentStudentLink.objects.filter(parent__user=user).values_list("student_id", flat=True)
+    )
+
+
+def _linked_student_user_ids(user):
+    return list(
+        ParentStudentLink.objects.filter(parent__user=user).values_list("student__user_id", flat=True)
+    )
+
+
+def _lecturer_unit_ids(user):
+    return list(
+        LecturerAssignment.objects.filter(lecturer__user=user).values_list("unit_id", flat=True)
+    )
 
 
 def _model_has_field(model, field_name: str) -> bool:
@@ -34,7 +54,7 @@ def scope_queryset_to_user(user, qs, *, view=None):
             if role == "student":
                 filtered_qs = qs.filter(student_id=user.id)
             elif role == "parent":
-                student_ids = getattr(user, "linked_student_ids", lambda: [])()
+                student_ids = _linked_student_user_ids(user)
                 filtered_qs = qs.filter(student_id__in=student_ids) if student_ids else qs.none()
             elif role in {"finance", "records", "admin"}:
                 filtered_qs = qs
@@ -54,10 +74,21 @@ def scope_queryset_to_user(user, qs, *, view=None):
 
         elif model_label == "assignment":
             if role == "student":
-                registered_units = Registration.objects.filter(student__user=user, status='approved').values_list('unit_id', flat=True)
+                registered_units = Registration.objects.filter(
+                    student__user=user,
+                    status="approved",
+                ).values_list("unit_id", flat=True)
+                filtered_qs = qs.filter(unit_id__in=registered_units).distinct()
+            elif role == "parent":
+                student_ids = _linked_student_profile_ids(user)
+                registered_units = Registration.objects.filter(
+                    student_id__in=student_ids,
+                    status=Registration.Status.APPROVED,
+                ).values_list("unit_id", flat=True)
                 filtered_qs = qs.filter(unit_id__in=registered_units).distinct()
             elif role == "lecturer":
-                filtered_qs = qs.filter(lecturer__user=user)
+                assigned_units = _lecturer_unit_ids(user)
+                filtered_qs = qs.filter(unit_id__in=assigned_units).distinct()
             elif role == "hod":
                 dept_id = getattr(getattr(user, "hod_profile", None), "department_id", None)
                 if dept_id:
@@ -67,16 +98,68 @@ def scope_queryset_to_user(user, qs, *, view=None):
             else:
                 filtered_qs = qs.none()
 
-        elif model_label in {"registration", "submission", "timetable"}:
+        elif model_label == "registration":
             if role == "student":
                 filtered_qs = qs.filter(student__user=user)
+            elif role == "parent":
+                student_ids = _linked_student_profile_ids(user)
+                filtered_qs = qs.filter(student_id__in=student_ids) if student_ids else qs.none()
             elif role == "lecturer":
-                filtered_qs = qs.filter(lecturer__user=user)
+                assigned_units = _lecturer_unit_ids(user)
+                filtered_qs = qs.filter(unit_id__in=assigned_units).distinct()
             elif role == "hod":
                 department_id = getattr(getattr(user, "hod_profile", None), "department_id", None)
                 if department_id:
                     filtered_qs = qs.filter(unit__programme__department_id=department_id)
             elif role in {"admin", "records", "finance"}:
+                filtered_qs = qs
+            else:
+                filtered_qs = qs.none()
+
+        elif model_label == "submission":
+            if role == "student":
+                filtered_qs = qs.filter(student__user=user)
+            elif role == "parent":
+                student_ids = _linked_student_profile_ids(user)
+                filtered_qs = qs.filter(student_id__in=student_ids) if student_ids else qs.none()
+            elif role == "lecturer":
+                assigned_units = _lecturer_unit_ids(user)
+                filtered_qs = qs.filter(
+                    assignment__unit_id__in=assigned_units,
+                ).distinct()
+            elif role == "hod":
+                department_id = getattr(getattr(user, "hod_profile", None), "department_id", None)
+                if department_id:
+                    filtered_qs = qs.filter(
+                        assignment__unit__programme__department_id=department_id
+                    )
+            elif role in {"admin", "records"}:
+                filtered_qs = qs
+            else:
+                filtered_qs = qs.none()
+
+        elif model_label == "timetable":
+            if role == "student":
+                programme_id = getattr(getattr(user, "student_profile", None), "programme_id", None)
+                filtered_qs = qs.filter(programme_id=programme_id) if programme_id else qs.none()
+            elif role == "parent":
+                programme_ids = list(
+                    ParentStudentLink.objects.filter(parent__user=user).values_list(
+                        "student__programme_id",
+                        flat=True,
+                    )
+                )
+                filtered_qs = qs.filter(programme_id__in=programme_ids).distinct() if programme_ids else qs.none()
+            elif role == "lecturer":
+                try:
+                    filtered_qs = qs.filter(lecturer=user.lecturer_profile)
+                except Exception:
+                    filtered_qs = qs.none()
+            elif role == "hod":
+                department_id = getattr(getattr(user, "hod_profile", None), "department_id", None)
+                if department_id:
+                    filtered_qs = qs.filter(programme__department_id=department_id)
+            elif role in {"admin", "records"}:
                 filtered_qs = qs
             else:
                 filtered_qs = qs.none()

@@ -1,6 +1,8 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { palette, radius, spacing, typography } from '@theme/index';
+import { useUnreadNotificationCount } from '../hooks/useUnreadNotificationCount';
+import { NotificationBellBadge } from './NotificationBellBadge';
 
 interface GreetingHeaderProps {
   name: string;
@@ -8,6 +10,8 @@ interface GreetingHeaderProps {
   onSpeak?: () => void;
   greeting?: string;
   rightAccessory?: React.ReactNode;
+  notificationCount?: number;
+  showNotificationBell?: boolean;
 }
 
 export const GreetingHeader: React.FC<GreetingHeaderProps> = ({
@@ -16,8 +20,13 @@ export const GreetingHeader: React.FC<GreetingHeaderProps> = ({
   onSpeak,
   greeting,
   rightAccessory,
+  notificationCount,
+  showNotificationBell = true,
 }) => {
   const timeAwareGreeting = greeting ?? deriveGreeting();
+  const { unreadCount, hasAuthenticatedUser } = useUnreadNotificationCount();
+  const effectiveNotificationCount = notificationCount ?? unreadCount;
+  const shouldShowBell = showNotificationBell && hasAuthenticatedUser;
   return (
     <View style={styles.container}>
       <View style={styles.info}>
@@ -27,6 +36,7 @@ export const GreetingHeader: React.FC<GreetingHeaderProps> = ({
         </Text>
       </View>
       <View style={styles.actions}>
+        {shouldShowBell ? <NotificationBellBadge count={effectiveNotificationCount} /> : null}
         {rightAccessory ? <View style={styles.accessory}>{rightAccessory}</View> : null}
         <TouchableOpacity
           style={styles.avatarWrapper}

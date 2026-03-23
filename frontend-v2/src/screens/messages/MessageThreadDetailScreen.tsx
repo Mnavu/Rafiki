@@ -208,6 +208,12 @@ export const MessageThreadDetailScreen: React.FC = () => {
       }
       try {
         await cleanupPlayback();
+        await Audio.setAudioModeAsync({
+          allowsRecordingIOS: false,
+          playsInSilentModeIOS: true,
+          shouldDuckAndroid: true,
+          playThroughEarpieceAndroid: false,
+        });
         const { sound } = await Audio.Sound.createAsync(
           { uri: message.audio },
           { shouldPlay: true, progressUpdateIntervalMillis: 500 },
