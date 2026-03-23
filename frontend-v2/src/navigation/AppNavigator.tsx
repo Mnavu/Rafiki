@@ -44,7 +44,7 @@ export type RootStackParamList = {
   ClassCommunityDetail: { chatroomId: number; unitTitle: string; meetingUrl?: string };
   LecturerClasses: undefined;
   LecturerClassDetail: { unitId: number; unitTitle?: string };
-  LecturerAssignments: undefined;
+  LecturerAssignments: { unitId?: number; unitTitle?: string } | undefined;
   LecturerPlanner: { unitId: number; unitTitle?: string };
   VideoRoom: { meetingUrl: string; title?: string };
   RecordsControlCenter: undefined;

@@ -23,6 +23,13 @@ from ..progress_models import CompletionRecord
 from ..serializers.assignments import SubmissionSerializer
 
 
+LECTURER_VISIBLE_REGISTRATION_STATUSES = (
+    Registration.Status.SUBMITTED,
+    Registration.Status.PENDING_HOD,
+    Registration.Status.APPROVED,
+)
+
+
 def _lecturer_assigned_unit_ids(lecturer_profile):
     return list(
         LecturerAssignment.objects.filter(lecturer=lecturer_profile).values_list("unit_id", flat=True)
@@ -122,11 +129,11 @@ class LecturerClassesDashboardView(APIView):
         except User.lecturer_profile.RelatedObjectDoesNotExist:
             raise PermissionDenied("Lecturer profile is missing.")
 
-        assignments = LecturerAssignment.objects.filter(lecturer=lecturer_profile).select_related(
+        assignment_links = LecturerAssignment.objects.filter(lecturer=lecturer_profile).select_related(
             "unit",
             "unit__programme",
         )
-        units = [row.unit for row in assignments]
+        units = [row.unit for row in assignment_links]
         unit_ids = [unit.id for unit in units if unit and unit.id]
 
         now = timezone.now()
@@ -149,12 +156,15 @@ class LecturerClassesDashboardView(APIView):
             if last and last.author_id != user.id:
                 unresolved += 1
 
-        for unit in units:
+        for assignment_link in assignment_links:
+            unit = assignment_link.unit
             if not unit or not unit.id:
                 continue
             registered_students = Registration.objects.filter(
                 unit=unit,
-                status=Registration.Status.APPROVED,
+                academic_year=assignment_link.academic_year,
+                trimester=assignment_link.trimester,
+                status__in=LECTURER_VISIBLE_REGISTRATION_STATUSES,
             ).select_related("student__user")
             student_count = registered_students.count()
             student_user_ids = [row.student.user_id for row in registered_students if row.student_id]
@@ -165,6 +175,7 @@ class LecturerClassesDashboardView(APIView):
             pending_to_issue = max(0, 3 - issued_this_week)  # 2 assignments + 1 CAT per week
             pending_to_mark = Submission.objects.filter(
                 assignment__in=course_assignments,
+                student_id__in=[row.student_id for row in registered_students if row.student_id],
                 grade__isnull=True,
             ).count()
             pending_messages = sum(1 for student_id in student_user_ids if student_id in threads_by_unit_student)
@@ -237,7 +248,9 @@ class LecturerClassDetailView(APIView):
         unit = assignment_link.unit
         registrations = Registration.objects.filter(
             unit=unit,
-            status=Registration.Status.APPROVED,
+            academic_year=assignment_link.academic_year,
+            trimester=assignment_link.trimester,
+            status__in=LECTURER_VISIBLE_REGISTRATION_STATUSES,
         ).select_related("student__user")
         student_user_ids = [row.student.user_id for row in registrations if row.student_id]
         parent_links = ParentStudentLink.objects.filter(

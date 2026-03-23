@@ -18,10 +18,12 @@ import type { RootStackParamList } from '@navigation/AppNavigator';
 import {
   fetchClassCalls,
   fetchClassCommunities,
+  fetchLecturerAssignments,
   fetchLecturerClassDetail,
   fetchLecturerGradingQueue,
   gradeLecturerSubmission,
   scheduleClassCall,
+  type AssignmentSummary,
   type ClassCallSummary,
   type ClassCommunitySummary,
   type LecturerClassDetail,
@@ -62,6 +64,7 @@ export const LecturerClassDetailScreen: React.FC = () => {
   const [detail, setDetail] = useState<LecturerClassDetail | null>(null);
   const [calls, setCalls] = useState<ClassCallSummary[]>([]);
   const [community, setCommunity] = useState<ClassCommunitySummary | null>(null);
+  const [assignments, setAssignments] = useState<AssignmentSummary[]>([]);
   const [gradingQueue, setGradingQueue] = useState<SubmissionSummary[]>([]);
   const [gradeDrafts, setGradeDrafts] = useState<Record<number, string>>({});
   const [feedbackDrafts, setFeedbackDrafts] = useState<Record<number, string>>({});
@@ -102,11 +105,12 @@ export const LecturerClassDetailScreen: React.FC = () => {
       }
       setError(null);
       try {
-        const [classDetail, classCalls, communities, lecturerSubmissions] = await Promise.all([
+        const [classDetail, classCalls, communities, lecturerSubmissions, classAssignments] = await Promise.all([
           fetchLecturerClassDetail(state.accessToken, unitId),
           fetchClassCalls(state.accessToken, 'upcoming').catch(() => []),
           fetchClassCommunities(state.accessToken).catch(() => []),
           fetchLecturerGradingQueue(state.accessToken).catch(() => []),
+          fetchLecturerAssignments(state.accessToken, unitId).catch(() => []),
         ]);
         const scopedSubmissions = lecturerSubmissions
           .filter((item) => item.unit_id === unitId)
@@ -118,6 +122,13 @@ export const LecturerClassDetailScreen: React.FC = () => {
         setDetail(classDetail);
         setCalls(classCalls.filter((call) => call.unit_id === unitId));
         setCommunity(communities.find((item) => item.unit_id === unitId) ?? null);
+        setAssignments(
+          [...classAssignments].sort(
+            (left, right) =>
+              new Date(right.due_at || right.created_at).getTime() -
+              new Date(left.due_at || left.created_at).getTime(),
+          ),
+        );
         setGradingQueue(scopedSubmissions);
         setGradeDrafts((current) =>
           scopedSubmissions.reduce<Record<number, string>>((acc, item) => {
@@ -164,6 +175,17 @@ export const LecturerClassDetailScreen: React.FC = () => {
   }, [detail, route.params.unitTitle, unitId]);
 
   const latestCall = useMemo(() => calls[0] ?? null, [calls]);
+  const submissionsPerAssignment = useMemo(
+    () =>
+      gradingQueue.reduce<Record<number, number>>((acc, submission) => {
+        if (!submission.assignment) {
+          return acc;
+        }
+        acc[submission.assignment] = (acc[submission.assignment] ?? 0) + 1;
+        return acc;
+      }, {}),
+    [gradingQueue],
+  );
   const submissionsToMark = useMemo(
     () => gradingQueue.filter((item) => item.grade === null || item.grade === undefined || item.grade === ''),
     [gradingQueue],
@@ -327,6 +349,60 @@ export const LecturerClassDetailScreen: React.FC = () => {
         ) : null}
 
         <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Class tools</Text>
+          <DashboardTile
+            title="Open assignments workspace"
+            subtitle="Create, edit, or remove current class assignments."
+            onPress={() =>
+              navigation.navigate('LecturerAssignments', {
+                unitId,
+                unitTitle: classTitle,
+              })
+            }
+          />
+          <DashboardTile
+            title="Open weekly planner"
+            subtitle="Plan the class work and CAT schedule for this unit."
+            onPress={() =>
+              navigation.navigate('LecturerPlanner', {
+                unitId,
+                unitTitle: classTitle,
+              })
+            }
+          />
+        </View>
+
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Assignments in this class</Text>
+          {assignments.length ? (
+            assignments.map((assignment) => (
+              <DashboardTile
+                key={`class-assignment-${assignment.id}`}
+                title={assignment.title}
+                subtitle={`Due ${formatDateTime(assignment.due_at)} | ${submissionsPerAssignment[assignment.id] ?? 0} submissions received`}
+                onPress={() =>
+                  navigation.navigate('LecturerAssignments', {
+                    unitId,
+                    unitTitle: classTitle,
+                  })
+                }
+              />
+            ))
+          ) : (
+            <DashboardTile
+              title="No assignments in this class yet"
+              subtitle="Open the assignments workspace to create the first class task."
+              onPress={() =>
+                navigation.navigate('LecturerAssignments', {
+                  unitId,
+                  unitTitle: classTitle,
+                })
+              }
+            />
+          )}
+        </View>
+
+        <View style={styles.section}>
           <Text style={styles.sectionTitle}>Course notifications (auto-clearing)</Text>
           <View style={styles.metricsCard}>
             <View style={styles.metricRow}>
@@ -457,8 +533,13 @@ export const LecturerClassDetailScreen: React.FC = () => {
           ) : (
             <DashboardTile
               title="No ungraded submissions"
-              subtitle="New student work for this class will appear here for marking."
-              disabled
+              subtitle="If students have submitted work, refresh or open the assignments workspace for this class."
+              onPress={() =>
+                navigation.navigate('LecturerAssignments', {
+                  unitId,
+                  unitTitle: classTitle,
+                })
+              }
             />
           )}
         </View>
@@ -471,14 +552,24 @@ export const LecturerClassDetailScreen: React.FC = () => {
                 key={`submission-graded-${submission.id}`}
                 title={`${submission.student_name || submission.student_username || 'Student'} | ${submission.assignment_title || 'Assignment'}`}
                 subtitle={`Grade ${submission.grade} | ${submission.unit_code || detail?.class.unit_code || ''} | ${submission.feedback_text?.trim() || 'No written feedback yet.'}`}
-                disabled
+                onPress={() =>
+                  navigation.navigate('LecturerAssignments', {
+                    unitId,
+                    unitTitle: classTitle,
+                  })
+                }
               />
             ))
           ) : (
             <DashboardTile
               title="No graded submissions yet"
               subtitle="Saved grades for this class will appear here and on the student side."
-              disabled
+              onPress={() =>
+                navigation.navigate('LecturerAssignments', {
+                  unitId,
+                  unitTitle: classTitle,
+                })
+              }
             />
           )}
         </View>
@@ -584,7 +675,10 @@ export const LecturerClassDetailScreen: React.FC = () => {
 
       <AppMenu
         actions={[
-          { label: 'Assignments workspace', onPress: () => navigation.navigate('LecturerAssignments') },
+          {
+            label: 'Assignments workspace',
+            onPress: () => navigation.navigate('LecturerAssignments', { unitId, unitTitle: classTitle }),
+          },
           {
             label: 'Weekly planner',
             onPress: () =>

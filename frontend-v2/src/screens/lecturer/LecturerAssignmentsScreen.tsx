@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute, type RouteProp } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { AppMenu, DashboardTile, GreetingHeader, RoleBadge, VoiceButton } from '@components/index';
 import { useAuth } from '@context/AuthContext';
@@ -29,6 +29,7 @@ import {
 import { palette, radius, spacing, typography } from '@theme/index';
 
 type LecturerAssignmentsNavigation = NativeStackNavigationProp<RootStackParamList>;
+type LecturerAssignmentsRoute = RouteProp<RootStackParamList, 'LecturerAssignments'>;
 
 type AssignmentDraft = {
   title: string;
@@ -124,6 +125,7 @@ const sortAssignments = (rows: AssignmentSummary[]) =>
 
 export const LecturerAssignmentsScreen: React.FC = () => {
   const navigation = useNavigation<LecturerAssignmentsNavigation>();
+  const route = useRoute<LecturerAssignmentsRoute>();
   const { state, logout, updatePreferences } = useAuth();
   const [dashboard, setDashboard] = useState<LecturerClassesDashboard | null>(null);
   const [selectedUnitId, setSelectedUnitId] = useState<number | null>(null);
@@ -153,6 +155,9 @@ export const LecturerAssignmentsScreen: React.FC = () => {
         const resolvedUnitId =
           preferredUnitId && dashboardPayload.classes.some((item) => item.unit_id === preferredUnitId)
             ? preferredUnitId
+            : route.params?.unitId &&
+                dashboardPayload.classes.some((item) => item.unit_id === route.params?.unitId)
+              ? route.params.unitId
             : selectedUnitId && dashboardPayload.classes.some((item) => item.unit_id === selectedUnitId)
               ? selectedUnitId
               : dashboardPayload.classes[0]?.unit_id ?? null;
@@ -173,7 +178,7 @@ export const LecturerAssignmentsScreen: React.FC = () => {
         setRefreshing(false);
       }
     },
-    [selectedUnitId, state.accessToken],
+    [route.params?.unitId, selectedUnitId, state.accessToken],
   );
 
   useEffect(() => {

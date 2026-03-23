@@ -6,7 +6,7 @@ from decimal import Decimal
 
 from users.models import User, Student, Lecturer
 from users.models import Guardian, ParentStudentLink
-from learning.models import Programme, CurriculumUnit, Assignment, LecturerAssignment, Submission
+from learning.models import Programme, CurriculumUnit, Assignment, LecturerAssignment, Submission, Registration
 from learning.progress_models import CompletionRecord
 from core.models import Department
 from notifications.models import Notification
@@ -113,3 +113,29 @@ class GradingWorkflowTest(TestCase):
         submission.refresh_from_db()
         self.assertEqual(submission.grade, Decimal("74.00"))
         self.assertEqual(submission.feedback_text, "Solid introduction. Tighten the examples.")
+
+    def test_class_detail_includes_pending_hod_student_submission_for_grading(self):
+        LecturerAssignment.objects.create(
+            lecturer=self.lecturer_profile,
+            unit=self.unit,
+            academic_year=2026,
+            trimester=1,
+        )
+        Registration.objects.create(
+            student=self.student_profile,
+            unit=self.unit,
+            academic_year=2026,
+            trimester=1,
+            status=Registration.Status.PENDING_HOD,
+        )
+        self.submission.text_response = "Tourism planning answer"
+        self.submission.save(update_fields=["text_response"])
+
+        self.client.force_authenticate(user=self.lecturer_user)
+        response = self.client.get(reverse("lecturer-class-detail", kwargs={"unit_id": self.unit.id}))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        payload = response.json()
+        self.assertEqual(payload["pending"]["submissions_to_mark"], 1)
+        self.assertEqual(len(payload["students"]), 1)
+        self.assertEqual(payload["students"][0]["student_user_id"], self.student_user.id)
+        self.assertEqual(self.submission.assignment_id, self.assignment.id)
