@@ -138,6 +138,7 @@ AUTO_SEED_DEMO_DATA = os.environ.get("AUTO_SEED_DEMO_DATA", "0") == "1"
 AUTO_SEED_UAT_DATA = os.environ.get("AUTO_SEED_UAT_DATA", "1") == "1"
 AUTO_ACTIVATE_DEMO_WORKFLOWS = os.environ.get("AUTO_ACTIVATE_DEMO_WORKFLOWS", "1") == "1"
 AUTO_RESTORE_LAUNCH_BUNDLE = os.environ.get("AUTO_RESTORE_LAUNCH_BUNDLE", "0") == "1"
+AUTO_RESTORE_BUNDLED_MEDIA = os.environ.get("AUTO_RESTORE_BUNDLED_MEDIA", "1") == "1"
 LAUNCH_BUNDLE_PATH = os.environ.get("LAUNCH_BUNDLE_PATH", str(BASE_DIR / "deploy_bundles" / "launch_bundle.json"))
 
 CORS_ALLOW_ALL_ORIGINS = os.environ.get("CORS_ALLOW_ALL_ORIGINS", "1" if DEBUG else "0") == "1"

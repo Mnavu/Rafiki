@@ -56,6 +56,12 @@ class SubmissionSerializer(serializers.ModelSerializer):
         audio = getattr(obj, "audio", None)
         if not audio:
             return ""
+        try:
+            exists = audio.storage.exists(audio.name)
+        except Exception:
+            exists = False
+        if not exists:
+            return ""
         request = self.context.get("request")
         if request:
             return request.build_absolute_uri(audio.url)

@@ -46,8 +46,16 @@ class MessageSerializer(serializers.ModelSerializer):
         data = super().to_representation(instance)
         request = self.context.get("request")
         file_field = data.get("audio")
-        if file_field and request:
-            data["audio"] = request.build_absolute_uri(instance.audio.url)
+        audio_field = getattr(instance, "audio", None)
+        if file_field and audio_field:
+            try:
+                exists = audio_field.storage.exists(audio_field.name)
+            except Exception:
+                exists = False
+            if not exists:
+                data["audio"] = ""
+            elif request:
+                data["audio"] = request.build_absolute_uri(instance.audio.url)
         return data
 
     def validate(self, attrs):
