@@ -19,6 +19,7 @@ import {
   fetchCommunicationThreads,
   fetchStudentAssignments,
   fetchStudentProfile,
+  transcribeAudio,
   type CommunicationMessage,
   type CommunicationThread,
 } from '@services/api';
@@ -72,6 +73,7 @@ export const MessageThreadDetailScreen: React.FC = () => {
   const [playingMessageId, setPlayingMessageId] = useState<number | null>(null);
   const [recording, setRecording] = useState<Audio.Recording | null>(null);
   const [recordingActive, setRecordingActive] = useState(false);
+  const [speechStatus, setSpeechStatus] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const soundRef = useRef<Audio.Sound | null>(null);
 
@@ -268,19 +270,31 @@ export const MessageThreadDetailScreen: React.FC = () => {
       const uri = recording.getURI();
       setRecording(null);
       setRecordingActive(false);
+      setSpeechStatus('Voice note recorded. Converting speech to text...');
       await Audio.setAudioModeAsync({
         allowsRecordingIOS: false,
         playsInSilentModeIOS: true,
+        shouldDuckAndroid: true,
+        playThroughEarpieceAndroid: false,
       });
       if (!uri) {
         throw new Error('Recording file is unavailable.');
       }
+      const transcriptResponse = await transcribeAudio(state.accessToken, { audioUri: uri });
+      const transcript = transcriptResponse.text?.trim() ?? '';
       await createCommunicationMessage(state.accessToken, {
         threadId: thread.id,
         audioUri: uri,
+        transcript,
       });
+      setSpeechStatus(
+        transcript
+          ? 'Voice note sent with transcript.'
+          : 'Voice note sent. Speech was not clearly transcribed.',
+      );
       await loadThread(true);
     } catch (recordError) {
+      setSpeechStatus(null);
       if (recordError instanceof Error) {
         setError(recordError.message);
       } else {
@@ -304,13 +318,17 @@ export const MessageThreadDetailScreen: React.FC = () => {
       await Audio.setAudioModeAsync({
         allowsRecordingIOS: true,
         playsInSilentModeIOS: true,
+        shouldDuckAndroid: true,
+        playThroughEarpieceAndroid: false,
       });
       const { recording: activeRecording } = await Audio.Recording.createAsync(
         Audio.RecordingOptionsPresets.HIGH_QUALITY,
       );
       setRecording(activeRecording);
       setRecordingActive(true);
+      setSpeechStatus('Recording voice note...');
     } catch (recordError) {
+      setSpeechStatus(null);
       if (recordError instanceof Error) {
         setError(recordError.message);
       } else {
@@ -378,6 +396,12 @@ export const MessageThreadDetailScreen: React.FC = () => {
             <Text style={styles.errorTitle}>Communication error</Text>
             <Text style={styles.errorBody}>{error}</Text>
             <VoiceButton label="Retry" onPress={() => loadThread(true)} />
+          </View>
+        ) : null}
+
+        {speechStatus ? (
+          <View style={styles.statusCard}>
+            <Text style={styles.statusText}>{speechStatus}</Text>
           </View>
         ) : null}
 
@@ -580,6 +604,15 @@ const styles = StyleSheet.create({
   errorBody: {
     ...typography.helper,
     color: '#912018',
+  },
+  statusCard: {
+    backgroundColor: '#E8F1FF',
+    borderRadius: radius.md,
+    padding: spacing.md,
+  },
+  statusText: {
+    ...typography.helper,
+    color: palette.primary,
   },
   actions: {
     padding: spacing.lg,

@@ -254,6 +254,38 @@ const withQuery = (path: string, query?: Record<string, QueryValue>) => {
   return `${path}${path.includes('?') ? '&' : '?'}${encoded}`;
 };
 
+const AUDIO_MIME_BY_EXTENSION: Record<string, string> = {
+  aac: 'audio/aac',
+  caf: 'audio/x-caf',
+  m4a: 'audio/m4a',
+  mp3: 'audio/mpeg',
+  mp4: 'audio/mp4',
+  oga: 'audio/ogg',
+  ogg: 'audio/ogg',
+  wav: 'audio/wav',
+  webm: 'audio/webm',
+};
+
+const resolveAudioUploadPart = (
+  uri: string,
+  prefix: string,
+  mimeType?: string,
+): { uri: string; name: string; type: string } => {
+  const cleanUri = uri.split('?')[0];
+  const uriSegment = cleanUri.split('/').pop() || `${prefix}-${Date.now()}.m4a`;
+  const extension = uriSegment.includes('.') ? uriSegment.split('.').pop()?.toLowerCase() ?? 'm4a' : 'm4a';
+  const normalizedExtension = AUDIO_MIME_BY_EXTENSION[extension] ? extension : 'm4a';
+  const normalizedMimeType = mimeType ?? AUDIO_MIME_BY_EXTENSION[normalizedExtension] ?? 'audio/m4a';
+
+  return {
+    uri,
+    name: uriSegment.includes('.')
+      ? uriSegment
+      : `${prefix}-${Date.now()}.${normalizedExtension}`,
+    type: normalizedMimeType,
+  };
+};
+
 const withAuthHeaders = (accessToken: string, contentType = false): HeadersInit => ({
   Authorization: `Bearer ${accessToken}`,
   ...(contentType ? { 'Content-Type': 'application/json' } : {}),
@@ -560,13 +592,14 @@ export const submitStudentSubmission = async (
     form.append('audio_transcript', payload.audioTranscript.trim());
   }
   if (payload.audioUri) {
+    const audioPart = resolveAudioUploadPart(
+      payload.audioUri,
+      'assignment-audio',
+      payload.audioMimeType,
+    );
     form.append(
       'audio',
-      {
-        uri: payload.audioUri,
-        name: `assignment-audio-${Date.now()}.m4a`,
-        type: payload.audioMimeType ?? 'audio/m4a',
-      } as any,
+      audioPart as any,
     );
   }
 
@@ -772,13 +805,10 @@ export const createCommunicationMessage = async (
     form.append('transcript', payload.transcript.trim());
   }
   if (payload.audioUri) {
+    const audioPart = resolveAudioUploadPart(payload.audioUri, 'voice-note', payload.audioMimeType);
     form.append(
       'audio',
-      {
-        uri: payload.audioUri,
-        name: `voice-${Date.now()}.m4a`,
-        type: payload.audioMimeType ?? 'audio/m4a',
-      } as any,
+      audioPart as any,
     );
   }
 
@@ -804,13 +834,10 @@ export const transcribeAudio = async (
   payload: { audioUri: string; audioMimeType?: string },
 ): Promise<AudioTranscriptionResponse> => {
   const form = new FormData();
+  const audioPart = resolveAudioUploadPart(payload.audioUri, 'speech', payload.audioMimeType);
   form.append(
     'audio',
-    {
-      uri: payload.audioUri,
-      name: `search-${Date.now()}.m4a`,
-      type: payload.audioMimeType ?? 'audio/m4a',
-    } as any,
+    audioPart as any,
   );
 
   try {

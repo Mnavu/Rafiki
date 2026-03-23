@@ -1,6 +1,8 @@
 import os
 import re
 import difflib
+import mimetypes
+from pathlib import Path
 from django.http import JsonResponse
 from rest_framework import permissions, status
 from rest_framework.decorators import api_view, permission_classes
@@ -54,6 +56,21 @@ SPEECH_VOCABULARY = {
     "activity",
     "activities",
     "notice",
+}
+
+SPEECH_UPLOAD_FORMATS = {
+    ".aac": "aac",
+    ".aif": "aiff",
+    ".aiff": "aiff",
+    ".caf": "caf",
+    ".flac": "flac",
+    ".m4a": "mp4",
+    ".mp3": "mp3",
+    ".mp4": "mp4",
+    ".oga": "ogg",
+    ".ogg": "ogg",
+    ".wav": "wav",
+    ".webm": "webm",
 }
 
 
@@ -145,6 +162,39 @@ def _recognize_best_text(recognizer: sr.Recognizer, wav_paths: list[str]):
     return best_text, best_confidence
 
 
+def _infer_audio_upload_suffix(upload) -> str:
+    upload_name = getattr(upload, "name", "") or ""
+    suffix = Path(upload_name).suffix.lower()
+    if suffix in SPEECH_UPLOAD_FORMATS:
+        return suffix
+
+    content_type = (getattr(upload, "content_type", "") or "").split(";")[0].strip().lower()
+    if content_type in {"audio/m4a", "audio/x-m4a", "audio/mp4"}:
+        return ".m4a"
+    if content_type == "audio/mpeg":
+        return ".mp3"
+    if content_type == "audio/webm":
+        return ".webm"
+    if content_type == "audio/ogg":
+        return ".ogg"
+    if content_type in {"audio/wav", "audio/x-wav"}:
+        return ".wav"
+    guessed = mimetypes.guess_extension(content_type) or ""
+    guessed = guessed.lower()
+    if guessed in SPEECH_UPLOAD_FORMATS:
+        return guessed
+    return ".bin"
+
+
+def _infer_audio_upload_format(upload, suffix: str) -> str | None:
+    content_type = (getattr(upload, "content_type", "") or "").split(";")[0].strip().lower()
+    if content_type in {"audio/m4a", "audio/x-m4a", "audio/mp4"}:
+        return "mp4"
+    if content_type == "audio/mpeg":
+        return "mp3"
+    return SPEECH_UPLOAD_FORMATS.get(suffix)
+
+
 @api_view(["GET"])
 @permission_classes([AllowAny])
 def health(request):
@@ -184,15 +234,22 @@ def transcribe_audio(request):
     if not upload:
         return Response({"detail": "audio file is required."}, status=status.HTTP_400_BAD_REQUEST)
 
+    upload_suffix = _infer_audio_upload_suffix(upload)
+    upload_format = _infer_audio_upload_format(upload, upload_suffix)
+
     # Save uploaded audio temporarily
-    with NamedTemporaryFile(suffix=".webm", delete=False) as temp_audio:
+    with NamedTemporaryFile(suffix=upload_suffix, delete=False) as temp_audio:
         for chunk in upload.chunks():
             temp_audio.write(chunk)
         temp_audio_path = temp_audio.name
 
     wav_paths = []
     try:
-        audio = AudioSegment.from_file(temp_audio_path)
+        audio = (
+            AudioSegment.from_file(temp_audio_path, format=upload_format)
+            if upload_format
+            else AudioSegment.from_file(temp_audio_path)
+        )
         prepared = normalize_audio(audio).set_channels(1).set_frame_rate(16000)
 
         # Run recognition against a few speed variants to improve hit-rate on unclear/slurred speech.
@@ -232,7 +289,12 @@ def transcribe_audio(request):
 
     except Exception as e:
         return Response(
-            {"detail": f"Failed to transcribe audio: {str(e)}"},
+            {
+                "detail": (
+                    f"Failed to transcribe audio: {str(e)}. "
+                    f"Received {upload_suffix or 'unknown'} input."
+                )
+            },
             status=status.HTTP_400_BAD_REQUEST,
         )
 
