@@ -7,6 +7,7 @@ import {
   StyleSheet,
   Text,
   TextInput,
+  TouchableOpacity,
   View,
 } from 'react-native';
 import { Audio, type AVPlaybackStatus } from 'expo-av';
@@ -77,9 +78,12 @@ export const LecturerClassDetailScreen: React.FC = () => {
   const [scheduling, setScheduling] = useState(false);
   const [savingSubmissionId, setSavingSubmissionId] = useState<number | null>(null);
   const [playingSubmissionId, setPlayingSubmissionId] = useState<number | null>(null);
+  const [focusedStudentUserId, setFocusedStudentUserId] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const soundRef = useRef<Audio.Sound | null>(null);
+  const scrollRef = useRef<ScrollView | null>(null);
+  const gradingSectionYRef = useRef(0);
 
   const cleanupPlayback = useCallback(async () => {
     if (soundRef.current) {
@@ -109,8 +113,8 @@ export const LecturerClassDetailScreen: React.FC = () => {
           fetchLecturerClassDetail(state.accessToken, unitId),
           fetchClassCalls(state.accessToken, 'upcoming').catch(() => []),
           fetchClassCommunities(state.accessToken).catch(() => []),
-          fetchLecturerGradingQueue(state.accessToken).catch(() => []),
-          fetchLecturerAssignments(state.accessToken, unitId).catch(() => []),
+          fetchLecturerGradingQueue(state.accessToken),
+          fetchLecturerAssignments(state.accessToken, unitId),
         ]);
         const scopedSubmissions = lecturerSubmissions
           .filter((item) => item.unit_id === unitId)
@@ -194,6 +198,30 @@ export const LecturerClassDetailScreen: React.FC = () => {
     () => gradingQueue.filter((item) => item.grade !== null && item.grade !== undefined && item.grade !== ''),
     [gradingQueue],
   );
+  const visibleSubmissionsToMark = useMemo(
+    () =>
+      focusedStudentUserId
+        ? submissionsToMark.filter((item) => item.student === focusedStudentUserId)
+        : submissionsToMark,
+    [focusedStudentUserId, submissionsToMark],
+  );
+  const visibleGradedSubmissions = useMemo(
+    () =>
+      focusedStudentUserId
+        ? gradedSubmissions.filter((item) => item.student === focusedStudentUserId)
+        : gradedSubmissions,
+    [focusedStudentUserId, gradedSubmissions],
+  );
+
+  const jumpToGrading = useCallback((studentUserId?: number | null) => {
+    setFocusedStudentUserId(studentUserId ?? null);
+    requestAnimationFrame(() => {
+      scrollRef.current?.scrollTo({
+        y: Math.max(gradingSectionYRef.current - 24, 0),
+        animated: true,
+      });
+    });
+  }, []);
 
   const scheduleCall = async () => {
     if (!state.accessToken) {
@@ -324,6 +352,7 @@ export const LecturerClassDetailScreen: React.FC = () => {
   return (
     <View style={styles.container}>
       <ScrollView
+        ref={scrollRef}
         contentContainerStyle={styles.scroll}
         refreshControl={<RefreshControl refreshing={refreshing} onRefresh={() => loadDetail(true)} />}
       >
@@ -369,6 +398,11 @@ export const LecturerClassDetailScreen: React.FC = () => {
                 unitTitle: classTitle,
               })
             }
+          />
+          <DashboardTile
+            title="Open grading panel"
+            subtitle="Jump straight to submissions waiting for grading in this class."
+            onPress={() => jumpToGrading()}
           />
         </View>
 
@@ -429,8 +463,8 @@ export const LecturerClassDetailScreen: React.FC = () => {
               <DashboardTile
                 key={`class-student-${student.student_user_id}-${index}`}
                 title={`${student.student_name} - Student Year ${student.year}`}
-                subtitle={`${student.guardians.map((g) => g.guardian_name).join(', ') || 'No guardian linked'}  |  Done ${student.assessment_summary.done}/${student.assessment_summary.total}  |  Missed ${student.assessment_summary.missed}`}
-                disabled
+                subtitle={`${student.guardians.map((g) => g.guardian_name).join(', ') || 'No guardian linked'}  |  Done ${student.assessment_summary.done}/${student.assessment_summary.total}  |  Missed ${student.assessment_summary.missed}  |  Tap to grade`}
+                onPress={() => jumpToGrading(student.student_user_id)}
               />
             ))
           ) : (
@@ -450,8 +484,8 @@ export const LecturerClassDetailScreen: React.FC = () => {
                 <DashboardTile
                   key={`${student.student_user_id}-${assessment.assignment_id}`}
                   title={`${student.student_name} | ${assessment.assignment_title}`}
-                  subtitle={`${assessment.assessment_type.toUpperCase()} (${assessment.assessment_mode})  |  ${assessment.status}  |  Grade ${assessment.grade ?? 'N/A'}`}
-                  disabled
+                  subtitle={`${assessment.assessment_type.toUpperCase()} (${assessment.assessment_mode})  |  ${assessment.status}  |  Grade ${assessment.grade ?? 'N/A'}  |  Tap to review`}
+                  onPress={() => jumpToGrading(student.student_user_id)}
                 />
               )),
             )
@@ -464,10 +498,24 @@ export const LecturerClassDetailScreen: React.FC = () => {
           )}
         </View>
 
-        <View style={styles.section}>
+        <View
+          style={styles.section}
+          onLayout={(event) => {
+            gradingSectionYRef.current = event.nativeEvent.layout.y;
+          }}
+        >
           <Text style={styles.sectionTitle}>Submissions waiting for grading</Text>
-          {submissionsToMark.length ? (
-            submissionsToMark.map((submission) => (
+          {focusedStudentUserId ? (
+            <TouchableOpacity
+              activeOpacity={0.8}
+              style={styles.focusChip}
+              onPress={() => setFocusedStudentUserId(null)}
+            >
+              <Text style={styles.focusChipText}>Showing one student. Tap to show all submissions.</Text>
+            </TouchableOpacity>
+          ) : null}
+          {visibleSubmissionsToMark.length ? (
+            visibleSubmissionsToMark.map((submission) => (
               <View key={`submission-pending-${submission.id}`} style={styles.submissionCard}>
                 <Text style={styles.submissionTitle}>
                   {submission.student_name || submission.student_username || 'Student'} |{' '}
@@ -532,7 +580,7 @@ export const LecturerClassDetailScreen: React.FC = () => {
             ))
           ) : (
             <DashboardTile
-              title="No ungraded submissions"
+              title={focusedStudentUserId ? 'No ungraded submissions for this student' : 'No ungraded submissions'}
               subtitle="If students have submitted work, refresh or open the assignments workspace for this class."
               onPress={() =>
                 navigation.navigate('LecturerAssignments', {
@@ -546,8 +594,8 @@ export const LecturerClassDetailScreen: React.FC = () => {
 
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Recently graded submissions</Text>
-          {gradedSubmissions.length ? (
-            gradedSubmissions.slice(0, 8).map((submission) => (
+          {visibleGradedSubmissions.length ? (
+            visibleGradedSubmissions.slice(0, 8).map((submission) => (
               <DashboardTile
                 key={`submission-graded-${submission.id}`}
                 title={`${submission.student_name || submission.student_username || 'Student'} | ${submission.assignment_title || 'Assignment'}`}
@@ -762,6 +810,16 @@ const styles = StyleSheet.create({
     borderRadius: radius.lg,
     padding: spacing.lg,
     gap: spacing.md,
+  },
+  focusChip: {
+    backgroundColor: '#E8F1FF',
+    borderRadius: radius.md,
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.sm,
+  },
+  focusChipText: {
+    ...typography.helper,
+    color: palette.primary,
   },
   submissionCard: {
     backgroundColor: palette.surface,

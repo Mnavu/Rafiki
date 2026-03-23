@@ -337,6 +337,7 @@ export const StudentChatbotScreen: React.FC = () => {
       return;
     }
     try {
+      await stopSpeechPlayback();
       const permission = await Audio.requestPermissionsAsync();
       if (!permission.granted) {
         setError('Microphone permission is required for voice input.');

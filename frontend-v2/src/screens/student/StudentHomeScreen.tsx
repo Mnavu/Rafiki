@@ -170,6 +170,41 @@ const tokenizeSearch = (value: string): string[] =>
     .split(/[^a-z0-9]+/)
     .filter((token) => token.length > 0);
 
+const scoreSearchQueryAgainstTargets = (query: string, targets: SearchTarget[]): number => {
+  const q = query.trim().toLowerCase();
+  if (!q) {
+    return 0;
+  }
+  const directTokens = tokenizeSearch(q);
+  const expandedTokens = new Set(directTokens);
+  directTokens.forEach((token) => {
+    (SEARCH_SYNONYMS[token] ?? []).forEach((alias) => expandedTokens.add(alias));
+  });
+
+  let bestScore = 0;
+  targets.forEach((target) => {
+    const combined = `${target.title} ${target.subtitle} ${target.keywords.join(' ')}`.toLowerCase();
+    let score = 0;
+    if (combined.includes(q)) {
+      score += 8;
+    }
+    directTokens.forEach((token) => {
+      if (combined.includes(token)) {
+        score += 4;
+      }
+    });
+    expandedTokens.forEach((token) => {
+      if (!directTokens.includes(token) && combined.includes(token)) {
+        score += 2;
+      }
+    });
+    if (score > bestScore) {
+      bestScore = score;
+    }
+  });
+  return bestScore;
+};
+
 const SectionHeader: React.FC<SectionHeaderProps> = ({ title, icon, onSpeak }) => (
   <View style={styles.sectionHeader}>
     <View style={styles.sectionTitleRow}>
@@ -950,30 +985,9 @@ export const StudentHomeScreen: React.FC = () => {
     if (!q) {
       return [];
     }
-    const directTokens = tokenizeSearch(q);
-    const expandedTokens = new Set(directTokens);
-    directTokens.forEach((token) => {
-      (SEARCH_SYNONYMS[token] ?? []).forEach((alias) => expandedTokens.add(alias));
-    });
-
     return searchTargets
       .map((target) => {
-        const combined = `${target.title} ${target.subtitle} ${target.keywords.join(' ')}`.toLowerCase();
-        let score = 0;
-        if (combined.includes(q)) {
-          score += 8;
-        }
-        directTokens.forEach((token) => {
-          if (combined.includes(token)) {
-            score += 4;
-          }
-        });
-        expandedTokens.forEach((token) => {
-          if (!directTokens.includes(token) && combined.includes(token)) {
-            score += 2;
-          }
-        });
-        return { ...target, score };
+        return { ...target, score: scoreSearchQueryAgainstTargets(q, [target]) };
       })
       .filter((target) => target.score > 0)
       .sort((left, right) => {
@@ -1020,6 +1034,12 @@ export const StudentHomeScreen: React.FC = () => {
           );
           return;
         }
+        const relevanceScore = scoreSearchQueryAgainstTargets(transcribedText, searchTargets);
+        if (relevanceScore <= 0) {
+          setSearchError('I heard something unclear. Try again, or type the search instead.');
+          setSpeechStatus('Voice search did not match any app area clearly. Please try again.');
+          return;
+        }
         setSearchQuery(transcribedText);
         setSpeechStatus(`Heard: ${transcribedText}`);
       } catch (voiceError) {
@@ -1036,7 +1056,7 @@ export const StudentHomeScreen: React.FC = () => {
         setSearchBusy(false);
       }
     },
-    [state.accessToken],
+    [searchTargets, state.accessToken],
   );
 
   const startVoiceSearch = useCallback(async () => {
@@ -1045,6 +1065,7 @@ export const StudentHomeScreen: React.FC = () => {
     }
     try {
       setSearchError(null);
+      await stopSpeechPlayback();
       const permission = await Audio.requestPermissionsAsync();
       if (!permission.granted) {
         setSearchError('Microphone permission is required for voice search.');
