@@ -701,6 +701,14 @@ export const fetchCommunicationThreads = async (
   return normalizeList(payload).map(normalizeThread);
 };
 
+export const buildCommunicationMessageAudioSource = (
+  accessToken: string,
+  messageId: number,
+): { uri: string; headers: HeadersInit } => ({
+  uri: `${API_BASE}/api/communications/messages/${messageId}/audio/`,
+  headers: withAuthHeaders(accessToken),
+});
+
 export const askChatbot = (
   accessToken: string,
   query: string,

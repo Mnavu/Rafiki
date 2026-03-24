@@ -15,6 +15,7 @@ import { AppMenu, DashboardTile, GreetingHeader, RoleBadge, VoiceButton } from '
 import { useAuth } from '@context/AuthContext';
 import type { RootStackParamList } from '@navigation/AppNavigator';
 import {
+  buildCommunicationMessageAudioSource,
   createCommunicationMessage,
   fetchCommunicationThreads,
   fetchStudentAssignments,
@@ -203,8 +204,15 @@ export const MessageThreadDetailScreen: React.FC = () => {
 
   const playVoiceMessage = useCallback(
     async (message: CommunicationMessage) => {
-      if (!message.audio) {
+      if (!message.audio && !state.accessToken) {
         return;
+      }
+      const sources = [];
+      if (state.accessToken) {
+        sources.push(buildCommunicationMessageAudioSource(state.accessToken, message.id));
+      }
+      if (message.audio) {
+        sources.push({ uri: message.audio });
       }
       try {
         await cleanupPlayback();
@@ -214,10 +222,23 @@ export const MessageThreadDetailScreen: React.FC = () => {
           shouldDuckAndroid: true,
           playThroughEarpieceAndroid: false,
         });
-        const { sound } = await Audio.Sound.createAsync(
-          { uri: message.audio },
-          { shouldPlay: true, progressUpdateIntervalMillis: 500 },
-        );
+        let sound: Audio.Sound | null = null;
+        let lastPlaybackError: unknown = null;
+        for (const source of sources) {
+          try {
+            const loaded = await Audio.Sound.createAsync(
+              source as any,
+              { shouldPlay: true, progressUpdateIntervalMillis: 500 },
+            );
+            sound = loaded.sound;
+            break;
+          } catch (sourceError) {
+            lastPlaybackError = sourceError;
+          }
+        }
+        if (!sound) {
+          throw lastPlaybackError ?? new Error('Unable to load voice note.');
+        }
         soundRef.current = sound;
         setPlayingMessageId(message.id);
         sound.setOnPlaybackStatusUpdate((status: AVPlaybackStatus) => {
@@ -236,7 +257,7 @@ export const MessageThreadDetailScreen: React.FC = () => {
         }
       }
     },
-    [cleanupPlayback],
+    [cleanupPlayback, state.accessToken],
   );
 
   const sendTextMessage = async () => {

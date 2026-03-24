@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   ActivityIndicator,
+  Linking,
   RefreshControl,
   ScrollView,
   StyleSheet,
@@ -19,10 +20,13 @@ import {
   deleteLecturerAssignment,
   fetchLecturerAssignments,
   fetchLecturerClassesDashboard,
+  fetchLecturerGradingQueue,
+  gradeLecturerSubmission,
   updateLecturerAssignment,
   type AssignmentSummary,
   type LecturerClassesDashboard,
   type LecturerClassSummary,
+  type SubmissionSummary,
   type WeeklyPlanAssessmentMode,
   type WeeklyPlanAssessmentType,
 } from '@services/api';
@@ -130,12 +134,16 @@ export const LecturerAssignmentsScreen: React.FC = () => {
   const [dashboard, setDashboard] = useState<LecturerClassesDashboard | null>(null);
   const [selectedUnitId, setSelectedUnitId] = useState<number | null>(null);
   const [assignments, setAssignments] = useState<AssignmentSummary[]>([]);
+  const [gradingQueue, setGradingQueue] = useState<SubmissionSummary[]>([]);
   const [draft, setDraft] = useState<AssignmentDraft>(createEmptyDraft());
   const [editingAssignmentId, setEditingAssignmentId] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const [saving, setSaving] = useState(false);
   const [deletingAssignmentId, setDeletingAssignmentId] = useState<number | null>(null);
+  const [savingSubmissionId, setSavingSubmissionId] = useState<number | null>(null);
+  const [gradeDrafts, setGradeDrafts] = useState<Record<number, string>>({});
+  const [feedbackDrafts, setFeedbackDrafts] = useState<Record<number, string>>({});
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
 
@@ -151,7 +159,10 @@ export const LecturerAssignmentsScreen: React.FC = () => {
       }
       setError(null);
       try {
-        const dashboardPayload = await fetchLecturerClassesDashboard(state.accessToken);
+        const [dashboardPayload, gradingRows] = await Promise.all([
+          fetchLecturerClassesDashboard(state.accessToken),
+          fetchLecturerGradingQueue(state.accessToken),
+        ]);
         const resolvedUnitId =
           preferredUnitId && dashboardPayload.classes.some((item) => item.unit_id === preferredUnitId)
             ? preferredUnitId
@@ -164,9 +175,30 @@ export const LecturerAssignmentsScreen: React.FC = () => {
         const assignmentRows = resolvedUnitId
           ? await fetchLecturerAssignments(state.accessToken, resolvedUnitId)
           : [];
+        const scopedGradingRows = gradingRows
+          .filter((item) => item.unit_id === resolvedUnitId)
+          .sort(
+            (left, right) =>
+              new Date(right.submitted_at || right.updated_at).getTime() -
+              new Date(left.submitted_at || left.updated_at).getTime(),
+          );
         setDashboard(dashboardPayload);
         setSelectedUnitId(resolvedUnitId);
         setAssignments(sortAssignments(assignmentRows));
+        setGradingQueue(scopedGradingRows);
+        setGradeDrafts((current) =>
+          scopedGradingRows.reduce<Record<number, string>>((acc, item) => {
+            acc[item.id] =
+              current[item.id] ?? (item.grade !== null && item.grade !== undefined ? String(item.grade) : '');
+            return acc;
+          }, {}),
+        );
+        setFeedbackDrafts((current) =>
+          scopedGradingRows.reduce<Record<number, string>>((acc, item) => {
+            acc[item.id] = current[item.id] ?? item.feedback_text ?? '';
+            return acc;
+          }, {}),
+        );
       } catch (loadError) {
         if (loadError instanceof Error) {
           setError(loadError.message);
@@ -205,6 +237,17 @@ export const LecturerAssignmentsScreen: React.FC = () => {
         (item) => item.pending_to_issue > 0 || item.pending_to_mark > 0 || item.pending_messages > 0,
       ),
     [dashboard],
+  );
+  const submissionsByAssignment = useMemo(
+    () =>
+      gradingQueue.reduce<Record<number, SubmissionSummary[]>>((acc, submission) => {
+        if (!submission.assignment) {
+          return acc;
+        }
+        acc[submission.assignment] = [...(acc[submission.assignment] ?? []), submission];
+        return acc;
+      }, {}),
+    [gradingQueue],
   );
 
   const resetDraft = useCallback(() => {
@@ -293,6 +336,53 @@ export const LecturerAssignmentsScreen: React.FC = () => {
       setDeletingAssignmentId(null);
     }
   };
+
+  const openSubmissionLink = useCallback(async (url: string) => {
+    try {
+      await Linking.openURL(url);
+    } catch (linkError) {
+      if (linkError instanceof Error) {
+        setError(linkError.message);
+      } else {
+        setError('Unable to open the submitted document link.');
+      }
+    }
+  }, []);
+
+  const saveSubmissionGrade = useCallback(
+    async (submission: SubmissionSummary) => {
+      if (!state.accessToken || savingSubmissionId) {
+        return;
+      }
+      const grade = (gradeDrafts[submission.id] || '').trim();
+      if (!grade) {
+        setError(`Enter a grade for ${submission.student_name || submission.student_username || 'this student'}.`);
+        return;
+      }
+      setSavingSubmissionId(submission.id);
+      setError(null);
+      setSuccess(null);
+      try {
+        await gradeLecturerSubmission(state.accessToken, submission.id, {
+          grade,
+          feedbackText: feedbackDrafts[submission.id]?.trim() || undefined,
+        });
+        setSuccess(
+          `Saved grade for ${submission.student_name || submission.student_username || 'student'} in ${submission.assignment_title || 'the selected assignment'}.`,
+        );
+        await loadWorkspace(true, selectedUnitId);
+      } catch (saveError) {
+        if (saveError instanceof Error) {
+          setError(saveError.message);
+        } else {
+          setError('Unable to save the grade.');
+        }
+      } finally {
+        setSavingSubmissionId(null);
+      }
+    },
+    [feedbackDrafts, gradeDrafts, loadWorkspace, savingSubmissionId, selectedUnitId, state.accessToken],
+  );
 
   if (loading && !dashboard) {
     return (
@@ -491,6 +581,7 @@ export const LecturerAssignmentsScreen: React.FC = () => {
           {assignments.length ? (
             assignments.map((assignment) => {
               const parsed = parseAssignmentSummary(assignment);
+              const assignmentSubmissions = submissionsByAssignment[assignment.id] ?? [];
               return (
                 <View key={`lecturer-assignment-${assignment.id}`} style={styles.assignmentCard}>
                   <Text style={styles.assignmentTitle}>{assignment.title}</Text>
@@ -499,6 +590,9 @@ export const LecturerAssignmentsScreen: React.FC = () => {
                   </Text>
                   <Text style={styles.assignmentNotes}>
                     {parsed.notes || 'No notes added for this assignment.'}
+                  </Text>
+                  <Text style={styles.assignmentSubmissionSummary}>
+                    Submissions received: {assignmentSubmissions.length}
                   </Text>
                   <View style={styles.actionRow}>
                     <VoiceButton
@@ -525,6 +619,68 @@ export const LecturerAssignmentsScreen: React.FC = () => {
                       />
                     ) : null}
                   </View>
+                  {assignmentSubmissions.length ? (
+                    <View style={styles.submissionsWrap}>
+                      {assignmentSubmissions.map((submission) => (
+                        <View key={`assignment-submission-${submission.id}`} style={styles.submissionCard}>
+                          <Text style={styles.submissionTitle}>
+                            {submission.student_name || submission.student_username || 'Student'}
+                          </Text>
+                          <Text style={styles.submissionMeta}>
+                            Submitted {formatDateTime(submission.submitted_at)}
+                          </Text>
+                          {submission.text_response ? (
+                            <Text style={styles.submissionBody}>{submission.text_response}</Text>
+                          ) : null}
+                          {submission.audio_transcript ? (
+                            <Text style={styles.submissionTranscript}>
+                              Voice transcript: {submission.audio_transcript}
+                            </Text>
+                          ) : null}
+                          {submission.content_url ? (
+                            <VoiceButton
+                              label="Open submitted document"
+                              size="compact"
+                              onPress={() => openSubmissionLink(submission.content_url)}
+                            />
+                          ) : null}
+                          <TextInput
+                            value={gradeDrafts[submission.id] ?? ''}
+                            onChangeText={(value) =>
+                              setGradeDrafts((current) => ({ ...current, [submission.id]: value }))
+                            }
+                            style={styles.input}
+                            placeholder="Enter grade e.g. 78"
+                            placeholderTextColor={palette.textSecondary}
+                            keyboardType="numeric"
+                          />
+                          <TextInput
+                            value={feedbackDrafts[submission.id] ?? ''}
+                            onChangeText={(value) =>
+                              setFeedbackDrafts((current) => ({ ...current, [submission.id]: value }))
+                            }
+                            style={[styles.input, styles.multiline]}
+                            placeholder="Feedback for the student and guardian"
+                            placeholderTextColor={palette.textSecondary}
+                            multiline
+                          />
+                          <VoiceButton
+                            label={
+                              savingSubmissionId === submission.id ? 'Saving grade...' : 'Save grade and feedback'
+                            }
+                            size="compact"
+                            onPress={() => saveSubmissionGrade(submission)}
+                          />
+                        </View>
+                      ))}
+                    </View>
+                  ) : (
+                    <DashboardTile
+                      title="No student submission on this assignment yet"
+                      subtitle="When students submit work, it will appear directly under this assignment."
+                      disabled
+                    />
+                  )}
                 </View>
               );
             })
@@ -678,6 +834,38 @@ const styles = StyleSheet.create({
   assignmentNotes: {
     ...typography.body,
     color: palette.textPrimary,
+  },
+  assignmentSubmissionSummary: {
+    ...typography.helper,
+    color: palette.primary,
+  },
+  submissionsWrap: {
+    gap: spacing.md,
+    marginTop: spacing.sm,
+  },
+  submissionCard: {
+    backgroundColor: palette.background,
+    borderRadius: radius.md,
+    padding: spacing.md,
+    gap: spacing.sm,
+    borderWidth: 1,
+    borderColor: '#D1D5DB',
+  },
+  submissionTitle: {
+    ...typography.body,
+    color: palette.textPrimary,
+  },
+  submissionMeta: {
+    ...typography.helper,
+    color: palette.textSecondary,
+  },
+  submissionBody: {
+    ...typography.body,
+    color: palette.textPrimary,
+  },
+  submissionTranscript: {
+    ...typography.helper,
+    color: palette.textSecondary,
   },
   actionRow: {
     flexDirection: 'row',

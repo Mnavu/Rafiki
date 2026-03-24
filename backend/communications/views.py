@@ -1,4 +1,5 @@
 from django.db.models import Count, Q
+from django.http import FileResponse, Http404
 from django.utils import timezone
 from django.utils.dateparse import parse_datetime
 from rest_framework import permissions, viewsets
@@ -6,6 +7,8 @@ from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 from rest_framework.exceptions import PermissionDenied
 from django_filters.rest_framework import DjangoFilterBackend
 from uuid import uuid4
+import mimetypes
+import os
 
 from users.models import User, Student
 from users.models import ParentStudentLink
@@ -20,6 +23,7 @@ from .models import SupportChatSession, SupportChatMessage
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.decorators import action
 import re
 
 CLASS_COMMUNITY_REGISTRATION_STATUSES = (
@@ -267,6 +271,31 @@ class MessageViewSet(viewsets.ModelViewSet):
         sender_role = role_map.get(user.role, Message.SenderRoles.TEACHER)
         message = serializer.save(author=user, sender_role=sender_role)
         notify_thread_message_received(message=message)
+
+    @action(detail=True, methods=["get"], url_path="audio")
+    def audio(self, request, pk=None):
+        message = self.get_object()
+        audio_field = getattr(message, "audio", None)
+        if not audio_field or not audio_field.name:
+            raise Http404("Audio note not found.")
+
+        try:
+            exists = audio_field.storage.exists(audio_field.name)
+        except Exception:
+            exists = False
+        if not exists:
+            raise Http404("Audio note file is missing.")
+
+        content_type = mimetypes.guess_type(audio_field.name)[0] or "application/octet-stream"
+        filename = os.path.basename(audio_field.name)
+        try:
+            audio_stream = audio_field.open("rb")
+        except FileNotFoundError as exc:
+            raise Http404("Audio note file is missing.") from exc
+
+        response = FileResponse(audio_stream, content_type=content_type)
+        response["Content-Disposition"] = f'inline; filename="{filename}"'
+        return response
 
 class CreateDirectMessageView(APIView):
     permission_classes = [permissions.IsAuthenticated]

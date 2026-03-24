@@ -1,5 +1,6 @@
 from unittest.mock import patch
 
+from django.core.files.uploadedfile import SimpleUploadedFile
 from rest_framework import status
 from rest_framework.test import APITestCase
 
@@ -85,3 +86,51 @@ class ParentThreadApiTests(ParentStudentFixtureMixin, APITestCase):
         response = self.client.get("/api/communications/threads/")
         ids = {item["id"] for item in response.json()}
         self.assertNotIn(other_thread.id, ids)
+
+    def test_lecturer_can_stream_student_voice_note_from_thread(self):
+        direct_thread = Thread.objects.create(
+            subject="Direct support",
+            student=self.student_user,
+            teacher=self.teacher_user,
+        )
+        audio = SimpleUploadedFile(
+            "voice-note.m4a",
+            b"fake-audio-content",
+            content_type="audio/m4a",
+        )
+        message = Message.objects.create(
+            thread=direct_thread,
+            author=self.student_user,
+            sender_role=Message.SenderRoles.STUDENT,
+            audio=audio,
+        )
+
+        self.client.force_authenticate(user=self.teacher_user)
+        response = self.client.get(f"/api/communications/messages/{message.id}/audio/")
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertIn("inline;", response["Content-Disposition"])
+
+    def test_unrelated_parent_cannot_stream_other_thread_voice_note(self):
+        other_thread = Thread.objects.create(
+            subject="Other",
+            student=self.unlinked_student_user,
+            teacher=self.teacher_user,
+            parent=self.other_parent_user,
+        )
+        audio = SimpleUploadedFile(
+            "voice-note.m4a",
+            b"fake-audio-content",
+            content_type="audio/m4a",
+        )
+        message = Message.objects.create(
+            thread=other_thread,
+            author=self.teacher_user,
+            sender_role=Message.SenderRoles.TEACHER,
+            audio=audio,
+        )
+
+        self.client.force_authenticate(user=self.parent_user)
+        response = self.client.get(f"/api/communications/messages/{message.id}/audio/")
+
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
