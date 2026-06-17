@@ -3,7 +3,7 @@ services:
     name: eduassist-api
     env: python
     rootDir: backend
-    buildCommand: pip install -r requirements.txt && python manage.py collectstatic --noinput && python manage.py migrate && python manage.py restore_launch_bundle --skip-if-disabled --flush && python manage.py restore_bundled_media --skip-if-disabled
+    buildCommand: pip install -r requirements.txt && python manage.py collectstatic --noinput && python manage.py migrate && python manage.py restore_launch_bundle --skip-if-disabled --flush && python manage.py restore_bundled_media --skip-if-disabled && python manage.py seed_demo && python manage.py seed_uat_data
     startCommand: gunicorn edu_assist.wsgi:application --bind 0.0.0.0:$PORT
     autoDeploy: true
     envVars:
@@ -30,7 +30,7 @@ services:
       - key: AUTO_ACTIVATE_DEMO_WORKFLOWS
         value: "1"
       - key: AUTO_RESTORE_LAUNCH_BUNDLE
-        value: "0"
+        value: "1"
       - key: AUTO_RESTORE_BUNDLED_MEDIA
         value: "1"
       - key: DATABASE_URL
