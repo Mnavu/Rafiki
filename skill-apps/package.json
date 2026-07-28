@@ -1,0 +1,8 @@
+{
+  "name": "skill-apps",
+  "private": true,
+  "workspaces": [
+    "packages/skillapp-core-ui",
+    "apps/*/app"
+  ]
+}

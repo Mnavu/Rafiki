@@ -46,6 +46,27 @@ class SubmitMilestoneView(APIView):
         return Response(MilestoneSubmissionSerializer(submission).data, status=201)
 
 
+class SubmissionDetailView(generics.RetrieveAPIView):
+    """A single submission, viewable by the learner who submitted it or by a
+    mentor with an active, review-capable link to that learner."""
+
+    serializer_class = MilestoneSubmissionSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    queryset = MilestoneSubmission.objects.select_related("learner", "milestone")
+    lookup_url_kwarg = "submission_id"
+
+    def get_object(self):
+        submission = super().get_object()
+        user = self.request.user
+        if submission.learner_id == user.id:
+            return submission
+        from skillapp_core.accounts.utils import mentor_can_review_learner
+
+        if getattr(user, "is_mentor", False) and mentor_can_review_learner(user, submission.learner):
+            return submission
+        self.permission_denied(self.request)
+
+
 class MySubmissionsView(generics.ListAPIView):
     serializer_class = MilestoneSubmissionSerializer
     permission_classes = [permissions.IsAuthenticated]

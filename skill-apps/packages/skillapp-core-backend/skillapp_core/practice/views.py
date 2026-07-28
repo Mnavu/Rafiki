@@ -4,7 +4,7 @@ from rest_framework.views import APIView
 
 from skillapp_core.curriculum.models import LessonStep
 
-from .models import LearnerLessonProgress
+from .models import ChecklistCompletion, LearnerLessonProgress
 from .serializers import LearnerLessonProgressSerializer
 from .services import mark_step_complete
 
@@ -49,21 +49,63 @@ class CompleteChecklistStepView(APIView):
         )
 
 
+class LessonStepStatusView(APIView):
+    """Per-step completion status for the requesting learner, so a lesson
+    player screen can show existing checkmarks instead of always starting
+    from a blank checklist."""
+
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, lesson_code):
+        completions = ChecklistCompletion.objects.filter(
+            learner=request.user, lesson_step__lesson__code=lesson_code
+        )
+        return Response(
+            {
+                str(c.lesson_step_id): {"completed": True, "practice_count": c.practice_count}
+                for c in completions
+            }
+        )
+
+
+def _progress_payload(learner) -> dict:
+    rows = LearnerLessonProgress.objects.filter(learner=learner).select_related("lesson", "lesson__module")
+    serialized = LearnerLessonProgressSerializer(rows, many=True).data
+    steps_completed = sum(r["steps_completed"] for r in serialized)
+    steps_total = sum(r["steps_total"] for r in serialized)
+    completed_lessons = sum(1 for r in serialized if r["status"] == LearnerLessonProgress.Status.COMPLETED)
+    return {
+        "completed_lessons": completed_lessons,
+        "total_lessons": len(serialized),
+        "steps_completed": steps_completed,
+        "steps_total": steps_total,
+        "lessons": serialized,
+    }
+
+
 class MyProgressView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request):
-        rows = LearnerLessonProgress.objects.filter(learner=request.user).select_related("lesson", "lesson__module")
-        serialized = LearnerLessonProgressSerializer(rows, many=True).data
-        steps_completed = sum(r["steps_completed"] for r in serialized)
-        steps_total = sum(r["steps_total"] for r in serialized)
-        completed_lessons = sum(1 for r in serialized if r["status"] == LearnerLessonProgress.Status.COMPLETED)
-        return Response(
-            {
-                "completed_lessons": completed_lessons,
-                "total_lessons": len(serialized),
-                "steps_completed": steps_completed,
-                "steps_total": steps_total,
-                "lessons": serialized,
-            }
-        )
+        return Response(_progress_payload(request.user))
+
+
+class LearnerProgressForMentorView(APIView):
+    """Read-only progress for a specific learner, gated by an active,
+    review-capable mentor link (mirrors IsLinkedMentor's check)."""
+
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, learner_id):
+        from skillapp_core.accounts.utils import mentor_can_review_learner
+
+        learner_model = request.user.__class__
+        try:
+            learner = learner_model.objects.get(pk=learner_id, role="learner")
+        except learner_model.DoesNotExist:
+            return Response({"detail": "Learner not found."}, status=404)
+
+        if not mentor_can_review_learner(request.user, learner):
+            return Response({"detail": "Not linked to this learner."}, status=403)
+
+        return Response(_progress_payload(learner))
