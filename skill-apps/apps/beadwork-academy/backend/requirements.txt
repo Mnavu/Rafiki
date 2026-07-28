@@ -1,0 +1,9 @@
+-e ../../../packages/skillapp-core-backend[voice]
+Django
+djangorestframework
+djangorestframework-simplejwt
+django-cors-headers
+dj-database-url
+Pillow
+gunicorn
+whitenoise

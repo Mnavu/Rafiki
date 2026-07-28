@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "skillapp-core-backend"
+version = "0.1.0"
+description = "Shared Django apps (curriculum, practice, submissions, rewards, media pipeline, notifications) reused across Nanu skill-specific apps (Beadwork Academy and future skill apps)."
+requires-python = ">=3.11"
+dependencies = [
+    "Django>=5.0",
+    "djangorestframework",
+]
+
+[project.optional-dependencies]
+voice = ["pydub", "SpeechRecognition"]
+
+[tool.setuptools.packages.find]
+include = ["skillapp_core*"]
