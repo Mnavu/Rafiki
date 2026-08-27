@@ -25,6 +25,8 @@ DEBUG = os.environ.get("DJANGO_DEBUG", "1") == "1"
 ALLOWED_HOSTS = split_csv_env("DJANGO_ALLOWED_HOSTS", "*" if DEBUG else "")
 
 INSTALLED_APPS = [
+    "channels",
+    "channels_redis",
     "core",
     "users.apps.UsersConfig",
     "learning",
@@ -295,3 +297,17 @@ JAZZMIN_UI_TWEAKS = {
     },
     "related_modal_active": True,
 }
+
+# Real-time WebSockets (Teacher Dashboard Escalations)
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [os.environ.get("REDIS_URL", "redis://redis:6379/1")],
+        },
+    },
+}
+
+# AI Worker Queue (PatchCore CV Handoff)
+CELERY_BROKER_URL = os.environ.get("CELERY_BROKER_URL", "redis://redis:6379/0")
+CELERY_RESULT_BACKEND = os.environ.get("CELERY_BROKER_URL", "redis://redis:6379/0")

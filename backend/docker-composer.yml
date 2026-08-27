@@ -1,0 +1,54 @@
+services:
+  # 1. The PostgreSQL Database
+  db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: nanu_db
+      POSTGRES_USER: nanu_admin
+      POSTGRES_PASSWORD: supersecretpassword
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  # 2. Redis (For Django Channels & Celery)
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+  # 3. The Django API
+  api:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app # Live syncs your local code into the container
+      - media_volume:/app/media # Local storage for Delta images
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - redis
+    environment:
+      - DATABASE_URL=postgres://nanu_admin:supersecretpassword@db:5432/nanu_db
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - REDIS_URL=redis://redis:6379/1
+
+  # 4. The PatchCore CV Worker
+  cv_worker:
+    build: .
+    command: celery -A edu_assist worker -l info
+    volumes:
+      - .:/app
+      - ../frontend-v2/assets/models:/app/models # Mounts your ML models directly
+      - media_volume:/app/media # Shares image access with the API
+    depends_on:
+      - redis
+      - db
+    environment:
+      - DATABASE_URL=postgres://nanu_admin:supersecretpassword@db:5432/nanu_db
+      - CELERY_BROKER_URL=redis://redis:6379/0
+
+volumes:
+  postgres_data:
+  media_volume:
