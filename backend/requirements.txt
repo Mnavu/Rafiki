@@ -16,3 +16,4 @@ celery
 channels
 django-jazzmin
 whitenoise
+channels-redis
